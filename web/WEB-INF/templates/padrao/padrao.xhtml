@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <title>Fenix School EM</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+                <p:megaMenu  style="margin-top:20px">
+                    <p:submenu label="Sistema" icon="ui-icon-check">
+                        <p:column>
+                            <p:submenu label="Sistema">
+                                <p:menuitem value="Sistema.1.1" url="#" />
+                                <p:menuitem value="Sistema.1.2" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Sistema.2">
+                                <p:menuitem value="Sistema.2.1" url="#" />
+                                <p:menuitem value="Sistema.2.2" url="#" />
+                                <p:menuitem value="Sistema.2.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+
+
+                    </p:submenu>
+
+                    <p:submenu label="Alunos" icon="ui-icon-check">
+
+                        <p:column>
+                            <p:submenu label="Alunos.1">
+                                <p:menuitem value="Alunos.1.1" url="#" />
+                                <p:menuitem value="Alunos.1.2" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Alunos.2">
+                                <p:menuitem value="Alunos.2.1" url="#" />
+                                <p:menuitem value="Alunos.2.2" url="#" />
+                                <p:menuitem value="Alunos.2.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+
+                        <p:column>
+                            <p:submenu label="Alunos.4">
+                                <p:menuitem value="Alunos.4.1" url="#" />
+                                <p:menuitem value="Alunos.4.2" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Alunos.5">
+                                <p:menuitem value="Alunos.5.1" url="#" />
+                                <p:menuitem value="Alunos.5.2" url="#" />
+                                <p:menuitem value="Alunos.5.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+
+                    </p:submenu>
+
+                    <p:submenu label="Matriculas" icon="ui-icon-check">
+                        <p:column>
+                            <p:submenu label="Matriculas.1">
+                                <p:menuitem value="Matriculas.1.1" url="#" />
+                                <p:menuitem value="Matriculas.1.2" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Matriculas.2">
+                                <p:menuitem value="Matriculas.2.1" url="#" />
+                                <p:menuitem value="Matriculas.2.2" url="#" />
+                                <p:menuitem value="Matriculas.2.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+
+                        <p:column>
+                            <p:submenu label="Matriculas.4" icon="ui-icon-check">
+                                <p:menuitem value="Matriculas.4.1" url="#" />
+                                <p:menuitem value="Matriculas.4.2" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Matriculas.5">
+                                <p:menuitem value="Matriculas.5.1" url="#" />
+                                <p:menuitem value="Matriculas.5.2" url="#" />
+                                <p:menuitem value="Matriculas.5.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+
+                    <p:submenu label="Proprinas" icon="ui-icon-check">
+                        <p:column>
+                            <p:submenu label="Proprinas.1">
+                                <p:menuitem value="Proprinas.1.1" url="#" />
+                                <p:menuitem value="Proprinas.1.2" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Proprinas.2">
+                                <p:menuitem value="Proprinas.2.1" url="#" />
+                                <p:menuitem value="Proprinas.2.2" url="#" />
+                                <p:menuitem value="Proprinas.2.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+
+                        <p:column>
+                            <p:submenu label="Proprinas.4" icon="ui-icon-check">
+                                <p:menuitem value="Proprinas.4.1" url="#" />
+                                <p:menuitem value="Proprinas.4.2" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Proprinas.5">
+                                <p:menuitem value="Proprinas.5.1" url="#" />
+                                <p:menuitem value="Proprinas.5.2" url="#" />
+                                <p:menuitem value="Proprinas.5.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+
+
+                </p:megaMenu>
+
+
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+
+
+
+                    <h:form>
+
+                        <h3>Gestão de alunos</h3>
+                        <p:accordionPanel multiple="true">
+
+                            <p:tab title="Registar">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText
+                                        value="Alunos..." />
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Pesquisar">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText value="Alunos..." />
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:accordionPanel>
+                    </h:form>
+
+                    <h:form>
+                        <h3>Gestão de matriculas</h3>
+                        <p:accordionPanel>
+
+
+                            <p:tab title="Nova matricula">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText
+                                        value="Matricula" />
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Pesquisar">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText value="Matricula." />
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:accordionPanel>
+
+                    </h:form>
+
+
+                    <h:form>
+                        <h3>Gestão de Propinas</h3>
+                        <p:accordionPanel>
+
+
+                            <p:tab title="Nova propina">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText
+                                        value="propina" />
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Pesquisar">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText value="propina." />
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:accordionPanel>
+
+                    </h:form>
+
+                </ui:insert>
+            </div>
+            <div>
+                <div id="right">
+                    <ui:insert name="right">Right</ui:insert>
+                </div>
+                <div id="content" class="right_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">Bottom</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
