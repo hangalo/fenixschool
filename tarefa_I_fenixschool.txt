@@ -1,0 +1,19 @@
+Tarefas
+
+de 04 a 12 de Agosto (Conclusao das tarefas)
+
+
+Elisiob - > Candidato
+Aisha - > Funcionario
+Deu - > Instituicao
+Paulo -> Aluno
+Pena -> Encarregado Educacao, Departamento, profissao
+Santos -> Testes (executar a aplicação e verificar as funcinalidades)
+
+Grande parte dos daos estao feitos
+
+Tarefa principal
+
+Criar as paginas para guardar e listar (o editar e eliminar serao vistos numa fase posterior)
+
+Usar Primefaces para os componentes das paginas
