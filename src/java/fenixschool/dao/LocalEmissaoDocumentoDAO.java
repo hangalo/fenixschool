@@ -9,8 +9,6 @@ package fenixschool.dao;
 import fenixschool.modelo.LocalEmissaoDocumento;
 import fenixschool.util.Conexao;
 import java.util.List;
-import javax.jms.Connection;
-import javax.resource.cci.ResultSet;
 
 /**
  *
