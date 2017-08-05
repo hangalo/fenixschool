@@ -1,7 +1,6 @@
 package fenixschool.dao;
 
 import fenixschool.modelo.EncarregadoEducacao;
-import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Profissao;
 import fenixschool.modelo.Sexo;
 import fenixschool.util.Conexao;

@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,8 +23,8 @@ public class ProfissaoDAO implements GenericoDAO<Profissao> {
     private static final String INSERIR = "INSERT INTO profissao(nome_profissao)VALUES(?)";
     private static final String ATUALIZAR = "UPDATE profissao SET nome_profissao=? WHERE id_profissao=?";
     private static final String ELIMINAR = "DELETE FROM profissao WHERE id_profissao=?";
-    private static final String LISTAR_POR_CODIGO = "SELECT * FROM profissao WHERE id_profissao=?";
-    private static final String LISTAR_TUDO = "SELECT * FROM profissao";
+    private static final String LISTAR_POR_CODIGO = "SELECT nome_profissao,id_profissao FROM profissao WHERE id_profissao=?";
+    private static final String LISTAR_TUDO = "SELECT nome_profissao,id_profissao FROM profissao";
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;

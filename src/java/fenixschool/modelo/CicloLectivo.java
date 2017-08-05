@@ -11,28 +11,31 @@ package fenixschool.modelo;
  */
 public class CicloLectivo {
 
-   
     private Integer idCicloLectivo;
     private String CicloLectivo;
-    public CicloLectivo(){
-}
-    public CicloLectivo(Integer idCicloLectivo, String CicloLectivo){
-    this.idCicloLectivo = idCicloLectivo;
-    this.CicloLectivo = CicloLectivo;
+
+    public CicloLectivo() {
     }
-    public Integer getIdCicloLectivo(){
-        return idCicloLectivo;
-     }
-    public void setIdCicloLectivo(int idCicloLectivo){
-    this.idCicloLectivo = idCicloLectivo;
-    }
-    public String getCicloLectivo(){
-        return CicloLectivo;
-    }
-    public void setCicloLectivo(String CicloLectivo){
+
+    public CicloLectivo(Integer idCicloLectivo, String CicloLectivo) {
+        this.idCicloLectivo = idCicloLectivo;
         this.CicloLectivo = CicloLectivo;
     }
-   
-    
-    
+
+    public Integer getIdCicloLectivo() {
+        return idCicloLectivo;
+    }
+
+    public void setIdCicloLectivo(int idCicloLectivo) {
+        this.idCicloLectivo = idCicloLectivo;
+    }
+
+    public String getCicloLectivo() {
+        return CicloLectivo;
+    }
+
+    public void setCicloLectivo(String CicloLectivo) {
+        this.CicloLectivo = CicloLectivo;
+    }
+
 }

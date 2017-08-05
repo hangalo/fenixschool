@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Guardar profissão</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/templates/padrao/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true">
+                    <f:view>
+                        <h:form>
+                            <h1>Adicionar Profissão</h1>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Profissão:"/>
+                                <p:inputText value="#{profissaoMBean.profissao.nomeProfissao}"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Guardar" actionListener="#{profissaoMBean.guardar(evt)}"/>
+                            <h1><p:commandLink value="Ver lista" action="profissao_listar"/></h1>
+                        </h:form>
+                    </f:view>
+                </p:growl>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

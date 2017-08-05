@@ -113,8 +113,6 @@
                             </p:submenu>
                         </p:column>
                     </p:submenu>
-
-
                 </p:megaMenu>
 
 
@@ -133,9 +131,10 @@
 
                             <p:tab title="Registar">
                                 <h:panelGrid columns="2" cellpadding="10">
-
-                                    <h:outputText
-                                        value="Alunos..." />
+                                    <p:commandLink action="departamento_listar" value="Deparatamentos"/><br/>
+                                    <p:commandLink action="profissao_listar" value="Profissões"/><br/>
+                                    <p:commandLink action="encarregado_educacao_listar" value="Encarregados"/><br/>
+                                    <h:outputText value="Alunos..." />
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="Pesquisar">
