@@ -15,7 +15,7 @@
                 <f:view>
                     <h:form>
                         <h1>Lista de encarregados de educação</h1>
-                        <p:dataTable  value="#{encarregadoEducacaoMBean.encarregadosEducacao}" var="encarregado" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                        <p:dataTable  value="#{encarregadoEducacaoMBean.encarregadosEducacao}" var="encarregado" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                             <p:column width="50">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
