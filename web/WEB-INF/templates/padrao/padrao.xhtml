@@ -128,15 +128,21 @@
 
                         <h3>Gestão de alunos</h3>
                         <p:accordionPanel multiple="true">
+                           
 
-                            <p:tab title="Registar">
-                                <h:panelGrid columns="2" cellpadding="10">
-                                    <p:commandLink action="departamento_listar" value="Deparatamentos"/><br/>
-                                    <p:commandLink action="profissao_listar" value="Profissões"/><br/>
-                                    <p:commandLink action="encarregado_educacao_listar" value="Encarregados"/><br/>
-                                    <h:outputText value="Alunos..." />
-                                </h:panelGrid>
-                            </p:tab>
+                                <p:tab title="Registar">
+                                     <h:form>
+                                    <h:panelGrid columns="2" cellpadding="10">
+
+                                        <p:commandLink action="departamento_listar" value="Deparatamentos"/><br/>
+                                        <p:commandLink action="profissao_listar" value="Profissões"/><br/>
+                                        <p:commandLink action="encarregado_educacao_listar" value="Encarregados"/><br/>
+                                        <h:outputText value="Alunos..." />
+
+                                    </h:panelGrid>
+                                          </h:form>
+                                </p:tab>
+                           
                             <p:tab title="Pesquisar">
                                 <h:panelGrid columns="2" cellpadding="10">
 

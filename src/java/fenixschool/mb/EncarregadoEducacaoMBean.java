@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -73,6 +74,13 @@ public class EncarregadoEducacaoMBean implements Serializable {
         return profissoes;
     }
 
+     public List<SelectItem> getOpSexos() {
+        List<SelectItem> list = new ArrayList<>();
+        for (Sexo sexo : Sexo.values()) {
+            list.add(new SelectItem(sexo, sexo.getAbreviatura()));
+        }
+        return list;
+    }
     public void setProssifoes(List<Profissao> profissoes) {
         this.profissoes = profissoes;
     }

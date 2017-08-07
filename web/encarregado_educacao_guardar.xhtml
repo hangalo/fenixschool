@@ -20,12 +20,11 @@
                             <p:outputLabel value="Sobrenome:"/>
                             <p:inputText value="" size="40"/>
                             <p:outputLabel value="Sexo:"/>
-                            <p:selectOneMenu>
-                                <f:selectItem itemLabel="Selecione o sexo" itemValue="#{null}" noSelectionOption="true"/>
-                                <f:selectItems value="#{encarregadoEducacaoMBean.encarregadoEducacao.id_sexo.abreviatura}" var="sexo" itemValue="#{sexo}" itemLabel="#{sexo}" />
-                            </p:selectOneMenu>
+                            <p:selectOneRadio>
+                                 <f:selectItems value="#{encarregadoEducacaoMBean.opSexos}" />
+                            </p:selectOneRadio >
                             <p:outputLabel value="Profissão:"/>
-                            <p:selectOneMenu>
+                            <p:selectOneMenu value="#{encarregadoEducacaoMBean.encarregadoEducacao.id_profissao}" converter="profissaoConverter">
                                 <f:selectItem itemLabel="Selecione a profissão" itemValue="#{null}" noSelectionOption="true"/>
                                 <f:selectItems value="#{encarregadoEducacaoMBean.prossifoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
                             </p:selectOneMenu>
