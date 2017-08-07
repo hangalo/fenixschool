@@ -10,6 +10,7 @@ import fenixschool.modelo.Profissao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
@@ -20,15 +21,23 @@ import javax.faces.event.ActionEvent;
  */
 @Named(value = "profissaoMBean")
 @RequestScoped
-public class ProfissaoMBean implements Serializable{
+public class ProfissaoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Profissao profissao = new Profissao();
-     ProfissaoDAO profissaoDAO = new ProfissaoDAO();
-    private List<Profissao> profissoes = new ArrayList<>();
+    private Profissao profissao;
+    private ProfissaoDAO profissaoDAO;
+    private List<Profissao> profissoes;
 
     public ProfissaoMBean() {
+    }
+
+    @PostConstruct
+    public void inicializar() {
+        profissao = new Profissao();
+        profissaoDAO = new ProfissaoDAO();
+        profissoes = new ArrayList<>();
+
     }
 
     public Profissao getProfissao() {

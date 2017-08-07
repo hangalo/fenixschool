@@ -11,9 +11,11 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -28,11 +30,19 @@ public class DepartamentoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Departamento departamento = new Departamento();
-     DepartamentoDAO departamentoDAO = new DepartamentoDAO();
-    private List<Departamento> departamentos = new ArrayList<>();
+    private Departamento departamento;
+    private DepartamentoDAO departamentoDAO;
+    private List<Departamento> departamentos;
 
     public DepartamentoMBean() {
+    }
+
+    @PostConstruct
+    public void inicializar() {
+        departamento = new Departamento();
+        departamentoDAO = new DepartamentoDAO();
+        departamentos = new ArrayList<>();
+
     }
 
     public Departamento getDepartamento() {
@@ -49,16 +59,16 @@ public class DepartamentoMBean implements Serializable {
     }
 
     public List<Departamento> getDepartamentos() {
-        departamentos=departamentoDAO.findAll();
+        departamentos = departamentoDAO.findAll();
         return departamentos;
     }
 
-   public String newSave() {
+    public String newSave() {
         departamento = new Departamento();
         return "departamento_guardar?faces-redirect=true";
     }
 
-     public String startEdit() {
+    public String startEdit() {
         return "departamento_editar?faces-redirect=true";
     }
 
@@ -66,11 +76,11 @@ public class DepartamentoMBean implements Serializable {
         departamentoDAO.update(departamento);
         departamentos = null;
         try {
-         FacesContext.getCurrentInstance().getExternalContext().redirect("departamento_listar.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("departamento_listar.jsf");
         } catch (IOException ex) {
             Logger.getLogger(DepartamentoMBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
 
     public String delete() {
@@ -78,5 +88,5 @@ public class DepartamentoMBean implements Serializable {
         departamentos = null;
         return "departamento_listar?faces-redirect=true";
     }
-    
+
 }

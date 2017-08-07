@@ -13,6 +13,7 @@ import fenixschool.modelo.Sexo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
@@ -23,17 +24,27 @@ import javax.faces.event.ActionEvent;
  */
 @Named(value = "encarregadoEducacaoMBean")
 @RequestScoped
-public class EncarregadoEducacaoMBean implements Serializable{
+public class EncarregadoEducacaoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private EncarregadoEducacao encarregadoEducacao = new EncarregadoEducacao();
-    EncarregadoEducacaoDAO encarregadoEducacaoDAO = new EncarregadoEducacaoDAO();
-    private List<EncarregadoEducacao> encarregadosEducacao = new ArrayList<>();
-    
-    ProfissaoDAO profissaoDAO = new ProfissaoDAO();
-    private List<Profissao> profissoes = new ArrayList<>();
-    
+    private EncarregadoEducacao encarregadoEducacao;
+
+    private List<EncarregadoEducacao> encarregadosEducacao;
+    private List<Profissao> profissoes;
+    private ProfissaoDAO profissaoDAO;
+    private EncarregadoEducacaoDAO encarregadoEducacaoDAO;
+
+    @PostConstruct
+    public void inicializar() {
+
+        encarregadoEducacao = new EncarregadoEducacao();
+        encarregadoEducacaoDAO = new EncarregadoEducacaoDAO();
+        encarregadosEducacao = new ArrayList<>();
+
+        profissaoDAO = new ProfissaoDAO();
+        profissoes = new ArrayList<>();
+    }
 
     public EncarregadoEducacao getEncarregadoEducacao() {
         return encarregadoEducacao;
@@ -51,8 +62,8 @@ public class EncarregadoEducacaoMBean implements Serializable{
     public void setEncarregadosEducacao(List<EncarregadoEducacao> encarregadosEducacao) {
         this.encarregadosEducacao = encarregadosEducacao;
     }
-    
-    public  void guardar(ActionEvent evt){
+
+    public void guardar(ActionEvent evt) {
         encarregadoEducacaoDAO.save(encarregadoEducacao);
         encarregadoEducacao = new EncarregadoEducacao();
     }
