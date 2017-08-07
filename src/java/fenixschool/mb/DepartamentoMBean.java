@@ -8,11 +8,15 @@ package fenixschool.mb;
 import fenixschool.dao.DepartamentoDAO;
 import fenixschool.modelo.Departamento;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -21,6 +25,8 @@ import javax.enterprise.context.RequestScoped;
 @Named(value = "departamentoMBean")
 @RequestScoped
 public class DepartamentoMBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Departamento departamento = new Departamento();
      DepartamentoDAO departamentoDAO = new DepartamentoDAO();
@@ -47,9 +53,30 @@ public class DepartamentoMBean implements Serializable {
         return departamentos;
     }
 
-    public void setDepartamentos(List<Departamento> departamentos) {
-        this.departamentos = departamentos;
+   public String newSave() {
+        departamento = new Departamento();
+        return "departamento_guardar?faces-redirect=true";
     }
 
+     public String startEdit() {
+        return "departamento_editar?faces-redirect=true";
+    }
+
+    public void edit(javax.faces.event.ActionEvent event) {
+        departamentoDAO.update(departamento);
+        departamentos = null;
+        try {
+         FacesContext.getCurrentInstance().getExternalContext().redirect("departamento_listar.jsf");
+        } catch (IOException ex) {
+            Logger.getLogger(DepartamentoMBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+
+    public String delete() {
+        departamentoDAO.delete(departamento);
+        departamentos = null;
+        return "departamento_listar?faces-redirect=true";
+    }
     
 }

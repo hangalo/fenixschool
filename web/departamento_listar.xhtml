@@ -28,22 +28,21 @@
                                 </f:facet>
                                 <h:outputText value="#{departamento.nomeDepartamento}"/>
                             </p:column>
-                            <p:column width="50">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Editar"/>
-                                </f:facet>
-                                <p:commandLink value="Editar"> 
-                                </p:commandLink>
-                            </p:column>
-                            <p:column width="60">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Eliminar"/>
-                                </f:facet>
-                                <p:commandLink value="Eliminar">
-                                </p:commandLink>
-                            </p:column>
+                             <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Operações"/>                                    
+                        </f:facet>
+                        <h:commandLink  action="#{departamentoMBean.delete}">
+                            <h:graphicImage library="imagens" name="delete.png"/>
+                            <f:setPropertyActionListener target="#{departamentoMBean.departamento}" value="#{departamento}"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{departamentoMBean.startEdit}">
+                            <h:graphicImage library="imagens" name="edit.png"/>
+                            <f:setPropertyActionListener target="#{departamentoMBean.departamento}" value="#{departamento}"/>
+                        </h:commandLink>
+                    </h:column>
                         </p:dataTable>
-                        <p:commandButton value="Novo departamento" action="departamento_guardar"/>
+                        <p:commandButton value="Novo departamento" action="#{departamentoMBean.newSave()}"/>
                         <p:commandLink action="index" value="Voltar"/>
                     </h:form>
                 </f:view>

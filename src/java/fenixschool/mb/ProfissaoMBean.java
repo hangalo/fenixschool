@@ -7,6 +7,7 @@ package fenixschool.mb;
 
 import fenixschool.dao.ProfissaoDAO;
 import fenixschool.modelo.Profissao;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
@@ -19,7 +20,9 @@ import javax.faces.event.ActionEvent;
  */
 @Named(value = "profissaoMBean")
 @RequestScoped
-public class ProfissaoMBean {
+public class ProfissaoMBean implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private Profissao profissao = new Profissao();
      ProfissaoDAO profissaoDAO = new ProfissaoDAO();
