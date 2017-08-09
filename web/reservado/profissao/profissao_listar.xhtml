@@ -14,9 +14,12 @@
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
                     <h:form>
+                        
+                        <!-- Data Table-->
+                        
                         <h1>Lista de profissões</h1>
                         <p:dataTable value="#{profissaoMBean.profissoes}"  var="profissao" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                            <p:column width="50">
+                            <p:column style="width: 40px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
                                 </f:facet>
@@ -28,24 +31,77 @@
                                 </f:facet>
                                 <h:outputText value="#{profissao.nomeProfissao}"/>
                             </p:column>
-                            <p:column width="50">
+                            <p:column style="width: 80px; text-align: center">
                                 <f:facet name="header">
-                                    <p:outputLabel value="Editar"/>
+                                    <p:outputLabel value="Operações"/>
                                 </f:facet>
-                                <p:commandLink value="Editar"> 
-                                </p:commandLink>
+                                <p:commandButton  action="#{profissaoMBean.delete}" icon="ui-icon-trash ">
+                                    
+                                    <f:setPropertyActionListener target="#{profissaoMBean.profissao}" value="#{profissao}"/>
+                                </p:commandButton>
+
+                                <p:commandButton icon="ui-icon-pencil" update=":formEditar:editar" oncomplete="PF('dialogoAlterar').show();" >
+                                    <f:setPropertyActionListener target="#{profissaoMBean.profissao}" value="#{profissao}"/>
+                                </p:commandButton>
                             </p:column>
-                            <p:column width="60">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Eliminar"/>
-                                </f:facet>
-                                <p:commandLink value="Eliminar">
-                                </p:commandLink>
-                            </p:column>
+
+                            <f:facet name="footer">  
+                                N.º profissores: #{(profissaoMBean.profissoes.size())}.  
+                            </f:facet> 
                         </p:dataTable>
-                        <p:commandButton value="Nova profissão" action="profissao_guardar"/>
-                        <p:commandLink action="index" value="Voltar"/>
+                       
                     </h:form>
+                      <!-- Fim Data Table-->
+                    
+                    <!-- Formulario auxiliar-->
+                    
+                     <h:form id="operacoes">
+                        <p:commandButton value="Novo Profissão" type="button" onclick="PF('dlgNovaProfissao').show();" />
+
+                    </h:form>
+                    
+                      <!-- Fim Formulario auxiliar-->
+                    
+                    <!-- Dialogo Guardar-->
+                    <p:dialog header="Nova Profissao" widgetVar="dlgNovaProfissao" showEffect="explode" hideEffect="bounce" height="100">
+                        <h:form>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Profissão:"/>
+                                <p:inputText value="#{profissaoMBean.profissao.nomeProfissao}"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Guardar" actionListener="#{profissaoMBean.guardar(evt)}"/>
+
+                        </h:form>
+
+                    </p:dialog>
+                    
+                     <!-- Fim Dialogo Guardar-->
+                    
+                    <!-- Dialogo Editar-->
+                    
+                     <h:form id="formEditar">
+                        <p:growl id="growl" showDetail="true" sticky="true"/>
+                        <p:dialog header="Alterar dados da Profissão" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+                            <h:inputHidden value="#{profissaoMBean.profissao.idProfissao}"/>
+                            <h:panelGrid columns="2" title="Editar ">
+                                <h:panelGrid columns="2">
+                                <p:outputLabel value="Profissão:"/>
+                                <p:inputText value="#{profissaoMBean.profissao.nomeProfissao}"/>
+                            </h:panelGrid>
+                           
+                            </h:panelGrid>
+
+                            <p:commandButton actionListener="#{profissaoMBean.edit(event)}" value="Guardar"  update="growl" ajax="false"/>
+
+
+
+                        </p:dialog>
+                    </h:form>
+                    
+                     <!-- Fim Dialogo Editar-->
+                    
                 </f:view>
             </ui:define>
         </ui:composition>

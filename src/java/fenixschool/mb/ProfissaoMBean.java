@@ -7,12 +7,16 @@ package fenixschool.mb;
 
 import fenixschool.dao.ProfissaoDAO;
 import fenixschool.modelo.Profissao;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 /**
@@ -62,4 +66,20 @@ public class ProfissaoMBean implements Serializable {
         profissao = new Profissao();
     }
 
+     public void edit(java.awt.event.ActionEvent event) {
+        profissaoDAO.update(profissao);
+        profissoes = null;
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("profissao_listar.jsf");
+        } catch (IOException ex) {
+            Logger.getLogger(ProfissaoMBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+      public String delete() {
+        profissaoDAO.delete(profissao);
+        profissoes = null;
+        return "profissao_listar?faces-redirect=true";
+    }
 }

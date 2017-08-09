@@ -15,6 +15,9 @@
                 <f:view>
                     <h:form>
                         <h1>Lista de departamentos</h1>
+
+                        <!--Inicio Data table-->
+
                         <p:dataTable value="#{departamentoMBean.departamentos}"   var="departamento" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                             <p:column style="width: 40px; text-align: center">
                                 <f:facet name="header">
@@ -34,7 +37,7 @@
                                     <p:outputLabel value="Operações"/>
                                 </f:facet>
                                 <p:commandButton  action="#{departamentoMBean.delete}" icon="ui-icon-trash ">
-                                    
+
                                     <f:setPropertyActionListener target="#{departamentoMBean.departamento}" value="#{departamento}"/>
                                 </p:commandButton>
 
@@ -49,30 +52,38 @@
                         </p:dataTable>
 
 
+
                     </h:form>
 
-                    <h:form id="operacoes">
+                    <!--Fim Data table-->
 
+
+                    <!--Inicio Formulario auxiliar-->
+                    <h:form id="operacoes">
                         <p:commandButton value="Novo Departamento" type="button" onclick="PF('dlgNovoDepartamento').show();" />
 
-                       
                     </h:form>
+                    <!--Fim  Formulario auxiliar-->
 
+                    <!-- Inicio Dialogo Guardar-->
                     <p:dialog header="Novo Departamento" widgetVar="dlgNovoDepartamento" showEffect="explode" hideEffect="bounce" height="100">
                         <h:form>
-                       
-                        <h:panelGrid columns="2" title="Adicionar departamento">
-                            <p:outputLabel value="Departamento:"/>
-                            <p:inputText value="#{departamentoMBean.departamento.nomeDepartamento}" size="30"/>
-                        </h:panelGrid>
-                        <p:commandButton value="Guardar" actionListener="#{departamentoMBean.guardar(evt)}"/>
-                        
-                    </h:form>
-                        
+
+                            <h:panelGrid columns="2" title="Adicionar departamento">
+                                <p:outputLabel value="Departamento:"/>
+                                <p:inputText value="#{departamentoMBean.departamento.nomeDepartamento}" size="30"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Guardar" actionListener="#{departamentoMBean.guardar(evt)}"/>
+
+                        </h:form>
+
                     </p:dialog>
 
+                    <!-- Fim  Dialogo Guardar-->
 
-                    <h:form id="formEditarDepartamento">
+                    <!-- Inicio Dialogo Editar-->
+
+                    <h:form id="formEditar">
                         <p:growl id="growl" showDetail="true" sticky="true"/>
                         <p:dialog header="Alterar dados do departamento" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 
@@ -89,7 +100,7 @@
                         </p:dialog>
                     </h:form>
 
-
+                    <!-- Fim Dialogo Editar-->
 
                 </f:view>
             </ui:define>

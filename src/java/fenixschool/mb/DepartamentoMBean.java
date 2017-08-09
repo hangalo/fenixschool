@@ -72,7 +72,7 @@ public class DepartamentoMBean implements Serializable {
         return "departamento_editar?faces-redirect=true";
     }
 
-    public void edit(javax.faces.event.ActionEvent event) {
+    public void edit(ActionEvent event) {
         departamentoDAO.update(departamento);
         departamentos = null;
         try {
