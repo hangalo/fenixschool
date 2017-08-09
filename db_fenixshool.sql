@@ -32,7 +32,6 @@ CREATE TABLE `aluno` (
   `nome_aluno` varchar(45) DEFAULT NULL,
   `sobrenome_aluno` varchar(45) DEFAULT NULL,
   `data_nascimento` date DEFAULT NULL,
-  `id_sexo` int(11) NOT NULL,
   `casa_aluno` varchar(45) DEFAULT NULL,
   `bairro_aluno` varchar(45) DEFAULT NULL,
   `distrito_aluno` varchar(45) DEFAULT NULL,
@@ -42,13 +41,12 @@ CREATE TABLE `aluno` (
   `telefone_movel` varchar(45) DEFAULT NULL,
   `email_aluno` varchar(45) DEFAULT NULL,
   `id_profissao` int(11) NOT NULL,
+  `sexo` char(10) DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
-  KEY `fk_aluno_sexo_idx` (`id_sexo`),
   KEY `fk_aluno_municipio1_idx` (`id_municipio`),
   KEY `fk_aluno_profissao1_idx` (`id_profissao`),
   CONSTRAINT `fk_aluno_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_aluno_profissao1` FOREIGN KEY (`id_profissao`) REFERENCES `profissao` (`id_profissao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_aluno_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_aluno_profissao1` FOREIGN KEY (`id_profissao`) REFERENCES `profissao` (`id_profissao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -127,12 +125,11 @@ CREATE TABLE `boletin_notas` (
 
 DROP TABLE IF EXISTS `candidato`;
 CREATE TABLE `candidato` (
-  `id_candidato` int(11) NOT NULL,
+  `id_candidato` int(11) NOT NULL AUTO_INCREMENT,
   `numero_candidato` varchar(45) DEFAULT NULL,
   `nome_candidato` varchar(45) DEFAULT NULL,
   `sobrenome_candidato` varchar(45) DEFAULT NULL,
   `data_nascimento` date DEFAULT NULL,
-  `id_sexo` int(11) NOT NULL,
   `casa_candidato` varchar(45) DEFAULT NULL,
   `bairro_candidato` varchar(45) DEFAULT NULL,
   `distrito_candidato` varchar(45) DEFAULT NULL,
@@ -143,13 +140,12 @@ CREATE TABLE `candidato` (
   `telefone_movel` varchar(45) DEFAULT NULL,
   `email_candidato` varchar(45) DEFAULT NULL,
   `id_profissao` int(11) NOT NULL,
+  `sexo` char(45) DEFAULT NULL,
   PRIMARY KEY (`id_candidato`),
-  KEY `fk_aluno_sexo_idx` (`id_sexo`),
   KEY `fk_aluno_municipio1_idx` (`id_municipio`),
   KEY `fk_aluno_profissao1_idx` (`id_profissao`),
   CONSTRAINT `fk_aluno_municipio11` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_aluno_profissao10` FOREIGN KEY (`id_profissao`) REFERENCES `profissao` (`id_profissao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_aluno_sexo1` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_aluno_profissao10` FOREIGN KEY (`id_profissao`) REFERENCES `profissao` (`id_profissao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -299,7 +295,7 @@ CREATE TABLE `departamento` (
 /*!40000 ALTER TABLE `departamento` DISABLE KEYS */;
 INSERT INTO `departamento` (`id_departamento`,`nome_departamento`) VALUES 
  (5,'Contabilidade'),
- (6,'Recursos Humanos');
+ (6,'Informatica');
 /*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
 
 
@@ -371,16 +367,27 @@ CREATE TABLE `docencia` (
 
 DROP TABLE IF EXISTS `encarregado_educacao`;
 CREATE TABLE `encarregado_educacao` (
-  `id_encarregado_educacao` int(11) NOT NULL AUTO_INCREMENT,
+  `id_encarregado` int(11) NOT NULL AUTO_INCREMENT,
   `nome_encarregado` varchar(45) DEFAULT NULL,
   `sobrenome_encarregado` varchar(45) DEFAULT NULL,
-  `id_profissao` int(11) NOT NULL,
-  `id_sexo` int(11) NOT NULL,
-  PRIMARY KEY (`id_encarregado_educacao`),
-  KEY `fk_encarregado_educacao_profissao1_idx` (`id_profissao`),
-  KEY `fk_encarregado_educacao_sexo1_idx` (`id_sexo`),
-  CONSTRAINT `fk_encarregado_educacao_profissao1` FOREIGN KEY (`id_profissao`) REFERENCES `profissao` (`id_profissao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_encarregado_educacao_sexo1` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `id_profissao_encarregado` int(11) NOT NULL,
+  `sexo_encarregado` char(20) NOT NULL,
+  `casa_encarregado` varchar(45) DEFAULT NULL,
+  `rua_encarregado` varchar(45) DEFAULT NULL,
+  `bairro_encarregado` varchar(45) DEFAULT NULL,
+  `distrito_urbano_encarregado` varchar(45) DEFAULT NULL,
+  `telemovel_principal_encarregado` varchar(45) DEFAULT NULL,
+  `telemovel_alternativo_encarregado` varchar(45) DEFAULT NULL,
+  `email_principal_encarregado` varchar(45) DEFAULT NULL,
+  `email_alternativo_encarregado` varchar(45) DEFAULT NULL,
+  `foto_encarregado` blob,
+  `url_foto_encarregado` varchar(45) DEFAULT NULL,
+  `id_municipio` int(11) NOT NULL,
+  PRIMARY KEY (`id_encarregado`),
+  KEY `fk_encarregado_educacao_profissao1_idx` (`id_profissao_encarregado`),
+  KEY `fk_encarregado_educacao_municipio1_idx` (`id_municipio`),
+  CONSTRAINT `fk_encarregado_educacao_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_encarregado_educacao_profissao1` FOREIGN KEY (`id_profissao_encarregado`) REFERENCES `profissao` (`id_profissao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1196,10 +1203,25 @@ CREATE TABLE `professor` (
   `id_professor` int(11) NOT NULL AUTO_INCREMENT,
   `nome_professor` varchar(45) DEFAULT NULL,
   `sobrenome_professor` varchar(45) DEFAULT NULL,
-  `id_sexo` int(11) NOT NULL,
+  `sexo_professor` char(45) DEFAULT NULL,
+  `casa_professor` varchar(45) DEFAULT NULL,
+  `rua_professor` varchar(45) DEFAULT NULL,
+  `bairro_professor` varchar(45) DEFAULT NULL,
+  `distrito_urbano_professor` varchar(45) DEFAULT NULL,
+  `telemovel_principal_professor` varchar(45) DEFAULT NULL,
+  `telemovel_alternativo_professor` varchar(45) DEFAULT NULL,
+  `telefone_principal_professor` varchar(45) DEFAULT NULL,
+  `telefone_alternativo_professor` varchar(45) DEFAULT NULL,
+  `email_principal_professor` varchar(45) DEFAULT NULL,
+  `email_aternativo_professor` varchar(45) DEFAULT NULL,
+  `numero_bi_professor` varchar(45) DEFAULT NULL,
+  `iban_professor` varchar(45) DEFAULT NULL,
+  `numero_passaporte_professor` varchar(45) DEFAULT NULL,
+  `nif_professor` varchar(45) DEFAULT NULL,
+  `id_municipio` int(11) NOT NULL,
   PRIMARY KEY (`id_professor`),
-  KEY `fk_professor_sexo1_idx` (`id_sexo`),
-  CONSTRAINT `fk_professor_sexo1` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_professor_municipio1_idx` (`id_municipio`),
+  CONSTRAINT `fk_professor_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

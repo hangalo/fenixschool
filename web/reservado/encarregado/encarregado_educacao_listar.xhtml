@@ -6,27 +6,45 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Lista de profissões</title>
+        <title>Lista de Encarregados</title>
     </h:head>
     <h:body>
-        <ui:composition template="./WEB-INF/templates/padrao/padrao.xhtml">
+         <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
                     <h:form>
-                        <h1>Lista de profissões</h1>
-                        <p:dataTable value="#{profissaoMBean.profissoes}"  var="profissao" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                        <h1>Lista de encarregados de educação</h1>
+                        <p:dataTable  value="#{encarregadoEducacaoMBean.encarregadosEducacao}" var="encarregado" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                             <p:column width="50">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
                                 </f:facet>
-                                <h:outputText value="#{profissao.idProfissao}"/>
+                                <h:outputText value="#{encarregado.id_encarregado_educacao}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Nome"/>
+                                </f:facet>
+                                <h:outputText value="#{encarregado.nome_encarregado}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Sobrenome"/>
+                                </f:facet>
+                                <h:outputText value="#{encarregado.sobrenome_encarregado}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Sexo"/>
+                                </f:facet>
+                                <h:outputText value="#{encarregado.id_sexo.abreviatura}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <p:outputLabel value="Profissão"/>
                                 </f:facet>
-                                <h:outputText value="#{profissao.nomeProfissao}"/>
+                                <h:outputText value="#{encarregado.id_profissao.nomeProfissao}"/>
                             </p:column>
                             <p:column width="50">
                                 <f:facet name="header">
@@ -43,7 +61,7 @@
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Nova profissão" action="profissao_guardar"/>
+                        <p:commandButton value="Novo Encarregado" action="encarregado_educacao_guardar"/>
                         <p:commandLink action="index" value="Voltar"/>
                     </h:form>
                 </f:view>
