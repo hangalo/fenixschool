@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Lista de departamentos</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <h:form>
+                        <h1>Lista dos cursos</h1>
+
+                        <!--Inicio Data table-->
+
+                        <p:dataTable value="#{cursoMBean.cursos}"   var="curso" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                            <p:column style="width: 40px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{curso.codigoCurso}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Abreviatura"/>
+                                </f:facet>
+                                <h:outputText value="#{curso.abreviaturaCurso}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Curso"/>
+                                </f:facet>
+                                <h:outputText value="#{curso.nomeCurso}"/>
+                            </p:column>
+
+
+
+                            <p:column style="width: 100px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton  action="#{cursoMBean.delete}" icon="ui-icon-trash ">
+                                    <f:setPropertyActionListener target="#{cursoMBean.curso}" value="#{curso}"/>
+                                </p:commandButton>
+
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
+                                    <f:setPropertyActionListener target="#{cursoMBean.curso}" value="#{curso}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVerCurso').show();" >
+                                    <f:setPropertyActionListener target="#{cursoMBean.curso}" value="#{curso}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                            <f:facet name="footer">  
+                                N.º Cursos #{(cursoMBean.cursos.size())}.  
+                            </f:facet> 
+                        </p:dataTable>
+
+
+
+                    </h:form>
+
+                    <!--Fim Data table-->
+
+
+                    <!--Inicio Formulario auxiliar-->
+                    <h:form id="operacoes">
+                        <p:commandButton value="Novo Curso" type="button" onclick="PF('dlgNovoCurso').show();" />
+
+                    </h:form>
+                    <!--Fim  Formulario auxiliar-->
+
+                    <!-- Inicio Dialogo Guardar-->
+                    <p:dialog header="Novo Curso" widgetVar="dlgNovoCurso" showEffect="explode" hideEffect="bounce" height="700">
+                        <h:form>
+                            <h:messages showSummary="true" showDetail="true"/>
+
+                            <h:panelGrid columns="2" title="Adicionar Curso">
+                                <p:outputLabel value="Codigo:"/>
+                                <p:inputText value="#{cursoMBean.curso.codigoCurso}" size="20"/>
+                                <p:outputLabel value="Curso:"/>
+                                <p:inputText value="#{cursoMBean.curso.nomeCurso}" size="50"/>
+                                <p:outputLabel value="Abreviatura:"/>
+                                <p:inputText value="#{cursoMBean.curso.abreviaturaCurso}" size="20"/>
+                                <p:outputLabel value="Codigo do ME:"/>
+                                <p:inputText value="#{cursoMBean.curso.codigoMinisterioDaEducação}" size="30"/>
+                                <p:outputLabel value="Data da criação:"/>
+                                <p:calendar value="#{cursoMBean.curso.dataCriacao}" pattern="dd/MM/yyyy"/>
+                                <p:outputLabel value="Departamento:"/>
+                                <p:selectOneMenu value="#{cursoMBean.curso.idDepartamento}" converter="departamentoConverter">
+                                    <f:selectItem itemLabel="Selecione o departamento" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{departamentoMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
+                                </p:selectOneMenu>
+
+                            </h:panelGrid>
+                            <h:panelGroup>
+                                <p:panelGrid columns="1">
+                                    <p:outputLabel value="Descrição do curso:"/>
+                                    <p:inputTextarea value="#{cursoMBean.curso.descricaoCurso}" cols="60" rows="6"/>
+                                </p:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:panelGrid columns="1">
+                                    <p:outputLabel value="Conteudo programatico do curso:"/>
+                                    <p:inputTextarea value="#{cursoMBean.curso.conteudoProgramaticoCurso}" cols="60" rows="15"/>
+                                </p:panelGrid>
+                            </h:panelGroup>
+
+                            <p:commandButton value="Guardar" actionListener="#{cursoMBean.guardar(evt)}"/>
+
+                        </h:form>
+
+                    </p:dialog>
+
+                    <!-- Fim  Dialogo Guardar-->
+
+                    <!-- Inicio Dialogo Editar-->
+                        <p:dialog header="Alterar dados do departamento" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="700">
+                        <h:form id="formEditar">
+                            <p:growl id="growl" showDetail="true" sticky="true"/>
+                            <h:inputHidden value="#{cursoMBean.curso.codigoCurso}"/>
+                            <h:panelGrid columns="2" title="Editar departamento">
+                                <p:outputLabel value="Codigo:"/>
+                                <p:inputText value="#{cursoMBean.curso.codigoCurso}" size="20"/>
+                                <p:outputLabel value="Curso:"/>
+                                <p:inputText value="#{cursoMBean.curso.nomeCurso}" size="50"/>
+                                <p:outputLabel value="Abreviatura:"/>
+                                <p:inputText value="#{cursoMBean.curso.abreviaturaCurso}" size="20"/>
+                                <p:outputLabel value="Codigo do ME:"/>
+                                <p:inputText value="#{cursoMBean.curso.codigoMinisterioDaEducação}" size="30"/>
+                                <p:outputLabel value="Data da criação:"/>
+                                <p:calendar value="#{cursoMBean.curso.dataCriacao}" pattern="dd/MM/yyyy"/>
+                                <p:outputLabel value="Departamento:"/>
+                                <p:selectOneMenu value="#{cursoMBean.curso.idDepartamento}" converter="departamentoConverter">
+                                    <f:selectItem itemLabel="Selecione o departamento" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{departamentoMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
+                                </p:selectOneMenu>
+                               
+                            </h:panelGrid>
+                            
+                              <h:panelGroup>
+                                <p:panelGrid columns="1">
+                                    <p:outputLabel value="Descrição do curso:"/>
+                                    <p:inputTextarea value="#{cursoMBean.curso.descricaoCurso}" cols="60" rows="6"/>
+                                </p:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:panelGrid columns="1">
+                                    <p:outputLabel value="Conteudo programatico do curso:"/>
+                                    <p:inputTextarea value="#{cursoMBean.curso.conteudoProgramaticoCurso}" cols="60" rows="15"/>
+                                </p:panelGrid>
+                            </h:panelGroup>
+
+                            <p:commandButton actionListener="#{departamentoMBean.edit(event)}" value="Guardar"  update="growl" ajax="false"/>
+
+                        </h:form>
+
+                    </p:dialog>
+
+
+                    <!-- Fim Dialogo Editar-->
+
+
+                    <!-- Inicio Dialogo Ver detalhes do curso-->
+                    <p:dialog header="Detalhes do Curso" id="ver" widgetVar="dlgVerCurso" showEffect="explode" hideEffect="bounce"  height="600">
+                        <h:form id="formVer">
+                              <h:panelGrid columns="2" title="Adicionar Curso">
+                                <p:outputLabel value="Codigo:"/>
+                                <p:outputLabel value="#{cursoMBean.curso.codigoCurso}"/>
+                                <p:outputLabel value="Curso:"/>
+                                <p:outputLabel value="#{cursoMBean.curso.nomeCurso}"/>
+                                <p:outputLabel value="Abreviatura:"/>
+                                <p:outputLabel value="#{cursoMBean.curso.abreviaturaCurso}"/>
+                                <p:outputLabel value="Codigo do ME:"/>
+                                <p:outputLabel value="#{cursoMBean.curso.codigoMinisterioDaEducação}"/>
+                                <p:outputLabel value="Data da criação:"/>
+                                <p:outputLabel value="#{cursoMBean.curso.dataCriacao}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </p:outputLabel>
+                                <p:outputLabel value="Departamento:"/>
+                                <p:outputLabel value="#{cursoMBean.curso.idDepartamento}" />
+                            </h:panelGrid>
+                            <h:panelGroup>
+                                <p:panelGrid columns="1">
+                                    <p:outputLabel value="Descrição do curso:"/>
+                                    <p:inputTextarea value="#{cursoMBean.curso.descricaoCurso}" cols="60" rows="6"/>
+                                </p:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:panelGrid columns="1">
+                                    <p:outputLabel value="Conteudo programatico do curso:"/>
+                                    <p:inputTextarea value="#{cursoMBean.curso.conteudoProgramaticoCurso}" cols="60" rows="15"/>
+                                </p:panelGrid>
+                            </h:panelGroup>
+
+                        </h:form>
+
+                    </p:dialog>
+
+                    <!-- Fim  Dialogo Ver detalhes do curso-->
+
+
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

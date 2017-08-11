@@ -73,7 +73,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             ps.setDate(1, new java.sql.Date(matricula.getDataMatricula().getTime()));
             ps.setInt(2, matricula.getAluno().getIdAluno());
             ps.setInt(3, matricula.getFuncionario().getIdFuncionario());
-            ps.setInt(4, matricula.getCurso().getCodigoCurso());
+            ps.setString(4, matricula.getCurso().getCodigoCurso());
             ps.setInt(5, matricula.getAnoLetivo().getIdAnoLectivo());
             ps.setInt(6, matricula.getEstadoMatricula());
             ps.setInt(7, matricula.getTurma().getIdTurma());
@@ -106,7 +106,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             ps.setDate(1, new java.sql.Date(matricula.getDataMatricula().getTime()));
             ps.setInt(2, matricula.getAluno().getIdAluno());
             ps.setInt(3, matricula.getFuncionario().getIdFuncionario());
-            ps.setInt(4, matricula.getCurso().getCodigoCurso());
+            ps.setString(4, matricula.getCurso().getCodigoCurso());
             ps.setInt(5, matricula.getAnoLetivo().getIdAnoLectivo());
             ps.setInt(6, matricula.getEstadoMatricula());
             ps.setInt(7, matricula.getTurma().getIdTurma());

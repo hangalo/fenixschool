@@ -59,7 +59,7 @@ public class Departamento {
 
     @Override
     public String toString() {
-        return "Departamento{" + "nomeDepartamento=" + nomeDepartamento + '}';
+        return this.nomeDepartamento;
     }
 
     
