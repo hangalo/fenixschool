@@ -27,7 +27,7 @@ USE fenixschoolem;
 
 DROP TABLE IF EXISTS `aluno`;
 CREATE TABLE `aluno` (
-  `id_aluno` int(11) NOT NULL,
+  `id_aluno` int(11) NOT NULL AUTO_INCREMENT,
   `numero_aluno` varchar(45) DEFAULT NULL,
   `nome_aluno` varchar(45) DEFAULT NULL,
   `sobrenome_aluno` varchar(45) DEFAULT NULL,
