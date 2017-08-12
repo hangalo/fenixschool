@@ -36,11 +36,14 @@ public class MunicipioConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-      
-      if (value != null) {
-            return ((Municipio) value).getIdMunicipio().toString();
+            
+        
+          if (value != null) {
+            Municipio municipio =(Municipio)value;
+            return String.valueOf(municipio.getIdMunicipio());
         }
         return null;
+        
     }
 
 }

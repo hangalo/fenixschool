@@ -78,11 +78,12 @@
                     <!--Fim  Formulario auxiliar-->
 
                     <!-- Inicio Dialogo Guardar-->
-                    <p:dialog header="Novo Professor" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="700">
+                    <p:dialog header="Novo Professor" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="400" width="900">
                         <h:form>
-                            <h:messages showSummary="true" showDetail="true"/>
+                            
                             <p:tabView>
                                 <p:tab title="Dados Pessoais">
+                                     <p:growl id="messages" showDetail="true"/>
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Nome"/>
                                         <p:inputText value="#{professorMBean.professor.nomeProfessor}" size="20"/>
@@ -103,114 +104,64 @@
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="N.º Casa"/>
                                         <p:inputText value="#{cursoMBean.curso.codigoCurso}" size="20"/>
-                                        <p:outputLabel value="Sobrenome:"/>
+                                        <p:outputLabel value="Rua:"/>
                                         <p:inputText value="#{cursoMBean.curso.nomeCurso}" size="50"/>
-                                        <p:outputLabel value="Data de nascimento:"/>
+                                        <p:outputLabel value="Bairro:"/>
                                         <p:inputText value="#{cursoMBean.curso.abreviaturaCurso}" size="20"/>
-                                        <p:outputLabel value="Sexo:"/>
+                                        <p:outputLabel value="Distrito:"/>
                                         <p:inputText value="#{cursoMBean.curso.codigoMinisterioDaEducação}" size="30"/>
-                                        <p:outputLabel value="Foto:"/>
-                                        <p:calendar value="#{cursoMBean.curso.dataCriacao}" pattern="dd/MM/yyyy"/>
+                                        <p:outputLabel value="Municipio:"/>
+                                        <p:selectOneMenu value="#{professorMBean.professor.municipio}" converter="municipioConverter">
+                                            <f:selectItem itemLabel="Selecione um municipio" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{municipioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
+                                        </p:selectOneMenu>
 
                                     </h:panelGrid>
                                 </p:tab>
 
+                                <p:tab title="Telefene/Email">
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Movel principal"/>
+                                        <p:inputText value="#{professorMBean.professor.telemovelPrincipalProfessor}" size="20"/>
+                                        <p:outputLabel value="Movel alternatico"/>
+                                        <p:inputText value="#{professorMBean.professor.telemovelAlternativoProfessor}" size="50"/>
+                                        <p:outputLabel value="Telefone principal"/>
+                                        <p:inputText value="#{professorMBean.professor.telefonePrincipalProfessor}" size="20"/>
+                                        <p:outputLabel value="Telefone alternativo"/>
+                                        <p:inputText value="#{professorMBean.professor.telefoneAlternativoProfessor}" size="30"/>
+                                        <p:outputLabel value="Email principal"/>
+                                        <p:inputText value="#{professorMBean.professor.emailPrincipalProfessor}" size="30"/>
+                                        <p:outputLabel value="Email alternativo"/>
+                                        <p:inputText value="#{professorMBean.professor.emailAlternativoProfessor}" size="30"/>
+                                       
 
+                                    </h:panelGrid>
+                                </p:tab>
+                                
+                                <p:tab title="Outros dados">
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="N.o BI"/>
+                                        <p:inputText value="#{professorMBean.professor.numeroBIProfessor}" size="20"/>
+                                        <p:outputLabel value="N.º Passaport"/>
+                                        <p:inputText value="#{professorMBean.professor.numeroPassaporteProfessor}" size="50"/>
+                                        <p:outputLabel value="NIF"/>
+                                        <p:inputText value="#{professorMBean.professor.nifProfessor}" size="20"/>
+                                        <p:outputLabel value="IBAM"/>
+                                        <p:inputText value="#{professorMBean.professor.IBAMProfessor}" size="30"/>
+                                        
+                                       
 
-                                <p:commandButton value="Guardar" actionListener="#{cursoMBean.guardar(evt)}"/>
+                                    </h:panelGrid>
+                                </p:tab>
+
+                               
                             </p:tabView>
+                             <p:commandButton value="Guardar" actionListener="#{professorMBean.guardar(evt)}"/>
                         </h:form>
 
                     </p:dialog>
 
-                    <!-- Fim  Dialogo Guardar-->
-
-                    <!-- Inicio Dialogo Editar-->
-                    <p:dialog header="Alterar dados do departamento" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="700">
-                        <h:form id="formEditar">
-                            <p:growl id="growl" showDetail="true" sticky="true"/>
-                            <h:inputHidden value="#{cursoMBean.curso.codigoCurso}"/>
-                            <h:panelGrid columns="2" title="Editar departamento">
-                                <p:outputLabel value="Codigo:"/>
-                                <p:inputText value="#{cursoMBean.curso.codigoCurso}" size="20"/>
-                                <p:outputLabel value="Curso:"/>
-                                <p:inputText value="#{cursoMBean.curso.nomeCurso}" size="50"/>
-                                <p:outputLabel value="Abreviatura:"/>
-                                <p:inputText value="#{cursoMBean.curso.abreviaturaCurso}" size="20"/>
-                                <p:outputLabel value="Codigo do ME:"/>
-                                <p:inputText value="#{cursoMBean.curso.codigoMinisterioDaEducação}" size="30"/>
-                                <p:outputLabel value="Data da criação:"/>
-                                <p:calendar value="#{cursoMBean.curso.dataCriacao}" pattern="dd/MM/yyyy"/>
-                                <p:outputLabel value="Departamento:"/>
-                                <p:selectOneMenu value="#{cursoMBean.curso.idDepartamento}" converter="departamentoConverter">
-                                    <f:selectItem itemLabel="Selecione o departamento" itemValue="#{null}" noSelectionOption="true"/>
-                                    <f:selectItems value="#{departamentoMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
-                                </p:selectOneMenu>
-
-                            </h:panelGrid>
-
-                            <h:panelGroup>
-                                <p:panelGrid columns="1">
-                                    <p:outputLabel value="Descrição do curso:"/>
-                                    <p:inputTextarea value="#{cursoMBean.curso.descricaoCurso}" cols="60" rows="6"/>
-                                </p:panelGrid>
-                            </h:panelGroup>
-
-                            <h:panelGroup>
-                                <p:panelGrid columns="1">
-                                    <p:outputLabel value="Conteudo programatico do curso:"/>
-                                    <p:inputTextarea value="#{cursoMBean.curso.conteudoProgramaticoCurso}" cols="60" rows="15"/>
-                                </p:panelGrid>
-                            </h:panelGroup>
-
-                            <p:commandButton actionListener="#{departamentoMBean.edit(event)}" value="Guardar"  update="growl" ajax="false"/>
-
-                        </h:form>
-
-                    </p:dialog>
-
-
-                    <!-- Fim Dialogo Editar-->
-
-
-                    <!-- Inicio Dialogo Ver detalhes do curso-->
-                    <p:dialog header="Detalhes do Curso" id="ver" widgetVar="dlgVer" showEffect="explode" hideEffect="bounce"  height="600">
-                        <h:form id="formVer">
-                            <h:panelGrid columns="2" title="Adicionar Curso">
-                                <p:outputLabel value="Codigo:"/>
-                                <p:outputLabel value="#{cursoMBean.curso.codigoCurso}"/>
-                                <p:outputLabel value="Curso:"/>
-                                <p:outputLabel value="#{cursoMBean.curso.nomeCurso}"/>
-                                <p:outputLabel value="Abreviatura:"/>
-                                <p:outputLabel value="#{cursoMBean.curso.abreviaturaCurso}"/>
-                                <p:outputLabel value="Codigo do ME:"/>
-                                <p:outputLabel value="#{cursoMBean.curso.codigoMinisterioDaEducação}"/>
-                                <p:outputLabel value="Data da criação:"/>
-                                <p:outputLabel value="#{cursoMBean.curso.dataCriacao}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </p:outputLabel>
-                                <p:outputLabel value="Departamento:"/>
-                                <p:outputLabel value="#{cursoMBean.curso.idDepartamento}" />
-                            </h:panelGrid>
-                            <h:panelGroup>
-                                <p:panelGrid columns="1">
-                                    <p:outputLabel value="Descrição do curso:"/>
-                                    <p:inputTextarea value="#{cursoMBean.curso.descricaoCurso}" cols="60" rows="6"/>
-                                </p:panelGrid>
-                            </h:panelGroup>
-
-                            <h:panelGroup>
-                                <p:panelGrid columns="1">
-                                    <p:outputLabel value="Conteudo programatico do curso:"/>
-                                    <p:inputTextarea value="#{cursoMBean.curso.conteudoProgramaticoCurso}" cols="60" rows="15"/>
-                                </p:panelGrid>
-                            </h:panelGroup>
-
-                        </h:form>
-
-                    </p:dialog>
-
-                    <!-- Fim  Dialogo Ver detalhes do curso-->
+                    
 
 
                 </f:view>
