@@ -86,7 +86,7 @@
                                      <p:growl id="messages" showDetail="true"/>
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Nome"/>
-                                        <p:inputText value="#{professorMBean.professor.nomeProfessor}" size="20"/>
+                                        <p:inputText value="#{professorMBean.professor.nomeProfessor}" size="50"/>
                                         <p:outputLabel value="Sobrenome:"/>
                                         <p:inputText value="#{professorMBean.professor.sobrenomeProfessor}" size="50"/>
                                         <p:outputLabel value="Data de nascimento:"/>
@@ -107,9 +107,9 @@
                                         <p:outputLabel value="Rua:"/>
                                         <p:inputText value="#{cursoMBean.curso.nomeCurso}" size="50"/>
                                         <p:outputLabel value="Bairro:"/>
-                                        <p:inputText value="#{cursoMBean.curso.abreviaturaCurso}" size="20"/>
+                                        <p:inputText value="#{cursoMBean.curso.abreviaturaCurso}" size="50"/>
                                         <p:outputLabel value="Distrito:"/>
-                                        <p:inputText value="#{cursoMBean.curso.codigoMinisterioDaEducação}" size="30"/>
+                                        <p:inputText value="#{cursoMBean.curso.codigoMinisterioDaEducação}" size="40"/>
                                         <p:outputLabel value="Municipio:"/>
                                         <p:selectOneMenu value="#{professorMBean.professor.municipio}" converter="municipioConverter">
                                             <f:selectItem itemLabel="Selecione um municipio" itemValue="#{null}" noSelectionOption="true"/>
@@ -122,11 +122,11 @@
                                 <p:tab title="Telefene/Email">
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Movel principal"/>
-                                        <p:inputText value="#{professorMBean.professor.telemovelPrincipalProfessor}" size="20"/>
+                                        <p:inputText value="#{professorMBean.professor.telemovelPrincipalProfessor}" size="30"/>
                                         <p:outputLabel value="Movel alternatico"/>
-                                        <p:inputText value="#{professorMBean.professor.telemovelAlternativoProfessor}" size="50"/>
+                                        <p:inputText value="#{professorMBean.professor.telemovelAlternativoProfessor}" size="30"/>
                                         <p:outputLabel value="Telefone principal"/>
-                                        <p:inputText value="#{professorMBean.professor.telefonePrincipalProfessor}" size="20"/>
+                                        <p:inputText value="#{professorMBean.professor.telefonePrincipalProfessor}" size="30"/>
                                         <p:outputLabel value="Telefone alternativo"/>
                                         <p:inputText value="#{professorMBean.professor.telefoneAlternativoProfessor}" size="30"/>
                                         <p:outputLabel value="Email principal"/>
@@ -141,7 +141,7 @@
                                 <p:tab title="Outros dados">
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="N.o BI"/>
-                                        <p:inputText value="#{professorMBean.professor.numeroBIProfessor}" size="20"/>
+                                        <p:inputText value="#{professorMBean.professor.numeroBIProfessor}" size="50"/>
                                         <p:outputLabel value="N.º Passaport"/>
                                         <p:inputText value="#{professorMBean.professor.numeroPassaporteProfessor}" size="50"/>
                                         <p:outputLabel value="NIF"/>
