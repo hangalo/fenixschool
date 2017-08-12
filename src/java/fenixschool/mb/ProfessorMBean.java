@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.apache.commons.io.IOUtils;
@@ -35,8 +35,8 @@ import org.primefaces.model.UploadedFile;
  *
  * @author informatica
  */
-@Named(value = "professorMBean")
-@SessionScoped
+@ManagedBean(name = "professorMBean")
+@ViewScoped
 public class ProfessorMBean implements  Serializable{
 
     private static final long serialVersionUID = 1L;
