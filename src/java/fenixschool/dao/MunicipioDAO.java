@@ -21,12 +21,12 @@ import java.util.List;
  */
 public class MunicipioDAO implements GenericoDAO<Municipio> {
     
-    private static final String INSERIR = "INSERT INTO Municipio (nome_municipio, id_provincia)VALUES(?, ?)";
-    private static final String ACTUALIZAR = "UPDATE Municipio SET nome_municipio = ?, id_provincia = ? WHERE id_municipio = ?";
-    private static final String ELIMINAR = "DELETE FROM Municipio WHERE id_municipio = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM Municipio WHERE id_municipio = ?";
-    private static final String LISTAR_TUDO = "SELECT * FROM Municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia ORDER BY nome_municipio ASC;";
-    private static final String LISTAR_POR_CODIGO = "Select * from municipio where id_provincia = ?";
+    private static final String INSERT = "INSERT INTO Municipio (nome_municipio, id_provincia)VALUES(?, ?)";
+    private static final String UPDATE = "UPDATE Municipio SET nome_municipio = ?, id_provincia = ? WHERE id_municipio = ?";
+    private static final String DELETE = "DELETE FROM Municipio WHERE id_municipio = ?";
+    
+    private static final String SELECT_ALL = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia ORDER BY nome_municipio ASC;";
+    private static final String SELECT_BY_ID = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia WHERE id_municipio = ?";
     
     @Override
     public void save(Municipio municipio) {
@@ -37,7 +37,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERIR);
+            ps = conn.prepareStatement(INSERT);
             
             ps.setString(1, municipio.getNomeMunicipio());
             ps.setInt(2, municipio.getProvinciaMunicipio().getIdProvincia());
@@ -61,7 +61,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         }
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(ACTUALIZAR);            
+            ps = conn.prepareStatement(UPDATE);            
             ps.setString(1, municipio.getNomeMunicipio());
             ps.setInt(2, municipio.getProvinciaMunicipio().getIdProvincia());
             ps.setInt(3, municipio.getIdMunicipio());
@@ -83,7 +83,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         }
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(ELIMINAR);
+            ps = conn.prepareStatement(DELETE);
             ps.setInt(1, municipio.getIdMunicipio());
             ps.executeUpdate();
         } catch (Exception ex) {
@@ -102,7 +102,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         Municipio municipio = new Municipio();
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(LISTAR_POR_CODIGO);
+            ps = conn.prepareStatement(SELECT_BY_ID);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
@@ -125,7 +125,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         List<Municipio> municipios = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(LISTAR_TUDO);
+            ps = conn.prepareStatement(SELECT_ALL);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Municipio municipio = new Municipio();
@@ -144,16 +144,16 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
     public void popularComDados(Municipio municipio, ResultSet rs) {
         
         try {
-            Provincia p = new Provincia();
+           
             
-            municipio.setIdMunicipio(rs.getInt("Id_Municipio"));
-            municipio.setNomeMunicipio(rs.getString("Nome_Municipio"));
-            //  p.setIdProvincia(rs.getInt("id_Provincia"));
-            p.setNomeProvincia(rs.getString("nome_provincia"));
+            municipio.setIdMunicipio(rs.getInt("m.id_municipio"));
+            municipio.setNomeMunicipio(rs.getString("m.nome_municipio"));
+             Provincia p = new Provincia();
+            p.setNomeProvincia(rs.getString("p.nome_provincia"));
             municipio.setProvinciaMunicipio(p);
             
         } catch (SQLException ex) {
-            System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
+            System.err.println("Erro ao carregar dados do municipio: " + ex.getLocalizedMessage());
         }
         
     }
@@ -167,7 +167,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         Municipio municipio = new Municipio();
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(BUSCAR_POR_CODIGO);
+            ps = conn.prepareStatement(SELECT_BY_ID);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
@@ -175,7 +175,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
             }
             popularComDados(municipio, rs);
         } catch (SQLException ex) {
-            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+            System.err.println("Erro ao ler dados metodo findById: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }

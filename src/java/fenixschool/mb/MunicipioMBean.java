@@ -54,10 +54,14 @@ public class MunicipioMBean implements Serializable {
     }
 
     public List<Municipio> getMunicipios() {
-        municipios = municipioDAO.findAll();
+       municipios = municipioDAO.findAll();
         return municipios;
     }
 
+  
+
+    
+    
     public String newSave() {
         municipio = new Municipio();
         return "municipio_gestao?faces-redirect=true";

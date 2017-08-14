@@ -5,41 +5,37 @@
  */
 package fenixschool.converter;
 
-import fenixschool.dao.MunicipioDAO;
-import fenixschool.modelo.Municipio;
+import fenixschool.dao.ProvinciaDAO;
+import fenixschool.modelo.Provincia;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
-
 /**
  *
- * @author informatica
+ * @author PENA
  */
-@FacesConverter(value = "municipioConverter", forClass = Municipio.class)
-public class MunicipioConverter implements Converter {
+@FacesConverter(value = "provinciaConverter", forClass = Provincia.class)
+public class ProvinciaConverter implements Converter {
 
-    MunicipioDAO municipioDAO = new MunicipioDAO();
+    ProvinciaDAO provinciaDAO = new ProvinciaDAO();
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Integer id = Integer.parseInt(value);
         try {
-            return municipioDAO.findById(id);
-        } catch (Exception ex) {
-            System.err.println("Erro na conversão: " + ex.getMessage());
+            return provinciaDAO.findById(id);
+        } catch (Exception e) {
+            System.err.println("Erro na conversão " + e.getMessage());
         }
         return null;
     }
-    
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-      
-      if (value != null) {
-            return ((Municipio) value).getIdMunicipio().toString();
+        if (value != null) {
+            return ((Provincia) value).getIdProvincia().toString();
         }
         return null;
     }
