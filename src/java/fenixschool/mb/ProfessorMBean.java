@@ -6,8 +6,10 @@
 package fenixschool.mb;
 
 import fenixschool.dao.CursoDAO;
+import fenixschool.dao.MunicipioDAO;
 import fenixschool.dao.ProfessorDAO;
 import fenixschool.modelo.Curso;
+import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Professor;
 import fenixschool.modelo.Sexo;
 import java.awt.event.ActionEvent;
@@ -41,15 +43,19 @@ public class ProfessorMBean implements  Serializable{
 
     private static final long serialVersionUID = 1L;
 
-   
+    private Professor professor;
+    private ProfessorDAO professorDAO;
+    private List<Professor> professores;
+     private MunicipioDAO municipioDAO;
+  
+    private List<Municipio> municipios;
+    
     public ProfessorMBean() {
     }
     
     
     
-    private Professor professor;
-    private ProfessorDAO professorDAO;
-    private List<Professor> professores;
+   
 
    
 
@@ -58,7 +64,8 @@ public class ProfessorMBean implements  Serializable{
         professor = new Professor();
         professorDAO = new ProfessorDAO();
         professores = new ArrayList<>();
-
+        municipios = new ArrayList<>();
+        municipioDAO = new MunicipioDAO();
     }
 
     public Professor getProfessor() {
@@ -79,6 +86,12 @@ public class ProfessorMBean implements  Serializable{
         return list;
     }
     
+        public List<Municipio> getMunicipios() {
+            
+            municipios = municipioDAO.findAll();
+        
+        return municipios;
+    }
 
   
 
@@ -130,7 +143,7 @@ public class ProfessorMBean implements  Serializable{
       public void guardar(ActionEvent evt) {
         professorDAO.save(professor);
         professor = new Professor();
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Curso registado com sucesso"));
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Professor registado com sucesso"));
     }
     public String startEdit() {
         return "professor_listar?faces-redirect=true";
