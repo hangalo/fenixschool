@@ -30,16 +30,19 @@ public class ProfessorVisualizarFotoServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
 
-            String separator = System.getProperty("file.separator");
             
-            System.out.println(">>>>>>>>>>>>>>Passo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+           
+            String separador = System.getProperty("file.separator");
+            String caminhoFicheiro = "C:" + separador + "fotos" + separador;
+           
+            // Equivalente a    String caminhoFicheiro = "C:\\fotos\\";
                        
-            String caminhoFicheiro = "C:\\fotos\\";
+        
 
             //Obtem o parametro ficheiro do cliente
             String ficheiroDesejado = request.getParameter("file");
 
-            System.out.println(caminhoFicheiro + ">>>>>>><<<<<<<< Path"+caminhoFicheiro);
+         
 
             File absolutePath = new File(caminhoFicheiro + ficheiroDesejado);
 
