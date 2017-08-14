@@ -21,28 +21,13 @@ public class Funcionario {
     private String bairroFuncionario;
     private String distritoFuncionario;
     private Municipio municipio;
-    private String fotoFuncionario;
+    private byte [] fotoFuncionario;
+    private String urlfotoFuncionario;
     private String telefoneFixoFuncionario;
     private String telefoneMovelFuncionario;
     private String emailFuncionario;
-
+    
     public Funcionario() {
-    }
-
-    public Funcionario(int idFuncionario, String nomeFuncionario, String sobrenomeFuncionario, Date dataNascimentoFuncionario, Sexo sexo, String casaFuncionario, String bairroFuncionario, String distritoFuncionario, Municipio municipio, String fotoFuncionario, String telefoneFixoFuncionario, String telefoneMovelFuncionario, String emailFuncionario) {
-        this.idFuncionario = idFuncionario;
-        this.nomeFuncionario = nomeFuncionario;
-        this.sobrenomeFuncionario = sobrenomeFuncionario;
-        this.dataNascimentoFuncionario = dataNascimentoFuncionario;
-        this.sexo = sexo;
-        this.casaFuncionario = casaFuncionario;
-        this.bairroFuncionario = bairroFuncionario;
-        this.distritoFuncionario = distritoFuncionario;
-        this.municipio = municipio;
-        this.fotoFuncionario = fotoFuncionario;
-        this.telefoneFixoFuncionario = telefoneFixoFuncionario;
-        this.telefoneMovelFuncionario = telefoneMovelFuncionario;
-        this.emailFuncionario = emailFuncionario;
     }
 
     public int getIdFuncionario() {
@@ -117,12 +102,20 @@ public class Funcionario {
         this.municipio = municipio;
     }
 
-    public String getFotoFuncionario() {
+    public byte[] getFotoFuncionario() {
         return fotoFuncionario;
     }
 
-    public void setFotoFuncionario(String fotoFuncionario) {
+    public void setFotoFuncionario(byte[] fotoFuncionario) {
         this.fotoFuncionario = fotoFuncionario;
+    }
+
+    public String getUrlfotoFuncionario() {
+        return urlfotoFuncionario;
+    }
+
+    public void setUrlfotoFuncionario(String urlfotoFuncionario) {
+        this.urlfotoFuncionario = urlfotoFuncionario;
     }
 
     public String getTelefoneFixoFuncionario() {
@@ -150,12 +143,32 @@ public class Funcionario {
     }
 
     @Override
-    public String toString() {
-        return "Funcionario{" + "nomeFuncionario=" + nomeFuncionario + '}';
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.idFuncionario;
+        return hash;
     }
-    
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Funcionario other = (Funcionario) obj;
+        if (this.idFuncionario != other.idFuncionario) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nomeFuncionario=" + nomeFuncionario + ", sobrenomeFuncionario=" + sobrenomeFuncionario + ", dataNascimentoFuncionario=" + dataNascimentoFuncionario + ", sexo=" + sexo + ", casaFuncionario=" + casaFuncionario + ", bairroFuncionario=" + bairroFuncionario + ", distritoFuncionario=" + distritoFuncionario + ", municipio=" + municipio + ", fotoFuncionario=" + fotoFuncionario + ", urlfotoFuncionario=" + urlfotoFuncionario + ", telefoneFixoFuncionario=" + telefoneFixoFuncionario + ", telefoneMovelFuncionario=" + telefoneMovelFuncionario + ", emailFuncionario=" + emailFuncionario + '}';
+    }
+   
     
     
     

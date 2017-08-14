@@ -14,8 +14,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
@@ -24,7 +24,7 @@ import javax.faces.model.SelectItem;
  * @author PENA
  */
 @Named(value = "encarregadoEducacaoMBean")
-@RequestScoped
+@ViewScoped
 public class EncarregadoEducacaoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
