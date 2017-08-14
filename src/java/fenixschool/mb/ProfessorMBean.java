@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -38,7 +39,7 @@ import org.primefaces.model.UploadedFile;
  * @author informatica
  */
 @ManagedBean(name = "professorMBean")
-@ViewScoped
+@RequestScoped
 public class ProfessorMBean implements  Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -143,7 +144,7 @@ public class ProfessorMBean implements  Serializable{
       public void guardar(ActionEvent evt) {
         professorDAO.save(professor);
         professor = new Professor();
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Professor registado com sucesso"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Professor registado com sucesso"));
     }
     public String startEdit() {
         return "professor_listar?faces-redirect=true";
