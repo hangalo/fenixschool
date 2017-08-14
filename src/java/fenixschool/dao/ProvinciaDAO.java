@@ -5,7 +5,6 @@
  */
 package fenixschool.dao;
 
-import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Provincia;
 import fenixschool.util.Conexao;
 import java.sql.Connection;
@@ -21,11 +20,11 @@ import java.util.List;
  */
 public class ProvinciaDAO implements GenericoDAO<Provincia> {
 
-    private static final String INSERIR = "insert into Provincia(nome_provincia) VALUES (?)";
-    private static final String ACTUALIZAR = "UPDATE Provincia set nome_provincia = ? WHERE id_Provincia = ?";
+    private static final String INSERIR = "INSERT INT Provincia(nome_provincia) VALUES (?)";
+    private static final String ACTUALIZAR = "UPDATE provincia set nome_provincia = ? WHERE id_Provincia = ?";
     private static final String ELIMINAR = "DELETE FROM Provincia WHERE id_Provincia = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM Provincia where id_Provincia = ?";
-    private static final String LISTAR_TUDO = "SELECT * FROM Provincia ORDER BY nome_provincia ASC;";
+    private static final String BUSCAR_POR_CODIGO = "SELECT id_provincia,nome_provincia FROM provincia WHERE id_Provincia = ?";
+    private static final String LISTAR_TUDO = "SELECT id_provincia,nome_provincia FROM provincia ORDER BY nome_provincia ASC;";
 
     @Override
     public void save(Provincia provincia) {

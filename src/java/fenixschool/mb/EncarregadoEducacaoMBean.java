@@ -10,14 +10,25 @@ import fenixschool.dao.ProfissaoDAO;
 import fenixschool.modelo.EncarregadoEducacao;
 import fenixschool.modelo.Profissao;
 import fenixschool.modelo.Sexo;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -31,7 +42,7 @@ public class EncarregadoEducacaoMBean implements Serializable {
 
     private EncarregadoEducacao encarregadoEducacao;
 
-    private List<EncarregadoEducacao> encarregadosEducacao;
+    private List<EncarregadoEducacao> encarregadoEducacoes;
     private List<Profissao> profissoes;
     private ProfissaoDAO profissaoDAO;
     private EncarregadoEducacaoDAO encarregadoEducacaoDAO;
@@ -41,7 +52,7 @@ public class EncarregadoEducacaoMBean implements Serializable {
 
         encarregadoEducacao = new EncarregadoEducacao();
         encarregadoEducacaoDAO = new EncarregadoEducacaoDAO();
-        encarregadosEducacao = new ArrayList<>();
+        encarregadoEducacoes = new ArrayList<>();
 
         profissaoDAO = new ProfissaoDAO();
         profissoes = new ArrayList<>();
@@ -55,18 +66,20 @@ public class EncarregadoEducacaoMBean implements Serializable {
         this.encarregadoEducacao = encarregadoEducacao;
     }
 
-    public List<EncarregadoEducacao> getEncarregadosEducacao() {
-        encarregadosEducacao = encarregadoEducacaoDAO.findAll();
-        return encarregadosEducacao;
+    public List<EncarregadoEducacao> getEncarregadoEducacoes() {
+        encarregadoEducacoes = encarregadoEducacaoDAO.findAll();
+        return encarregadoEducacoes;
     }
 
-    public void setEncarregadosEducacao(List<EncarregadoEducacao> encarregadosEducacao) {
-        this.encarregadosEducacao = encarregadosEducacao;
+    public void setEncarregadoEducacoes(List<EncarregadoEducacao> encarregadoEducacoes) {
+        this.encarregadoEducacoes = encarregadoEducacoes;
     }
 
     public void guardar(ActionEvent evt) {
+
         encarregadoEducacaoDAO.save(encarregadoEducacao);
         encarregadoEducacao = new EncarregadoEducacao();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Encarregado registado com sucesso!"));
     }
 
     public List<Profissao> getProssifoes() {
@@ -74,14 +87,67 @@ public class EncarregadoEducacaoMBean implements Serializable {
         return profissoes;
     }
 
-     public List<SelectItem> getOpSexos() {
+    public List<SelectItem> getOpSexos() {
         List<SelectItem> list = new ArrayList<>();
         for (Sexo sexo : Sexo.values()) {
             list.add(new SelectItem(sexo, sexo.getAbreviatura()));
         }
         return list;
     }
+
     public void setProssifoes(List<Profissao> profissoes) {
         this.profissoes = profissoes;
     }
+
+    public void fileUpload(FileUploadEvent event) {
+
+        try {
+
+            //cria um objecto do tipo UploadedFile para receber o objecto
+            UploadedFile arquivo = event.getFile();
+
+            //Transforma o objecto em Byte para ser guardado no banco de dados
+            byte[] foto = IOUtils.toByteArray(arquivo.getInputstream());
+            encarregadoEducacao.setFoto_encarregado(foto);
+            encarregadoEducacao.setUrl_foto_encarregado(arquivo.getFileName());
+
+            //comandos para guardar o objecto numa pasta local ou num disco duro
+            InputStream in = new BufferedInputStream(arquivo.getInputstream());
+            File file = new File("C://fotos//" + arquivo.getFileName());
+
+            //Comandos para guardar no disco em rede
+            // File file = new File("\\\\192.168.0.18\\photo\\fratiofmcpa"+arquivo.getFileName());
+            FileOutputStream fout = new FileOutputStream(file);
+            while (in.available() != 0) {
+                fout.write(in.read());
+            }
+            fout.close();
+
+            FacesMessage msg = new FacesMessage("Foto: ", arquivo.getFileName() + " carregada com sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+
+    }
+
+    public void edit(java.awt.Event event) {
+        encarregadoEducacaoDAO.update(encarregadoEducacao);
+        encarregadoEducacao = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Encarregado actualizado com sucesso!"));
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("encarregado_educacao_listar.jsf");
+
+        } catch (IOException e) {
+            java.util.logging.Logger.getLogger(EncarregadoEducacaoMBean.class
+                    .getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public String delete() {
+        encarregadoEducacaoDAO.delete(encarregadoEducacao);
+        encarregadoEducacao = null;
+        return "encarregado_educacao_listar?faces-redirect=true";
+    }
+
 }

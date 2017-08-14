@@ -144,7 +144,6 @@ public class ProfessorMBean implements  Serializable{
       public void guardar(ActionEvent evt) {
         professorDAO.save(professor);
         professor = new Professor();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Professor registado com sucesso"));
     }
     public String startEdit() {
         return "professor_listar?faces-redirect=true";

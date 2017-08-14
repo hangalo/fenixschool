@@ -21,13 +21,13 @@ import java.util.List;
  * @author HP
  */
 public class ProfessorDAO implements GenericoDAO<Professor> {
-    
-    private static final String INSERT = "INSERT INTO professor (nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor, casa_professor, rua_professor,bairro_professor,distrito_urbano_professor,telemovel_principal_professor, telemovel_alternativo_professor,telefone_principal_professor,telefone_alternativo_professor, email_principal_professor,email_aternativo_professor,numero_bi_professor,iban_professor,numero_passaporte_professor, id_municipio)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    private static final String INSERT = "INSERT INTO professor (nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor, casa_professor, rua_professor,bairro_professor,distrito_urbano_professor,telemovel_principal_professor, telemovel_alternativo_professor,telefone_principal_professor,telefone_alternativo_professor, email_principal_professor,email_aternativo_professor,numero_bi_professor,iban_professor,numero_passaporte_professor, id_municipio)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE Professor SET nome_professor = ?, sobrenome_professor = ?,data_nascimento_professor = ?,sexo_professor = ?,nif_professor = ?,foto_professor = ?,url_foto_professor = ?, casa_professor = ?,rua_professor = ?,bairro_professor = ?,distrito_urbano_professor = ?,telemovel_principal_professor = ?, telemovel_alternativo_professor = ?,telefone_principal_professor = ?,telefone_alternativo_professor = ?, email_principal_professor = ?,email_aternativo_professor = ?,numero_bi_professor = ?,iban_professor = ?,numero_passaporte_professor = ?, id_municipio = ? WHERE id_professor = ?";
     private static final String DELETE = "DELETE FROM Professor WHERE id_professor = ?";
     private static final String SELECT_BY_ID = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE id_professor = ?";
     private static final String SELECT_ALL = "SELECT id_professor,nome_professor,sobrenome_professor,data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio);";
-    
+
     @Override
     public void save(Professor professor) {
         PreparedStatement ps = null;
@@ -38,7 +38,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERT);
-            
+
             ps.setString(1, professor.getNomeProfessor());
             ps.setString(2, professor.getSobrenomeProfessor());
             ps.setDate(3, new java.sql.Date(professor.getDataNascimentoProfessor().getTime()));
@@ -59,16 +59,16 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             ps.setString(18, professor.getNumeroBIProfessor());
             ps.setString(19, professor.getIBAMProfessor());
             ps.setString(20, professor.getNumeroPassaporteProfessor());
-            ps.setInt(21, professor.getMunicipio().getIdMunicipio());            
+            ps.setInt(21, professor.getMunicipio().getIdMunicipio());
             ps.executeUpdate();
-             System.out.println("Dados inseridos com sucesso: "+ps.getUpdateCount());
+            System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
         } catch (SQLException e) {
             System.out.println("Erro ao inserir dados: " + e.getMessage());
         } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
-    
+
     @Override
     public void update(Professor professor) {
         PreparedStatement ps = null;
@@ -100,7 +100,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             ps.setString(19, professor.getNumeroPassaporteProfessor());
             ps.setInt(20, professor.getMunicipio().getIdMunicipio());
             ps.setInt(21, professor.getIdProfessor());
-            
+
             ps.executeUpdate();
         } catch (Exception ex) {
             System.err.println("Erro ao actualizar dados: " + ex.getLocalizedMessage());
@@ -108,7 +108,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             Conexao.closeConnection(conn, ps);
         }
     }
-    
+
     @Override
     public void delete(Professor professor) {
         PreparedStatement ps = null;
@@ -129,7 +129,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             }
         }
     }
-    
+
     @Override
     public Professor findById(Integer id) {
         PreparedStatement ps = null;
@@ -152,7 +152,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         }
         return professor;
     }
-    
+
     @Override
     public List<Professor> findAll() {
         PreparedStatement ps = null;
@@ -175,11 +175,11 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         }
         return professores;
     }
-    
+
     @Override
     public void popularComDados(Professor professor, ResultSet rs) {
         try {
-            
+
             professor.setIdProfessor(rs.getInt("id_professor"));
             professor.setNomeProfessor(rs.getString("nome_professor"));
             professor.setSobrenomeProfessor(rs.getString("sobrenome_professor"));
@@ -204,11 +204,11 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             Municipio municipio = new Municipio();
             municipio.setNomeMunicipio(rs.getString("nome_municipio"));
             professor.setMunicipio(municipio);
-            
+
         } catch (SQLException ex) {
             System.err.println("Erro ao carregar dados do professor: " + ex.getLocalizedMessage());
         }
-        
+
     }
-    
+
 }
