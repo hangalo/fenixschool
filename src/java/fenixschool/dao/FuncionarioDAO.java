@@ -23,15 +23,15 @@ import java.util.logging.Logger;
  * @author Aisha Lubadika
  */
 public class FuncionarioDAO implements  GenericoDAO<Funcionario>{
-    private static final String INSERIR ="INSERT INTO funcionario (nome_funcionario, sobrenome_funcionario, data_nascimento, id_sexo, casa_funcionario, bairro_funcionario, distrito_funcionario, id_municipio, foto_funcionario, url_foto_funcionario, telefone_fixo, telefone_movel, email_funcionario)VALUES(?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String ACTUALIZAR="UPDATE funcionario SET  nome_funcionario= ?, sobrenome_funcionario= ?,data_nascimento =?,id_sexo= ?, casa_funcionario = ?,bairro_funcionario=?,distrito_funcionario = ?,id_municipio = ?,foto_funcionario = ?,url_foto_funcionario=?, telefone_fixo= ?, telefone_movel= ?, email_funcionario= ? WHERE id_funcionario = ?;";
+    private static final String INSERIR ="INSERT INTO funcionario (nome_funcionario, sobrenome_funcionario, data_nascimento, sexo, casa_funcionario, bairro_funcionario, distrito_funcionario, id_municipio, foto_funcionario, url_foto_funcionario, telefone_fixo, telefone_movel, email_funcionario)VALUES(?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String ACTUALIZAR="UPDATE funcionario SET  nome_funcionario= ?, sobrenome_funcionario= ?,data_nascimento =?,sexo= ?, casa_funcionario = ?,bairro_funcionario=?,distrito_funcionario = ?,id_municipio = ?,foto_funcionario = ?,url_foto_funcionario=?, telefone_fixo= ?, telefone_movel= ?, email_funcionario= ? WHERE id_funcionario = ?;";
     private static final String ELIMINAR="DELETE FROM funcionario WHERE id_funcionario=?";
-    private static final String BUSCAR_POR_CODIGO="SELECT id_funcionario f,nome_funcionario f,sobrenome_funcionario f,data_nascimento f,id_sexo s,casa_funcionario f,bairro_funcionario f,distrito_funcionario f,id_municipio m,foto_funcionario f,url_foto_funcionario f,telefone_fixo f,telefone_movel f,email_funcionario f" 
+    private static final String BUSCAR_POR_CODIGO="SELECT id_funcionario f,nome_funcionario f,sobrenome_funcionario f,data_nascimento f, sexo s,casa_funcionario f,bairro_funcionario f,distrito_funcionario f,id_municipio m,foto_funcionario f,url_foto_funcionario f,telefone_fixo f,telefone_movel f,email_funcionario f" 
              + "FROM funcionario f "
              + "INNER JOIN sexo s ON f.id_sexo=s.id_sexo "
              + "INNER JOIN municipio m ON m.id_municipio=f.id_municipio ";
     
-    private static final String LISTAR_TUDO ="SELECT id_funcionario,nome_funcionario,sobrenome_funcionario,data_nascimento,id_sexo,casa_funcionario,bairro_funcionario,distrito_funcionario,id_municipio,foto_funcionario,url_foto_funcionario,telefone_fixo,telefone_movel ,email_funcionario FROM funcionario;";
+    private static final String LISTAR_TUDO ="SELECT id_funcionario,nome_funcionario,sobrenome_funcionario,data_nascimento, sexo,casa_funcionario,bairro_funcionario,distrito_funcionario,id_municipio,foto_funcionario,url_foto_funcionario,telefone_fixo,telefone_movel ,email_funcionario FROM funcionario;";
     
     Connection conn;
     PreparedStatement ps;
@@ -42,23 +42,7 @@ public class FuncionarioDAO implements  GenericoDAO<Funcionario>{
              System.out.println("O valor passado não pode ser nulo");
         }
         try {
-            
-            /*
-            nome_funcionario,
-            sobrenome_funcionario
-            ,data_nascimento,
-            id_sexo,
-            casa_funcionario,
-            bairro_funcionario,
-            distrito_funcionario,
-            id_municipio,
-            foto_funcionario, 
-            url_foto_funcionario,
-            telefone_fixo,
-            telefone_movel,
-            email_funcionario
-            
-            */
+         
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
             ps.setString(1, funcionario.getNomeFuncionario());
@@ -194,7 +178,7 @@ public class FuncionarioDAO implements  GenericoDAO<Funcionario>{
             funcionario.setSobrenomeFuncionario(rs.getString("sobrenome_funcionario"));
             funcionario.setDataNascimentoFuncionario(rs.getDate("data_nascimento"));
  
-            funcionario.setSexo(Sexo.getAbreviatura(rs.getString("designacao_sexo")));
+            funcionario.setSexo(Sexo.getAbreviatura(rs.getString("sexo")));
 
             funcionario.setCasaFuncionario(rs.getString("casa_funcionario"));
             funcionario.setBairroFuncionario(rs.getString("bairro_funcionario"));
@@ -203,12 +187,12 @@ public class FuncionarioDAO implements  GenericoDAO<Funcionario>{
             Municipio municipio = new Municipio();
             municipio.setNomeMunicipio("nome_municipio");
             funcionario.setMunicipio(municipio);
-            funcionario.setUrlfotoFuncionario(rs.getString("urlfoto_funcionario"));
+            funcionario.setUrlfotoFuncionario(rs.getString("url_foto_funcionario"));
 
             funcionario.setFotoFuncionario(rs.getBytes("foto_funcionario"));
             funcionario.setTelefoneFixoFuncionario(rs.getString("telefone_fixo"));
            funcionario.setTelefoneMovelFuncionario(rs.getString("telefone_movel"));
-            funcionario.setEmailFuncionario(rs.getString("email_aluno"));
+            funcionario.setEmailFuncionario(rs.getString("email_funcionario"));
 
             
         } catch (SQLException ex) {
