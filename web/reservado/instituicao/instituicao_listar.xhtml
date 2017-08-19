@@ -18,12 +18,7 @@
 
                         <!--inicio dos Comandos para o Datatable-->
                         <p:dataTable value="#{instituicaoMBean.instituicoes}" var="instituicao" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-                            <p:column style="width: 50px;">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Código"/>
-                                </f:facet>
-                                <h:outputText value="#{instituicao.idIsntituicao}"/>
-                            </p:column>
+                           
                             <p:column>
                                 <f:facet name="header">
                                     <p:outputLabel value="Nome da Instituição"/>
@@ -32,16 +27,19 @@
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <p:outputLabel value="Nº da casa"/>
+                                    <p:outputLabel value="Endereço"/>
                                 </f:facet>
-                                <h:outputText value="#{instituicao.casaInstituicao}"/>
+                                <h:outputText value="#{instituicao.casaInstituicao},#{instituicao.bairroInstituicao}" />
                             </p:column>
-                            <p:column>
+                          
+                                 <p:column style="width: 20px; text-align: center">
                                 <f:facet name="header">
-                                    <p:outputLabel value="Rua"/>
+                                    <h:outputText value="Foto"/>
                                 </f:facet>
-                                <h:outputText value="#{instituicao.ruaInstituicao}"/>
+                                     <h:graphicImage value="/instituicaoServlet?file=#{instituicao.urlLogoInstituicao}" alt="foto" width="50" height="50"/>
+                                
                             </p:column>
+                            
                             <p:column width="100">
                                 <f:facet name="header">
                                     <p:outputLabel value="Operações"/>
@@ -160,6 +158,8 @@
                             <p:tabView>
                                 <p:tab title="Visualização">
                                     <p:panelGrid columns="2">
+                                         <p:outputLabel value="Foto:"/>
+                                         <h:graphicImage value="/professorVisualizarFotoServlet?file=#{instituicaoMBean.instituicao.urlLogoInstituicao}" alt="foto" width="100" height="100" style="border: solid #CC0000"/>
                                         <p:outputLabel value="Código:"/>
                                         <h:outputText value="#{instituicaoMBean.instituicao.idIsntituicao}"/>
                                         <p:outputLabel value="Nome da instituição:"/>

@@ -34,7 +34,7 @@ public class FuncionarioVisualizarFotoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+         try {
 
             //Obtem o parametro ficheiro do cliente
             String ficheiro = request.getParameter("file");
@@ -42,6 +42,8 @@ public class FuncionarioVisualizarFotoServlet extends HttpServlet {
             if (ficheiro == null) {
                 ficheiro = FicheiroUtil.getPathPastaAplicacaoServlet(request) + "padrao.png";
             }
+
+            
 
             BufferedInputStream in = new BufferedInputStream(new FileInputStream(FicheiroUtil.getPathPastaAplicacaoServlet(request) + ficheiro));
 
@@ -60,6 +62,7 @@ public class FuncionarioVisualizarFotoServlet extends HttpServlet {
             ex.printStackTrace(System.out);
         }
 
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

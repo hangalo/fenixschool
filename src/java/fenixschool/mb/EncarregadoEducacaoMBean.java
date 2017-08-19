@@ -115,8 +115,8 @@ public class EncarregadoEducacaoMBean implements Serializable {
 
             //Transforma o objecto em Byte para ser guardado no banco de dados
             byte[] foto = IOUtils.toByteArray(arquivo.getInputstream());
-            encarregadoEducacao.setFoto_encarregado(foto);
-            encarregadoEducacao.setUrl_foto_encarregado(arquivo.getFileName());
+            encarregadoEducacao.setFotoEncarregado(foto);
+            encarregadoEducacao.setUrlFotoEncarregado(arquivo.getFileName());
 
             //comandos para guardar o objecto numa pasta local ou num disco duro
             InputStream in = new BufferedInputStream(arquivo.getInputstream());

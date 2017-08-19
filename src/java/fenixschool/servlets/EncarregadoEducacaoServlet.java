@@ -5,6 +5,7 @@
  */
 package fenixschool.servlets;
 
+import fenixschool.util.FicheiroUtil;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,50 +21,52 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EncarregadoEducacaoServlet", urlPatterns = {"/encarregadoEducacaoServlet"})
 public class EncarregadoEducacaoServlet extends HttpServlet {
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        try {
-            
-            String separador = System.getProperty("file.separator");
-            String caminhoAbsoluto = "C:" + separador + "fotos" + separador;
 
-            //obter o paramero do ficheiro;
-            String ficheiro = request.getParameter("ficheiro");
-            BufferedInputStream in = new BufferedInputStream(new FileInputStream(caminhoAbsoluto + ficheiro));
-            
-            //obter o conteudo da imagem
-            byte[] foto = new byte[in.available()];
-            in.read();
-            in.close();
-            
-            //Escreve o conteudo 
-            response.getOutputStream().write(foto);
-            
-            
-        } catch (IOException e) {
-            System.err.println("Ficheiro nao encontrado. " +e.getLocalizedMessage());
-            e.printStackTrace(System.out);
+        try {
+
+            //Obtem o parametro ficheiro do cliente
+            String ficheiro = request.getParameter("file");
+
+            if (ficheiro == null) {
+                ficheiro = FicheiroUtil.getPathPastaAplicacaoServlet(request) + "padrao.png";
+            }
+
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(FicheiroUtil.getPathPastaAplicacaoServlet(request) + ficheiro));
+
+//Obtem o conteudo da imagem
+            if (in.available() > 0) {
+                byte[] bytes = new byte[in.available()];
+                in.read(bytes);
+                in.close();
+
+                // Write image contents to response
+                // Escreve o conteudo na saida
+                response.getOutputStream().write(bytes);
+            }
+        } catch (IOException ex) {
+            System.err.println("Ficheiro nao encontraro:\t" + ex.getMessage());
+            ex.printStackTrace(System.out);
         }
-        
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-    
+
 }

@@ -18,44 +18,35 @@
                     <h:form enctype="multipart/form-data"> 
                         <h1>Lista de encarregados de educação</h1>
                         <p:dataTable  value="#{encarregadoEducacaoMBean.encarregadoEducacoes}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                            <p:column style="width:40px; text-align: center;">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Código"/>
-                                </f:facet>
-                                <h:outputText value="#{encarregado.id_encarregado_educacao}"/>
-                            </p:column>
+                           
                             <p:column>
                                 <f:facet name="header">
                                     <p:outputLabel value="Nome"/>
                                 </f:facet>
-                                <h:outputText value="#{encarregado.nome_encarregado}"/>
+                                <h:outputText value="#{encarregado.nomeEncarregado}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <p:outputLabel value="Sobrenome"/>
                                 </f:facet>
-                                <h:outputText value="#{encarregado.sobrenome_encarregado}"/>
+                                <h:outputText value="#{encarregado.sobrenomeEncarregado}"/>
                             </p:column>
                             <p:column style="width: 40px;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Sexo"/>
                                 </f:facet>
-                                <h:outputText  value="#{encarregado.sexo_encarregado.abreviatura}"/>
+                                <h:outputText  value="#{encarregado.sexo.abreviatura}"/>
                             </p:column>
 
-                            <p:column>
+                            <p:column style="width: 60px; text-align: center">
                                 <f:facet name="header">
-                                    <p:outputLabel value="Profissão"/>
+                                    <h:outputText value="Foto"/>
                                 </f:facet>
-                                <h:outputText value="#{encarregado.id_profissao_encarregado.nomeProfissao}"/>
+                                <h:graphicImage value="/encarregadoEducacaoServlet?file=#{encarregado.urlFotoEncarregado}" alt="foto" width="50" height="50"/>
+                                
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Telefone principal"/>
-                                </f:facet>
-                                <h:outputText value="#{encarregado.telemovel_principal_encarregado}"/>
-                            </p:column>
-                            <p:column style="width: 100px;">
+                           
+                            <p:column style="width: 150px;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Operações"/>
                                 </f:facet>
@@ -81,33 +72,33 @@
                         <p:dialog id="ver" widgetVar="dialogVer" showEffect="clip" hideEffect="blind">
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Nome: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.nome_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.nomeEncarregado}" />
                                 <p:outputLabel value="Sobrenome: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenome_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenomeEncarregado}" />
                                 <p:outputLabel value="Profissão: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.id_profissao_encarregado.nomeProfissao}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.profissao.nomeProfissao}" />
                                 <p:outputLabel value="Telemóvel: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovel_alternativo_encarregado}"/>
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelAlternativoEncarregado}"/>
                                 <p:outputLabel value="Sexo:"/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo_encarregado}"/>
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo}"/>
                                 <p:outputLabel value="Bairro: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairro_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairroEncarregado}" />
                                 <p:outputLabel value="Casa Nº: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.casa_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.casaEncarregado}" />
                                 <p:outputLabel value="Rua"/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.rua_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.ruaEncarregado}" />
                                 <p:outputLabel value="Distrito: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.distrito_urbano_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.distritoUrbanoEncarregado}" />
                                 <p:outputLabel value="Município: "/>
                                 <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.municipio.nomeMunicipio}" />
                                 <p:outputLabel value="Email principal: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.email_principal_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailPrincipalEncarregado}" />
                                 <p:outputLabel value="Email alternativo: "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.email_alternativo_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailAlternativoEncarregado}" />
                                 <p:outputLabel value="URL da foto "/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.url_foto_encarregado}" />
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.urlFotoEncarregado}" />
                                 <p:outputLabel value="Foto: "/>
-                                <p:graphicImage value="/encarregadoEducacaoServlet/?ficheiro=#{encarregadoEducacaoMBean.encarregadoEducacao.foto_encarregado}" alt="Imagem" width="50" height="50"/>
+                                <p:graphicImage value="/encarregadoEducacaoServlet/?ficheiro=#{encarregadoEducacaoMBean.encarregadoEducacao.fotoEncarregado}" alt="Imagem" width="50" height="50"/>
 
                             </h:panelGrid>
                         </p:dialog>
@@ -132,18 +123,18 @@
                                     <p:growl showDetail="true" id="messages"/>
                                     <h:panelGrid columns="2">
                                         <p:outputLabel value="Nome:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.nome_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.nomeEncarregado}"/>
                                         <p:outputLabel value="Sobrenome:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenome_encarregado}" />
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenomeEncarregado}" />
                                         <p:outputLabel value="Sexo:"/>
-                                        <p:selectOneRadio value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo_encarregado}">
+                                        <p:selectOneRadio value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo}">
                                             <f:selectItems  value="#{encarregadoEducacaoMBean.opSexos}"/>
                                         </p:selectOneRadio>
                                         <p:outputLabel value="Foto:"/>
                                         <p:fileUpload fileUploadListener="#{encarregadoEducacaoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                                         <p:outputLabel value="Profissão:"/>
                                         <!--SelectOneMenu Profissao-->
-                                        <p:selectOneMenu style="width: 230px;" label="Profissão:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.id_profissao_encarregado}" converter="profissaoConverter">
+                                        <p:selectOneMenu style="width: 230px;" label="Profissão:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.profissao}" converter="profissaoConverter">
                                             <f:selectItem itemLabel="--Seleccione a profissão--" value="#{null}" noSelectionOption="true"/>
                                             <f:selectItems var="profissao" value="#{profissaoMBean.profissoes}" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}"/>
                                         </p:selectOneMenu>
@@ -154,13 +145,13 @@
                                 <p:tab title="Endereço">
                                     <h:panelGrid columns="2">
                                         <p:outputLabel value="Casa:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.casa_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.casaEncarregado}"/>
                                         <p:outputLabel value="Rua:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.rua_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.ruaEncarregado}"/>
                                         <p:outputLabel value="Bairro:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairro_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairroEncarregado}"/>
                                         <p:outputLabel value="Distrito urbano:"/>                              
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.distrito_urbano_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.distritoUrbanoEncarregado}"/>
                                         <p:outputLabel value="Município:"/>
                                         <!--SelectOneMenu Municipio-->
                                         <p:selectOneMenu label="Município:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.municipio}" required="true" converter="municipioConverter">
@@ -174,13 +165,13 @@
                                 <p:tab title="Telefone/Email">
                                     <h:panelGrid columns="2">
                                         <p:outputLabel  value="Telefone principal:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovel_principal_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelPrincipalEncarregado}"/>
                                         <p:outputLabel value="Telefone altenativo:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovel_alternativo_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelAlternativoEncarregado}"/>
                                         <p:outputLabel value="Email principal:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.email_principal_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailPrincipalEncarregado}"/>
                                         <p:outputLabel value="Email alternativo:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.email_alternativo_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailAlternativoEncarregado}"/>
                                     </h:panelGrid>
                                 </p:tab>
 
@@ -193,25 +184,25 @@
                     <!--Inicio do dialogo editar-->
                     <p:dialog header="Alterar Encarregado" id="Editar" widgetVar="dialogAlterarEncarregado" showEffect="clip" hideEffect="blind" width="800">
                         <h:form id="Ediatr" enctype="multipart/form-data">
-                            <h:inputHidden value="#{encarregadoEducacaoMBean.encarregadoEducacao.id_encarregado_educacao}"/>
+                            <h:inputHidden value="#{encarregadoEducacaoMBean.encarregadoEducacao.idEncarregadoEducacao}"/>
                             <p:tabView>
 
                                 <p:tab title="Dados Pessoais">
                                     <p:growl showDetail="true" id="messages"/>
                                     <h:panelGrid columns="2">
                                         <p:outputLabel value="Nome:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.nome_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.nomeEncarregado}"/>
                                         <p:outputLabel value="Sobrenome:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenome_encarregado}" />
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenomeEncarregado}" />
                                         <p:outputLabel value="Sexo:"/>
-                                        <p:selectOneRadio value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo_encarregado}">
+                                        <p:selectOneRadio value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo}">
                                             <f:selectItems  value="#{encarregadoEducacaoMBean.opSexos}"/>
                                         </p:selectOneRadio>
                                         <p:outputLabel value="Foto:"/>
                                         <p:fileUpload  fileUploadListener="#{encarregadoEducacaoMBean.fileUpload}" mode="advanced" update="messages"  multiple="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                                         <p:outputLabel value="Profissão:"/>
                                         <!--SelectOneMenu Profissao-->
-                                        <p:selectOneMenu style="width: 230px;" label="Profissão:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.id_profissao_encarregado}" converter="profissaoConverter">
+                                        <p:selectOneMenu style="width: 230px;" label="Profissão:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.profissao}" converter="profissaoConverter">
                                             <f:selectItem itemLabel="--Seleccione a profissão--" value="#{null}" noSelectionOption="true"/>
                                             <f:selectItems var="profissao" value="#{profissaoMBean.profissoes}" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}"/>
                                         </p:selectOneMenu>
@@ -222,13 +213,13 @@
                                 <p:tab title="Endereço">
                                     <h:panelGrid columns="2">
                                         <p:outputLabel value="Casa:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.casa_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.casaEncarregado}"/>
                                         <p:outputLabel value="Rua:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.rua_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.ruaEncarregado}"/>
                                         <p:outputLabel value="Bairro:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairro_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairroEncarregado}"/>
                                         <p:outputLabel value="Distrito urbano:"/>                              
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.distrito_urbano_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.distritoUrbanoEncarregado}"/>
                                         <p:outputLabel value="Município:"/>
                                         <!--SelectOneMenu Municipio-->
                                         <p:selectOneMenu value="#{encarregadoEducacaoMBean.encarregadoEducacao.municipio}" converter="municipioConverter">
@@ -242,13 +233,13 @@
                                 <p:tab title="Telefone/Email">
                                     <h:panelGrid columns="2">
                                         <p:outputLabel  value="Telefone principal:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovel_principal_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelPrincipalEncarregado}"/>
                                         <p:outputLabel value="Telefone altenativo:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovel_alternativo_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelAlternativoEncarregado}"/>
                                         <p:outputLabel value="Email principal:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.email_principal_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailPrincipalEncarregado}"/>
                                         <p:outputLabel value="Email alternativo:"/>
-                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.email_alternativo_encarregado}"/>
+                                        <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailAlternativoEncarregado}"/>
                                     </h:panelGrid>
                                 </p:tab>
 
