@@ -38,6 +38,15 @@
                                 </f:facet>
                                   <h:outputText value="#{funcionario.sobrenomeFuncionario}"/>
                             </p:column>
+                            
+                                                        
+                            <p:column style="width: 20px; text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="Foto"/>
+                                </f:facet>
+                                <h:graphicImage value="//funcionarioVisualizarFotoServlet?file=#{funcionario.urlfotoFuncionario}" alt="foto" width="50" height="50"/>
+                                
+                            </p:column>
                              
                               <p:column style="width: 100px; text-align: center">
                                 <f:facet name="header">

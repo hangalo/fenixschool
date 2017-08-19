@@ -10,6 +10,7 @@ import fenixschool.dao.ProfissaoDAO;
 import fenixschool.modelo.EncarregadoEducacao;
 import fenixschool.modelo.Profissao;
 import fenixschool.modelo.Sexo;
+import fenixschool.util.FicheiroUtil;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,9 +24,10 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
+
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import org.apache.commons.io.IOUtils;
@@ -39,7 +41,7 @@ import org.primefaces.model.UploadedFile;
 
 
 @ManagedBean(name = "encarregadoEducacaoMBean")
-@RequestScoped
+@SessionScoped
 
 public class EncarregadoEducacaoMBean implements Serializable {
 
@@ -118,7 +120,9 @@ public class EncarregadoEducacaoMBean implements Serializable {
 
             //comandos para guardar o objecto numa pasta local ou num disco duro
             InputStream in = new BufferedInputStream(arquivo.getInputstream());
-            File file = new File("C://fotos//" + arquivo.getFileName());
+               
+           File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arquivo.getFileName());
+           
 
             //Comandos para guardar no disco em rede
             // File file = new File("\\\\192.168.0.18\\photo\\fratiofmcpa"+arquivo.getFileName());
