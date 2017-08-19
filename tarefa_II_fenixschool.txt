@@ -31,6 +31,14 @@ em vez de @Named(...).....
 
 Colocar os novos links no menu Tarefas actuais
 
+>>>>> Trabalho com imangens
+
+Foi criada uma classe chamada FicheiroUtil que tem tres metodos cada um recupera um tipo de localização.
+Por enquanto as imagens são guardadas numa pasta do projecto
+>>>>Caminho relativo : \fenixschool\build\web\fotos
+>>> O caminho absoluto depende do computador de cada um (A aplicação deternima isto automaticamente): (No meu caso é):
+
+C:\Users\Informatica\Documents\NetBeansProjects\fenix\fenixschool\build\web\fotos
 
 
 >>>>>>>>>>Tarefa 2>>>>>>>>>> Tempo  de 21 de Agosto à 04 de Setembro

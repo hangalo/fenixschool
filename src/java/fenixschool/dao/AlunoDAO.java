@@ -25,16 +25,16 @@ import java.util.logging.Logger;
  */
 public class AlunoDAO implements GenericoDAO<Aluno> {
 
-    private static final String INSERIR = "INSERT INTO aluno(numero_aluno, nome_aluno, sobrenome_aluno, data_nascimento, casa_aluno, bairro_aluno, distrito_aluno, id_municipio, url_foto_aluno, foto_aluno, telefone_fixo, telefone_movel, email_aluno, id_profissao, sexo )VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String ACTUALIZAR = " UPDATE aluno SET numero_aluno=?,nome_aluno=?,sobrenome_aluno=?,data_nascimento=?,id_sexo=?,casa_aluno=?,bairro_aluno=?,distrito_aluno=?,id_municipio=?, url_foto_aluno=? foto_aluno=?,telefone_fixo=?,telefone_movel=?,email_aluno=?,id_profissao=? WHERE id_aluno=?";
-    private static final String ELIMINAR = "DELETE FROM aluno WHERE id_aluno=?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.sexo, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao p "
+    private static final String INSERT = "INSERT INTO aluno(numero_aluno, nome_aluno, sobrenome_aluno, data_nascimento, casa_aluno, bairro_aluno, distrito_aluno, id_municipio, url_foto_aluno, foto_aluno, telefone_fixo, telefone_movel, email_aluno, id_profissao, sexo )VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE = " UPDATE aluno SET numero_aluno=?,nome_aluno=?,sobrenome_aluno=?,data_nascimento=?,id_sexo=?,casa_aluno=?,bairro_aluno=?,distrito_aluno=?,id_municipio=?, url_foto_aluno=? foto_aluno=?,telefone_fixo=?,telefone_movel=?,email_aluno=?,id_profissao=? WHERE id_aluno=?";
+    private static final String DELETE = "DELETE FROM aluno WHERE id_aluno=?";
+    private static final String SELECT_BY_ID = "SELECT a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.sexo, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao p "
             + "FROM aluno a "
             + "INNER JOIN municipio m ON m.id_municipio=a.id_municipio "
             + "INNER JOIN profissao p ON p.id_profissao=a.id_profissao "
             + "WHERE id_aluno = ?";
 
-    private static final String LISTAR_TUDO = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao";
+    private static final String SELECT_ALL = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao";
 
     Connection conn;
     PreparedStatement ps;
@@ -50,7 +50,7 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
             
         
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERIR);
+            ps = conn.prepareStatement(INSERT);
             ps.setString(1, aluno.getNumeroAluno());
             ps.setString(2, aluno.getNomeAluno());
             ps.setString(3, aluno.getSobrenomeAluno());
@@ -84,7 +84,7 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(ACTUALIZAR);
+            ps = conn.prepareStatement(UPDATE);
             ps.setString(1, aluno.getNumeroAluno());
             ps.setString(2, aluno.getNomeAluno());
             ps.setString(3, aluno.getSobrenomeAluno());
@@ -119,7 +119,7 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(ELIMINAR);
+            ps = conn.prepareStatement(DELETE);
             ps.setInt(1, aluno.getIdAluno());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -137,7 +137,7 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
         try {
 
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(BUSCAR_POR_CODIGO);
+            ps = conn.prepareStatement(SELECT_BY_ID);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
@@ -163,7 +163,7 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
         try {
 
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(LISTAR_TUDO);
+            ps = conn.prepareStatement(SELECT_ALL);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Aluno aluno = new Aluno();
