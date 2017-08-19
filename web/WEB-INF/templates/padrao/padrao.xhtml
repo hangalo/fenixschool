@@ -37,13 +37,12 @@
                     <p:submenu label="Alunos" icon="ui-icon-check">
 
                         <p:column>
-                            <p:submenu label="Gestão alunos">
-                                <p:menuitem value="Alunos" url="/reservado/aluno/aluno_listar.jsf" ajax="false" icon="ui-icon-search" />
+                            <p:submenu label="Alunos.1">
                                 <p:menuitem value="Alunos.1.1" url="#" />
                                 <p:menuitem value="Alunos.1.2" url="#" />
                             </p:submenu>
-                            <p:submenu label="Encarregados">
-                                <p:menuitem value="Encarregados" url="/reservado/encarregado/encarregado_educacao_listar.jsf" ajax="false" icon="ui-icon-search" />
+                            <p:submenu label="Alunos.2">
+                                <p:menuitem value="Alunos.2.1" url="#" />
                                 <p:menuitem value="Alunos.2.2" url="#" />
                                 <p:menuitem value="Alunos.2.3" url="#" />
                             </p:submenu>
@@ -114,16 +113,16 @@
                             </p:submenu>
                         </p:column>
                     </p:submenu>
-                    
-                    
+
+
                     <p:submenu label="Utilitarios e Tabelas" icon="ui-icon-check">
                         <p:column>
                             <p:submenu label="Administração">
                                 <p:menuitem value="Departamentos" url="/reservado/departamento/departamento_listar.jsf" ajax="false" icon="ui-icon-search" />
-                               <p:menuitem value="Cursos" url="/reservado/curso/curso_listar.jsf" ajax="false" icon="ui-icon-search" />
-                                
-                                
-                                
+                                <p:menuitem value="Proprinas.1.2" url="#" />
+
+
+
                             </p:submenu>
                             <p:submenu label="Proprinas.2">
                                 <p:menuitem value="Proprinas.2.1" url="#" />
@@ -132,46 +131,104 @@
                             </p:submenu>
                         </p:column>
 
-                       
-                    </p:submenu>
-                    
-                    
-                     
-                    <p:submenu label="Escola" icon="ui-icon-check">
                         <p:column>
-                            <p:submenu label="Funcionarios">
-                                <p:menuitem value="Funcionarios" url="/reservado/funcionario/funcionario_listar.jsf" ajax="false" icon="ui-icon-search" />
-                              
-                                
-                                
-                                
+                            <p:submenu label="Proprinas.4" icon="ui-icon-check">
+                                <p:menuitem value="Proprinas.4.1" url="#" />
+                                <p:menuitem value="Proprinas.4.2" url="#" />
                             </p:submenu>
-                            <p:submenu label="Professores">
-                                <p:menuitem value="Cursos" url="/reservado/professor/professor_gestao.jsf" ajax="false" icon="ui-icon-search" />
-                                <p:menuitem value="Proprinas.2.2" url="#" />
-                                <p:menuitem value="Proprinas.2.3" url="#" />
+                            <p:submenu label="Proprinas.5">
+                                <p:menuitem value="Proprinas.5.1" url="#" />
+                                <p:menuitem value="Proprinas.5.2" url="#" />
+                                <p:menuitem value="Proprinas.5.3" url="#" />
                             </p:submenu>
                         </p:column>
-
-                       
                     </p:submenu>
-                    
+
+
                 </p:megaMenu>
 
 
             </ui:insert>
         </div>
         <div>
-            
+            <div id="left">
+                <ui:insert name="left">
+
+
+
+                    <h:form>
+
+                        <h3>Gestão de alunos</h3>
+                        <p:accordionPanel multiple="true">
+
+
+                            <p:tab title="Registar">
+                                <h:form>
+                                    <h:panelGrid columns="2" cellpadding="10">
+
+                                        <p:commandLink action="/reservado/departamento/departamento_listar" value="Deparatamentos"/><br/>
+                                        <p:commandLink action="/reservado/profissao/profissao_listar" value="Profissões"/><br/>
+                                        <p:commandLink action="/reservado/encarregado/encarregado_educacao_listar" value="Encarregados"/><br/>
+                                        <p:commandLink action="/reservado/curso/curso_listar" value="Cursos"/><br/>
+                                        <p:commandLink action="/reservado/aluno/aluno_listar" value="Alunos"/><br/>
+
+                                        <p:commandLink action="/reservado/funcionario/funcionario_listar" value="Funcionários"/><br/>
+                                        <p:commandLink action="/reservado/professor/professor_gestao" value="Professores"/><br/>
+                                        <p:commandLink action="/reservado/instituicao/instituicao_listar" value="Instituição"/><br/>
+                                        <p:commandLink action="/reservado/candidato/candidato_listar" value="Candidatos"/><br/>
+                                    </h:panelGrid>
+                                </h:form>
+                            </p:tab>
+
+                            <p:tab title="Pesquisar">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText value="Alunos..." />
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:accordionPanel>
+                    </h:form>
+
+
+
+
+                    <h:form>
+                        <h3>Gestão de Propinas</h3>
+                        <p:accordionPanel>
+
+
+                            <p:tab title="Nova propina">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText
+                                        value="propina" />
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Pesquisar">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <h:outputText value="propina." />
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:accordionPanel>
+
+                    </h:form>
+
+                </ui:insert>
+            </div>
             <div>
-               
+                <div id="right">
+                    <ui:insert name="right">Right</ui:insert>
+                </div>
                 <div id="content" class="right_content">
                     <ui:insert name="content">Content</ui:insert>
                 </div>
             </div>
         </div>
         <div id="bottom">
-            <ui:insert name="bottom">Powered By Fénix Inovation</ui:insert>
+            <ui:insert name="bottom">Bottom</ui:insert>
         </div>
 
     </h:body>

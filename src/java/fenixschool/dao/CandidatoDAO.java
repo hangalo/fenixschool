@@ -20,11 +20,11 @@ import java.sql.ResultSet;
 
 public class CandidatoDAO implements GenericoDAO<Candidato> {
 
-    private static final String INSERIR = "INSERT INTO candidato (numero_candidato, nome_candidato, sobrenome_candidado, data_nascimento, id_sexo, casa_candidato, bairro_candidato, distrito_candidato, id_municipio, url_foto_candidato, foto_candidato, telefone_fixo, telefone_movel, email_candidato, id_profissao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String ACTUALIZAR = "UPDATE candidato SET umero_candidato =?, nome_candidato=?, sobrenome_candidato=?, data_nascimento=?, id_sexo=?, casa_candidato=?, bairro_candidato=?, distrito_candidato=?,id_municipio=?, url_foto_candidato=?, foto_candidato=?, trlrfonr_fixo=?, telefone_movel=?, email_candidato=?, id_profissao=? WHERE id_candidato=? ";
+    private static final String INSERIR = "INSERT INTO candidato (numero_candidato, nome_candidato, sobrenome_candidato, data_nascimento, sexo, casa_candidato, bairro_candidato, distrito_candidato, id_municipio, url_foto_candidato, foto_candidato, telefone_fixo, telefone_movel, email_candidato, id_profissao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String ACTUALIZAR = "UPDATE candidato SET numero_candidato =?, nome_candidato=?, sobrenome_candidato=?, data_nascimento=?, id_sexo=?, casa_candidato=?, bairro_candidato=?, distrito_candidato=?,id_municipio=?, url_foto_candidato=?, foto_candidato=?, trlrfonr_fixo=?, telefone_movel=?, email_candidato=?, id_profissao=? WHERE id_candidato=? ";
     private static final String ELIMINAR = "DELETE FROM candidato WHERE id_candidato = ? ";
     private static final String LISTAR_POR_CODIGO = "SELECT * FROM canditado WHERE id_candidato =?";
-    private static final String LISTAR_TUDO = "SELECT * FROM candidato ORDER BY candidato ASC";
+    private static final String LISTAR_TUDO = "SELECT * FROM candidato ORDER BY nome_candidato ASC";
 
     Connection conn;
     PreparedStatement ps;
@@ -32,34 +32,37 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
 
     @Override
     public void save(Candidato candidato) {
-       
+
         if (candidato == null) {
             System.err.println("O campo anterior nao pode ser nulo");
         }
 
         try {
-           conn = Conexao.getConnection();
+            conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
 
-            ps.setString(1, candidato.getNomeCandidato());
-            ps.setString(2, candidato.getCasaCandidato());
-            ps.setString(3, candidato.getBairroCandidato());
-            ps.setString(4, candidato.getDistritoCandidato());
-            ps.setBytes(5, candidato.getFotoCandidato());
-            ps.setString(6, candidato.getEmailCandidato());
-            ps.setString(7, candidato.getSobrenomeCandidato());
-            ps.setString(8, candidato.getTelefoneFixo());
-            ps.setString(9, candidato.getTelefoneMovel());
+            ps.setString(1, candidato.getNumeroCandidato());
+            ps.setString(2, candidato.getNomeCandidato());
+            ps.setString(3, candidato.getSobrenomeCandidato());
+            ps.setDate(4, new java.sql.Date(candidato.getDataNascimento().getTime()));
+            ps.setString(5, candidato.getSexo().getAbreviatura());
+            ps.setString(6, candidato.getCasaCandidato());
+            ps.setString(7, candidato.getBairroCandidato());
+
+            ps.setString(8, candidato.getDistritoCandidato());
+            ps.setInt(9, candidato.getMunicipio().getIdMunicipio());
             ps.setString(10, candidato.getUrlFotoCandidato());
-            ps.setString(11, candidato.getSexo().getAbreviatura());
-              
-            ps.setInt(12, candidato.getMunicipio().getIdMunicipio());
-            ps.setInt(13, candidato.getProfissao().getIdProfissao());
-            ps.setString(14, candidato.getNumeroCandidato());
-            ps.setDate(15, new java.sql.Date(candidato.getDataNascimento().getTime()));
+            ps.setBytes(11, candidato.getFotoCandidato());
+            ps.setString(12, candidato.getTelefoneFixo());
+            ps.setString(13, candidato.getTelefoneMovel());
+            ps.setString(14, candidato.getEmailCandidato());
+            ps.setInt(15, candidato.getProfissao().getIdProfissao());
+
             ps.executeUpdate();
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             System.err.println("Erro a inserir dados: " + e.getLocalizedMessage());
+            System.out.println(e.getMessage());
         } finally {
             Conexao.closeConnection(conn, ps);
         }
@@ -74,7 +77,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
             System.err.println("O valor passado nao pode ser nulo");
         }
         try {
-           conn = Conexao.getConnection();
+            conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
 
             ps.setString(1, candidato.getNomeCandidato());
@@ -88,12 +91,12 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
             ps.setString(9, candidato.getTelefoneMovel());
             ps.setString(10, candidato.getUrlFotoCandidato());
             ps.setString(11, candidato.getSexo().getAbreviatura());
-              
+
             ps.setInt(12, candidato.getMunicipio().getIdMunicipio());
             ps.setInt(13, candidato.getProfissao().getIdProfissao());
             ps.setString(14, candidato.getNumeroCandidato());
             ps.setDate(15, new java.sql.Date(candidato.getDataNascimento().getTime()));
-             ps.setInt(16, candidato.getIdCandidato());
+            ps.setInt(16, candidato.getIdCandidato());
             ps.executeUpdate();
 
         } catch (Exception ex) {
@@ -104,7 +107,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
     }
 
     @Override
-    public void delete(Candidato candidato){
+    public void delete(Candidato candidato) {
         PreparedStatement ps = null;
         Connection conn = null;
         if (candidato == null) {
@@ -123,7 +126,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
     }
 
     @Override
-    public Candidato findById(Integer id){
+    public Candidato findById(Integer id) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -151,7 +154,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
     }
 
     @Override
-    public List<Candidato> findAll(){
+    public List<Candidato> findAll() {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -177,31 +180,36 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
     @Override
     public void popularComDados(Candidato candidato, ResultSet rs) {
         try {
-            candidato.setIdCandidato(rs.getInt(1));
-        candidato.setNomeCandidato(rs.getString(2));
-        candidato.setNumeroCandidato(rs.getString(3));
-        candidato.setSobrenomeCandidato(rs.getString(4));
-        candidato.setCasaCandidato(rs.getString(5));
-        candidato.setBairroCandidato(rs.getString(6));
-        candidato.setDistritoCandidato(rs.getString(7));
-        candidato.setTelefoneFixo(rs.getString(8));
-        candidato.setTelefoneMovel(rs.getString(9));
+            candidato.setIdCandidato(rs.getInt("id_candidato"));
+            candidato.setNumeroCandidato(rs.getString("numero_candidato"));
+            candidato.setNomeCandidato(rs.getString("nome_candidato"));
+            candidato.setSobrenomeCandidato(rs.getString("sobrenome_candidato"));
+            candidato.setDataNascimento(rs.getDate("data_nascimento"));
+            candidato.setSexo(Sexo.getAbreviatura(rs.getString("sexo")));
+            candidato.setCasaCandidato(rs.getString("casa_candidato"));
+            candidato.setBairroCandidato(rs.getString("bairro_candidato"));
+            candidato.setDistritoCandidato(rs.getString("distrito_candidato"));
+            
+            candidato.setTelefoneFixo(rs.getString("telefone_fixo"));
+            candidato.setTelefoneMovel(rs.getString("telefone_movel"));
+            candidato.setEmailCandidato(rs.getString("email_candidato"));
 
-        Municipio municipio = new Municipio();
-        municipio.setIdMunicipio(11);
-        candidato.setMunicipio(municipio);
+            Municipio municipio = new Municipio();
+            municipio.setIdMunicipio(rs.getInt("id_municipio"));
+            municipio.setNomeMunicipio(rs.getString("nome_municipio"));
+            candidato.setMunicipio(municipio);
 
-        candidato.setUrlFotoCandidato(rs.getString(12));
-        candidato.setFotoCandidato(rs.getBytes(13));
-         
+            candidato.setUrlFotoCandidato(rs.getString("url_foto_candidato"));
+            candidato.setFotoCandidato(rs.getBytes("foto_candidato"));
 
-        Profissao profissao = new Profissao();
-        profissao.setIdProfissao(14);
-        candidato.setProfissao(profissao);
+            Profissao profissao = new Profissao();
+            profissao.setIdProfissao(rs.getInt("id_profissao"));
+            profissao.setNomeProfissao(rs.getString("nome_profissao"));
+            candidato.setProfissao(profissao);
+            
 
-        candidato.setSexo(Sexo.getAbreviatura(rs.getString("designacao_sexo")));
-        
-      
+            candidato.setSexo(Sexo.getAbreviatura(rs.getString("sexo")));
+
         } catch (SQLException e) {
         }
     }
