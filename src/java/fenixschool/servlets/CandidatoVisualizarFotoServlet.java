@@ -5,6 +5,7 @@
  */
 package fenixschool.servlets;
 
+import fenixschool.util.FicheiroUtil;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,35 +29,20 @@ public class CandidatoVisualizarFotoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        try {
-
-            
-           
-            String separador = System.getProperty("file.separator");
-            String caminhoFicheiro = "C:" + separador + "fotos" + separador;
-           
-            // Equivalente a    String caminhoFicheiro = "C:\\fotos\\";
-                       
-        
+       try {
 
             //Obtem o parametro ficheiro do cliente
-            String ficheiroDesejado = request.getParameter("file");
+            String ficheiro = request.getParameter("file");
 
-         
+            if (ficheiro == null) {
+                ficheiro = FicheiroUtil.getPathPastaAplicacaoServlet(request) + "padrao.png";
+            }
 
-            File absolutePath = new File(caminhoFicheiro + ficheiroDesejado);
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(FicheiroUtil.getPathPastaAplicacaoServlet(request) + ficheiro));
 
-            FileInputStream fileInputStream = new FileInputStream(absolutePath);
-
-           
-            BufferedInputStream in = new BufferedInputStream(fileInputStream);
-           
-
-            
+//Obtem o conteudo da imagem
             if (in.available() > 0) {
-                //Obtem o conteudo da imagem
                 byte[] bytes = new byte[in.available()];
-               
                 in.read(bytes);
                 in.close();
 
@@ -65,10 +51,9 @@ public class CandidatoVisualizarFotoServlet extends HttpServlet {
                 response.getOutputStream().write(bytes);
             }
         } catch (IOException ex) {
-            System.err.println("File non trovato" + ex.getMessage());
+            System.err.println("Ficheiro nao encontraro:\t" + ex.getMessage());
             ex.printStackTrace(System.out);
         }
-
         
     }
 

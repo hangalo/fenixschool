@@ -76,7 +76,7 @@
                     <!-- Fim Formulario auxiliar-->
 
                     <!-- Dialogo Guardar-->
-                    <p:dialog header="Novo Candidato" widgetVar="dlgNovoCandidato" showEffect="explode" hideEffect="bounce" height="350">
+                    <p:dialog header="Novo Candidato" widgetVar="dlgNovoCandidato" showEffect="explode" hideEffect="bounce"  height="600" width="800">
                         <h:form enctype="multipart/form-data">
                             <p:tabView>
                                 <p:tab title="Dados Pessoais">
@@ -143,7 +143,7 @@
 
                     <!-- Dialogo Editar-->
 
-                    <p:dialog header="Alterar dados do candidato" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="350">
+                    <p:dialog header="Alterar dados do candidato" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"   height="600" width="800">
                         <h:form id="formEditar" enctype="multipart/form-data">
                             <p:tabView>
                                 <p:tab title="Dados Pessoais">
@@ -214,7 +214,7 @@
                     <!-- Fim Dialogo Editar-->
 
                     <!-- Inicio Dialogo Ver detalhes do candidato-->
-                    <p:dialog header="Detalhes do Candidato" id="ver" widgetVar="dlgVerCandidato" showEffect="explode" hideEffect="bounce"  height="300">
+                    <p:dialog header="Detalhes do Candidato" id="ver" widgetVar="dlgVerCandidato" showEffect="explode" hideEffect="bounce"  height="600" width="800">
 
                         <h:form id="formVer">
                             <p:tabView>
@@ -233,7 +233,7 @@
                                         <p:outputLabel value="Sexo:"/>
                                         <p:outputLabel id="sexo" value="#{candidatoMBean.candidato.sexo}"/>
                                         <p:outputLabel value="Foto:"/>
-                                        <h:graphicImage value="/professorVisualizarFotoServlet?file=#{candidatoMBean.candidato.urlFotoCandidato}" alt="foto" width="100" height="100" style="border: solid #CC0000"/>
+                                        <h:graphicImage value="/candidatoVisualizarFotoServlet?file=#{candidatoMBean.candidato.urlFotoCandidato}" alt="foto" width="100" height="100" style="border: solid #CC0000"/>
                                         <p:outputLabel value="Profissão:"/>
                                         <p:outputLabel id="droprofissao" value="#{candidatoMBean.candidato.profissao}" />
                                     </h:panelGrid>

@@ -10,6 +10,7 @@ import fenixschool.dao.ProfessorDAO;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Professor;
 import fenixschool.modelo.Sexo;
+import fenixschool.util.FicheiroUtil;
 import java.awt.event.ActionEvent;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -103,11 +104,7 @@ public class ProfessorMBean implements Serializable {
 
             //para guardar o ficheiro num pasta local (no disco duro)
             InputStream in = new BufferedInputStream(arq.getInputstream());
-
-            //File file = new File("C://fotos//" + arq.getFileName());
-            File file = new File(getRealPath() + "//fotos//" + arq.getFileName());
-
-            System.out.println("Caminho relatiovo>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + file.getAbsolutePath());
+            File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arq.getFileName());
 
             //Guarda num disco de rede
             //   File file = new File("\\\\192.168.0.18\\photo\\fratiofmcap\\" + arq.getFileName());

@@ -12,6 +12,7 @@ import fenixschool.modelo.Candidato;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Profissao;
 import fenixschool.modelo.Sexo;
+import fenixschool.util.FicheiroUtil;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,7 +32,8 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 
 
@@ -39,8 +41,8 @@ import javax.enterprise.context.RequestScoped;
  *
  * @author Elísio Kavaimunwa
  */
-@Named(value = "candidatoMBean")
-@RequestScoped
+@ManagedBean(name = "candidatoMBean")
+@SessionScoped
 public class CandidatoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -99,19 +101,19 @@ public class CandidatoMBean implements Serializable {
             candidato.setUrlFotoCandidato(arq.getFileName());
 
             //para guardar o ficheiro num pasta local (no disco duro)
-            InputStream in = new BufferedInputStream(arq.getInputstream());
-            File file = new File("C://fotos//" + arq.getFileName());
-           
-            //Guarda num disco de rede
-            //   File file = new File("\\\\192.168.0.18\\photo\\fratiofmcap\\" + arq.getFileName());
           
+            
+               InputStream in = new BufferedInputStream(arq.getInputstream());
+           File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arq.getFileName());
+           
+           
             FileOutputStream fout = new FileOutputStream(file);
             while (in.available() != 0) {
                 fout.write(in.read());
             }
             fout.close();
           
-            FacesMessage msg = new FacesMessage("Foto:", arq.getFileName() + "Carregada com sucesso");
+            FacesMessage msg = new FacesMessage("Foto:\t", arq.getFileName() + "\tCarregada com sucesso");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (IOException ex) {

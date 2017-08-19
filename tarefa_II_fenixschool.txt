@@ -1,0 +1,85 @@
+
+
+Pena
+
+
+>>> Atributos das classes devem seguir o padrao CamelCase
+
+
+>>>> Aisha e Paulo
+
+
+Rever instrucoes SQL quando se usa PreparedStatement
+
+
+
+>>>>>Para todos
+
+0 Valtar a correr o script da base de dados. Houve algumas alterações
+00 Testar as funcionalidades
+
+1 - Criar uma conta fenix com password fenix para usar no projecto (Conexao com a base de dados)
+
+2 - Usar
+@ManagedBean(name ="xxxxMBean")
+@SessionScoped
+
+
+em vez de @Named(...).....
+
+
+
+Colocar os novos links no menu Tarefas actuais
+
+
+
+>>>>>>>>>>Tarefa 2>>>>>>>>>> Tempo  de 21 de Agosto à 04 de Setembro
+
+
+Pena -> Verificar as funcionalidades nas entidades da tarefa 1
+	CRUD para:
+	-> ano_curricular
+	-> ano_letivo
+	-> boletim_notas
+	-> nota
+	
+
+Aisha -> Verificar as funconalidade das entidades da tarefa 1 -> Concluir as funcionalidades da tarefa 1 (Editar, Ver detalhes, Elimiar)
+	CRUD para:
+	-> certificado
+	-> ciclo_lectivo
+	-> turma
+
+
+Paulo ->  Verificar as funconalidades da entidades da tarefa 1 -> Concluir as funcionalidades da tarefa 1
+	CRUD para:
+	->classificacao_nova
+	->declaracao
+	->objetivo_declaracao
+
+Cardoso -> Verificar as funcionalidades da tarefa 1
+	CRUD para:
+	- > Mensalidade
+	->tipo_documento_identidade
+	-> tipo_disciplina
+
+
+
+Ju - > 
+Criar o CRUD para
+  ->docencia
+  ->local_emissao_documento
+ ->periodo_letivo
+
+Santo -> 
+Criar o CRUD para:
+-> Transferencia
+
+
+Deu ->
+Concluir o site do cliente e projectar o site da Fénix Inovation
+
+CRUD para:
+-> Matricula
+
+
