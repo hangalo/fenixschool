@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -34,8 +36,11 @@ import org.primefaces.model.UploadedFile;
  *
  * @author PENA
  */
-@Named(value = "encarregadoEducacaoMBean")
-@ViewScoped
+
+
+@ManagedBean(name = "encarregadoEducacaoMBean")
+@RequestScoped
+
 public class EncarregadoEducacaoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

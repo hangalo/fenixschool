@@ -10,6 +10,7 @@ import fenixschool.dao.MunicipioDAO;
 import fenixschool.modelo.Funcionario;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Sexo;
+import fenixschool.util.FicheiroUtil;
 import java.awt.event.ActionEvent;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.apache.commons.io.IOUtils;
@@ -35,8 +36,10 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Aisha Lubadika
  */
-@ManagedBean
-@ViewScoped
+
+
+@ManagedBean(name = "funcionarioMBean")
+@SessionScoped
 public class FuncionarioMBean implements Serializable{
 
     /**
@@ -105,10 +108,9 @@ public class FuncionarioMBean implements Serializable{
 
             //para guardar o ficheiro num pasta local (no disco duro)
             InputStream in = new BufferedInputStream(arq.getInputstream());
-           File file = new File("C://fotos//" + arq.getFileName());
+           File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arq.getFileName());
            
-           //Guarda num disco de rede
-          //   File file = new File("\\\\192.168.0.18\\photo\\fratiofmcap\\" + arq.getFileName());
+      
           
             FileOutputStream fout = new FileOutputStream(file);
             while (in.available() != 0) {
@@ -116,7 +118,7 @@ public class FuncionarioMBean implements Serializable{
             }
             fout.close();
           
-            FacesMessage msg = new FacesMessage("Foto:", arq.getFileName() + "Carregada com sucesso");
+            FacesMessage msg = new FacesMessage("Foto:\t", arq.getFileName() + "\tCarregada com sucesso");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (IOException ex) {

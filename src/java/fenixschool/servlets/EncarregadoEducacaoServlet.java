@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fenixschool.servlet;
+package fenixschool.servlets;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;

@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class ProfissaoDAO implements GenericoDAO<Profissao> {
 
-    private static final String INSERIR = "INSERT INTO profissao(nome_profissao)VALUES(?)";
-    private static final String ATUALIZAR = "UPDATE profissao SET nome_profissao=? WHERE id_profissao=?";
-    private static final String ELIMINAR = "DELETE FROM profissao WHERE id_profissao=?";
-    private static final String LISTAR_POR_CODIGO = "SELECT nome_profissao,id_profissao FROM profissao WHERE id_profissao=?";
-    private static final String LISTAR_TUDO = "SELECT nome_profissao,id_profissao FROM profissao";
+    private static final String INSERT = "INSERT INTO profissao(nome_profissao)VALUES(?)";
+    private static final String UPDATE = "UPDATE profissao SET nome_profissao=? WHERE id_profissao=?";
+    private static final String DELETE = "DELETE FROM profissao WHERE id_profissao=?";
+    private static final String SELECT_BY_ID = "SELECT id_profissao, nome_profissao FROM profissao WHERE id_profissao = ?";
+    private static final String SELECT_ALL = "SELECT id_profissao, nome_profissao FROM profissao";
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
@@ -36,7 +36,7 @@ public class ProfissaoDAO implements GenericoDAO<Profissao> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERIR);
+            ps = conn.prepareStatement(INSERT);
             ps.setString(1, profissao.getNomeProfissao());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -54,7 +54,7 @@ public class ProfissaoDAO implements GenericoDAO<Profissao> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(ATUALIZAR);
+            ps = conn.prepareStatement(UPDATE);
             ps.setString(1, profissao.getNomeProfissao());
             ps.setInt(2, profissao.getIdProfissao());
             ps.executeUpdate();
@@ -73,7 +73,7 @@ public class ProfissaoDAO implements GenericoDAO<Profissao> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(ELIMINAR);
+            ps = conn.prepareStatement(DELETE);
             ps.setInt(1, profissao.getIdProfissao());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -91,7 +91,7 @@ public class ProfissaoDAO implements GenericoDAO<Profissao> {
         try {
            
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(LISTAR_POR_CODIGO);
+            ps = conn.prepareStatement(SELECT_BY_ID);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
@@ -115,7 +115,7 @@ public class ProfissaoDAO implements GenericoDAO<Profissao> {
             
         try {
            conn = Conexao.getConnection();
-            ps = conn.prepareStatement(LISTAR_TUDO);
+            ps = conn.prepareStatement(SELECT_ALL);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Profissao profissao = new Profissao();

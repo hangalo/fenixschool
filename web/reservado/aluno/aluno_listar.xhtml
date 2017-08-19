@@ -19,12 +19,7 @@
                         <!--Inicio Data table-->
 
                         <p:dataTable value="#{alunoMBean.alunos}"   var="aluno" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                            <p:column style="width: 20px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="ID"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.idAluno}"/>
-                            </p:column>
+                           
 
                             <p:column style="width: 50px; text-align: center">
                                 <f:facet name="header">
@@ -46,83 +41,20 @@
                                 </f:facet>
                                 <h:outputText value="#{aluno.sobrenomeAluno}"/>
                             </p:column>
-                            
-                            <p:column style="width: 90px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Data de Nascimento"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.dataNascimentoAluno}"/>
-                            </p:column>
-                            
-                            <p:column style="width: 40px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Casa"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.casaAluno}"/>
-                            </p:column>
-                            
-                            <p:column>
+                                                   
+                                                      
+                            <p:column style="width: 20px; text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="Foto"/>
                                 </f:facet>
-                                <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{aluno.fotoAluno}" alt="foto" width="50" height="50"/>
+                                <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{aluno.urlfotoAluno}" alt="foto" width="50" height="50"/>
+                                
                             </p:column>
-                            
-                            <p:column style="width: 50px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Bairro"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.bairroAluno}"/>
-                            </p:column>
-                            
-                            <p:column style="width: 50px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Distrito"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.distritoAluno}"/>
-                            </p:column>
-                            
-                            <p:column style="width: 80px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Telefone Fixo"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.telefoneFixoAluno}"/>
-                            </p:column>
-                            
-                            <p:column style="width: 80px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Telefone Móvel"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.telefoneMovelAluno}"/>
-                            </p:column>
-                            
-                            <p:column style="width: 50px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Email"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.emailAluno}"/>
-                            </p:column>
-                            
-                            <p:column style="width: 40px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Sexo"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.sexo}"/>
-                            </p:column>
-                            
-                            <p:column style="width: 60px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Município"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.municipioAluno}"/>
-                            </p:column>
-                            
-                            <p:column style="width: 60px; text-align: center" >
-                                <f:facet name="header">
-                                    <p:outputLabel value="Profissão"/>
-                                </f:facet>
-                                <h:outputText value="#{aluno.profissaoAluno}"/>
-                            </p:column>
+                                                   
+                       
+                           
+                         
+                          
                             <!--Fim Formulário de Listagem-->
                             
 
@@ -165,8 +97,8 @@
                     <!--Fim  Formulario auxiliar-->
 
                     <!-- Inicio Dialogo Guardar-->
-                    <p:dialog header="Novo Aluno" widgetVar="dlgNovoAluno" showEffect="explode" hideEffect="bounce" height="480">
-                        <h:form>
+                    <p:dialog header="Novo Aluno" widgetVar="dlgNovoAluno" showEffect="explode" hideEffect="bounce" height="480" width="600">
+                        <h:form enctype="multipart/form-data">
                             
                             <p:tabView>
                                 <p:tab title="Dados Pessoais">
@@ -178,6 +110,10 @@
                                         <p:inputText value="#{alunoMBean.aluno.nomeAluno}" />
                                         <p:outputLabel value="Sobrenome:"/>
                                         <p:inputText value="#{alunoMBean.aluno.sobrenomeAluno}"/>
+                                        
+                                         <p:outputLabel value="Nascimento"/>
+                                         <p:calendar value="#{alunoMBean.aluno.dataNascimentoAluno}" pattern="dd/MM/yyyy"/>
+                                        
                                         <p:outputLabel value="Sexo:"/>
                                         <p:selectOneRadio value="#{alunoMBean.aluno.sexo}">
                                             <f:selectItems value="#{alunoMBean.opSexos}" />
@@ -187,8 +123,10 @@
                                             <f:selectItem itemLabel="Selecione a Profissão" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{alunoMBean.profissoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
                                         </p:selectOneMenu>
-                                        <p:outputLabel value="Foto:"/>
-                                        <p:fileUpload fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                                                                              
+                                         <h:outputLabel value="Foto:" for="foto" />
+                        <p:fileUpload fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png|pdf|doc|docx)$/"/>
+                                        
                                     </h:panelGrid>
                                      </p:tab>
                             
@@ -223,16 +161,16 @@
                             
                                 </p:tabView>
                             
-
+                              <p:commandButton value="Guardar" actionListener="#{alunoMBean.guardar(evt)}"  update="growl" resetValues="true" ajax="false"/>
                         </h:form>
-                        <p:commandButton value="Guardar" actionListener="#{alunoMBean.guardar(evt)}"/>
+                      
                     </p:dialog>
 
                     <!-- Fim  Dialogo Guardar-->
 
                     <!-- Inicio Dialogo Editar-->
-                        <p:dialog header="Alterar dados do Aluno" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="450">
-                        <h:form id="formEditar">
+                        <p:dialog header="Alterar dados do Aluno" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="480" width="600">
+                        <h:form id="formEditar" enctype="multipart/form-data">
                             <p:growl id="growl" showDetail="true" sticky="true"/>
                             <h:inputHidden value="#{alunoMBean.aluno.idAluno}"/>
                             <h:panelGrid columns="2" title="Editar aluno">
@@ -282,9 +220,11 @@
 
                     <!-- Inicio Dialogo Ver detalhes do aluno-->
                     
-                    <p:dialog header="Detalhes do Aluno" id="ver" widgetVar="dlgVerAluno" showEffect="explode" hideEffect="bounce"  height="250">
+                    <p:dialog header="Detalhes do Aluno" id="ver" widgetVar="dlgVerAluno" showEffect="explode" hideEffect="bounce"  height="480" width="600">
                         <h:form id="formVer">
                             <h:panelGrid columns="2">
+                                 <p:outputLabel value="Foto:"/>
+                                 <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{alunoMBean.aluno.urlfotoAluno}" alt="foto" width="100" height="100" style="border: solid #CC0000"/>
                                 <p:outputLabel value="Codigo:"/>
                                 <p:outputLabel value="#{alunoMBean.aluno.idAluno}"/>
                                 <p:outputLabel value="Nome:"/>

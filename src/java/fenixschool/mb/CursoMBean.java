@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
@@ -30,7 +30,7 @@ import javax.faces.bean.ViewScoped;
 
 
 @ManagedBean(name = "cursoMBean")
-@ViewScoped
+@RequestScoped
 public class CursoMBean implements  Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -53,8 +53,8 @@ public class CursoMBean implements  Serializable{
     public void inicializar() {
         curso = new Curso();
         cursoDAO = new CursoDAO();
-        cursos = new ArrayList<>();
-
+     //   cursos = new ArrayList<>();
+     cursos= cursoDAO.findAll();
     }
 
     public Curso getCurso() {
@@ -70,7 +70,7 @@ public class CursoMBean implements  Serializable{
   
 
     public List<Curso> getCursos() {
-        cursos = cursoDAO.findAll();
+      //  cursos = cursoDAO.findAll();
         return cursos;
     }
 

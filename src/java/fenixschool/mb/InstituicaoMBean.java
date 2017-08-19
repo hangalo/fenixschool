@@ -21,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
@@ -30,7 +31,9 @@ import org.primefaces.model.UploadedFile;
  *
  * @author PENA
  */
-@Named(value = "instituicaoMBean")
+
+
+ @ManagedBean(name = "instituicaoMBean")
 @RequestScoped
 public class InstituicaoMBean implements Serializable {
 

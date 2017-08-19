@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
@@ -25,8 +27,10 @@ import javax.faces.context.FacesContext;
  *
  * @author PENA
  */
-@Named(value = "municipioMBean")
-@ViewScoped
+
+        
+        @ManagedBean(name = "municipioMBean")
+@RequestScoped
 public class MunicipioMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

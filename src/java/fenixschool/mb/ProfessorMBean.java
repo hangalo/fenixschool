@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.apache.commons.io.IOUtils;
@@ -36,8 +37,8 @@ import org.primefaces.model.UploadedFile;
  * @author informatica
  */
 @ManagedBean(name = "professorMBean")
-@RequestScoped
-public class ProfessorMBean implements  Serializable{
+@ViewScoped
+public class ProfessorMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -102,7 +103,11 @@ public class ProfessorMBean implements  Serializable{
 
             //para guardar o ficheiro num pasta local (no disco duro)
             InputStream in = new BufferedInputStream(arq.getInputstream());
-            File file = new File("C://fotos//" + arq.getFileName());
+
+            //File file = new File("C://fotos//" + arq.getFileName());
+            File file = new File(getRealPath() + "//fotos//" + arq.getFileName());
+
+            System.out.println("Caminho relatiovo>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + file.getAbsolutePath());
 
             //Guarda num disco de rede
             //   File file = new File("\\\\192.168.0.18\\photo\\fratiofmcap\\" + arq.getFileName());
@@ -119,6 +124,10 @@ public class ProfessorMBean implements  Serializable{
             ex.printStackTrace(System.out);
         }
 
+    }
+
+    public String getRealPath() {
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
     }
 
     public String newSave() {

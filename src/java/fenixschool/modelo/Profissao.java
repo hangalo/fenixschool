@@ -64,7 +64,7 @@ public class Profissao {
 
     @Override
     public String toString() {
-        return "Profissao{" + "nomeProfissao=" + nomeProfissao + '}';
+        return this.nomeProfissao;
     }
     
     

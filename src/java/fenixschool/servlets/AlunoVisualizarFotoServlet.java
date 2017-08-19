@@ -5,6 +5,7 @@
  */
 package fenixschool.servlets;
 
+import fenixschool.util.FicheiroUtil;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +26,29 @@ public class AlunoVisualizarFotoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         try {
+
+            //Obtem o parametro ficheiro do cliente
+            String ficheiro = request.getParameter("file");
+
+             System.out.println(" Valor Imagems>>>>>>"+ficheiro);
+                 
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(FicheiroUtil.getPathPastaAplicacaoServlet(request) + ficheiro));
+            //Obtem o conteudo da imagem
+            byte[] bytes = new byte[in.available()];
+            in.read(bytes);
+            in.close();
+
+            // Write image contents to response
+            // Escreve o conteudo na saida
+            response.getOutputStream().write(bytes);
+
+        } catch (IOException ex) {
+            System.err.println("Ficheiro nao encontraro:\t" + ex.getMessage());
+            ex.printStackTrace(System.out);
+        }
+
+        /*
         try {
 
             
@@ -65,7 +89,7 @@ public class AlunoVisualizarFotoServlet extends HttpServlet {
             System.err.println("File non trovato" + ex.getMessage());
             ex.printStackTrace(System.out);
         }
-
+*/
     }
         
     
