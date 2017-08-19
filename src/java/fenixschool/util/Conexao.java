@@ -22,7 +22,7 @@ public class Conexao {
         String driver = "com.mysql.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/fenixschoolem";
         String user = "root";
-        String password = "";
+        String password = "root";
         try {
             Class.forName(driver);
             con = DriverManager.getConnection(url, user, password);
