@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -70,7 +68,7 @@ public class AnoCurricularDAO implements GenericoDAO<AnoCurricular>{
 
     @Override
     public void delete(AnoCurricular anoCurricular){
-         if (anoCurricular==null) {
+        if (anoCurricular == null) {
             System.out.println("O campo passado nao pode ser nulo");
         }
         try {
@@ -79,15 +77,16 @@ public class AnoCurricularDAO implements GenericoDAO<AnoCurricular>{
             ps.setInt(1, anoCurricular.getIdAnoCurricular());
             ps.executeUpdate();
         } catch (SQLException ex) {
-               System.out.println("Erro ao eliminar registro: "+ex.getMessage());
-       }finally{
+            System.out.println("Erro ao eliminar registro: " + ex.getMessage());
+        } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
 
     @Override
     public AnoCurricular findById(Integer id) {
-         AnoCurricular anoCurricular = new AnoCurricular();
+         
+        AnoCurricular anoCurricular = new AnoCurricular();
            
         try {
             

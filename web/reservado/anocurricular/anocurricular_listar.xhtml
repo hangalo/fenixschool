@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Ano curricular</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+
+                <!--Inicido da datatable-->
+                <h:form id="frmListar">
+                    <h1>Lista de anos curriculares</h1>
+                    <p:dataTable  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                  var="anocurricular" value="#{anoCurricularMBean.anoCurriculares}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
+                        <p:column style="width: 30px;">
+                            <f:facet name="header">
+                                <p:outputLabel value="Código"/>
+                            </f:facet>
+                            <h:outputText value="#{anocurricular.idAnoCurricular}"/>
+                        </p:column>
+                        <p:column style="width: 200px;">
+                            <f:facet name="header">
+                                <p:outputLabel value="Ano Curirricular"/>
+                            </f:facet>
+                            <h:outputText value="#{anocurricular.anoCurricular}"/>
+                        </p:column>
+                        <p:column style="width: 55px;">
+                            <f:facet name="header">
+                                <p:outputLabel value="Operações"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-trash" action="#{anoCurricularMBean.delete}">
+                                <f:setPropertyActionListener target="#{anoCurricularMBean.anoCurricular}" value="#{anocurricular}"/>
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-pencil" update=":FrmEditar:editar" oncomplete="PF('dialogoEditar').show();">
+                                <f:setPropertyActionListener target="#{anoCurricularMBean.anoCurricular}" value="#{anocurricular}"/>
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-zoomin" update=":FrmVer:ver" oncomplete="PF('dialogoVer').show();">
+                                <f:setPropertyActionListener target="#{anoCurricularMBean.anoCurricular}" value="#{anocurricular}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <f:facet name="footer">
+                            Total de anos curricular: #{anoCurricularMBean.anoCurriculares.size()}
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+                <!--Fim do datatable-->
+
+                <!--Inicio do comando para auxiliar-->
+                <h:form id="Operacoes">
+                    <p:commandButton value="Novo" type="button" icon="ui-icon-plus" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
+                    <p:commandLink action="index" value="Voltar"/>
+                </h:form>
+                <!--Fim do formulario para auxiliar-->
+
+
+                <!--Inicio do formulario ver-->
+                <h:form id="FrmVer">
+                    <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Código"/>
+                            <h:outputText value="#{anoCurricularMBean.anoCurricular.idAnoCurricular}"/>
+                            <p:outputLabel value="Ano Curricular"/>
+                            <h:outputText value="#{anoCurricularMBean.anoCurricular.anoCurricular}"/>
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <!--Fim do formulario ver-->
+
+
+                <!--Inicio do formulario editar-->
+                <h:form id="FrmEditar">
+                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                        <h:inputHidden value="#{anoCurricularMBean.anoCurricular.idAnoCurricular}"/>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Ano Curricular"/>
+                            <h:inputText value="#{anoCurricularMBean.anoCurricular.anoCurricular}"/>
+                        </h:panelGrid>
+                        <p:commandButton action="#{anoCurricularMBean.edit(event)}" icon="ui-icon-disk" value="Guardar"/>
+                    </p:dialog>
+                </h:form>
+                <!--Fim do formulario editar-->
+
+                <!--Inicio do formulario Guardar-->
+                <h:form id="FrmGuardar">
+                    <p:dialog id="dialogoNovo" widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind">
+                        <h:panelGrid>
+                            <p:outputLabel value="Ano Curricular"/>
+                            <h:inputText value="#{anoCurricularMBean.anoCurricular.anoCurricular}"/>
+                        </h:panelGrid>
+                        <p:commandButton actionListener="#{anoCurricularMBean.guardar(event)}" value="Guardar" icon="ui-icon-disk"/>
+                    </p:dialog>
+                </h:form>
+                <!--Fim do formulario guardar-->
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

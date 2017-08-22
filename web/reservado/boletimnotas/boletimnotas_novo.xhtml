@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Novo boletim de notas</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <p:messages autoUpdate="true" showIcon="true" showDetail="true"/>
+                <p:panel header="Cadastro de um novo boletim de notas" footer="Regitos de boletins de notas">
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Aluno:"/>
+                            <p:selectOneMenu  value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter">
+                                <f:selectItem itemLabel="--Selecione o aluno--" value="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{boletimNotasMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Data:"/>
+                            <p:calendar value="#{boletimNotasMBean.boletimNota.data_boletin_notas}" pattern="dd/MM/yyyy" size="10"/>
+                        </h:panelGrid>
+                        <p:commandButton  icon="ui-icon-plus" value="Guardar" actionListener="#{boletimNotasMBean.guardar(event)}" ajax="false"/>
+                    </h:form>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

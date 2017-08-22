@@ -5,8 +5,8 @@
  */
 package fenixschool.converter;
 
-import fenixschool.dao.CandidatoDAO;
-import fenixschool.modelo.Candidato;
+import fenixschool.dao.AlunoDAO;
+import fenixschool.modelo.Aluno;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -14,31 +14,32 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author Elísio Kavaimunwa
+ * @author PENA
  */
-@FacesConverter(value = "candidatoConverter", forClass = Candidato.class)
-public class CandidatoConverter implements Converter{
+@FacesConverter(value = "alunoConverter ", forClass = Aluno.class)
+public class AlunoConverter implements Converter {
 
-    CandidatoDAO candidatoDAO = new CandidatoDAO();
-    
+    AlunoDAO alunoDAO = new AlunoDAO();
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-       Integer id = Integer.parseInt(value);
+
+        Integer id = Integer.parseInt(value);
         try {
-            return candidatoDAO.findById(id);
-        } catch (Exception ex) {
-            System.err.println("Erro na conversão: " + ex.getMessage());
+            return alunoDAO.findById(id);
+        } catch (Exception e) {
+            System.err.println("Erro na conversão: " + e.getMessage());
         }
         return null;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-         
-      if (value != null) {
-            return ((Candidato) value).getIdCandidato().toString();
+        if (value != null) {
+            Aluno aluno = (Aluno) value;
+            return String.valueOf(aluno.getIdAluno());
         }
         return null;
     }
-    
+
 }

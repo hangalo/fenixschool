@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>lista de boletins de notas</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+
+                <!--Listar os boletins-->
+                <form>
+                    <p:dataTable paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 var="boletim" value="#{boletimNotasMBean.boletinsNotas}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom" >
+                        <p:column style="width: 40px;">
+                            <f:facet name="header">
+                                <p:outputLabel value="Código"/>
+                            </f:facet>
+                            <p:outputLabel value="#{boletim.id_boletin_notas}"/>
+                        </p:column>
+                        <p:column style="width: 200px;">
+                            <f:facet name="header">
+                                <p:outputLabel value="Aluno"/>
+                            </f:facet>
+                            <p:outputLabel value="#{boletim.aluno.nomeAluno}"/>
+                        </p:column>
+                        <p:column style="width: 100px;">
+                            <f:facet name="header">
+                                <p:outputLabel value="Data"/>
+                            </f:facet>
+                            <p:outputLabel value="#{boletim.data_boletin_notas}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column style="width: 100px;">
+                            <f:facet name="header">
+                                <p:outputLabel value="Operações"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-trash" value="#{boletimNotasMBean.delete()}">
+                                <f:setPropertyActionListener target="#{boletimNotasMBean.boletimNota}" value="#{boletim}"/>
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-pencil" update=":FrmEditar:editar" oncomplete="PF('dialogoEditar').show();">
+                                <f:setPropertyActionListener target="#{boletimNotasMBean.boletimNota}" value="#{boletim}"/>
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-zoomin" update=":FrmVer:ver" oncomplete="PF('dialogoVer').show();">
+                                <f:setPropertyActionListener target="#{boletimNotasMBean.boletimNota}" value="#{boletim}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <f:facet name="footer">
+                            Total de registos: #{boletimNotasMBean.boletinsNotas.size()}
+                        </f:facet>
+                    </p:dataTable>
+                </form>
+                <!--Fim do datatable-->
+
+                <!--Formulario para auxiliar-->
+                <h:form id="Operacoes">
+                    <p:commandButton  icon="ui-icon-plus" value="Novo" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
+                    <p:commandLink value="Voltar" action="index"/>
+                </h:form>
+                <!-- fim do Formluario para auxiliar-->
+
+
+                <!--Formulario para guardar um novo registro-->
+                <h:form id="FrmGuardar">
+                    <p:dialog widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Aluno:"/>
+                            <p:selectOneMenu  value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter">
+                                <f:selectItem itemLabel="--Selecione o aluno--" value="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{boletimNotasMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Data:"/>
+                            <p:calendar value="#{boletimNotasMBean.boletimNota.data_boletin_notas}" pattern="dd/MM/yyyy" size="10"/>
+                        </h:panelGrid>
+                        <p:commandButton icon="ui-icon-disk" value="Guardar" actionListener="#{boletimNotasMBean.guardar(event)}"/>
+                    </p:dialog>
+                </h:form>
+                <!--Fim do formulario-->
+
+                <!--Formulario editar-->
+                <h:form id="FrmEditar">
+                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                        <h:inputHidden value="#{boletimNotasMBean.boletimNota.data_boletin_notas}"/>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Aluno:"/>
+                            <p:selectOneMenu  value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter">
+                                <f:selectItem itemLabel="--Selecione o aluno--" value="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{boletimNotasMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Data:"/>
+                            <p:calendar value="#{boletimNotasMBean.boletimNota.data_boletin_notas}" pattern="dd/MM/yyyy" size="10"/>
+                        </h:panelGrid>
+                        <p:commandButton value="Guardar" icon="ui-icon-plus" action="#{boletimNotasMBean.edit(event)}"/>
+                    </p:dialog>
+                </h:form>
+                <!--Fim do formulario aditar-->
+
+                <!--Formulario ver-->
+                <h:form id="FrmVer">
+                    <p:dialog header="Detalhes" id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
+                        <p:tabView>
+                            <p:tab title="Dados do boletim">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Código:"/>
+                                    <h:outputText value="#{boletimNotasMBean.boletimNota.id_boletin_notas}"/>
+                                    <p:outputLabel value="Data:"/>
+                                    <p:outputLabel value="#{boletimNotasMBean.boletimNota.data_boletin_notas}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </p:outputLabel>
+                                </p:panelGrid>
+                            </p:tab>
+
+                            <p:tab title="Dados do aluno">
+                                <p:outputLabel value="Nº:"/>
+                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.numeroAluno}"/>
+                                <p:outputLabel value="Nome:"/>
+                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.nomeAluno}"/>
+                                <p:outputLabel value="Sobrenome:"/>
+                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.sobrenomeAluno}"/>
+                                <p:outputLabel value="Data de nascimento:"/>
+                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.dataNascimentoAluno}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </p:outputLabel>
+                                <p:outputLabel value="Sexo:"/>
+                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.sexo}"/>
+                            </p:tab>
+                        </p:tabView>
+                    </p:dialog>
+                </h:form>
+                <!--Fim-->
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
