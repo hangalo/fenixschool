@@ -10,7 +10,10 @@ import fenixschool.dao.ProfissaoDAO;
 import fenixschool.modelo.EncarregadoEducacao;
 import fenixschool.modelo.Profissao;
 import fenixschool.modelo.Sexo;
+<<<<<<< HEAD
+=======
 import fenixschool.util.FicheiroUtil;
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,11 +26,15 @@ import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+<<<<<<< HEAD
+import javax.faces.context.FacesContext;
+=======
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import javax.faces.context.FacesContext;
 
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import org.apache.commons.io.IOUtils;
@@ -115,6 +122,14 @@ public class EncarregadoEducacaoMBean implements Serializable {
 
             //Transforma o objecto em Byte para ser guardado no banco de dados
             byte[] foto = IOUtils.toByteArray(arquivo.getInputstream());
+<<<<<<< HEAD
+            encarregadoEducacao.setFoto_encarregado(foto);
+            encarregadoEducacao.setUrl_foto_encarregado(arquivo.getFileName());
+
+            //comandos para guardar o objecto numa pasta local ou num disco duro
+            InputStream in = new BufferedInputStream(arquivo.getInputstream());
+            File file = new File("C://fotos//" + arquivo.getFileName());
+=======
             encarregadoEducacao.setFotoEncarregado(foto);
             encarregadoEducacao.setUrlFotoEncarregado(arquivo.getFileName());
 
@@ -123,6 +138,7 @@ public class EncarregadoEducacaoMBean implements Serializable {
                
            File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arquivo.getFileName());
            
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
 
             //Comandos para guardar no disco em rede
             // File file = new File("\\\\192.168.0.18\\photo\\fratiofmcpa"+arquivo.getFileName());

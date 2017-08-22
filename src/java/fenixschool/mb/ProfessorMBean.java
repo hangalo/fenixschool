@@ -5,8 +5,15 @@
  */
 package fenixschool.mb;
 
+<<<<<<< HEAD
+import fenixschool.dao.CursoDAO;
 import fenixschool.dao.MunicipioDAO;
 import fenixschool.dao.ProfessorDAO;
+import fenixschool.modelo.Curso;
+=======
+import fenixschool.dao.MunicipioDAO;
+import fenixschool.dao.ProfessorDAO;
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Professor;
 import fenixschool.modelo.Sexo;
@@ -46,9 +53,22 @@ public class ProfessorMBean implements Serializable {
     private Professor professor;
     private ProfessorDAO professorDAO;
     private List<Professor> professores;
+<<<<<<< HEAD
+     private MunicipioDAO municipioDAO;
+  
+    private List<Municipio> municipios;
+    
+    public ProfessorMBean() {
+    }
+    
+    
+    
+   
+=======
     private MunicipioDAO municipioDAO;
 
     private List<Municipio> municipios;
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
 
     public ProfessorMBean() {
     }
@@ -77,6 +97,16 @@ public class ProfessorMBean implements Serializable {
         }
         return list;
     }
+<<<<<<< HEAD
+    
+        public List<Municipio> getMunicipios() {
+            
+            municipios = municipioDAO.findAll();
+        
+        return municipios;
+    }
+=======
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
 
     public List<Municipio> getMunicipios() {
 
@@ -135,7 +165,11 @@ public class ProfessorMBean implements Serializable {
     public void guardar(ActionEvent evt) {
         professorDAO.save(professor);
         professor = new Professor();
+<<<<<<< HEAD
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Professor registado com sucesso"));
+=======
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Professor registado com sucesso"));
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
     }
 
     public String startEdit() {

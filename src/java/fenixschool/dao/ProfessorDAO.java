@@ -21,7 +21,11 @@ import java.util.List;
  * @author HP
  */
 public class ProfessorDAO implements GenericoDAO<Professor> {
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
     private static final String INSERT = "INSERT INTO professor (nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor, casa_professor, rua_professor,bairro_professor,distrito_urbano_professor,telemovel_principal_professor, telemovel_alternativo_professor,telefone_principal_professor,telefone_alternativo_professor, email_principal_professor,email_aternativo_professor,numero_bi_professor,iban_professor,numero_passaporte_professor, id_municipio)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE Professor SET nome_professor = ?, sobrenome_professor = ?,data_nascimento_professor = ?,sexo_professor = ?,nif_professor = ?,foto_professor = ?,url_foto_professor = ?, casa_professor = ?,rua_professor = ?,bairro_professor = ?,distrito_urbano_professor = ?,telemovel_principal_professor = ?, telemovel_alternativo_professor = ?,telefone_principal_professor = ?,telefone_alternativo_professor = ?, email_principal_professor = ?,email_aternativo_professor = ?,numero_bi_professor = ?,iban_professor = ?,numero_passaporte_professor = ?, id_municipio = ? WHERE id_professor = ?";
     private static final String DELETE = "DELETE FROM Professor WHERE id_professor = ?";
@@ -55,6 +59,15 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             ps.setString(14, professor.getTelefonePrincipalProfessor());
             ps.setString(15, professor.getTelefoneAlternativoProfessor());
             ps.setString(16, professor.getEmailPrincipalProfessor());
+<<<<<<< HEAD
+            ps.setString(16, professor.getEmailAlternativoProfessor());
+            ps.setString(17, professor.getNumeroBIProfessor());
+            ps.setString(18, professor.getIBAMProfessor());
+            ps.setString(19, professor.getNumeroPassaporteProfessor());
+            ps.setInt(20, professor.getMunicipio().getIdMunicipio());            
+            ps.executeUpdate();
+             System.out.println("Dados inseridos com sucesso: "+ps.getUpdateCount());
+=======
             ps.setString(17, professor.getEmailAlternativoProfessor());
             ps.setString(18, professor.getNumeroBIProfessor());
             ps.setString(19, professor.getIBAMProfessor());
@@ -62,6 +75,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             ps.setInt(21, professor.getMunicipio().getIdMunicipio());
             ps.executeUpdate();
             System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
         } catch (SQLException e) {
             System.out.println("Erro ao inserir dados: " + e.getMessage());
         } finally {
