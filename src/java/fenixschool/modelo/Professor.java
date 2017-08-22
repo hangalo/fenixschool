@@ -5,13 +5,16 @@
  */
 package fenixschool.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author HP
  */
-public class Professor {
+public class Professor implements Serializable{
+
+    private static final long serialVersionUID = 1L;
     private int IdProfessor;
     private String nomeProfessor;
     private String sobrenomeProfessor;

@@ -24,9 +24,9 @@ import java.util.logging.Logger;
 public class InstituicaoDAO implements GenericoDAO<Instituicao> {
 
     private static final String INSERIR = "INSERT INTO insituicao()VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String ACTUALIZAR = "UPDATE insituicao SET nome_instituicao=?, casa_instituicao=?, rua_instituicao=?, bairro_instituicao=?, telefone_fixo_instituicao=?, telefone_unitel_instituicao=?, telefone_movicel_instituicao=?, email_instituicao=?, home_instituicao=?, logotipo_instituicao=?, urllogotipo_instituicao=? WHERE id_instituicao=?";
+    private static final String ACTUALIZAR = "UPDATE insituicao SET nome_insituicao = ?, casa_insituicao = ?, rua_insituicao = ?, bairro_insituicao = ?,telefone_fixo_insituicao = ?, telefone_unitel_insituicao = ?,telefone_movicel_insituicao = ?,email_insituicao = ?,home_insituicao = ?,logotipo_insituicao = ?,urllogotipo_insituicao = ? WHERE id_insituicao = ?";
     private static final String ELIMINAR = "DELETE FROM insituicao WHERE id_insituicao=?";
-    private static final String LISTAR_POR_CODIGO = "SELECT * FROM instituicao WHERE id_insituicao=_";
+    private static final String LISTAR_POR_CODIGO = "SELECT * FROM instituicao WHERE id_insituicao=?";
     private static final String LISTAR_TUDO = "SELECT * FROM insituicao";
     Connection conn;
     PreparedStatement ps;

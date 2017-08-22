@@ -37,21 +37,22 @@
                     <p:submenu label="Alunos" icon="ui-icon-check">
 
                         <p:column>
-                            <p:submenu label="Alunos.1">
-                                <p:menuitem value="Alunos.1.1" url="#" />
-                                <p:menuitem value="Alunos.1.2" url="#" />
+                            <p:submenu label="Candidaturas">
+                                <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo.jsf" ajax="false" icon="ui-icon-search" />
+                                <p:menuitem value="Candidatos" url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
+
                             </p:submenu>
-                            <p:submenu label="Alunos.2">
-                                <p:menuitem value="Alunos.2.1" url="#" />
-                                <p:menuitem value="Alunos.2.2" url="#" />
-                                <p:menuitem value="Alunos.2.3" url="#" />
+                            <p:submenu label="Alunos">
+                                <p:menuitem value="Novo Aluno" url="reservado/aluno/aluno_novo.jsf" />
+                                <p:menuitem value="Alunos registados" url="reservado/aluno/aluno_listar.jsf" />
+
                             </p:submenu>
                         </p:column>
 
                         <p:column>
-                            <p:submenu label="Alunos.4">
-                                <p:menuitem value="Alunos.4.1" url="#" />
-                                <p:menuitem value="Alunos.4.2" url="#" />
+                            <p:submenu label="Encarregado">
+                                <p:menuitem value="Novo Encarregado" url="/reservado/encarregado/encarregado_educacao_novo.jsf" />
+                                <p:menuitem value="Encarregados" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
                             </p:submenu>
                             <p:submenu label="Alunos.5">
                                 <p:menuitem value="Alunos.5.1" url="#" />
@@ -101,122 +102,79 @@
                             </p:submenu>
                         </p:column>
 
+                    </p:submenu>
+
+
+                    <p:submenu label="Gestão RH" icon="ui-icon-check">
                         <p:column>
-                            <p:submenu label="Proprinas.4" icon="ui-icon-check">
-                                <p:menuitem value="Proprinas.4.1" url="#" />
-                                <p:menuitem value="Proprinas.4.2" url="#" />
+                            <p:submenu label="Funcionários">
+                                <p:menuitem value="Novo funcionario" url="/reservado/funcionario/funcionario_novo.jsf" ajax="false" icon="ui-icon-search" />
+                                <p:menuitem value="Funcionarios" url="/reservado/funcionario/funcionario_listar.jsf" ajax="false" icon="ui-icon-search" />
+
+
                             </p:submenu>
-                            <p:submenu label="Proprinas.5">
-                                <p:menuitem value="Proprinas.5.1" url="#" />
-                                <p:menuitem value="Proprinas.5.2" url="#" />
-                                <p:menuitem value="Proprinas.5.3" url="#" />
+                            <p:submenu label="Professores">
+
+                                <p:menuitem value="Novo Professor" url="/reservado/professor/professor_novo.jsf" />
+                                <p:menuitem value="Professores" url="/reservado/professor/professor_gestao.jsf" />
                             </p:submenu>
                         </p:column>
+
                     </p:submenu>
+
+                    <p:submenu label="Tabelas" icon="ui-icon-check">
+                        <p:column>
+                            <p:submenu label="Administração">
+                                <p:menuitem value="Departamentos" url="/reservado/departamento/departamento_listar.jsf" ajax="false" icon="ui-icon-search" />
+                                <p:menuitem value="Profissões" url="/reservado/profissao/profissao_listar.jsf" ajax="false" icon="ui-icon-search" />
+
+                                <p:menuitem value="Cursos" url="/reservado/curso/curso_listar.jsf" ajax="false" icon="ui-icon-search" />
+                            </p:submenu>
+                            <p:submenu label="Instituição">
+
+                                <p:menuitem  value="Instituição" url="/reservado/instituicao/instituicao_listar.jsf" />
+                                <p:menuitem value="Proprinas.2.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+
+                    </p:submenu>
+                    
+                    
+                    
+                      <p:submenu label="Trarefas actuais" icon="ui-icon-check">
+                        <p:column>
+                            <p:submenu label="Tarefa">
+                                <p:menuitem value="Classificação de Notas" url="/reservado/classificacao_nota/classificacaoNota_listar.jsf" />
+                                <p:menuitem value="XXXXX" url="#" />
+
+                                <p:menuitem value="XXXX" url="#" />
+                            </p:submenu>
+                            <p:submenu label="XXXXX">
+
+                                <p:menuitem  value="XXXX" url="#" />
+                                <p:menuitem value="XXXX.2.3" url="#" />
+                            </p:submenu>
+                        </p:column>
+
+                    </p:submenu>
+
+
                 </p:megaMenu>
 
 
             </ui:insert>
         </div>
         <div>
-            <div id="left">
-                <ui:insert name="left">
 
-
-
-                    <h:form>
-
-                        <h3>Gestão de alunos</h3>
-                        <p:accordionPanel multiple="true">
-
-
-                            <p:tab title="Registar">
-                                <h:form>
-                                    <h:panelGrid columns="2" cellpadding="10">
-
-                                        <p:commandLink action="/reservado/departamento/departamento_listar" value="Deparatamentos"/><br/>
-                                        <p:commandLink action="/reservado/profissao/profissao_listar" value="Profissões"/><br/>
-                                        <p:commandLink action="/reservado/encarregado/encarregado_educacao_listar" value="Encarregados"/><br/>
-                                        <p:commandLink action="/reservado/curso/curso_listar" value="Cursos"/><br/>
-                                        
-                                         <p:commandLink action="/reservado/professor/professor_gestao" value="Professores"/><br/>
-                                        
-                                        
-
-                                    </h:panelGrid>
-                                </h:form>
-                            </p:tab>
-
-                            <p:tab title="Pesquisar">
-                                <h:panelGrid columns="2" cellpadding="10">
-
-                                    <h:outputText value="Alunos..." />
-                                </h:panelGrid>
-                            </p:tab>
-
-                        </p:accordionPanel>
-                    </h:form>
-
-                    <h:form>
-                        <h3>Gestão de matriculas</h3>
-                        <p:accordionPanel>
-
-
-                            <p:tab title="Nova matricula">
-                                <h:panelGrid columns="2" cellpadding="10">
-
-                                    <h:outputText
-                                        value="Matricula" />
-                                </h:panelGrid>
-                            </p:tab>
-                            <p:tab title="Pesquisar">
-                                <h:panelGrid columns="2" cellpadding="10">
-
-                                    <h:outputText value="Matricula." />
-                                </h:panelGrid>
-                            </p:tab>
-
-                        </p:accordionPanel>
-
-                    </h:form>
-
-
-                    <h:form>
-                        <h3>Gestão de Propinas</h3>
-                        <p:accordionPanel>
-
-
-                            <p:tab title="Nova propina">
-                                <h:panelGrid columns="2" cellpadding="10">
-
-                                    <h:outputText
-                                        value="propina" />
-                                </h:panelGrid>
-                            </p:tab>
-                            <p:tab title="Pesquisar">
-                                <h:panelGrid columns="2" cellpadding="10">
-
-                                    <h:outputText value="propina." />
-                                </h:panelGrid>
-                            </p:tab>
-
-                        </p:accordionPanel>
-
-                    </h:form>
-
-                </ui:insert>
-            </div>
             <div>
-                <div id="right">
-                    <ui:insert name="right">Right</ui:insert>
-                </div>
+
                 <div id="content" class="right_content">
                     <ui:insert name="content">Content</ui:insert>
                 </div>
             </div>
         </div>
         <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
+            <ui:insert name="bottom">Powered by Fénix Inovation</ui:insert>
         </div>
 
     </h:body>

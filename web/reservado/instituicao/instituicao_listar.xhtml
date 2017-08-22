@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Instituição</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <h:form>
+                        <h1>Instituição</h1>
+
+                        <!--inicio dos Comandos para o Datatable-->
+                        <p:dataTable value="#{instituicaoMBean.instituicoes}" var="instituicao" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                           
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Nome da Instituição"/>
+                                </f:facet>
+                                <h:outputText value="#{instituicao.nomeInstituicao}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Endereço"/>
+                                </f:facet>
+                                <h:outputText value="#{instituicao.casaInstituicao},#{instituicao.bairroInstituicao}" />
+                            </p:column>
+                          
+                                 <p:column style="width: 20px; text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="Foto"/>
+                                </f:facet>
+                                     <h:graphicImage value="/instituicaoServlet?file=#{instituicao.urlLogoInstituicao}" alt="foto" width="50" height="50"/>
+                                
+                            </p:column>
+                            
+                            <p:column width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton  icon="ui-icon-trash" action="#{instituicaoMBean.delete}">
+                                    <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoEditar').show();">
+                                    <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin" update=":ver" oncomplete="PF('dialogoVer').show();">
+                                    <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <f:facet name="footer">
+                                Total de instituições:  (#{instituicaoMBean.instituicoes.size()})
+                            </f:facet>
+                        </p:dataTable>
+                        <!--Fim dos Comandos para o Datatable-->
+
+                    </h:form>
+
+                    <h:form id="Operacoes">
+                        <p:commandButton value="Nova Instituição" type="button" onclick="PF('dialogoGuardar').show();"/>
+                        <p:commandLink action="index" value="Voltar"/>
+                    </h:form>
+                    <!--inicio do dialogo guardar-->
+                    <p:dialog id="guardar" widgetVar="dialogoGuardar" showEffect="clip" hideEffect="blind" style="width: 500px;">
+                        <h:form enctype="multipart/form-data"> 
+                            <p:tabView>
+                                <p:tab title="Dados da Instituição">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Nome da instituição:"/>
+                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.nomeInstituicao}"/>
+                                        <p:outputLabel value="Home:"/>
+                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
+                                        <p:outputLabel value="Logotipo:"/>
+                                        <p:fileUpload  fileUploadListener="#{instituicaoMBean.fileUpload}" mode="advanced"   multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/" />
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Endereço">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Casa nº:"/>
+                                        <h:inputText size="10" value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
+                                        <p:outputLabel value="Rua:"/>
+                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
+                                        <p:outputLabel value="Bairro:"/>
+                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.bairroInstituicao}" />
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Contactos">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Telefone fixo:"/>
+                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
+                                        <p:outputLabel value="Telefone Unitel:"/>
+                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
+                                        <p:outputLabel value="Telefone Movicel:"/>
+                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}" />
+                                        <p:outputLabel value="email:"/>
+                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.emailInstituicao}" />
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                            <p:commandButton value="Guardar" action="#{instituicaoMBean.guardar(event)}" ajax="false"/>
+                        </h:form>
+                    </p:dialog>
+                    <!--Fim do dialogo guradr-->
+
+
+                    <!--inicio do dialogo editar-->
+                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                        <h:form enctype="multipart/form-data">
+                            <h:inputHidden value="#{instituicaoMBean.instituicao.idIsntituicao}"/>
+                            <p:tabView>
+                                <p:tab title="Dados da Instituição">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Nome da instituição:"/>
+                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.nomeInstituicao}"/>
+                                        <p:outputLabel value="Home:"/>
+                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
+                                        <p:outputLabel value="Logotipo:"/>
+                                        <p:fileUpload  fileUploadListener="#{instituicaoMBean.fileUpload}" mode="advanced"  sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/" />
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Endereço">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Casa nº:"/>
+                                        <h:inputText size="10" value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
+                                        <p:outputLabel value="Rua:"/>
+                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
+                                        <p:outputLabel value="Bairro:"/>
+                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.bairroInstituicao}" />
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Contactos">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Telefone fixo:"/>
+                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
+                                        <p:outputLabel value="Telefone Unitel:"/>
+                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
+                                        <p:outputLabel value="Telefone Movicel:"/>
+                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}" />
+                                        <p:outputLabel value="email:"/>
+                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.emailInstituicao}" />
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                            <p:commandButton value="Alterar" action="#{instituicaoMBean.edit(event)}" ajax="false"/>
+                        </h:form>
+                    </p:dialog>
+                    <!--Fim do dialogo editar-->
+
+                    <!--Inicip do dialog ver-->
+                    <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
+                        <h:form>
+                            <p:tabView>
+                                <p:tab title="Visualização">
+                                    <p:panelGrid columns="2">
+                                         <p:outputLabel value="Foto:"/>
+                                         <h:graphicImage value="/professorVisualizarFotoServlet?file=#{instituicaoMBean.instituicao.urlLogoInstituicao}" alt="foto" width="100" height="100" style="border: solid #CC0000"/>
+                                        <p:outputLabel value="Código:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.idIsntituicao}"/>
+                                        <p:outputLabel value="Nome da instituição:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.nomeInstituicao}"/>
+                                        <p:outputLabel value="Casa:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
+                                        <p:outputLabel value="Home:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
+                                        <p:outputLabel value="Rua:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
+                                        <p:outputLabel value="Bairro:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.bairroInstituicao}"/>
+                                        <p:outputLabel value="Telefone fixo:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
+                                        <p:outputLabel value="Telefone unitel:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
+                                        <p:outputLabel value="Telefone movicel"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.telefoneMovicelInstituicao}"/>
+                                        <p:outputLabel value="Email da instituição:"/>
+                                        <h:outputText value="#{instituicaoMBean.instituicao.emailInstituicao}"/>
+                                         <p:outputLabel value="URL do logo:"/>
+                                         <h:outputText value="#{instituicaoMBean.instituicao.urlLogoInstituicao}"/>
+                                        <p:outputLabel value="Logo:"/>
+                                        <p:graphicImage value="/instituicaoServlet/?ficheiro=#{instituicaoMBean.instituicao.logoTipoInstituicao}" alt="Imagem" width="50" height="50"/>
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
+                    </p:dialog>
+                    <!--Fim do dialogo ver-->
+
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

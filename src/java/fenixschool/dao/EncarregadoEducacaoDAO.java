@@ -31,6 +31,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
 
+<<<<<<< HEAD
             ps.setString(1, encarregadoEducacao.getNome_encarregado());
             ps.setString(2, encarregadoEducacao.getSobrenome_encarregado());
             ps.setInt(3, encarregadoEducacao.getId_profissao_encarregado().getIdProfissao());
@@ -45,6 +46,22 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
             ps.setString(12, encarregadoEducacao.getEmail_alternativo_encarregado());
             ps.setBytes(13, encarregadoEducacao.getFoto_encarregado());
             ps.setString(14, encarregadoEducacao.getUrl_foto_encarregado());
+=======
+            ps.setString(1, encarregadoEducacao.getNomeEncarregado());
+            ps.setString(2, encarregadoEducacao.getSobrenomeEncarregado());
+            ps.setInt(3, encarregadoEducacao.getProfissao().getIdProfissao());
+            ps.setString(4, encarregadoEducacao.getSexo().getAbreviatura());
+            ps.setString(5, encarregadoEducacao.getCasaEncarregado());
+            ps.setString(6, encarregadoEducacao.getRuaEncarregado());
+            ps.setString(7, encarregadoEducacao.getBairroEncarregado());
+            ps.setString(8, encarregadoEducacao.getDistritoUrbanoEncarregado());
+            ps.setString(9, encarregadoEducacao.getTelemovelPrincipalEncarregado());
+            ps.setString(10, encarregadoEducacao.getTelemovelAlternativoEncarregado());
+            ps.setString(11, encarregadoEducacao.getEmailPrincipalEncarregado());
+            ps.setString(12, encarregadoEducacao.getEmailAlternativoEncarregado());
+            ps.setBytes(13, encarregadoEducacao.getFotoEncarregado());
+            ps.setString(14, encarregadoEducacao.getUrlFotoEncarregado());
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
             ps.setInt(15, encarregadoEducacao.getMunicipio().getIdMunicipio());
             ps.executeUpdate();
 
@@ -66,6 +83,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ACTUALIZAR);
+<<<<<<< HEAD
             ps.setString(1, encarregadoEducacao.getNome_encarregado());
             ps.setString(2, encarregadoEducacao.getSobrenome_encarregado());
             ps.setInt(3, encarregadoEducacao.getId_profissao_encarregado().getIdProfissao());
@@ -82,6 +100,24 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
             ps.setString(14, encarregadoEducacao.getUrl_foto_encarregado());
             ps.setInt(15, encarregadoEducacao.getMunicipio().getIdMunicipio());
             ps.setInt(16, encarregadoEducacao.getId_encarregado_educacao());
+=======
+            ps.setString(1, encarregadoEducacao.getNomeEncarregado());
+            ps.setString(2, encarregadoEducacao.getSobrenomeEncarregado());
+            ps.setInt(3, encarregadoEducacao.getProfissao().getIdProfissao());
+            ps.setString(4, encarregadoEducacao.getSexo().getAbreviatura());
+            ps.setString(5, encarregadoEducacao.getCasaEncarregado());
+            ps.setString(6, encarregadoEducacao.getRuaEncarregado());
+            ps.setString(7, encarregadoEducacao.getBairroEncarregado());
+            ps.setString(8, encarregadoEducacao.getDistritoUrbanoEncarregado());
+            ps.setString(9, encarregadoEducacao.getTelemovelPrincipalEncarregado());
+            ps.setString(10, encarregadoEducacao.getTelemovelAlternativoEncarregado());
+            ps.setString(11, encarregadoEducacao.getEmailPrincipalEncarregado());
+            ps.setString(12, encarregadoEducacao.getEmailAlternativoEncarregado());
+            ps.setBytes(13, encarregadoEducacao.getFotoEncarregado());
+            ps.setString(14, encarregadoEducacao.getUrlFotoEncarregado());
+            ps.setInt(15, encarregadoEducacao.getMunicipio().getIdMunicipio());
+            ps.setInt(16, encarregadoEducacao.getIdEncarregadoEducacao());
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
             ps.executeUpdate();
 
         } catch (Exception ex) {
@@ -101,7 +137,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
-            ps.setInt(1, encarregadoeducacao.getId_encarregado_educacao());
+            ps.setInt(1, encarregadoeducacao.getIdEncarregadoEducacao());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.err.println("Erro ao eliminar dados: " + ex.getLocalizedMessage());
@@ -164,6 +200,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
 
             Profissao profissao = new Profissao();
             
+<<<<<<< HEAD
             profissao.setIdProfissao(rs.getInt("id_profissao"));
             profissao.setNomeProfissao(rs.getString("nome_profissao"));
             encarregadoEducacao.setId_profissao_encarregado(profissao);
@@ -187,6 +224,28 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
             
             municipio.setIdMunicipio(rs.getInt("id_municipio"));
             municipio.setNomeMunicipio(rs.getString("nome_municipio"));
+=======
+                     profissao.setNomeProfissao(rs.getString("nome_profissao"));
+            encarregadoEducacao.setProfissao(profissao);
+            
+            encarregadoEducacao.setIdEncarregadoEducacao(rs.getInt("id_encarregado"));
+            encarregadoEducacao.setNomeEncarregado(rs.getString("nome_encarregado"));
+            encarregadoEducacao.setSobrenomeEncarregado(rs.getString("sobrenome_encarregado"));
+            encarregadoEducacao.setSexo(Sexo.getAbreviatura(rs.getString("sexo_encarregado")));
+            encarregadoEducacao.setCasaEncarregado(rs.getString("casa_encarregado"));
+            encarregadoEducacao.setRuaEncarregado(rs.getString("rua_encarregado"));
+            encarregadoEducacao.setBairroEncarregado(rs.getString("bairro_encarregado"));
+            encarregadoEducacao.setDistritoUrbanoEncarregado(rs.getString("distrito_urbano_encarregado"));
+            encarregadoEducacao.setTelemovelPrincipalEncarregado(rs.getString("telemovel_principal_encarregado"));
+            encarregadoEducacao.setTelemovelAlternativoEncarregado(rs.getString("telemovel_alternativo_encarregado"));
+            encarregadoEducacao.setEmailPrincipalEncarregado(rs.getString("email_principal_encarregado"));
+            encarregadoEducacao.setEmailAlternativoEncarregado(rs.getString("email_alternativo_encarregado"));
+            encarregadoEducacao.setFotoEncarregado(rs.getBytes("foto_encarregado"));
+            encarregadoEducacao.setUrlFotoEncarregado(rs.getString("url_foto_encarregado"));
+            
+            Municipio municipio = new Municipio();
+           municipio.setNomeMunicipio(rs.getString("nome_municipio"));
+>>>>>>> b69123825d74c301d4e3c6e31184abbfab901fc2
             encarregadoEducacao.setMunicipio(municipio);
    
         } catch (SQLException ex) {

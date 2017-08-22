@@ -16,15 +16,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author PENA
  */
-@Named(value = "departamentoMBean")
+
+
+@ManagedBean(name = "departamentoMBean")
 @RequestScoped
 public class DepartamentoMBean implements Serializable {
 

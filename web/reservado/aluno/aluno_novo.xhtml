@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:panel header="Novo Aluno" footer="registo de novos alunos">
+             <h:form enctype="multipart/form-data">
+                            
+                            <p:tabView>
+                                <p:tab title="Dados Pessoais">
+                                     <p:growl id="messages" showDetail="true"/>
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Número:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.numeroAluno}" />
+                                        <p:outputLabel value="Nome:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.nomeAluno}" />
+                                        <p:outputLabel value="Sobrenome:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.sobrenomeAluno}"/>
+                                        
+                                         <p:outputLabel value="Nascimento"/>
+                                         <p:calendar value="#{alunoMBean.aluno.dataNascimentoAluno}" pattern="dd/MM/yyyy"/>
+                                        
+                                        <p:outputLabel value="Sexo:"/>
+                                        <p:selectOneRadio value="#{alunoMBean.aluno.sexo}">
+                                            <f:selectItems value="#{alunoMBean.opSexos}" />
+                                        </p:selectOneRadio >
+                                        <p:outputLabel value="Profissão:"/>
+                                        <p:selectOneMenu value="#{alunoMBean.aluno.profissaoAluno}" converter="profissaoConverter">
+                                            <f:selectItem itemLabel="Selecione a Profissão" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{alunoMBean.profissoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
+                                        </p:selectOneMenu>
+                                                                              
+                                         <h:outputLabel value="Foto:" for="foto" />
+                        <p:fileUpload fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png|pdf|doc|docx)$/"/>
+                                        
+                                    </h:panelGrid>
+                                     </p:tab>
+                            
+                            
+                            <p:tab title="Endereço">
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Número da Casa:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.casaAluno}" />
+                                        <p:outputLabel value="Bairro:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.bairroAluno}" />
+                                        <p:outputLabel value="Distrito:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.distritoAluno}" />
+                                        <p:outputLabel value="Município:"/>
+                                        <p:selectOneMenu value="#{alunoMBean.aluno.municipioAluno}" converter="municipioConverter">
+                                            <f:selectItem itemLabel="Selecione o Município" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{alunoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
+                                        </p:selectOneMenu>
+
+                                    </h:panelGrid>
+                                </p:tab> 
+                                     
+                            <p:tab title="Telefene/Email">
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Telefone Fixo:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.telefoneFixoAluno}" />
+                                        <p:outputLabel value="Telefone Móvel:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.telefoneMovelAluno}" />
+                                        <p:outputLabel value="Email:"/>
+                                        <p:inputText value="#{alunoMBean.aluno.emailAluno}" />
+                                    </h:panelGrid>
+                                </p:tab>
+                            
+                                </p:tabView>
+                            
+                              <p:commandButton value="Guardar" actionListener="#{alunoMBean.guardar(evt)}"  update="growl" resetValues="true" ajax="false"/>
+                        </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
