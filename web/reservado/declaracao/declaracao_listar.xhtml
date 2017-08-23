@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Declaração</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <h:form>
+                        <h1 align="center">Lista de Declarações</h1>
+
+                        <!--Inicio Data table-->
+
+                        <p:dataTable value="#{declaracaoMBean.declaracaos}"   var="declaracao" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                           
+
+                            <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="ID"/>
+                                </f:facet>
+                                <h:outputText value="#{declaracao.idDeclaracao}"/>
+                            </p:column>
+
+                            <p:column style="width: 40px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Texto Declaração"/>
+                                </f:facet>
+                                <h:outputText value="#{declaracao.textoDeclaracao}"/>
+                            </p:column>
+                            
+                            <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Data"/>
+                                </f:facet>
+                                <h:outputText value="#{declaracao.dataDeclaracao}"/>
+                            </p:column>
+                            
+                            <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Funcionário"/>
+                                </f:facet>
+                                <h:outputText value="#{declaracao.idFuncionario}"/>
+                                </p:column>
+                            
+                                <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Objetivo"/>
+                                </f:facet>
+                                    <h:outputText value="#{declaracao.idObjetivoDeclaracao}"/>                            
+                            </p:column>
+                            
+                            <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Aluno"/>
+                                </f:facet>
+                                <h:outputText value="#{declaracao.idAluno}"/>                            
+                            </p:column>
+                            <!--Fim Formulário de Listagem-->
+                            <!-- Coluna Operações-->
+                            
+                            
+                            <p:column style="width: 70px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton  action="#{declaracaoMBean.delete()}" icon="ui-icon-trash ">
+                                    <f:setPropertyActionListener target="#{declaracaoMBean.declaracao}" value="#{declaracao}"/>
+                                </p:commandButton>
+
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
+                                    <f:setPropertyActionListener target="#{declaracaoMBean.declaracao}" value="#{declaracao}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVerClassificacao').show();" >
+                                    <f:setPropertyActionListener target="#{declaracaoMBean.declaracao}" value="#{declaracao}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                            <f:facet name="footer">  
+                                Número de Declarações: #{(classificacaoNotaMBean.classificacaoNotas.size())}
+                            </f:facet> 
+                        </p:dataTable>
+
+
+
+                    </h:form>
+
+                    <!--Fim Data table-->
+
+
+                    <!--Inicio Formulario auxiliar-->
+                    <h:form id="operacoes">
+                        <p:commandButton value="Nova Declaração" type="button" onclick="PF('dlgNovaClassificação').show();" />
+
+                    </h:form>
+                    <!--Fim  Formulario auxiliar-->
+
+                    <!-- Inicio Dialogo Guardar-->
+                    <p:dialog header="Nova Declaração" widgetVar="dlgNovaClassificação" showEffect="explode" hideEffect="bounce" height="360" width="600">
+                        <h:form enctype="multipart/form-data">
+                            
+                            <p:tabView>
+                                <p:tab title="Declaração">
+                                     <p:growl id="messages" showDetail="true"/>
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Texto Declaração"/>
+                                        <p:inputText value="#{declaracaoMBean.declaracao.textoDeclaracao}" />
+                                        <p:outputLabel value="Data"/>
+                                        <p:calendar value="#{declaracaoMBean.declaracao.dataDeclaracao}" pattern="dd/MM/yyyy"/>
+                                        <p:outputLabel value="Aluno:"/>
+                                        <p:selectOneMenu value="#{declaracaoMBean.declaracao.idAluno}" converter="alunoConverter" >
+                                            <f:selectItem itemLabel="Selecione o Aluno" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{declaracaoMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Objectivo:"/>
+                                        <p:selectOneMenu value="#{declaracaoMBean.declaracao.idObjetivoDeclaracao}" converter="objetivoDeclaracaoConverter">
+                                            <f:selectItem itemLabel="Selecione o Objectivo" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{declaracaoMBean.objetivoDeclaracaos}" var="objdeclaracao" itemValue="#{objdeclaracao}" itemLabel="#{objdeclaracao.objectivoDeclaracao}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Funcionário:"/>
+                                        <p:selectOneMenu value="#{declaracaoMBean.declaracao.idFuncionario}" converter="funcionarioConverter" >
+                                            <f:selectItem itemLabel="Selecione o Funcionário" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{declaracaoMBean.funcionarios}" var="funcionario" itemValue="#{funcionario}" itemLabel="#{funcionario.nomeFuncionario}" />
+                                        </p:selectOneMenu>
+                                        
+                                        
+                                        </h:panelGrid>
+                                     </p:tab>
+                            
+                            </p:tabView>
+                            <p:commandButton value="Guardar" actionListener="#{declaracaoMBean.guardar(evt)}"  update="growl" resetValues="true" ajax="false"/>
+                        </h:form>
+                      
+                    </p:dialog>
+
+                    <!-- Fim  Dialogo Guardar-->
+
+                    <!-- Inicio Dialogo Editar-->
+                        <p:dialog header="Alterar dados da Declaração" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="70 " width="600">
+                            <h:form id="formEditar" enctype="multipart/form-data">
+                                <p:growl id="growl" showDetail="true" sticky="true"/>
+                                <h:inputHidden value="#{declaracaoMBean.declaracao.idDeclaracao}"/>
+                                <h:panelGrid columns="2" title="Editar Declaração">
+                                    <p:outputLabel value="Classificação:"/>
+                                    <p:inputText value="#{classificacaoNotaMBean.classificacaoNota.classificacaoNota}" size="20"/>
+                                </h:panelGrid>
+                                <p:commandButton actionListener="#{classificacaoNotaMBean.edit(event)}" value="Actualizar"  update="growl" ajax="false"/>
+                            </h:form>
+                        </p:dialog>
+
+
+                    <!-- Fim Dialogo Editar-->
+                    <!-- Inicio Dialogo Ver detalhes do aluno-->
+                    
+                    
+                    <p:dialog header="Detalhes de Classificação" id="ver" widgetVar="dlgVerClassificacao" showEffect="explode" hideEffect="bounce"  height="60" width="600">
+                        <h:form id="formVer">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Identificador de Classificação:"/>
+                                <p:outputLabel value="#{classificacaoNotaMBean.classificacaoNota.idClassificacaoNota}"/>
+                                <p:outputLabel value="Classificação da Nota:"/>
+                                <p:outputLabel value="#{classificacaoNotaMBean.classificacaoNota.classificacaoNota}"/>
+                                
+                            </h:panelGrid> 
+                              
+                        </h:form>
+
+                    </p:dialog>
+
+                    <!-- Fim  Dialogo Ver detalhes do curso-->
+
+
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
