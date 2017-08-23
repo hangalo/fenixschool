@@ -56,7 +56,7 @@ public class ClassificacaoNotaDAO implements GenericoDAO <ClassificacaoNota>{
         PreparedStatement ps = null;
         Connection conn = null;
         if (classificacaoNota == null) {
-            System.err.println("O valor oassado não pode ser nulo!");
+            System.err.println("O valor passado não pode ser nulo!");
         }
         try {
             conn = Conexao.getConnection();

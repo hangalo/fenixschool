@@ -189,7 +189,7 @@
                                 <p:outputLabel value="Distrito:"/>
                                 <p:inputText value="#{alunoMBean.aluno.distritoAluno}" />
                                 <p:outputLabel value="Foto"/>
-                                <h:inputFile  value="#{alunoMBean.aluno.fotoAluno}"/>
+                                <p:fileUpload fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png|pdf|doc|docx)$/"/>
                                 <p:outputLabel value="Telefone Fixo:"/>
                                 <p:inputText value="#{alunoMBean.aluno.telefoneFixoAluno}" />
                                 <p:outputLabel value="Telefone Móvel:"/>

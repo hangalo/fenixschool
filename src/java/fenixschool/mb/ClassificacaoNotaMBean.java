@@ -73,7 +73,7 @@ public class ClassificacaoNotaMBean implements Serializable {
         classificacaoNotaDAO.update(classificacaoNota);
         classificacaoNotas = null;
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("classificacaoNota_listar.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("classificacao_nota_listar.jsf");
         } catch (IOException ex) {
             Logger.getLogger(ProfissaoMBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,7 +81,7 @@ public class ClassificacaoNotaMBean implements Serializable {
      public String delete() {
         classificacaoNotaDAO.delete(classificacaoNota);
         classificacaoNotas = null;
-        return "classificacaoNota_listar?faces-redirect=true";
+        return "classificacao_nota_listar?faces-redirect=true";
 
 }
 

@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Classificação das Notas</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <h:form>
+                        <h1 align="center">Lista de Objectivos de Declarações</h1>
+
+                        <!--Inicio Data table-->
+
+                        <p:dataTable value="#{objetivoDeclaracaoMBean.objetivodeclaracoes}"   var="objetivoDeclaracao" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                           
+
+                            <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="ID"/>
+                                </f:facet>
+                                <h:outputText value="#{objetivoDeclaracao.idObjetivoDeclaracao}"/>
+                            </p:column>
+
+                            <p:column style="width: 40px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Objectivo da Declaração"/>
+                                </f:facet>
+                                <h:outputText value="#{objetivoDeclaracao.objectivoDeclaracao}"/>
+                            </p:column>
+                            <!--Fim Formulário de Listagem-->
+                            <!-- Coluna Operações-->
+                            
+                            
+                            <p:column style="width: 70px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton  action="#{objetivoDeclaracaoMBean.delete()}" icon="ui-icon-trash ">
+                                    <f:setPropertyActionListener target="#{objetivoDeclaracaoMBean.objetivoDeclaracao}" value="#{objetivoDeclaracao}"/>
+                                </p:commandButton>
+
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
+                                    <f:setPropertyActionListener target="#{objetivoDeclaracaoMBean.objetivoDeclaracao}" value="#{objetivoDeclaracao}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVerClassificacao').show();" >
+                                    <f:setPropertyActionListener target="#{objetivoDeclaracaoMBean.objetivoDeclaracao}" value="#{objetivoDeclaracao}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                            <f:facet name="footer">  
+                                Número Objectivos de Declarações: #{(objetivoDeclaracaoMBean.objetivodeclaracoes.size())}
+                            </f:facet> 
+                        </p:dataTable>
+
+
+
+                    </h:form>
+
+                    <!--Fim Data table-->
+
+
+                    <!--Inicio Formulario auxiliar-->
+                    <h:form id="operacoes">
+                        <p:commandButton value="Novo Objectivo" type="button" onclick="PF('dlgNova').show();" />
+
+                    </h:form>
+                    <!--Fim  Formulario auxiliar-->
+
+                    <!-- Inicio Dialogo Guardar-->
+                    <p:dialog header="Novo Objectivo de Declaração" widgetVar="dlgNova" showEffect="explode" hideEffect="bounce" height="160" width="600">
+                        <h:form enctype="multipart/form-data">
+                            
+                            <p:tabView>
+                                <p:tab title="Objectivo">
+                                     <p:growl id="messages" showDetail="true"/>
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Objectivo da Declaração:"/>
+                                        <p:inputText value="#{objetivoDeclaracaoMBean.objetivoDeclaracao.objectivoDeclaracao}" />
+                                        
+                                    </h:panelGrid>
+                                     </p:tab>
+                            
+                            </p:tabView>
+                            <p:commandButton value="Guardar" actionListener="#{objetivoDeclaracaoMBean.guardar(evt)}"  update="growl" resetValues="true" ajax="false"/>
+                        </h:form>
+                      
+                    </p:dialog>
+
+                    <!-- Fim  Dialogo Guardar-->
+
+                    <!-- Inicio Dialogo Editar-->
+                        <p:dialog header="Alterar dados do Objecivo da Declaração" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="70 " width="600">
+                            <h:form id="formEditar" enctype="multipart/form-data">
+                                <p:growl id="growl" showDetail="true" sticky="true"/>
+                                <h:inputHidden value="#{objetivoDeclaracaoMBean.objetivoDeclaracao.idObjetivoDeclaracao}"/>
+                                <h:panelGrid columns="2" title="Editar Objectivo da Declaração">
+                                    <p:outputLabel value="Objectivo da Declaração"/>
+                                    <p:inputText value="#{objetivoDeclaracaoMBean.objetivoDeclaracao.objectivoDeclaracao}" size="20"/>
+                                </h:panelGrid>
+                                <p:commandButton actionListener="#{objetivoDeclaracaoMBean.edit(event)}" value="Actualizar"  update="growl" ajax="false"/>
+                            </h:form>
+                        </p:dialog>
+
+
+                    <!-- Fim Dialogo Editar-->
+                    <!-- Inicio Dialogo Ver detalhes do aluno-->
+                    
+                    
+                    <p:dialog header="Detalhes de Objectivos" id="ver" widgetVar="dlgVerClassificacao" showEffect="explode" hideEffect="bounce"  height="60" width="600">
+                        <h:form id="formVer">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Identificador de Objectivo:"/>
+                                <p:outputLabel value="#{objetivoDeclaracaoMBean.objetivoDeclaracao.idObjetivoDeclaracao}"/>
+                                <p:outputLabel value="Objectivo da Declaração:"/>
+                                <p:outputLabel value="#{objetivoDeclaracaoMBean.objetivoDeclaracao.objectivoDeclaracao}"/>
+                                
+                            </h:panelGrid> 
+                              
+                        </h:form>
+
+                    </p:dialog>
+
+                    <!-- Fim  Dialogo Ver detalhes do curso-->
+
+
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
