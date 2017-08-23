@@ -14,32 +14,34 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author PENA
+ * @author informatica
  */
-@FacesConverter(value = "alunoConverter ", forClass = Aluno.class)
+
+
+@FacesConverter(value = "alunoConverter", forClass = Aluno.class)
 public class AlunoConverter implements Converter {
 
     AlunoDAO alunoDAO = new AlunoDAO();
 
-    @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-
         Integer id = Integer.parseInt(value);
         try {
             return alunoDAO.findById(id);
-        } catch (Exception e) {
-            System.err.println("Erro na conversão: " + e.getMessage());
+        } catch (Exception ex) {
+            System.err.println("Erro na conversão: " + ex.getMessage());
         }
         return null;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null) {
-            Aluno aluno = (Aluno) value;
+     
+       if (value != null) {
+            Aluno aluno =(Aluno)value;
             return String.valueOf(aluno.getIdAluno());
         }
         return null;
+      
     }
 
 }
