@@ -22,7 +22,7 @@
                                 <f:selectItems value="#{boletimNotasMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Data:"/>
-                            <p:calendar value="#{boletimNotasMBean.boletimNota.data_boletin_notas}" pattern="dd/MM/yyyy" size="10"/>
+                            <p:calendar value="#{boletimNotasMBean.boletimNota.dataBoletimNotas}" pattern="dd/MM/yyyy" size="10"/>
                         </h:panelGrid>
                         <p:commandButton  icon="ui-icon-plus" value="Guardar" actionListener="#{boletimNotasMBean.guardar(event)}" ajax="false"/>
                     </h:form>

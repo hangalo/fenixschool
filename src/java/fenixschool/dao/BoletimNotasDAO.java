@@ -22,13 +22,13 @@ import java.util.List;
  */
 public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
 
-    private static final String INSERIR = "INSERT INTO boletin_notas (data_boletin_notas,id_aluno) VALUES (?,?)";
-    private static final String ACTUALIZAR = "UPDATE boletin_notas SET data_boletin_notas = ?, id_aluno =? WHERE id_boletin_notas = ?";
-    private static final String ELIMINAR = "DELETE FROM boletin_notas WHERE id_boletin_notas=?";
-    private static final String LISTAR_POR_CODIGO = "SELECT b.id_boletin_notas,b.data_boletin_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
-            + "a.data_nascimento,a.sexo FROM boletin_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno WHERE b.id_boletin_notas=?";
-    private static final String LISTAR_TUDO = "SELECT b.id_boletin_notas,b.data_boletin_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
-            + "a.data_nascimento,a.sexo FROM boletin_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno";
+    private static final String INSERIR = "INSERT INTO boletim_notas (data_boletim_notas,id_aluno) VALUES (?,?)";
+    private static final String ACTUALIZAR = "UPDATE boletim_notas SET data_boletim_notas = ?, id_aluno =? WHERE id_boletim_notas = ?";
+    private static final String ELIMINAR = "DELETE FROM boletim_notas WHERE id_boletim_notas=?";
+    private static final String LISTAR_POR_CODIGO = "SELECT b.id_boletim_notas,b.data_boletim_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
+            + "a.data_nascimento,a.sexo FROM boletim_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno WHERE b.id_boletim_notas=?";
+    private static final String LISTAR_TUDO = "SELECT b.id_boletim_notas,b.data_boletim_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
+            + "a.data_nascimento,a.sexo FROM boletim_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno";
 
     Connection conn;
     PreparedStatement ps;
@@ -46,7 +46,7 @@ public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
-            ps.setDate(1, new java.sql.Date(boletimNotas.getData_boletin_notas().getTime()));
+            ps.setDate(1, new java.sql.Date(boletimNotas.getDataBoletimNotas().getTime()));
             ps.setInt(2, boletimNotas.getAluno().getIdAluno());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -64,9 +64,9 @@ public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(ACTUALIZAR);
-            ps.setDate(1, new java.sql.Date(boletimNotas.getData_boletin_notas().getTime()));
+            ps.setDate(1, new java.sql.Date(boletimNotas.getDataBoletimNotas().getTime()));
             ps.setInt(2, boletimNotas.getAluno().getIdAluno());
-            ps.setInt(3, boletimNotas.getId_boletin_notas());
+            ps.setInt(3, boletimNotas.getIdBoletimNotas());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao atualizar registro: " + ex.getMessage());
@@ -83,7 +83,7 @@ public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
-            ps.setInt(1, boletimNota.getId_boletin_notas());
+            ps.setInt(1, boletimNota.getIdBoletimNotas());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao eliminar registro: " + ex.getMessage());
@@ -144,8 +144,8 @@ public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
     public void popularComDados(BoletimNotas boletimNotas, ResultSet rs) {
 
         try {
-            boletimNotas.setId_boletin_notas(rs.getInt("id_boletin_notas"));
-            boletimNotas.setData_boletin_notas(rs.getDate("data_boletin_notas"));
+            boletimNotas.setIdBoletimNotas(rs.getInt("id_boletim_notas"));
+            boletimNotas.setDataBoletimNotas(rs.getDate("data_boletim_notas"));
             
             Aluno aluno = new Aluno();
             

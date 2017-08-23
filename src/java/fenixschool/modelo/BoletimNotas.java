@@ -13,33 +13,35 @@ import java.util.Date;
  */
 public class BoletimNotas {
     
-    private int id_boletin_notas;
-    private Date data_boletin_notas;
+    private int idBoletimNotas;
+    private Date dataBoletimNotas;
     private Aluno aluno;
 
     public BoletimNotas() {
     }
 
-    public BoletimNotas(int id_boletin_notas, Date data_boletin_notas, Aluno aluno) {
-        this.id_boletin_notas = id_boletin_notas;
-        this.data_boletin_notas = data_boletin_notas;
+    public BoletimNotas(int idBoletimNotas, Date dataBoletimNotas, Aluno aluno) {
+        this.idBoletimNotas = idBoletimNotas;
+        this.dataBoletimNotas = dataBoletimNotas;
         this.aluno = aluno;
     }
 
-    public int getId_boletin_notas() {
-        return id_boletin_notas;
+    
+
+    public int getIdBoletimNotas() {
+        return idBoletimNotas;
     }
 
-    public void setId_boletin_notas(int id_boletin_notas) {
-        this.id_boletin_notas = id_boletin_notas;
+    public void setIdBoletimNotas(int idBoletimNotas) {
+        this.idBoletimNotas = idBoletimNotas;
     }
 
-    public Date getData_boletin_notas() {
-        return data_boletin_notas;
+    public Date getDataBoletimNotas() {
+        return dataBoletimNotas;
     }
 
-    public void setData_boletin_notas(Date data_boletin_notas) {
-        this.data_boletin_notas = data_boletin_notas;
+    public void setDataBoletimNotas(Date dataBoletimNotas) {
+        this.dataBoletimNotas = dataBoletimNotas;
     }
 
     public Aluno getAluno() {
@@ -53,7 +55,7 @@ public class BoletimNotas {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + this.id_boletin_notas;
+        hash = 37 * hash + this.idBoletimNotas;
         return hash;
     }
 
@@ -69,7 +71,7 @@ public class BoletimNotas {
             return false;
         }
         final BoletimNotas other = (BoletimNotas) obj;
-        if (this.id_boletin_notas != other.id_boletin_notas) {
+        if (this.idBoletimNotas != other.idBoletimNotas) {
             return false;
         }
         return true;
@@ -77,7 +79,7 @@ public class BoletimNotas {
 
     @Override
     public String toString() {
-        return "BoletimNotas{" + "data_boletin_notas=" + data_boletin_notas + '}';
+        return "BoletimNotas{" + "data_boletin_notas=" + dataBoletimNotas + '}';
     }
     
     
