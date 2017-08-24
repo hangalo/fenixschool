@@ -21,10 +21,12 @@ import java.sql.ResultSet;
 public class CandidatoDAO implements GenericoDAO<Candidato> {
 
     private static final String INSERIR = "INSERT INTO candidato (numero_candidato, nome_candidato, sobrenome_candidato, data_nascimento, sexo, casa_candidato, bairro_candidato, distrito_candidato, id_municipio, url_foto_candidato, foto_candidato, telefone_fixo, telefone_movel, email_candidato, id_profissao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String ACTUALIZAR = "UPDATE candidato SET numero_candidato =?, nome_candidato=?, sobrenome_candidato=?, data_nascimento=?, id_sexo=?, casa_candidato=?, bairro_candidato=?, distrito_candidato=?,id_municipio=?, url_foto_candidato=?, foto_candidato=?, trlrfonr_fixo=?, telefone_movel=?, email_candidato=?, id_profissao=? WHERE id_candidato=? ";
+    private static final String ACTUALIZAR = "UPDATE candidato SET numero_candidato =?, nome_candidato=?, sobrenome_candidato=?, data_nascimento=?, sexo=?, casa_candidato=?, bairro_candidato=?, distrito_candidato=?,id_municipio=?, url_foto_candidato=?, foto_candidato=?, telefone_fixo=?, telefone_movel=?, email_candidato=?, id_profissao=? WHERE id_candidato=? ";
     private static final String ELIMINAR = "DELETE FROM candidato WHERE id_candidato = ? ";
-    private static final String LISTAR_POR_CODIGO = "SELECT * FROM canditado WHERE id_candidato =?";
-    private static final String LISTAR_TUDO = "SELECT * FROM candidato ORDER BY nome_candidato ASC";
+    private static final String LISTAR_POR_CODIGO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
+            + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE id_candidato =? ORDER BY nome_candidato ASC";
+    private static final String LISTAR_TUDO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
+            + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio ORDER BY nome_candidato ASC";
 
     Connection conn;
     PreparedStatement ps;
@@ -78,25 +80,26 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERIR);
+            ps = conn.prepareStatement(ACTUALIZAR);
 
-            ps.setString(1, candidato.getNomeCandidato());
-            ps.setString(2, candidato.getCasaCandidato());
-            ps.setString(3, candidato.getBairroCandidato());
-            ps.setString(4, candidato.getDistritoCandidato());
-            ps.setBytes(5, candidato.getFotoCandidato());
-            ps.setString(6, candidato.getEmailCandidato());
-            ps.setString(7, candidato.getSobrenomeCandidato());
-            ps.setString(8, candidato.getTelefoneFixo());
-            ps.setString(9, candidato.getTelefoneMovel());
+            ps.setString(1, candidato.getNumeroCandidato());
+            ps.setString(2, candidato.getNomeCandidato());
+            ps.setString(3, candidato.getSobrenomeCandidato());
+            ps.setDate(4, new java.sql.Date(candidato.getDataNascimento().getTime()));
+            ps.setString(5, candidato.getSexo().getAbreviatura());
+            ps.setString(6, candidato.getCasaCandidato());
+            ps.setString(7, candidato.getBairroCandidato());
+
+            ps.setString(8, candidato.getDistritoCandidato());
+            ps.setInt(9, candidato.getMunicipio().getIdMunicipio());
             ps.setString(10, candidato.getUrlFotoCandidato());
-            ps.setString(11, candidato.getSexo().getAbreviatura());
-
-            ps.setInt(12, candidato.getMunicipio().getIdMunicipio());
-            ps.setInt(13, candidato.getProfissao().getIdProfissao());
-            ps.setString(14, candidato.getNumeroCandidato());
-            ps.setDate(15, new java.sql.Date(candidato.getDataNascimento().getTime()));
+            ps.setBytes(11, candidato.getFotoCandidato());
+            ps.setString(12, candidato.getTelefoneFixo());
+            ps.setString(13, candidato.getTelefoneMovel());
+            ps.setString(14, candidato.getEmailCandidato());
+            ps.setInt(15, candidato.getProfissao().getIdProfissao());
             ps.setInt(16, candidato.getIdCandidato());
+           
             ps.executeUpdate();
 
         } catch (Exception ex) {
@@ -211,6 +214,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
             candidato.setSexo(Sexo.getAbreviatura(rs.getString("sexo")));
 
         } catch (SQLException e) {
+             System.out.println("Erro ao carregar dados");
         }
     }
 }

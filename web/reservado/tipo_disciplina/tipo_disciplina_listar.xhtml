@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <h:form>
+                        <h1>Lista de Tipos de Disciplina</h1>
+
+                        <!--inicio Datatable-->
+
+                        <p:dataTable value="#{tipoDisciplinaMBean.tipoDisciplinas}" var="tipoDisciplina" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código: "/>
+                                </f:facet>
+                                <h:outputText value="#{tipoDisciplina.idTipoDisciplina}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Tipo:"/>
+                                </f:facet>
+                                <h:outputText value="#{tipoDisciplina.tipoDisciplina}"/>
+                            </p:column>
+
+                            <p:column width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton  icon="ui-icon-trash" action="#{tipoDisciplinaMBean.delete()}">
+                                    <f:setPropertyActionListener target="#{tipoDisciplinaMBean.tipoDisciplina}" value="#{tipoDisciplina}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoEditar').show();">
+                                    <f:setPropertyActionListener target="#{tipoDisciplinaMBean.tipoDisciplina}" value="#{tipoDisciplina}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin" update=":ver" oncomplete="PF('dialogoVer').show();">
+                                    <f:setPropertyActionListener target="#{tipoDisciplinaMBean.tipoDisciplina}" value="#{tipoDisciplina}"/>
+                                </p:commandButton>
+
+                            </p:column>
+                            <f:facet name="footer">
+                                Total de tipos de Disciplina  (#{tipoDisciplinaMBean.tipoDisciplinas.size()})
+                            </f:facet>
+
+                        </p:dataTable>
+
+                        <!--fim Datatable-->
+                    </h:form>
+
+                    <h:form id="Operacoes">
+                        <p:commandButton value="Novo Tipo de Disciplina" type="button" onclick="PF('dialogoGuardar').show();"/>
+                    </h:form>
+
+                    <!--inicio do dialogo guardar-->
+                    <p:dialog  header="Novo Tipo de Disciplina" id="guardar" widgetVar="dialogoGuardar" showEffect="clip" hideEffect="blind" style="width: 300px;">
+                        <h:form enctype="multipart/form-data">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Tipo: "/>
+                                <p:inputText size="30" value="#{tipoDisciplinaMBean.tipoDisciplina.tipoDisciplina}"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Guardar" action="#{tipoDisciplinaMBean.guardar(evt)}" ajax="false"/>
+                        </h:form>
+                    </p:dialog>
+
+                    <!--fim do dialogo guardar-->
+
+                    <!--inicio do dialogo editar-->
+
+                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                        <h:form enctype="multipart/form-data">
+                            <h:inputHidden value="#{tipoDisciplinaMBean.tipoDisciplina.idTipoDisciplina}"/>
+                            <p:tabView>
+                                <p:tab title="Dados do tipo de Disciplina">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Tipo de Disciplina:"/>
+                                        <p:inputText size="30" value="#{tipoDisciplinaMBean.tipoDisciplina.tipoDisciplina}"/>
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                            <p:commandButton value="Alterar" action="#{tipoDisciplinaMBean.edit(event)}" ajax="false"/>
+                        </h:form>
+                    </p:dialog>
+                    <!--fim do dialogo editar-->
+
+                    <!--Inicio do dialog ver-->
+                    <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
+                        <h:form>
+                            <p:tabView>
+                                <p:tab title="Visualuzação">
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel value="Código: "/>
+                                        <h:outputText value="#{tipoDisciplinaMBean.tipoDisciplina.idTipoDisciplina}"/>
+                                        <p:outputLabel value="Tipo Disciplina: "/>
+                                        <h:outputText value="#{tipoDisciplinaMBean.tipoDisciplina.tipoDisciplina}"/>
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
+                    </p:dialog>
+
+                    <!--Fim do dialog ver-->
+
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

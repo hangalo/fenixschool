@@ -36,7 +36,7 @@ public class MesDAO implements GenericoDAO<Mes>{
         try {
             conn=Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
-            ps.setString(1,mes.getNome_mes());
+            ps.setString(1,mes.getNomeMes());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro na insercao de dados: " +e.getMessage());
@@ -58,8 +58,8 @@ public class MesDAO implements GenericoDAO<Mes>{
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ACTUALIZAR);
-            ps.setString(1,mes.getNome_mes());
-            ps.setInt(2,mes.getId_mes());
+            ps.setString(1,mes.getNomeMes());
+            ps.setInt(2,mes.getIdMes());
             ps.executeUpdate();
         } catch (Exception e) {
             System.err.println("Erro na actualizacao de dados: " + e.getLocalizedMessage());
@@ -80,7 +80,7 @@ public class MesDAO implements GenericoDAO<Mes>{
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
-            ps.setInt(1,mes.getId_mes());
+            ps.setInt(1,mes.getIdMes());
             ps.executeUpdate();
         } catch (Exception e) {
             System.err.println("Erro na eliminacao de dados:" + e.getLocalizedMessage());
@@ -141,8 +141,8 @@ public class MesDAO implements GenericoDAO<Mes>{
     @Override
     public void popularComDados(Mes mes, ResultSet rs) {
         try {
-            mes.setId_mes(rs.getInt("id_mes"));
-            mes.setNome_mes(rs.getString("nome_mes"));
+            mes.setIdMes(rs.getInt("id_mes"));
+            mes.setNomeMes(rs.getString("nome_mes"));
         } catch (Exception e) {
             System.err.println("Erro no carregamento de dados: " + e.getLocalizedMessage());
         }

@@ -19,16 +19,18 @@ import java.util.List;
  * @author HP
  */
 public class TipoDisciplinaDAO implements GenericoDAO<TipoDisciplina> {
-    private static final String INSERIR = "insert into tipo_disciplina(tipo_disciplina) VALUES (?)";
-    private static final String ACTUALIZAR = "UPDATE tipo_discilina set tipo_disciplina = ? WHERE id_tipo_disciplina = ?";
+    private static final String INSERIR = "INSERT INTO tipo_disciplina(tipo_disciplina) VALUES (?)";
+    private static final String ACTUALIZAR = "UPDATE tipo_disciplina SET tipo_disciplina = ? WHERE id_tipo_disciplina = ?";
     private static final String ELIMINAR = "DELETE FROM tipo_disciplina WHERE id_tipo_disciplina = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM tipo_discipina where id_tipo_disciplina = ?";
-    private static final String LISTAR_TUDO = "SELECT * FROM tipo_disciplina ORDER BY tipo_disciplina ASC;";
+    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM tipo_disciplina WHERE id_tipo_disciplina = ? ORDER BY tipo_disciplina ASC";
+    private static final String LISTAR_TUDO = "SELECT * FROM tipo_disciplina ORDER BY tipo_disciplina ASC";
 
+    PreparedStatement ps = null;
+    Connection conn = null;
+    ResultSet rs = null;
     @Override
     public void save(TipoDisciplina tipoDisciplina){
-        PreparedStatement ps = null;
-        Connection conn = null;
+        
         if (tipoDisciplina== null){
             System.err.println("O valor oassado não pode ser nulo!");
         }
@@ -47,8 +49,7 @@ public class TipoDisciplinaDAO implements GenericoDAO<TipoDisciplina> {
 
     @Override
     public void update(TipoDisciplina tipoDisciplina){
-        PreparedStatement ps = null;
-        Connection conn = null;
+        
         if(tipoDisciplina == null){
             System.err.println("O valor passado nao pode ser nulo");
         }
@@ -69,8 +70,7 @@ public class TipoDisciplinaDAO implements GenericoDAO<TipoDisciplina> {
 
     @Override
     public void delete(TipoDisciplina tipoDisciplina){
-        PreparedStatement ps = null;
-        Connection conn = null;
+        
         if (tipoDisciplina == null) {
             System.err.println("O valor passado nao pode ser nulo");
         }
@@ -84,15 +84,13 @@ public class TipoDisciplinaDAO implements GenericoDAO<TipoDisciplina> {
         }
         finally{
             Conexao.closeConnection(conn, ps);
-{}
+
         }
     }
 
     @Override
     public TipoDisciplina findById(Integer id) {
-        PreparedStatement ps = null;
-        Connection conn = null;
-        ResultSet rs = null;
+        
         TipoDisciplina tipoDisciplina = new TipoDisciplina();
         try {
             conn = (Connection) Conexao.getConnection();
@@ -112,9 +110,7 @@ public class TipoDisciplinaDAO implements GenericoDAO<TipoDisciplina> {
 
     @Override
     public List<TipoDisciplina> findAll() {
-        PreparedStatement ps = null;
-        Connection conn = null;
-        ResultSet rs = null;
+        
         List<TipoDisciplina> tipoDisciplinas = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();

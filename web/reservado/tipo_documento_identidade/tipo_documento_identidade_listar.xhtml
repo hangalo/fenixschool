@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <h:form>
+                        <h1>Lista de Tipos de Documento Identidade</h1>
+
+                        <!--inicio Datatable-->
+                        <p:dataTable value="#{tipoDocumentoIdentidadeMBean.tipoDeDocumentos}" var="tipoDocumento" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{tipoDocumento.idTipoDocumentoIdentidade}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Tipo: "/>
+                                </f:facet>
+                                <h:outputText value="#{tipoDocumento.tipoDOcumentoIdentidade}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton  icon="ui-icon-trash" action="#{tipoDocumentoIdentidadeMBean.delete()}">
+                                    <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoEditar').show();">
+                                    <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin" update=":ver" oncomplete="PF('dialogoVer').show();">
+                                    <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
+                                </p:commandButton>
+                                
+                            </p:column>
+
+                            <f:facet name="footer">
+                                Total de Tipos de Documentos  (#{tipoDocumentoIdentidadeMBean.tipoDeDocumentos.size()})
+                            </f:facet>                           
+                        </p:dataTable>
+
+                        <!--Fim Datatable-->
+                    </h:form>
+
+                    <h:form id="Operacoes">
+                        <p:commandButton value="Novo Tipo de Doc. Identidade" type="button" onclick="PF('dialogoGuardar').show();"/>
+                    </h:form>
+
+                    <!--inicio do dialogo guardar-->
+                    <p:dialog  header="Novo Tipo de Doc. Identidade" id="guardar" widgetVar="dialogoGuardar" showEffect="clip" hideEffect="blind" style="width: 300px;">
+                        <h:form enctype="multipart/form-data">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Tipo: "/>
+                                <p:inputText size="30" value="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade.tipoDOcumentoIdentidade}"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Guardar" action="#{tipoDocumentoIdentidadeMBean.guardar(evt)}" ajax="false"/>
+                        </h:form>
+                    </p:dialog>
+
+                    <!--fim do dialogo guardar-->
+
+                    <!--inicio do dialogo editar-->
+
+                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                        <h:form enctype="multipart/form-data">
+                            <h:inputHidden value="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade.idTipoDocumentoIdentidade}"/>
+                            <p:tabView>
+                                <p:tab title="Dados do tipo de Doc de Identidade">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Tipo:"/>
+                                        <p:inputText size="30" value="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade.tipoDOcumentoIdentidade}"/>
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                            <p:commandButton value="Alterar" action="#{tipoDocumentoIdentidadeMBean.edit(event)}" ajax="false"/>
+                        </h:form>
+                    </p:dialog>
+                    <!--fim do dialogo editar-->
+                    
+                    <!--Inicio do dialog ver-->
+                    <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
+                        <h:form>
+                            <p:tabView>
+                                <p:tab title="Visualuzação">
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel value="Código: "/>
+                                        <h:outputText value="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade.idTipoDocumentoIdentidade}"/>
+                                        <p:outputLabel value="Tipo: "/>
+                                        <h:outputText value="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade.tipoDOcumentoIdentidade}"/>
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
+                    </p:dialog>
+
+                    <!--Fim do dialog ver-->
+
+
+
+                </f:view>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

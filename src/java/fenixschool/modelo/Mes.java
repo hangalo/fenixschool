@@ -5,32 +5,74 @@
  */
 package fenixschool.modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author HP
  */
 public class Mes {
-    private Integer id_mes;
-    private String nome_mes;
+    private Integer idMes;
+    private String nomeMes;
     
     public Mes(){
     }
 
-    public Integer getId_mes() {
-        return id_mes;
+    public Mes(Integer idMes, String nomeMes) {
+        this.idMes = idMes;
+        this.nomeMes = nomeMes;
     }
 
-    public void setId_mes(Integer id_mes) {
-        this.id_mes = id_mes;
+    public Integer getIdMes() {
+        return idMes;
     }
 
-    public String getNome_mes() {
-        return nome_mes;
+    public void setIdMes(Integer idMes) {
+        this.idMes = idMes;
     }
 
-    public void setNome_mes(String nome_mes) {
-        this.nome_mes = nome_mes;
+    public String getNomeMes() {
+        return nomeMes;
     }
+
+    public void setNomeMes(String nomeMes) {
+        this.nomeMes = nomeMes;
+    }
+
+    @Override
+    public String toString() {
+        return "Mes{" + "idMes=" + idMes + ", nomeMes=" + nomeMes + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.idMes);
+        hash = 53 * hash + Objects.hashCode(this.nomeMes);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Mes other = (Mes) obj;
+        if (!Objects.equals(this.nomeMes, other.nomeMes)) {
+            return false;
+        }
+        if (!Objects.equals(this.idMes, other.idMes)) {
+            return false;
+        }
+        return true;
+    }
+
     
 
 }

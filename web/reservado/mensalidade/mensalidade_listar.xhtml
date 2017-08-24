@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
+
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <h:form>
+                        <h1>Lista de Mensalidades</h1>
+                        <!--inicio Datatable-->
+                        <p:dataTable value="#{mensalidadeMBean.mensalidades}" var="mensalidade" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código: "/>
+                                </f:facet>
+                                <h:outputText value="#{mensalidade.idMensalidade}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Data de Pagamento"/>
+                                </f:facet>
+                                <h:outputText value="#{mensalidade.dataPagamento}"/>
+                            </p:column>
+                            <p:column width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton  icon="ui-icon-trash" action="#{mensalidadeMBean.delete()}">
+                                    <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
+                                    <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVerMensalidade').show();" >
+                                    <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
+                                </p:commandButton>
+
+
+                            </p:column>
+                        </p:dataTable>
+                        <!--fim Datatable-->
+                    </h:form>
+
+                    <h:form id="Operacoes">
+                        <p:commandButton value="Nova Mensalidade" type="button" onclick="PF('dialogoGuardar').show();"/>
+                    </h:form>
+
+                    <!--inicio do dialogo guardar-->
+
+                    <p:dialog header="Nova Mensalidade" widgetVar="dialogoGuardar" showEffect="explode" hideEffect="bounce" height="400">
+                        <h:form>
+                            <p:tabView>
+                                <p:tab title="Dados da Mensalidade">
+                                    <p:growl id="messages" showDetail="true"/>
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Valor Pago: "/>
+                                        <p:inputText value="#{mensalidadeMBean.mensalidade.valorPago}" size="20"/>
+                                        <p:outputLabel value="Valor Juro: "/>
+                                        <p:inputText value="#{mensalidadeMBean.mensalidade.valorJuro}" size="20"/>
+                                        <p:outputLabel value="Data de Pagamento: "/>
+                                        <p:calendar value="#{mensalidadeMBean.mensalidade.dataPagamento}" size="20"  pattern="dd/MM/yyyy"/>                                                                               
+                                    </h:panelGrid>
+                                    <h:panelGroup>
+                                        <p:panelGrid columns="1">
+                                            <p:outputLabel value="Descrição:"/>
+                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.descricaoMensalidade}" cols="40" rows="8"/>
+                                            <p:outputLabel value="Observção:"/>
+                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.observacaoMensalidade}" cols="30" rows="6"/>
+                                        </p:panelGrid>
+                                    </h:panelGroup> 
+                                </p:tab>
+                                <p:tab title="Outros dados">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Aluno: "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.aluno}">
+                                            <f:selectItem itemLabel="Selecione um Aluno" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{alunoMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Departamento "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.departamento}">
+                                            <f:selectItem itemLabel="Selecione um Departamento" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{departamentoMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Turma "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.turma}">
+                                            <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Ciclo Letivo: "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.cicloLectivo}">
+                                            <f:selectItem itemLabel="Selecione uma Ciclo Letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Mes "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.mes}">
+                                            <f:selectItem itemLabel="Selecione uma Mes" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Curso "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.curso}">
+                                            <f:selectItem itemLabel="Selecione uma Curso" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{cursoMBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nomeCurso}" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+                                </p:tab>
+                            </p:tabView>
+
+                            <p:commandButton value="Guardar" actionListener="#{mensalidadeMBean.guardar(evt)}" ajax="false"/>
+                        </h:form>
+
+                    </p:dialog>
+
+                    <!--fim do dialogo guardar-->
+
+                    <!-- Inicio Dialogo Editar-->
+
+                    <p:dialog header="Alterar dados da Mensalidade" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="400">
+                        <h:form>
+                            <p:tabView>
+                                <p:tab title="Dados da Mensalidade">
+                                    <p:growl id="messages" showDetail="true"/>
+                                    <h:inputHidden value="#{mensalidadeMBean.mensalidade.idMensalidade}"/>
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Valor Pago: "/>
+                                        <p:inputText value="#{mensalidadeMBean.mensalidade.valorPago}" size="20"/>
+                                        <p:outputLabel value="Valor Juro: "/>
+                                        <p:inputText value="#{mensalidadeMBean.mensalidade.valorJuro}" size="20"/>
+                                        <p:outputLabel value="Data de Pagamento: "/>
+                                        <p:calendar value="#{mensalidadeMBean.mensalidade.dataPagamento}" size="20"  pattern="dd/MM/yyyy"/>                                                                               
+                                    </h:panelGrid>
+                                    <h:panelGroup>
+                                        <p:panelGrid columns="1">
+                                            <p:outputLabel value="Descrição:"/>
+                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.descricaoMensalidade}" cols="40" rows="8"/>
+                                            <p:outputLabel value="Observção:"/>
+                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.observacaoMensalidade}" cols="30" rows="6"/>
+                                        </p:panelGrid>
+                                    </h:panelGroup> 
+                                </p:tab>
+                                <p:tab title="Outros dados">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Aluno: "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.aluno}">
+                                            <f:selectItem itemLabel="Selecione um Aluno" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{alunoMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Departamento "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.departamento}">
+                                            <f:selectItem itemLabel="Selecione um Departamento" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{departamentoMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Turma "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.turma}">
+                                            <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Ciclo Letivo: "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.cicloLectivo}">
+                                            <f:selectItem itemLabel="Selecione uma Ciclo Letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Mes "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.mes}">
+                                            <f:selectItem itemLabel="Selecione uma Mes" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Curso "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.curso}">
+                                            <f:selectItem itemLabel="Selecione uma Curso" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{cursoMBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nomeCurso}" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+                                </p:tab>
+                            </p:tabView>
+
+                            <p:commandButton value="Alterar" actionListener="#{mensalidadeMBean.edit(event)}" ajax="false"/>
+                        </h:form>
+
+                    </p:dialog>
+
+                    <!-- fim Dialogo Editar-->
+
+                    <!-- Inicio Dialogo Ver-->
+
+                    <p:dialog header="Detalhes da Mensalidade" id="ver" widgetVar="dlgVerMensalidade" showEffect="explode" hideEffect="bounce">
+
+                        <h:form>
+                            <p:tabView>
+                                <p:tab title="Dados da Mensalidade">
+                                    <p:growl id="messages" showDetail="true"/>
+
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Código: "/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.idMensalidade}"/>
+                                        <p:outputLabel value="Valor Pago: "/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.valorPago}"/>
+                                        <p:outputLabel value="Valor Juro: "/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.valorJuro}" />
+                                        <p:outputLabel value="Data de Pagamento: "/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.dataPagamento}"/>                                                                               
+                                    </h:panelGrid>
+                                    <h:panelGroup>
+                                        <p:panelGrid columns="2">
+                                            <p:outputLabel value="Descrição:"/>
+                                            <h:outputText value="#{mensalidadeMBean.mensalidade.descricaoMensalidade}"/>
+                                            <p:outputLabel value="Observção:"/>
+                                            <h:outputText value="#{mensalidadeMBean.mensalidade.observacaoMensalidade}"/>
+                                        </p:panelGrid>
+                                    </h:panelGroup> 
+                                </p:tab>
+                                <p:tab title="Outros dados">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Aluno: "/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.aluno.nomeAluno}"/>
+                                        <p:outputLabel value="Departamento: "/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.departamento.nomeDepartamento}"/>
+                                        <p:outputLabel value="Turma: "/>
+                                         <h:outputText value="ainda não tem turma..."/>
+                                        <p:outputLabel value="Ciclo Letivo: "/>
+                                        <h:outputText value="ainda não tem ciclo letivo..."/>
+                                        <p:outputLabel value="Mes: "/>
+                                        <h:outputText value="ainda não tem mes..."/>
+                                        <p:outputLabel value="Curso: "/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.curso.nomeCurso}"/>
+                                    </h:panelGrid>
+
+                                </p:tab>
+                            </p:tabView>
+
+                           
+                        </h:form>
+
+                    </p:dialog>
+                    <!-- fim Dialogo Ver-->
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
