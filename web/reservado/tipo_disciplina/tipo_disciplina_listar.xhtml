@@ -27,7 +27,7 @@
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <p:outputLabel value="Tipo:"/>
+                                    <p:outputLabel value="Tipo de Disciplina: "/>
                                 </f:facet>
                                 <h:outputText value="#{tipoDisciplina.tipoDisciplina}"/>
                             </p:column>
@@ -65,7 +65,7 @@
                         <h:form enctype="multipart/form-data">
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Tipo: "/>
-                                <p:inputText size="30" value="#{tipoDisciplinaMBean.tipoDisciplina.tipoDisciplina}"/>
+                                <p:inputText size="20" value="#{tipoDisciplinaMBean.tipoDisciplina.tipoDisciplina}"/>
                             </h:panelGrid>
                             <p:commandButton value="Guardar" action="#{tipoDisciplinaMBean.guardar(evt)}" ajax="false"/>
                         </h:form>
@@ -79,10 +79,10 @@
                         <h:form enctype="multipart/form-data">
                             <h:inputHidden value="#{tipoDisciplinaMBean.tipoDisciplina.idTipoDisciplina}"/>
                             <p:tabView>
-                                <p:tab title="Dados do tipo de Disciplina">
+                                <p:tab title="Alterar dados do tipo de Disciplina">
                                     <h:panelGrid columns="2">
                                         <p:outputLabel value="Tipo de Disciplina:"/>
-                                        <p:inputText size="30" value="#{tipoDisciplinaMBean.tipoDisciplina.tipoDisciplina}"/>
+                                        <p:inputText size="20" value="#{tipoDisciplinaMBean.tipoDisciplina.tipoDisciplina}"/>
                                     </h:panelGrid>
                                 </p:tab>
                             </p:tabView>
