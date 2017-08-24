@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author HACKER
  */
-public class Aluno {
+public class Aluno{
     private int idAluno;
     private String numeroAluno;
     private String nomeAluno;
