@@ -36,12 +36,8 @@ public class DeclaracaoDAO implements GenericoDAO <Declaracao> {
             + "INNER JOIN aluno a on a.id_aluno=d.id_aluno"
             + "WHERE id_delcaracao = ?"
             + ";";
-    private static final String SELECT_ALL = "SELECT d.id_delcaracao, d.texto_teclaracao, d.data_declaracao, f.nome_funcionario, o.objetivo_declaracao, a.nome_aluno"
-            + "FROM delcaracao d"
-            + "INNER JOIN funcionario f on f.id_funcionario=d.id_funcionario"
-            + "INNER JOIN objetivo_declaracao o on o.id_objetivo_declaracao=d.id_objetivo_declaracao"
-            + "INNER JOIN aluno a on a.id_aluno=d.id_aluno"
-            + ";";
+    private static final String SELECT_ALL = "SELECT d.id_delcaracao, d.texto_teclaracao, d.data_declaracao, f.nome_funcionario, o.objetivo_declaracao, a.nome_aluno FROM delcaracao d INNER JOIN funcionario f on f.id_funcionario=d.id_funcionario INNER JOIN objetivo_declaracao o on o.id_objetivo_declaracao=d.id_objetivo_declaracao INNER JOIN aluno a on a.id_aluno=d.id_aluno ;";
+            
 
     @Override
     public void save(Declaracao declaracao) {
@@ -105,7 +101,7 @@ public class DeclaracaoDAO implements GenericoDAO <Declaracao> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERT);            
+            ps = conn.prepareStatement(DELETE);            
             ps.setInt(1, declaracao.getIdDeclaracao());
             ps.executeUpdate();
             
@@ -170,9 +166,9 @@ public class DeclaracaoDAO implements GenericoDAO <Declaracao> {
         ObjetivoDeclaracao objetivoDeclaracao = new ObjetivoDeclaracao();
         
         try {
-            aluno.setIdAluno(rs.getInt("id_aluno"));
-            objetivoDeclaracao.setIdObjetivoDeclaracao(rs.getInt("id_objetivo_declaracao"));
-            funcionario.setIdFuncionario(rs.getInt("id_funcionario"));
+            aluno.setNomeAluno(rs.getString("nome_aluno"));
+            objetivoDeclaracao.setObjectivoDeclaracao(rs.getString("objetivo_declaracao"));
+            funcionario.setNomeFuncionario(rs.getString("nome_funcionario"));
             
             declaracao.setIdDeclaracao(rs.getInt("id_delcaracao"));
             declaracao.setTextoDeclaracao(rs.getString("texto_teclaracao"));

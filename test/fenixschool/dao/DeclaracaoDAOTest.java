@@ -59,16 +59,17 @@ public class DeclaracaoDAOTest {
         fail("The test case is a prototype.");
     }
 
-    
+    */
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Declaracao declaracao = null;
+        Declaracao declaracao = new Declaracao();
         DeclaracaoDAO instance = new DeclaracaoDAO();
+        declaracao.setIdDeclaracao(4);
         instance.delete(declaracao);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
+    /**
 
    
      
@@ -89,14 +90,13 @@ public class DeclaracaoDAOTest {
     public void testFindAll() {
         System.out.println("findAll");
         DeclaracaoDAO instance = new DeclaracaoDAO();
-        List<Declaracao> expResult = null;
+      
         List<Declaracao> result = instance.findAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result.size() > 0);
+        
     }
 
-   
+   /**
     @Test
     public void testPopularComDados() {
         System.out.println("popularComDados");

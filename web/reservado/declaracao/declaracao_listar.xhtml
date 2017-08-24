@@ -27,12 +27,19 @@
                                 </f:facet>
                                 <h:outputText value="#{declaracao.idDeclaracao}"/>
                             </p:column>
-
-                            <p:column style="width: 40px; text-align: center">
+                            
+                            <p:column style="width: 50px; text-align: center">
                                 <f:facet name="header">
-                                    <p:outputLabel value="Texto Declaração"/>
+                                    <p:outputLabel value="Aluno"/>
                                 </f:facet>
-                                <h:outputText value="#{declaracao.textoDeclaracao}"/>
+                                <h:outputText value="#{declaracao.idAluno.nomeAluno}"/>                            
+                            </p:column>
+                            
+                            <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Objetivo"/>
+                                </f:facet>
+                                <h:outputText value="#{declaracao.idObjetivoDeclaracao.objectivoDeclaracao}"/>                            
                             </p:column>
                             
                             <p:column style="width: 50px; text-align: center">
@@ -46,22 +53,12 @@
                                 <f:facet name="header">
                                     <p:outputLabel value="Funcionário"/>
                                 </f:facet>
-                                <h:outputText value="#{declaracao.idFuncionario}"/>
+                                <h:outputText value="#{declaracao.idFuncionario.nomeFuncionario}"/>
                                 </p:column>
                             
-                                <p:column style="width: 50px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Objetivo"/>
-                                </f:facet>
-                                    <h:outputText value="#{declaracao.idObjetivoDeclaracao}"/>                            
-                            </p:column>
                             
-                            <p:column style="width: 50px; text-align: center">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Aluno"/>
-                                </f:facet>
-                                <h:outputText value="#{declaracao.idAluno}"/>                            
-                            </p:column>
+                            
+                            
                             <!--Fim Formulário de Listagem-->
                             <!-- Coluna Operações-->
                             
@@ -83,7 +80,7 @@
                             </p:column>
 
                             <f:facet name="footer">  
-                                Número de Declarações: #{(classificacaoNotaMBean.classificacaoNotas.size())}
+                                Número de Declarações: #{(declaracaoMBean.declaracaos.size())}
                             </f:facet> 
                         </p:dataTable>
 
@@ -110,7 +107,7 @@
                                      <p:growl id="messages" showDetail="true"/>
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Texto Declaração"/>
-                                        <p:inputText value="#{declaracaoMBean.declaracao.textoDeclaracao}" />
+                                        <p:inputTextarea value="#{declaracaoMBean.declaracao.textoDeclaracao}" />
                                         <p:outputLabel value="Data"/>
                                         <p:calendar value="#{declaracaoMBean.declaracao.dataDeclaracao}" pattern="dd/MM/yyyy"/>
                                         <p:outputLabel value="Aluno:"/>
@@ -146,11 +143,30 @@
                             <h:form id="formEditar" enctype="multipart/form-data">
                                 <p:growl id="growl" showDetail="true" sticky="true"/>
                                 <h:inputHidden value="#{declaracaoMBean.declaracao.idDeclaracao}"/>
+                                
                                 <h:panelGrid columns="2" title="Editar Declaração">
-                                    <p:outputLabel value="Classificação:"/>
-                                    <p:inputText value="#{classificacaoNotaMBean.classificacaoNota.classificacaoNota}" size="20"/>
-                                </h:panelGrid>
-                                <p:commandButton actionListener="#{classificacaoNotaMBean.edit(event)}" value="Actualizar"  update="growl" ajax="false"/>
+                                        <p:outputLabel value="Texto Declaração"/>
+                                        <p:inputTextarea value="#{declaracaoMBean.declaracao.textoDeclaracao}" />
+                                        <p:outputLabel value="Data"/>
+                                        <p:calendar value="#{declaracaoMBean.declaracao.dataDeclaracao}" pattern="dd/MM/yyyy"/>
+                                        <p:outputLabel value="Aluno:"/>
+                                        <p:selectOneMenu value="#{declaracaoMBean.declaracao.idAluno}" converter="alunoConverter" >
+                                            <f:selectItem itemLabel="Selecione o Aluno" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{declaracaoMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Objectivo:"/>
+                                        <p:selectOneMenu value="#{declaracaoMBean.declaracao.idObjetivoDeclaracao}" converter="objetivoDeclaracaoConverter">
+                                            <f:selectItem itemLabel="Selecione o Objectivo" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{declaracaoMBean.objetivoDeclaracaos}" var="objdeclaracao" itemValue="#{objdeclaracao}" itemLabel="#{objdeclaracao.objectivoDeclaracao}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Funcionário:"/>
+                                        <p:selectOneMenu value="#{declaracaoMBean.declaracao.idFuncionario}" converter="funcionarioConverter" >
+                                            <f:selectItem itemLabel="Selecione o Funcionário" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{declaracaoMBean.funcionarios}" var="funcionario" itemValue="#{funcionario}" itemLabel="#{funcionario.nomeFuncionario}" />
+                                        </p:selectOneMenu>                                   
+                                        </h:panelGrid>
+                                
+                                <p:commandButton actionListener="#{declaracaoMBean.edit(event)}" value="Actualizar"  update="growl" ajax="false"/>
                             </h:form>
                         </p:dialog>
 
@@ -159,14 +175,21 @@
                     <!-- Inicio Dialogo Ver detalhes do aluno-->
                     
                     
-                    <p:dialog header="Detalhes de Classificação" id="ver" widgetVar="dlgVerClassificacao" showEffect="explode" hideEffect="bounce"  height="60" width="600">
+                    <p:dialog header="Detalhes da Declaração" id="ver" widgetVar="dlgVerClassificacao" showEffect="explode" hideEffect="bounce"  height="150" width="600">
                         <h:form id="formVer">
                             <h:panelGrid columns="2">
-                                <p:outputLabel value="Identificador de Classificação:"/>
-                                <p:outputLabel value="#{classificacaoNotaMBean.classificacaoNota.idClassificacaoNota}"/>
-                                <p:outputLabel value="Classificação da Nota:"/>
-                                <p:outputLabel value="#{classificacaoNotaMBean.classificacaoNota.classificacaoNota}"/>
-                                
+                                <p:outputLabel value="Objectivo:"/>
+                                <p:outputLabel value="#{declaracaoMBean.declaracao.idObjetivoDeclaracao.objectivoDeclaracao}"/>
+                                <p:outputLabel value="Nome do Aluno:"/>
+                                <p:outputLabel value="#{declaracaoMBean.declaracao.idAluno.nomeAluno}"/>
+                                <p:outputLabel value="Data de Emissão:"/>
+                                <p:outputLabel value="#{declaracaoMBean.declaracao.dataDeclaracao}"/>
+                                <p:outputLabel value="Texto da Declaração:"/>
+                                <p:outputLabel value="#{declaracaoMBean.declaracao.textoDeclaracao}"/>
+                                <p:outputLabel value="Nome do Funcionário:"/>
+                                <p:outputLabel value="#{declaracaoMBean.declaracao.idFuncionario.nomeFuncionario}"/>
+                                <p:outputLabel value="Identificador de Declaração:"/>
+                                <p:outputLabel value="#{declaracaoMBean.declaracao.idDeclaracao}"/>                          
                             </h:panelGrid> 
                               
                         </h:form>
