@@ -4,10 +4,10 @@ Redme
 
 
 >>> Inicio
-09/08/2017 - Joaquim José Hangalo
+09/08/2017 - Joaquim Josï¿½ Hangalo
 
 
-Alterações a Base de dados
+Alteraï¿½ï¿½es a Base de dados
 
 Aluno
 Candidato
@@ -18,17 +18,21 @@ Encarregado de educacao
 
 
 
-A Nivel da aplicação
+A Nivel da aplicaï¿½ï¿½o
 
 
-Formulario do departamento e Profissão
+Formulario do departamento e Profissï¿½o
 
-Implementação com p:dialog dos casos de uso guardar e editar
-
-
-Implementação dos metodos editar e eliminar na entidade Profissão
+Implementaï¿½ï¿½o com p:dialog dos casos de uso guardar e editar
 
 
-NB= Usar como refencia e exemplo a implementação com dialog
+Implementaï¿½ï¿½o dos metodos editar e eliminar na entidade Profissï¿½o
+
+
+NB= Usar como refencia e exemplo a implementaï¿½ï¿½o com dialog
 
 >>> Fim
+
+
+
+
