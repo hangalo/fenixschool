@@ -5,6 +5,8 @@
  */
 package fenixschool.modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author HP
@@ -66,6 +68,33 @@ public class Turma {
 
     public void setNumeroMaximoInscritos(Integer numeroMaximoInscritos) {
         this.numeroMaximoInscritos = numeroMaximoInscritos;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.idTurma);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Turma other = (Turma) obj;
+        if (!Objects.equals(this.idTurma, other.idTurma)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Turma{" + "idTurma=" + idTurma + ", nomeTurma=" + nomeTurma + ", idAnoLetivo=" + idAnoLetivo + ", idPeriodoLetivo=" + idPeriodoLetivo + ", numeroMaximoInscritos=" + numeroMaximoInscritos + '}';
     }
     
     

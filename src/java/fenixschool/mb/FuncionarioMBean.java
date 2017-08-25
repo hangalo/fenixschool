@@ -51,7 +51,7 @@ public class FuncionarioMBean implements Serializable{
     private Funcionario funcionario;
     private FuncionarioDAO funcionarioDAO;
     private List<Funcionario> funcionarios;
-     private MunicipioDAO municipioDAO;
+    private MunicipioDAO municipioDAO;
   
     private List<Municipio> municipios;
     public FuncionarioMBean() {
