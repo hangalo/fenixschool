@@ -21,7 +21,7 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Código"/>
                             </f:facet>
-                            <p:outputLabel value="#{boletim.idBoletimNotas}"/>
+                            <h:outputText value="#{boletim.idBoletimNotas}"/>
                         </p:column>
                         <p:column style="width: 200px;">
                             <f:facet name="header">
@@ -37,11 +37,11 @@
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </p:outputLabel>
                         </p:column>
-                        <p:column style="width: 100px;">
+                        <p:column style="width: 55px;">
                             <f:facet name="header">
                                 <p:outputLabel value="Operações"/>
                             </f:facet>
-                            <p:commandButton icon="ui-icon-trash" value="#{boletimNotasMBean.delete()}">
+                            <p:commandButton icon="ui-icon-trash" action="#{boletimNotasMBean.delete}">
                                 <f:setPropertyActionListener target="#{boletimNotasMBean.boletimNota}" value="#{boletim}"/>
                             </p:commandButton>
                             <p:commandButton icon="ui-icon-pencil" update=":FrmEditar:editar" oncomplete="PF('dialogoEditar').show();">
@@ -117,18 +117,20 @@
                             </p:tab>
 
                             <p:tab title="Dados do aluno">
-                                <p:outputLabel value="Nº:"/>
-                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.numeroAluno}"/>
-                                <p:outputLabel value="Nome:"/>
-                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.nomeAluno}"/>
-                                <p:outputLabel value="Sobrenome:"/>
-                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.sobrenomeAluno}"/>
-                                <p:outputLabel value="Data de nascimento:"/>
-                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.dataNascimentoAluno}">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Nº:"/>
+                                    <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.numeroAluno}"/>
+                                    <p:outputLabel value="Nome:"/>
+                                    <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.nomeAluno}"/>
+                                    <p:outputLabel value="Sobrenome:"/>
+                                    <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.sobrenomeAluno}"/>
+                                    <p:outputLabel value="Data de nascimento:"/>
+                                    <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.dataNascimentoAluno}">
                                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     </p:outputLabel>
-                                <p:outputLabel value="Sexo:"/>
-                                <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.sexo}"/>
+                                    <p:outputLabel value="Sexo:"/>
+                                    <p:outputLabel value="#{boletimNotasMBean.boletimNota.aluno.sexo}"/>
+                                </p:panelGrid>
                             </p:tab>
                         </p:tabView>
                     </p:dialog>

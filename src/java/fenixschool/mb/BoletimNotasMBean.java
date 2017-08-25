@@ -108,8 +108,6 @@ public class BoletimNotasMBean {
     public String delete() {
         boletimNotaDAO.delete(boletimNota);
         boletimNota = null;
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Excluir","Excluido com sucesso!");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
         return "boletimnotas_listar?faces-redirect=true";
     }
 }

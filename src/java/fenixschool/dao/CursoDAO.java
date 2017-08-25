@@ -19,7 +19,8 @@ import java.util.List;
  *
  * @author informatica
  */
-public class CursoDAO implements GenericoDAO<Curso>{
+public class CursoDAO implements GenericoDAO<Curso> {
+
     private static final String INSERT = "INSERT INTO curso (codigo_curso, nome_curso, abreviatura, codigo_ministerio_educacao, data_criacao, id_departamento, descricao_curso, conteudo_programatico) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE curso set nome_curso=?, abreviatura = ?, codigo_ministerio_educacao = ?, data_criacao = ?, id_departamento =?, descricao_curso = ?, conteudo_programatico =? WHERE codigo_curso=?";
     private static final String DELETE = "DELETE FROM curso WHERE codigo_curso=?";
@@ -30,7 +31,9 @@ public class CursoDAO implements GenericoDAO<Curso>{
     public void save(Curso curso) {
         PreparedStatement ps = null;
         Connection conn = null;
-        if(curso == null){System.err.println("O valor passado não pode ser nulo!");}
+        if (curso == null) {
+            System.err.println("O valor passado não pode ser nulo!");
+        }
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERT);
@@ -41,12 +44,11 @@ public class CursoDAO implements GenericoDAO<Curso>{
             ps.setDate(5, new java.sql.Date(curso.getDataCriacao().getTime()));
             ps.setInt(6, curso.getIdDepartamento().getIdDepartamento());
             ps.setString(7, curso.getDescricaoCurso());
-             ps.setString(8, curso.getConteudoProgramaticoCurso() );
+            ps.setString(8, curso.getConteudoProgramaticoCurso());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao inserir dados: " + e.getMessage());
-        }
-        finally {
+        } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
@@ -60,22 +62,23 @@ public class CursoDAO implements GenericoDAO<Curso>{
         }
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(UPDATE);            
+            ps = conn.prepareStatement(UPDATE);
             ps.setString(1, curso.getNomeCurso());
             ps.setString(2, curso.getAbreviaturaCurso());
             ps.setString(3, curso.getCodigoMinisterioDaEducação());
             ps.setDate(4, new java.sql.Date(curso.getDataCriacao().getTime()));
             ps.setInt(5, curso.getIdDepartamento().getIdDepartamento());
-            ps.executeUpdate();            
+            ps.executeUpdate();
         } catch (Exception ex) {
             System.err.println("Erro ao actualizar dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps);
-        }}
+        }
+    }
 
     @Override
     public void delete(Curso curso) {
-         PreparedStatement ps = null;
+        PreparedStatement ps = null;
         Connection conn = null;
         if (curso == null) {
             System.err.println("O valor passado nao pode ser nulo");
@@ -91,11 +94,12 @@ public class CursoDAO implements GenericoDAO<Curso>{
             Conexao.closeConnection(conn, ps);
             {
             }
-        }}
+        }
+    }
 
     @Override
     public Curso findById(Integer id) {
-        
+
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -114,12 +118,12 @@ public class CursoDAO implements GenericoDAO<Curso>{
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-            return curso;
+        return curso;
     }
 
     @Override
-    public List<Curso> findAll(){
-       PreparedStatement ps = null;
+    public List<Curso> findAll() {
+        PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
         List<Curso> cursos = new ArrayList<>();
@@ -143,7 +147,7 @@ public class CursoDAO implements GenericoDAO<Curso>{
     @Override
     public void popularComDados(Curso curso, ResultSet rs) {
         try {
-         
+
             curso.setCodigoCurso(rs.getString("codigo_curso"));
             curso.setNomeCurso(rs.getString("nome_curso"));
             curso.setAbreviaturaCurso(rs.getString("abreviatura"));
@@ -153,11 +157,11 @@ public class CursoDAO implements GenericoDAO<Curso>{
             departamento.setNomeDepartamento(rs.getString("nome_departamento"));
             curso.setIdDepartamento(departamento);
             curso.setDescricaoCurso(rs.getString("descricao_curso"));
-             curso.setConteudoProgramaticoCurso(rs.getString("conteudo_programatico"));
-            
+            curso.setConteudoProgramaticoCurso(rs.getString("conteudo_programatico"));
+
         } catch (SQLException ex) {
-            System.err.println("Erro ao ler dados"+ex);
+            System.err.println("Erro ao ler dados" + ex);
         }
     }
-    
+
 }

@@ -22,13 +22,13 @@ import java.util.List;
  */
 public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
 
-    private static final String INSERIR = "INSERT INTO boletim_notas (data_boletim_notas,id_aluno) VALUES (?,?)";
-    private static final String ACTUALIZAR = "UPDATE boletim_notas SET data_boletim_notas = ?, id_aluno =? WHERE id_boletim_notas = ?";
-    private static final String ELIMINAR = "DELETE FROM boletim_notas WHERE id_boletim_notas=?";
-    private static final String LISTAR_POR_CODIGO = "SELECT b.id_boletim_notas,b.data_boletim_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
-            + "a.data_nascimento,a.sexo FROM boletim_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno WHERE b.id_boletim_notas=?";
-    private static final String LISTAR_TUDO = "SELECT b.id_boletim_notas,b.data_boletim_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
-            + "a.data_nascimento,a.sexo FROM boletim_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno";
+    private static final String INSERIR = "INSERT INTO boletin_notas (data_boletin_notas,id_aluno) VALUES (?,?)";
+    private static final String ACTUALIZAR = "UPDATE boletin_notas SET data_boletin_notas = ?, id_aluno =? WHERE id_boletin_notas = ?";
+    private static final String ELIMINAR = "DELETE FROM boletin_notas WHERE id_boletin_notas=?";
+    private static final String LISTAR_POR_CODIGO = "SELECT b.id_boletin_notas,b.data_boletin_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
+            + "a.data_nascimento,a.sexo FROM boletin_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno WHERE b.id_boletin_notas=?";
+    private static final String LISTAR_TUDO = "SELECT b.id_boletin_notas,b.data_boletin_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
+            + "a.data_nascimento,a.sexo FROM boletin_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno";
 
     Connection conn;
     PreparedStatement ps;
@@ -144,8 +144,8 @@ public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
     public void popularComDados(BoletimNotas boletimNotas, ResultSet rs) {
 
         try {
-            boletimNotas.setIdBoletimNotas(rs.getInt("id_boletim_notas"));
-            boletimNotas.setDataBoletimNotas(rs.getDate("data_boletim_notas"));
+            boletimNotas.setIdBoletimNotas(rs.getInt("id_boletin_notas"));
+            boletimNotas.setDataBoletimNotas(rs.getDate("data_boletin_notas"));
             
             Aluno aluno = new Aluno();
             

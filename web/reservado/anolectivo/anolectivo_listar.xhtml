@@ -59,12 +59,6 @@
                             <p:commandButton icon="ui-icon-zoomin" update=":FrmVer:ver" oncomplete="PF('dialogoVer').show();">
                                 <f:setPropertyActionListener target="#{anoLectivoMBean.anoLectivo}" value="#{anolectivo}"/>
                             </p:commandButton>
-                            <p:commandButton icon="ui-icon-pencil" update=":FrmEditar:editar" oncomplete="PF('dialogoEditar').show();">
-                                <f:setPropertyActionListener target="#{boletimNotasMBean.boletimNota}" value="#{boletim}"/>
-                            </p:commandButton>
-                            <p:commandButton icon="ui-icon-zoomin" update=":FrmVer:ver" oncomplete="PF('dialogoVer').show();">
-                                <f:setPropertyActionListener target="#{boletimNotasMBean.boletimNota}" value="#{boletim}"/>
-                            </p:commandButton>
                         </p:column>
                         <f:facet name="footer">
                             Total de registos: #{anoLectivoMBean.anoLectivos.size()}
