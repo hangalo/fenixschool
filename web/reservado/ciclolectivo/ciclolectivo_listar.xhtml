@@ -58,11 +58,11 @@
                     </h:form>
 
                     <h:form id="Operacoes">
-                        <p:commandButton value="Novo ciclo lectivo" type="button" onclick="PF('dialogoGuardar').show();"/>
+                        <p:commandButton value="Novo ciclo lectivo" type="button" onclick="PF('dlgNovo').show();"/>
                     </h:form>
 
                     <!--inicio do dialogo guardar-->
-                    <p:dialog  header="Novo ciclo lectivo" id="guardar" widgetVar="dialogoGuardar" showEffect="clip" hideEffect="blind" style="width: 300px;">
+                    <p:dialog  header="Novo ciclo lectivo" id="guardar" widgetVar="dlgNovo" showEffect="clip" hideEffect="blind" style="width: 300px;">
                         <h:form >
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Ciclo Lectivo: "/>
@@ -99,9 +99,9 @@
                                 <p:tab title="Visualuzação">
                                     <p:panelGrid columns="2">
                                         <p:outputLabel value="Código: "/>
-                                        <h:outputText value="#{cicloLectivoMBean.cicloLectivo.idCicloLectivo}"/>
+                                        <h:outputLabel value="#{cicloLectivoMBean.cicloLectivo.idCicloLectivo}"/>
                                         <p:outputLabel value="Tipo Disciplina: "/>
-                                        <h:outputText value="#{cicloLectivoMBean.cicloLectivo.cicloLectivo}"/>
+                                        <h:outputLabel value="#{cicloLectivoMBean.cicloLectivo.cicloLectivo}"/>
                                     </p:panelGrid>
                                 </p:tab>
                             </p:tabView>
