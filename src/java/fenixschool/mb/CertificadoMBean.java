@@ -34,6 +34,8 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class CertificadoMBean implements Serializable{
 
+     private static final long serialVersionUID = 1L;
+    
     private Certificado certificado;
     private CertificadoDAO certificadoDAO;
     private List<Certificado> certificados;
@@ -156,7 +158,7 @@ public class CertificadoMBean implements Serializable{
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("certificado_listar.jsf");
         } catch (IOException ex) {
-            Logger.getLogger(ProfessorMBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CertificadoMBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

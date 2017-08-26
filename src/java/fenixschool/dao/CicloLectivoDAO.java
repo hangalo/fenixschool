@@ -16,21 +16,21 @@ import java.util.List;
 
 
 public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
-    private static final String INSERIR ="insert into ciclo_letivo(ciclo_letivo) VALUES (?)";
-    private static final String ATUALIZAR = "UPDATE Ciclo_Letivo set ciclo_letivo = ? WHERE id_ciclo_letivo = ?";
-    private static final String ELIMINAR = " DELETE FROM Ciclo_Letivo WHERE id_ciclo_letivo = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM Ciclo_Letivo where id_ciclo_letivo = ?";
-    private static final String LISTAR_TUDO ="SELECT * FROM Ciclo_Letivo ORDER BY ciclo_letivo ASC;"; 
+    private static final String INSERIR ="INSERT INTO ciclo_letivo(ciclo_letivo) VALUES (?)";
+    private static final String ATUALIZAR = "UPDATE ciclo_letivo SET ciclo_letivo =? WHERE id_ciclo_letivo =?";
+    private static final String ELIMINAR = " DELETE FROM ciclo_letivo WHERE id_ciclo_letivo = ?";
+    private static final String BUSCAR_POR_CODIGO = "SELECT FROM ciclo_letivo where id_ciclo_letivo =?";
+    private static final String LISTAR_TUDO ="SELECT  *FROM ciclo_letivo ORDER BY ciclo_letivo ASC;"; 
 
     @Override
-    public void save(CicloLectivo ciclo_lectivo) {
+    public void save(CicloLectivo cicloLectivo) {
         PreparedStatement ps = null;
         Connection conn = null;
-        if (ciclo_lectivo== null){System.err.println("O valor anterior nao pode ser nullo!");}
+        if (cicloLectivo== null){System.err.println("O valor anterior nao pode ser nullo!");}
         try {
             conn=Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
-            ps.setString(1,ciclo_lectivo.getCicloLectivo());
+            ps.setString(1,cicloLectivo.getCicloLectivo());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao inserir os dados: " + e.getMessage());
@@ -40,17 +40,18 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
         }
 
     @Override
-    public void update(CicloLectivo ciclo_letivo) {
+    public void update(CicloLectivo cicloLectivo) {
         PreparedStatement ps = null;
         Connection conn = null;
-        if(ciclo_letivo == null){
+        if(cicloLectivo == null){
             System.err.println("O valor anterior nao pode ser nullo");
         }
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ATUALIZAR);
-            ps.setString(1,ciclo_letivo.getCicloLectivo());
-            ps.setInt(2,ciclo_letivo.getIdCicloLectivo());
+            ps.setInt(1,cicloLectivo.getIdCicloLectivo());
+            ps.setString(2,cicloLectivo.getCicloLectivo());
+           
             ps.executeUpdate();
             } catch (Exception ex) {
                 System.err.println("Erro na atualizacao dos dados: " + ex.getLocalizedMessage());
@@ -60,16 +61,16 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
     }
 
     @Override
-    public void delete(CicloLectivo ciclo_letivo){
+    public void delete(CicloLectivo cicloLectivo){
         PreparedStatement ps = null;
         Connection conn = null;
-        if (ciclo_letivo == null){
+        if (cicloLectivo == null){
         System.err.println("O valor anterior nao pode ser nullo");
         }
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
-            ps.setInt(1,ciclo_letivo.getIdCicloLectivo());
+            ps.setInt(1,cicloLectivo.getIdCicloLectivo());
             ps.executeUpdate();
         } catch (Exception e) {
             System.err.println("Erro na eliminacao de dados:" + e.getLocalizedMessage());
@@ -86,7 +87,7 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-        CicloLectivo ciclo_letivo = new CicloLectivo();
+        CicloLectivo cicloLectivo = new CicloLectivo();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(BUSCAR_POR_CODIGO);
@@ -95,7 +96,7 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
             if(!rs.next()){
                 System.err.println("Nao foi encontrado nenhum registo com o id: " + id);
         }
-            popularComDados(ciclo_letivo, rs);
+            popularComDados(cicloLectivo, rs);
         } catch (Exception e) {
             System.err.println("Erro ao ler os dados: " + e.getLocalizedMessage());
         }finally{
@@ -109,15 +110,15 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-        List<CicloLectivo> ciclo = new ArrayList<>();
+        List<CicloLectivo> cicloLectivos = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_TUDO);
             rs = ps.executeQuery();
             while (rs.next()){
-                CicloLectivo ciclolectivo = new CicloLectivo();
-                popularComDados(ciclolectivo, rs);
-                ciclo.add(ciclolectivo);
+                CicloLectivo cicloLectivo = new CicloLectivo();
+                popularComDados(cicloLectivo, rs);
+                cicloLectivos.add(cicloLectivo);
                 
             
             }
@@ -126,14 +127,14 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
         }finally{
             Conexao.closeConnection(conn);
         }
-       return ciclo;
+       return cicloLectivos;
     }
 
     @Override
-    public void popularComDados(CicloLectivo ciclo_letivo, ResultSet rs){
+    public void popularComDados(CicloLectivo cicloLectivo, ResultSet rs){
         try {
-            ciclo_letivo.setIdCicloLectivo(rs.getInt("id_ciclo_letivo"));
-            ciclo_letivo.setCicloLectivo(rs.getString("ciclo_letivo"));
+            cicloLectivo.setIdCicloLectivo(rs.getInt("id_ciclo_letivo"));
+            cicloLectivo.setCicloLectivo(rs.getString("ciclo_letivo"));
             
         } catch (Exception e) {
         }

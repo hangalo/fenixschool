@@ -10,7 +10,6 @@ import fenixschool.dao.TipoDisciplinaDAO;
 import fenixschool.modelo.TipoDisciplina;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**

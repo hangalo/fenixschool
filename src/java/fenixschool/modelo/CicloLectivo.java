@@ -5,6 +5,8 @@
  */
 package fenixschool.modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author HP
@@ -38,4 +40,32 @@ public class CicloLectivo {
         this.CicloLectivo = CicloLectivo;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.idCicloLectivo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CicloLectivo other = (CicloLectivo) obj;
+        if (!Objects.equals(this.idCicloLectivo, other.idCicloLectivo)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "CicloLectivo{" + "idCicloLectivo=" + idCicloLectivo + ", CicloLectivo=" + CicloLectivo + '}';
+    }
+    
+    
 }

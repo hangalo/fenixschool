@@ -147,7 +147,7 @@ public class FuncionarioMBean implements Serializable{
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("funcionario_listar.jsf");
         } catch (IOException ex) {
-            Logger.getLogger(ProfessorMBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FuncionarioMBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -158,5 +158,11 @@ public class FuncionarioMBean implements Serializable{
         return "funcionario_listar?faces-redirect=true";
     }   
     
+      public static String getPathPastaAplicacaoJSF() {
+        String separador = System.getProperty("file.separator");
+        String pasta = "fotos"+ separador;
+        String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+       return raizAplicacao + pasta;
+    }
     
 }
