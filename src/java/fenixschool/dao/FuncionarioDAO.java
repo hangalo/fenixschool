@@ -26,13 +26,9 @@ public class FuncionarioDAO implements  GenericoDAO<Funcionario>{
     private static final String INSERIR ="INSERT INTO funcionario (nome_funcionario, sobrenome_funcionario, data_nascimento, sexo, casa_funcionario, bairro_funcionario, distrito_funcionario, id_municipio, foto_funcionario, url_foto_funcionario, telefone_fixo, telefone_movel, email_funcionario)VALUES(?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String ACTUALIZAR="UPDATE funcionario SET  nome_funcionario= ?, sobrenome_funcionario= ?,data_nascimento =?,sexo= ?, casa_funcionario = ?,bairro_funcionario=?,distrito_funcionario = ?,id_municipio = ?,foto_funcionario = ?,url_foto_funcionario=?, telefone_fixo= ?, telefone_movel= ?, email_funcionario= ? WHERE id_funcionario = ?;";
     private static final String ELIMINAR="DELETE FROM funcionario WHERE id_funcionario=?";
-    private static final String BUSCAR_POR_CODIGO="SELECT id_funcionario f,nome_funcionario f,sobrenome_funcionario f,data_nascimento f, sexo s,casa_funcionario f,bairro_funcionario f,distrito_funcionario f,id_municipio m,foto_funcionario f,url_foto_funcionario f,telefone_fixo f,telefone_movel f,email_funcionario f" 
-             + "FROM funcionario f "
-             + "INNER JOIN sexo s ON s.id_sexo=f.id_sexo "
-             + "INNER JOIN municipio m ON m.id_municipio=f.id_municipio"
-             + "WHERE f.id_funcionario = ?";
+    private static final String BUSCAR_POR_CODIGO="SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio WHERE f.id_funcionario = ?";
     
-    private static final String LISTAR_TUDO ="SELECT id_funcionario,nome_funcionario,sobrenome_funcionario,data_nascimento, sexo,casa_funcionario,bairro_funcionario,distrito_funcionario,id_municipio,foto_funcionario,url_foto_funcionario,telefone_fixo,telefone_movel ,email_funcionario FROM funcionario;";
+    private static final String LISTAR_TUDO ="SELECT f.id_funcionario,f.nome_funcionario,f.sobrenome_funcionario,f.data_nascimento, f.sexo,casa_funcionario,f.bairro_funcionario,f.distrito_funcionario,m.nome_municipio,f.foto_funcionario,f.url_foto_funcionario,f.telefone_fixo,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio";
     
     Connection conn;
     PreparedStatement ps;

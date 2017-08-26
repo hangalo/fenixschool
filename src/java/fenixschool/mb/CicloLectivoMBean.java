@@ -40,6 +40,7 @@ public class CicloLectivoMBean implements Serializable {
     
     @PostConstruct
     public void inicializar(){
+     cicloLectivo = new CicloLectivo();
      cicloLectivoDAO = new CicloLectivoDAO();
      cicloLectivos= new ArrayList<>();
     
@@ -62,6 +63,7 @@ public class CicloLectivoMBean implements Serializable {
     }
 
     public List<CicloLectivo> getCicloLectivos() {
+        cicloLectivos= cicloLectivoDAO.findAll();
         return cicloLectivos;
     }
 
@@ -75,7 +77,7 @@ public class CicloLectivoMBean implements Serializable {
 
       public void guardar(ActionEvent evt) {
        cicloLectivoDAO.save(cicloLectivo);
-                cicloLectivo= new CicloLectivo();
+       cicloLectivo= new CicloLectivo();
 
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Ciclo Lectivo registado com sucesso"));
     }
@@ -95,7 +97,7 @@ public class CicloLectivoMBean implements Serializable {
     }
 
     public String delete() {
-               cicloLectivoDAO.update(cicloLectivo);
+               cicloLectivoDAO.delete(cicloLectivo);
                cicloLectivos = null;
         return "ciclolectivo_listar?faces-redirect=true";
     }   

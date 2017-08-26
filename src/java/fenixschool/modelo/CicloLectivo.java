@@ -28,7 +28,7 @@ public class CicloLectivo {
         return idCicloLectivo;
     }
 
-    public void setIdCicloLectivo(int idCicloLectivo) {
+    public void setIdCicloLectivo(Integer idCicloLectivo) {
         this.idCicloLectivo = idCicloLectivo;
     }
 
@@ -42,8 +42,8 @@ public class CicloLectivo {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 19 * hash + Objects.hashCode(this.idCicloLectivo);
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.idCicloLectivo);
         return hash;
     }
 
@@ -66,6 +66,7 @@ public class CicloLectivo {
     public String toString() {
         return "CicloLectivo{" + "idCicloLectivo=" + idCicloLectivo + ", CicloLectivo=" + CicloLectivo + '}';
     }
+
     
     
 }

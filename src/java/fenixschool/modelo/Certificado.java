@@ -15,20 +15,20 @@ import java.util.Objects;
 public class Certificado {
     private Integer idCertificado;
     private Date dataCertificado;
-    private Funcionario idFuncionario;
-    private Aluno idAluno;
-    private AnoCurricular idAnoCurricilar;
+    private Funcionario funcionarioCertificado;
+    private Aluno alunoCertificado;
+    private AnoCurricular anocertificado;
     private String textoCertificado;
 
     public Certificado() {
     }
 
-    public Certificado(Integer idCertificado, Date dataCertificado, Funcionario idFuncionario, Aluno idAluno, AnoCurricular idAnoCurricilar, String textoCertificado) {
+    public Certificado(Integer idCertificado, Date dataCertificado, Funcionario funcionarioCertificado, Aluno alunoCertificado, AnoCurricular anocertificado, String textoCertificado) {
         this.idCertificado = idCertificado;
         this.dataCertificado = dataCertificado;
-        this.idFuncionario = idFuncionario;
-        this.idAluno = idAluno;
-        this.idAnoCurricilar = idAnoCurricilar;
+        this.funcionarioCertificado = funcionarioCertificado;
+        this.alunoCertificado = alunoCertificado;
+        this.anocertificado = anocertificado;
         this.textoCertificado = textoCertificado;
     }
 
@@ -48,28 +48,28 @@ public class Certificado {
         this.dataCertificado = dataCertificado;
     }
 
-    public Funcionario getIdFuncionario() {
-        return idFuncionario;
+    public Funcionario getFuncionarioCertificado() {
+        return funcionarioCertificado;
     }
 
-    public void setIdFuncionario(Funcionario idFuncionario) {
-        this.idFuncionario = idFuncionario;
+    public void setFuncionarioCertificado(Funcionario funcionarioCertificado) {
+        this.funcionarioCertificado = funcionarioCertificado;
     }
 
-    public Aluno getIdAluno() {
-        return idAluno;
+    public Aluno getAlunoCertificado() {
+        return alunoCertificado;
     }
 
-    public void setIdAluno(Aluno idAluno) {
-        this.idAluno = idAluno;
+    public void setAlunoCertificado(Aluno alunoCertificado) {
+        this.alunoCertificado = alunoCertificado;
     }
 
-    public AnoCurricular getIdAnoCurricilar() {
-        return idAnoCurricilar;
+    public AnoCurricular getAnocertificado() {
+        return anocertificado;
     }
 
-    public void setIdAnoCurricilar(AnoCurricular idAnoCurricilar) {
-        this.idAnoCurricilar = idAnoCurricilar;
+    public void setAnocertificado(AnoCurricular anocertificado) {
+        this.anocertificado = anocertificado;
     }
 
     public String getTextoCertificado() {
@@ -82,8 +82,8 @@ public class Certificado {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.idCertificado);
+        int hash = 3;
+        hash = 13 * hash + Objects.hashCode(this.idCertificado);
         return hash;
     }
 
@@ -104,19 +104,9 @@ public class Certificado {
 
     @Override
     public String toString() {
-        return "Certificado{" + "idCertificado=" + idCertificado + ", dataCertificado=" + dataCertificado + ", idFuncionario=" + idFuncionario + ", idAluno=" + idAluno + ", idAnoCurricilar=" + idAnoCurricilar + ", textoCertificado=" + textoCertificado + '}';
+        return "Certificado{" + "idCertificado=" + idCertificado + ", dataCertificado=" + dataCertificado + ", funcionarioCertificado=" + funcionarioCertificado + ", alunoCertificado=" + alunoCertificado + ", anocertificado=" + anocertificado + ", textoCertificado=" + textoCertificado + '}';
     }
-    
-    
 
-  
-    
-    
-    
-    
-    
-    
-    
     
     
 }

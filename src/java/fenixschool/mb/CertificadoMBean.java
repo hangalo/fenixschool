@@ -82,6 +82,7 @@ public class CertificadoMBean implements Serializable{
     }
 
     public List<Aluno> getAlunos() {
+        alunos = alunoDAO.findAll();
         return alunos;
     }
 
@@ -98,6 +99,7 @@ public class CertificadoMBean implements Serializable{
     }
 
     public List<Funcionario> getFuncionarios() {
+         funcionarios = funcionarioDAO.findAll();
         return funcionarios;
     }
 
@@ -114,6 +116,7 @@ public class CertificadoMBean implements Serializable{
     }
 
     public List<AnoCurricular> getAnoCurriculares() {
+        anoCurriculares = anoCurricularDAO.findAll();
         return anoCurriculares;
     }
 
@@ -131,6 +134,7 @@ public class CertificadoMBean implements Serializable{
     }
 
     public List<Certificado> getCertificados() {
+        certificados = certificadoDAO.findAll();
         return certificados;
     }
 

@@ -25,10 +25,10 @@ import java.util.logging.Logger;
  */
 public class CertificadoDAO  implements GenericoDAO<Certificado>{
      private static final String INSERIR ="INSERT INTO certificado (id_certificado, data_certificado, id_funcionario, id_aluno, id_ano_curricular, texto_certificado) VALUES (id_certificado=?, data_certificado=?, id_funcionario=?,id_aluno=?,id_ano_curricular=?,texto_certificado=?)";
-     private static final String ACTUALIZAR ="UPDATE certificado SET id_certificado =?, data_certificado` =?, id_funcionario` = ?, id_aluno = ?, id_ano_curricular = ?, texto_certificado = ? WHERE id_certificado=?";
+     private static final String ACTUALIZAR ="UPDATE certificado SET id_certificado =?, data_certificado=?, id_funcionario = ?, id_aluno = ?, id_ano_curricular = ?, texto_certificado = ? WHERE id_certificado=?";
      private static final String ELIMINAR ="DELETE FROM certificado WHERE id_ceriticado=?";
-     private static final String BUSCAR_POR_CODIGO ="SELECT id_certificado c, data_certificado c, id_funcionario f, id_aluno a, id_ano_curricular an, texto_certificado c FROM certificado c INNER JOIN id_funcionario f ON c.id_funcionario=f.id_funcionario INNER JOIN id_aluno a ON c.id_aluno=a.id_aluno INNER JOIN id_ano_curricular an ON c.id_ano_curricular=an.id_ano_curricular WHERE c.id_certificado=?";
-     private static final String LISTAR_TUDO ="SELECT id_certificado c, data_certificado c, id_funcionario f, id_aluno a, id_ano_curricular an, texto_certificado c FROM certificado c INNER JOIN id_funcionario f ON c.id_funcionario=f.id_funcionario INNER JOIN id_aluno a ON c.id_aluno=a.id_aluno INNER JOIN id_ano_curricular an ON c.id_ano_curricular=an.id_ano_curricular";
+     private static final String BUSCAR_POR_CODIGO ="SELECT c.id_certificado ,c.data_certificado,f.nome_funcionario , a.nome_aluno , an.ano_curricular , c.texto_certificado c FROM certificado c INNER JOIN funcionario f ON c.id_funcionario=f.id_funcionario INNER JOIN aluno a ON c.id_aluno=a.id_aluno INNER JOIN ano_curricular an ON c.id_ano_curricular=an.id_ano_curricular WHERE c.id_certificado=?";
+     private static final String LISTAR_TUDO ="SELECT c.id_certificado , c.data_certificado , f.nome_funcionario , a.nome_aluno , an.ano_curricular , c.texto_certificado FROM certificado c INNER JOIN funcionario f ON c.id_funcionario=f.id_funcionario INNER JOIN aluno a ON c.id_aluno=a.id_aluno INNER JOIN ano_curricular an ON c.id_ano_curricular=an.id_ano_curricular";
     
     
      @Override
@@ -45,9 +45,9 @@ public class CertificadoDAO  implements GenericoDAO<Certificado>{
             ps.setInt(1, certificado.getIdCertificado());
          
             ps.setDate(2, new java.sql.Date(certificado.getDataCertificado().getTime()));
-            ps.setInt(3, certificado.getIdAluno().getIdAluno());
-            ps.setInt(4, certificado.getIdFuncionario().getIdFuncionario());
-            ps.setInt(5, certificado.getIdAnoCurricilar().getIdAnoCurricular());
+            ps.setInt(3, certificado.getAlunoCertificado().getIdAluno());
+            ps.setInt(4, certificado.getFuncionarioCertificado().getIdFuncionario());
+            ps.setInt(5, certificado.getAnocertificado().getIdAnoCurricular());
             ps.setString(6,certificado.getTextoCertificado());
          } catch (Exception e) {
               System.out.println("Erro ao inserir dados: " + e.getMessage());
@@ -70,9 +70,9 @@ public class CertificadoDAO  implements GenericoDAO<Certificado>{
             ps = conn.prepareStatement(ACTUALIZAR);
             ps.setInt(1, certificado.getIdCertificado());
             ps.setDate(2, new java.sql.Date(certificado.getDataCertificado().getTime()));
-            ps.setInt(3, certificado.getIdAluno().getIdAluno());
-            ps.setInt(4, certificado.getIdFuncionario().getIdFuncionario());
-            ps.setInt(5, certificado.getIdAnoCurricilar().getIdAnoCurricular());
+            ps.setInt(3, certificado.getAlunoCertificado().getIdAluno());
+            ps.setInt(4, certificado.getFuncionarioCertificado().getIdFuncionario());
+            ps.setInt(5, certificado.getAnocertificado().getIdAnoCurricular());
             ps.setString(6,certificado.getTextoCertificado());
             
          } catch (Exception e) {
@@ -159,16 +159,17 @@ public class CertificadoDAO  implements GenericoDAO<Certificado>{
             certificado.setDataCertificado(rs.getDate("data_certificado"));
             
             Aluno aluno= new Aluno();
-            aluno.setIdAluno(rs.getInt("id_aluno"));
-            certificado.setIdAluno(aluno);
+            aluno.setNomeAluno(rs.getString("nome_aluno"));
+            certificado.setAlunoCertificado(aluno);
            
             Funcionario funcionario = new Funcionario();
-            funcionario.setIdFuncionario(rs.getInt("id_funcionario"));
-            certificado.setIdFuncionario(funcionario);
+            funcionario.setNomeFuncionario(rs.getString("nome_funcionario"));
+            certificado.setFuncionarioCertificado(funcionario);
+            
             AnoCurricular anoCurricular = new AnoCurricular();
            
-            anoCurricular.setIdAnoCurricular(rs.getInt("id_ano_curricular"));
-            certificado.setIdAnoCurricilar(anoCurricular);
+            anoCurricular.setAnoCurricular(rs.getString("ano_curricular"));
+            certificado.setAnocertificado(anoCurricular);
             
             certificado.setTextoCertificado(rs.getString("texto_certificado"));
         } catch (SQLException ex) {

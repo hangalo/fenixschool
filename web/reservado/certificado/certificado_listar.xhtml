@@ -34,20 +34,20 @@
                                 <f:facet name="header">
                                     <p:outputLabel value="Funcionário"/>
                                 </f:facet>
-                              <h:outputText value="#{certificado.idFuncionario.nomeFuncionario}"/>
+                              <h:outputText value="#{certificado.funcionarioCertificado.nomeFuncionario}"/>
                             </p:column>
                               <p:column style="width: 40px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Aluno"/>
                                 </f:facet>
-                                  <h:outputText value="#{certificado.idAluno.nomeAluno}"/>
+                                  <h:outputText value="#{certificado.alunoCertificado.nomeAluno}"/>
                                   
                             </p:column>
                               <p:column style="width: 40px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Ano curricular"/>
                                 </f:facet>
-                                  <h:outputText value="#{certificado.idAnoCurricilar.anoCurricular}"/>
+                                  <h:outputText value="#{certificado.anocertificado.anoCurricular}"/>
                             </p:column>
                               
                               
@@ -63,7 +63,9 @@
                                 <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
                                     <f:setPropertyActionListener target="#{certificadoMBean.certificado}" value="#{certificado}"/>
                                 </p:commandButton>
-                              
+                                <p:commandButton icon="ui-icon-zoomin" update=":ver" oncomplete="PF('dialogoVer').show();">
+                                    <f:setPropertyActionListener target="#{certificadoMBean.certificado}" value="#{certificado}"/>
+                                </p:commandButton>
                             </p:column>
 
                             <f:facet name="footer">  
@@ -83,23 +85,23 @@
                     <!--Fim  Formulario auxiliar-->
                    <!-- Inicio Dialogo Guardar-->
                    <p:dialog header="Novo Certificado" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="700">
-                    <h:form id="frmNovo">
+                    <h:form >
                        <h:panelGrid columns="2" title="Adicionar um novo certificado">
                              <p:outputLabel value="Data de emissão:"/>
                              <p:calendar id="dataCertificado" value="#{certificadoMBean.certificado.dataCertificado}" pattern="dd/MM/yyyy" locale="pt" />
                              
                               <p:outputLabel value="Aluno:"/>
-                             <p:selectOneMenu value="#{certificadoMBean.certificado.idAluno}" converter="alunoConverter" >
+                              <p:selectOneMenu value="#{certificadoMBean.certificado.alunoCertificado}" converter="alunoConverter" >
                                             <f:selectItem itemLabel="Selecione o Aluno" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{certificadoMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
                               </p:selectOneMenu>
                               <p:outputLabel value="Funcionário:"/>
-                             <p:selectOneMenu value="#{certificadoMBean.certificado.idFuncionario}" converter="funcionarioConverter" >
+                              <p:selectOneMenu value="#{certificadoMBean.certificado.funcionarioCertificado}" converter="funcionarioConverter" >
                                             <f:selectItem itemLabel="Selecione o Funcionário" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{certificadoMBean.funcionarios}" var="funcionario" itemValue="#{funcionario}" itemLabel="#{funcionario.nomeFuncionario}" />
                                         </p:selectOneMenu>
                              <p:outputLabel value=" Ano curricular:"/>
-                             <p:selectOneMenu value="#{certificadoMBean.certificado.idAnoCurricilar}" converter="anoCurricularConverter">
+                             <p:selectOneMenu value="#{certificadoMBean.certificado.anocertificado}" converter="anoCurricularConverter">
                                             <f:selectItem itemLabel="Selecione o Ano Curricular" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{certificadoMBean.anoCurriculares}" var="anoCurricular" itemValue="#{anoCurricular}" itemLabel="#{anoCurricular.anoCurricular}" />
                                             
@@ -117,23 +119,23 @@
                    
                         <p:growl id="growl" showDetail="true" sticky="true"/>
                         <p:dialog header="Alterar dados do certificado" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                           <h:form id="formEditar">
+                           <h:form >
                             <h:inputHidden value="#{certificadoMBean.certificado.idCertificado}"/>
                             <h:panelGrid columns="2" title="Editar departamento">
                                 <p:outputLabel value="Data de emissão:"/>
                              <p:calendar id="dataCertificado" value="#{certificadoMBean.certificado.dataCertificado}" pattern="dd/MM/yyyy" locale="pt"/>
                               <p:outputLabel value="Aluno:"/>
-                             <p:selectOneMenu value="#{certificadoMBean.certificado.idAluno}" converter="alunoConverter" >
+                              <p:selectOneMenu value="#{certificadoMBean.certificado.alunoCertificado}" converter="alunoConverter" >
                                             <f:selectItem itemLabel="Selecione o Aluno" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{certificadoMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
                               </p:selectOneMenu>
                              <p:outputLabel value="Funcionário:"/>
-                             <p:selectOneMenu value="#{certificadoMBean.certificado.idFuncionario}" converter="funcionarioConverter" >
+                             <p:selectOneMenu value="#{certificadoMBean.certificado.funcionarioCertificado}" converter="funcionarioConverter" >
                                             <f:selectItem itemLabel="Selecione o Funcionário" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{certificadoMBean.funcionarios}" var="funcionario" itemValue="#{funcionario}" itemLabel="#{funcionario.nomeFuncionario}" />
                                         </p:selectOneMenu>
                              <p:outputLabel value="Ano curricular:"/>
-                             <p:selectOneMenu value="#{certificadoMBean.certificado.idAnoCurricilar}" converter="anoCurricularConverter">
+                             <p:selectOneMenu value="#{certificadoMBean.certificado.anocertificado}" converter="anoCurricularConverter">
                                             <f:selectItem itemLabel="Selecione o Ano Curricular" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{certificadoMBean.anoCurriculares}" var="anoCurricular" itemValue="#{anoCurricular}" itemLabel="#{anoCurricular.anoCurricular}" />
                                             
@@ -148,6 +150,31 @@
 
                           </h:form>
                         </p:dialog>
+                        <!--Inicio do dialog ver-->
+                    <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
+                        <h:form>
+                            <p:tabView>
+                                <p:tab title="Visualuzação">
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel value="Código: "/>
+                                        <h:outputLabel value="#{certificadoMBean.certificado.idCertificado}"/>
+                                        <p:outputLabel value="Data emissão: "/>
+                                        <h:outputLabel value="#{certificadoMBean.certificado.dataCertificado}"/>
+                                         <p:outputLabel value="Aluno: "/>
+                                         <h:outputLabel value="#{certificadoMBean.certificado.alunoCertificado.nomeAluno}"/>
+                                        <p:outputLabel value="Funcionário: "/>
+                                        <h:outputLabel value="#{certificadoMBean.certificado.funcionarioCertificado.nomeFuncionario}"/>
+                                         <p:outputLabel value="Ano Curricular: "/>
+                                         <h:outputLabel value="#{certificadoMBean.certificado.anocertificado.anoCurricular}"/>
+                                        <p:outputLabel value="Texto certificado: "/>
+                                        <h:outputLabel value="#{certificadoMBean.certificado.textoCertificado}"/>
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
+                    </p:dialog>
+
+                    <!--Fim do dialog ver-->
                     
                   
                     
