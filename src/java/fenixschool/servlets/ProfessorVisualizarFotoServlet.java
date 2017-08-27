@@ -39,11 +39,9 @@ public class ProfessorVisualizarFotoServlet extends HttpServlet {
                 ficheiro = FicheiroUtil.getPathPastaAplicacaoServlet(request) + "padrao.png";
             }
 
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>> Valor Imagem>>>>>>>>>>>" + ficheiro);
-
             BufferedInputStream in = new BufferedInputStream(new FileInputStream(FicheiroUtil.getPathPastaAplicacaoServlet(request) + ficheiro));
 
-//Obtem o conteudo da imagem
+           //Obtem o conteudo da imagem
             if (in.available() > 0) {
                 byte[] bytes = new byte[in.available()];
                 in.read(bytes);
@@ -58,7 +56,6 @@ public class ProfessorVisualizarFotoServlet extends HttpServlet {
             ex.printStackTrace(System.out);
         }
 
-      
     }
 
     @Override
@@ -78,7 +75,5 @@ public class ProfessorVisualizarFotoServlet extends HttpServlet {
         return "Short description";
     }
 
-    public String getRealPath() {
-        return getServletContext().getRealPath("/");
-    }
+   
 }
