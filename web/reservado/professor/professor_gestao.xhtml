@@ -111,7 +111,7 @@
                                         <p:outputLabel value="Sobrenome:"/>
                                         <p:inputText id="sobrenome" value="#{professorMBean.professor.sobrenomeProfessor}" size="50"/>
                                         <p:outputLabel value="Data de nascimento:"/>
-                                        <p:calendar id="dataNascimento" value="#{professorMBean.professor.dataNascimentoProfessor}" pattern="dd/MM/yyyy" />
+                                        <p:calendar id="dataNascimento" value="#{professorMBean.professor.dataNascimentoProfessor}" pattern="dd/MM/yyyy" locale="pt"/>
                                         <p:outputLabel value="Sexo:"/>
                                         <p:selectOneRadio id="sexo" value="#{professorMBean.professor.sexo}">
                                             <f:selectItems value="#{professorMBean.opSexos}" />
