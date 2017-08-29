@@ -22,18 +22,25 @@ import java.util.List;
  */
 public class ProfessorDAO implements GenericoDAO<Professor> {
 
-    private static final String INSERT = "INSERT INTO professor (nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor, casa_professor, rua_professor,bairro_professor,distrito_urbano_professor,telemovel_principal_professor, telemovel_alternativo_professor,telefone_principal_professor,telefone_alternativo_professor, email_principal_professor,email_aternativo_professor,numero_bi_professor,iban_professor,numero_passaporte_professor, id_municipio)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO professor (nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor, casa_professor, rua_professor,bairro_professor,distrito_urbano_professor,telemovel_principal_professor, telemovel_alternativo_professor,telefone_principal_professor,telefone_alternativo_professor, email_principal_professor,email_aternativo_professor,numero_bi_professor,iban_professor,numero_passaporte_professor, id_municipio)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE Professor SET nome_professor = ?, sobrenome_professor = ?,data_nascimento_professor = ?,sexo_professor = ?,nif_professor = ?,foto_professor = ?,url_foto_professor = ?, casa_professor = ?,rua_professor = ?,bairro_professor = ?,distrito_urbano_professor = ?,telemovel_principal_professor = ?, telemovel_alternativo_professor = ?,telefone_principal_professor = ?,telefone_alternativo_professor = ?, email_principal_professor = ?,email_aternativo_professor = ?,numero_bi_professor = ?,iban_professor = ?,numero_passaporte_professor = ?, id_municipio = ? WHERE id_professor = ?";
     private static final String DELETE = "DELETE FROM Professor WHERE id_professor = ?";
     private static final String SELECT_BY_ID = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE id_professor = ?";
     private static final String SELECT_ALL = "SELECT id_professor,nome_professor,sobrenome_professor,data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio);";
+    private static final String SELECT_BY_NOME = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE nome_professor = ?";
+    private static final String SELECT_BY_SOBRENOME = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE sobrenome_professor = ?";
+    private static final String SELECT_BY_NOME_E_SOBRENOME = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE nome_professor = ? AND sobrenome_professor = ?";
+    
+    private static final String SELECT_BY_BI = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE numero_bi_professor = ?";
 
-    @Override
+    
+
+     @Override
     public void save(Professor professor) {
         PreparedStatement ps = null;
         Connection conn = null;
         if (professor == null) {
-            System.err.println("O valor oassado não pode ser nulo!");
+            System.err.println("O valor oassado nÃ£o pode ser nulo!");
         }
         try {
             conn = Conexao.getConnection();
@@ -59,9 +66,19 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             ps.setString(18, professor.getNumeroBIProfessor());
             ps.setString(19, professor.getIBAMProfessor());
             ps.setString(20, professor.getNumeroPassaporteProfessor());
+            ps.setInt(21, professor.getMunicipio().getIdMunicipio());            
+            ps.executeUpdate();
+             System.out.println("Dados inseridos com sucesso: "+ps.getUpdateCount());
+
+
+            ps.setString(17, professor.getEmailAlternativoProfessor());
+            ps.setString(18, professor.getNumeroBIProfessor());
+            ps.setString(19, professor.getIBAMProfessor());
+            ps.setString(20, professor.getNumeroPassaporteProfessor());
             ps.setInt(21, professor.getMunicipio().getIdMunicipio());
             ps.executeUpdate();
             System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+
         } catch (SQLException e) {
             System.out.println("Erro ao inserir dados: " + e.getMessage());
         } finally {
@@ -142,7 +159,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
-                System.err.println("Não foi encontrado nenhum registo com o id: " + id);
+                System.err.println("NÃ£o foi encontrado nenhum registo com o id: " + id);
             }
             popularComDados(professor, rs);
         } catch (SQLException ex) {
@@ -153,7 +170,102 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         return professor;
     }
 
-    @Override
+        
+ 
+    public Professor findByNome(String nome) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        Professor professor = new Professor();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_NOME);
+            ps.setString(1, nome);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Não foi encontrado nenhum registo com o nome: " + nome);
+            }
+            popularComDados(professor, rs);
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return professor;
+    }
+    
+    
+    
+     public Professor findBySobrenome(String sobrenome) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        Professor professor = new Professor();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_SOBRENOME);
+            ps.setString(1, sobrenome);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Não foi encontrado nenhum registo com o nome: " + sobrenome);
+            }
+            popularComDados(professor, rs);
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return professor;
+    }
+    
+     
+       public Professor findByNomeSobrenome(String nome, String sobrenome) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        Professor professor = new Professor();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_NOME_E_SOBRENOME);
+              ps.setString(1, nome);
+            ps.setString(2, sobrenome);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Não foi encontrado nenhum registo com o nome: " + sobrenome);
+            }
+            popularComDados(professor, rs);
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return professor;
+    }
+    
+    public Professor findByNumeroBI(String numeroBI) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        Professor professor = new Professor();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_BI);
+              ps.setString(1, numeroBI);
+          
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Não foi encontrado nenhum registo com o BI: " + numeroBI);
+            }
+            popularComDados(professor, rs);
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return professor;
+    }
+    
+      @Override
     public List<Professor> findAll() {
         PreparedStatement ps = null;
         Connection conn = null;
@@ -210,5 +322,6 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         }
 
     }
+
 
 }

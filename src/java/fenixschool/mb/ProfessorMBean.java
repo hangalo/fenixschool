@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -47,8 +46,12 @@ public class ProfessorMBean implements Serializable {
     private ProfessorDAO professorDAO;
     private List<Professor> professores;
     private MunicipioDAO municipioDAO;
-
     private List<Municipio> municipios;
+
+    // Variaveis para as consultas
+    private String nome;
+    private String sobrenome;
+    private String numeroBI;
 
     public ProfessorMBean() {
     }
@@ -90,6 +93,34 @@ public class ProfessorMBean implements Serializable {
         return professores;
     }
 
+    /*Variaveis para as consultas*/
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getNumeroBI() {
+        return numeroBI;
+    }
+
+    public void setNumeroBI(String numeroBI) {
+        this.numeroBI = numeroBI;
+    }
+
+    
+    
+    /*Metodos*/
     public void fileUpload(FileUploadEvent event) {
         try {
 
@@ -127,9 +158,9 @@ public class ProfessorMBean implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
     }
 
-    public String newSave() {
+    public void newSave(ActionEvent evt) {
         professor = new Professor();
-        return "professor_listar?faces-redirect=true";
+        //return "professor_listar?faces-redirect=true";
     }
 
     public void guardar(ActionEvent evt) {
@@ -158,5 +189,33 @@ public class ProfessorMBean implements Serializable {
         professores = null;
         return "professor_listar?faces-redirect=true";
     }
+
+    public Professor getByNomeSobrenome() {
+
+        if ((getNome() == null || getNome().isEmpty()) && (getSobrenome() == null)) {
+            return null;
+
+        } else if (((getSobrenome() == null) || (getSobrenome().isEmpty())) && ((getNome() != null || !getNome().isEmpty()))) {
+            professor = professorDAO.findByNome(nome);
+            return professor;
+        } else if ((getNome() == null || getNome().isEmpty() && getSobrenome() != null)) {
+            professor = professorDAO.findBySobrenome(sobrenome);
+
+            return professor;
+        } else if ((getNome() != null || !getNome().isEmpty()) && (getSobrenome() != null || !getSobrenome().isEmpty())) {
+            professor = professorDAO.findByNomeSobrenome(nome, sobrenome);
+            return professor;
+        }
+        return null;
+    }
+    
+    
+      public Professor getByNumeroBI() {   
+      
+            professor = professorDAO.findByNumeroBI(numeroBI);
+            return professor;
+      
+    }
+
 
 }

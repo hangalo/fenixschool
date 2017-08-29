@@ -91,7 +91,11 @@
 
 
                             </p:tabView>
-                            <p:commandButton value="Guardar" actionListener="#{professorMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+                 <h:panelGrid columns="2">
+                       <p:commandButton value="Guardar" actionListener="#{professorMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+                       <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                 </h:panelGrid>
+                          
                         </h:form>
 
         </p:panel>

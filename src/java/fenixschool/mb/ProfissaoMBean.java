@@ -35,6 +35,7 @@ public class ProfissaoMBean implements Serializable {
     private ProfissaoDAO profissaoDAO;
     private List<Profissao> profissoes;
 
+    
     public ProfissaoMBean() {
     }
 
@@ -84,4 +85,9 @@ public class ProfissaoMBean implements Serializable {
         profissoes = null;
         return "profissao_listar?faces-redirect=true";
     }
+      
+      
+ 
+      
+  
 }
