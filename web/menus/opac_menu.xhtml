@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"   >
+    <h:head>
+        <title>Fénix School - Sistema de Gestão Escolar para o Ensino Médio</title>
+
+        <style rel="stylesheet">
+            body {
+                background-image: url("../resources/imagens/background.jpg");
+                background-repeat: repeat;
+            }
+        </style>
+
+    </h:head>
+    <h:body>
+
+
+        <b:jumbotron style="text-align: center; color:#000fef; background-color: #ece3a5;">
+            <center>
+                <h:graphicImage library="imagens" name="beca.png" width="100" height="100"/>
+        </center>
+            <h2 style="font-size: 2.2em;"> Fénix School - Sistema de Gestão Escolar para o Ensino Médio</h2>
+        </b:jumbotron>
+        <h:form>  
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <p:submenu label="File" icon="ui-icon-document">
+                    <p:submenu label="New" icon="ui-icon-contact">
+                        <p:menuitem value="Project" url="#" />
+                        <p:menuitem value="Other" url="#" />
+                    </p:submenu>
+                    <p:menuitem value="Open" url="#" />
+                    <p:separator />
+                    <p:menuitem value="Quit" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Edit" icon="ui-icon-pencil">
+                    <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                    <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                </p:submenu>
+
+                <p:submenu label="Professores" icon="ui-icon-home ">
+                    <p:menuitem value="Novo Professor"  url="/reservado/professor/professor_novo.jsf"/>
+                    <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                        <p:menuitem value="Nome" url="/reservado/professor/professor_por_nome_sobrenome.jsf"/>
+                        <p:menuitem value="Nº do BI"  url="/reservado/professor/professor_por_numero_bi.jsf"/>
+                        <p:menuitem value="Listagem Geral" url="/reservado/professor/professor_gestao.jsf" />
+                    </p:submenu>
+                </p:submenu>
+
+
+                <p:submenu label="Alunos" icon="ui-icon-home ">
+                    <p:menuitem value="Novo Aluno" url="reservado/aluno/aluno_novo.jsf" />
+                    <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                        <p:menuitem value="N.º de Aluno" url="#"/>
+                        <p:menuitem value="Nome" url="#"/>
+                        <p:menuitem value="Nº do BI"  url="#"/>
+                        <p:menuitem value="data de nascimento" url="#"/>
+                        <p:menuitem value="Listagem Geral" url="/reservado/aluno/aluno_listar.jsf" />
+                    </p:submenu>
+                </p:submenu>
+
+
+                <p:submenu label="Candidaturas" icon="ui-icon-home ">
+                    <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo.jsf"/>
+                    <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                        <p:menuitem value="N.º de Aluno" url="#"/>
+                        <p:menuitem value="Nome" url="#"/>
+                        <p:menuitem value="Nº do BI"  url="#"/>
+                        <p:menuitem value="data de nascimento" url="#"/>
+                        <p:menuitem value="Listagem Geral"  url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
+                    </p:submenu>
+                </p:submenu>
+
+
+
+                <p:submenu label="Tabelas" icon="ui-icon-home ">
+                    <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo.jsf"/>
+                    <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                        <p:menuitem value="N.º de Aluno" url="#"/>
+                        <p:menuitem value="Nome" url="#"/>
+                        <p:menuitem value="Nº do BI"  url="#"/>
+                        <p:menuitem value="data de nascimento" url="#"/>
+                        <p:menuitem value="Listagem Geral"  url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
+                    </p:submenu>
+                </p:submenu>
+
+
+
+
+
+                <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+
+                <f:facet name="options">
+                    <p:inputText style="margin-right:10px" placeholder="Search"/>
+                    <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                </f:facet>
+            </p:menubar>
+        </h:form>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <center>
+            <h:graphicImage library="imagens" name="fundofenxschool_1.jpg"/>
+        </center>
+
+
+
+
+      
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+
+
+        <b:row>
+
+            <b:label severity="primary" text="Powered by  Fénix Innovation 2017" large-screen="full-width" style="font-size: 1.2em;" />
+
+        </b:row>
+        <b:progressBar value="100" animated="true" renderCaption="false"  />
+    </h:body>
+</html>
+
