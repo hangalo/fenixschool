@@ -6,97 +6,104 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Novo Professor</title>
-         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
+        <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
         <p:panel header="Novo Professor" footer="registo de novo professor">
-             <h:form  id="frmNovo"  enctype="multipart/form-data">
-                            <p:tabView>
-                                <p:tab title="Dados Pessoais">
-                                    <p:growl id="messages" showDetail="true"/>
-                                    <h:message for="dropmunicipio" showDetail="true"/>
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Nome"/>
-                                        <p:inputText id="nome" value="#{professorMBean.professor.nomeProfessor}" size="50"/>
-                                        <p:outputLabel value="Sobrenome:"/>
-                                        <p:inputText id="sobrenome" value="#{professorMBean.professor.sobrenomeProfessor}" size="50"/>
-                                        <p:outputLabel value="Data de nascimento:"/>
-                                        <p:calendar id="dataNascimento" value="#{professorMBean.professor.dataNascimentoProfessor}" pattern="dd/MM/yyyy" locale="pt" />
-                                        <p:outputLabel value="Sexo:"/>
-                                        <p:selectOneRadio id="sexo" value="#{professorMBean.professor.sexo}">
-                                            <f:selectItems value="#{professorMBean.opSexos}" />
-                                        </p:selectOneRadio >
-                                        <p:outputLabel value="Foto:"/>
-                                        <p:fileUpload id="foto" fileUploadListener="#{professorMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
-                                    </h:panelGrid>
+            <h:form  id="frmNovo"  enctype="multipart/form-data">
+                <p:tabView>
+                    <p:tab title="Dados Pessoais">
+                        <p:growl id="messages" showDetail="true"/>
+                        <h:message for="municipio" showDetail="true"/>
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="Nome"/>
+                            <p:inputText id="nome" value="#{professorMBean.professor.nomeProfessor}" size="50"/>
+                            <p:outputLabel value="Sobrenome:"/>
+                            <p:inputText id="sobrenome" value="#{professorMBean.professor.sobrenomeProfessor}" size="50"/>
+                            <p:outputLabel value="Data de nascimento:"/>
+                            <p:calendar id="dataNascimento" value="#{professorMBean.professor.dataNascimentoProfessor}" pattern="dd/MM/yyyy" locale="pt" />
+                            <p:outputLabel value="Sexo:"/>
+                            <p:selectOneRadio id="sexo" value="#{professorMBean.professor.sexo}">
+                                <f:selectItems value="#{professorMBean.opSexos}" />
+                            </p:selectOneRadio >
+                            <p:outputLabel value="Foto:"/>
+                            <p:fileUpload id="foto" fileUploadListener="#{professorMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                        </h:panelGrid>
 
-                                </p:tab>
-                                <p:tab title="Endereço">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="N.º Casa"/>
-                                        <p:inputText id="casa" value="#{professorMBean.professor.casaProfessor}" size="20"/>
-                                        <p:outputLabel value="Rua:"/>
-                                        <p:inputText id="rua" value="#{professorMBean.professor.ruaProfessor}" size="50"/>
-                                        <p:outputLabel value="Bairro:"/>
-                                        <p:inputText id="bairro" value="#{professorMBean.professor.bairroProfessor}" size="50"/>
-                                        <p:outputLabel value="Distrito:"/>
-                                        <p:inputText id="distrito" value="#{professorMBean.professor.distritoUrbanoProfessor}" size="40"/>
-                                        <h:outputLabel value="Municipio:"/>
-                                        <h:selectOneMenu id="dropmunicipio" value="#{professorMBean.professor.municipio}" converter="municipioConverter">
-                                            <f:selectItem value="#{null}" itemLabel="Escolha um Municipio" noSelectionOption="true"/>
+                    </p:tab>
+                    <p:tab title="Endereço">
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="N.º Casa"/>
+                            <p:inputText id="casa" value="#{professorMBean.professor.casaProfessor}" size="20"/>
+                            <p:outputLabel value="Rua:"/>
+                            <p:inputText id="rua" value="#{professorMBean.professor.ruaProfessor}" size="50"/>
+                            <p:outputLabel value="Bairro:"/>
+                            <p:inputText id="bairro" value="#{professorMBean.professor.bairroProfessor}" size="50"/>
+                            <p:outputLabel value="Distrito:"/>
+                            <p:inputText id="distrito" value="#{professorMBean.professor.distritoUrbanoProfessor}" size="40"/>
 
-                                            <f:selectItems value="#{professorMBean.municipios}"
-                                                           var="municipio" itemValue="#{municipio}"  
-                                                           itemLabel="#{municipio.nomeMunicipio}"  />
-                                        </h:selectOneMenu>
-
-
-                                    </h:panelGrid>
-                                </p:tab>
-
-                                <p:tab title="Telefene/Email">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Movel principal"/>
-                                        <p:inputText id="telemovelPrincipal" value="#{professorMBean.professor.telemovelPrincipalProfessor}" size="30"/>
-                                        <p:outputLabel value="Movel alternatico"/>
-                                        <p:inputText id="telemovelAlternativo" value="#{professorMBean.professor.telemovelAlternativoProfessor}" size="30"/>
-                                        <p:outputLabel value="Telefone principal"/>
-                                        <p:inputText id="telefonePrincipal" value="#{professorMBean.professor.telefonePrincipalProfessor}" size="30"/>
-                                        <p:outputLabel value="Telefone alternativo"/>
-                                        <p:inputText value="#{professorMBean.professor.telefoneAlternativoProfessor}" size="30"/>
-                                        <p:outputLabel value="Email principal"/>
-                                        <p:inputText value="#{professorMBean.professor.emailPrincipalProfessor}" size="30"/>
-                                        <p:outputLabel value="Email alternativo"/>
-                                        <p:inputText value="#{professorMBean.professor.emailAlternativoProfessor}" size="30"/>
+                            <h:outputLabel value="Provincia: *" />
+                            <h:selectOneMenu id="provincia" value="#{professorMBean.provincia}" required="true" requiredMessage="Campo obrigatório" converter="provinciaConverter" style="width: 250px;" >
+                                <f:selectItem itemLabel="Selecione" />
+                                <f:selectItems value="#{professorMBean.provincias}" var="e" itemValue="#{p}" itemLabel="#{p.nomeProvincia}" />
+                                <f:ajax render="municipio" event="change" listener="#{professorMBean.listaMunicipiosDaProvincia}" />
+                            </h:selectOneMenu>
 
 
-                                    </h:panelGrid>
-                                </p:tab>
-
-                                <p:tab title="Outros dados">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="N.o BI"/>
-                                        <p:inputText value="#{professorMBean.professor.numeroBIProfessor}" size="50"/>
-                                        <p:outputLabel value="N.º Passaport"/>
-                                        <p:inputText value="#{professorMBean.professor.numeroPassaporteProfessor}" size="50"/>
-                                        <p:outputLabel value="NIF"/>
-                                        <p:inputText value="#{professorMBean.professor.nifProfessor}" size="20"/>
-                                        <p:outputLabel value="IBAM"/>
-                                        <p:inputText value="#{professorMBean.professor.IBAMProfessor}" size="30"/>
+                            <h:outputLabel value="Municipio: *" />
+                            <h:selectOneMenu id="municipio" value="#{professorMBean.municipio}" required="true" requiredMessage="Campo obrigatório" converter="municipioConverter" style="width: 250px;" >
+                                <f:selectItem itemLabel="Selecione" />
+                                <f:selectItems value="#{professorMBean.municipios}" var="c" itemValue="#{m}" itemLabel="#{m.nomeMunicipio}" />
+                            </h:selectOneMenu>
 
 
 
-                                    </h:panelGrid>
-                                </p:tab>
+                        </h:panelGrid>
+                    </p:tab>
+
+                    <p:tab title="Telefene/Email">
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="Movel principal"/>
+                            <p:inputText id="telemovelPrincipal" value="#{professorMBean.professor.telemovelPrincipalProfessor}" size="30"/>
+                            <p:outputLabel value="Movel alternatico"/>
+                            <p:inputText id="telemovelAlternativo" value="#{professorMBean.professor.telemovelAlternativoProfessor}" size="30"/>
+                            <p:outputLabel value="Telefone principal"/>
+                            <p:inputText id="telefonePrincipal" value="#{professorMBean.professor.telefonePrincipalProfessor}" size="30"/>
+                            <p:outputLabel value="Telefone alternativo"/>
+                            <p:inputText value="#{professorMBean.professor.telefoneAlternativoProfessor}" size="30"/>
+                            <p:outputLabel value="Email principal"/>
+                            <p:inputText value="#{professorMBean.professor.emailPrincipalProfessor}" size="30"/>
+                            <p:outputLabel value="Email alternativo"/>
+                            <p:inputText value="#{professorMBean.professor.emailAlternativoProfessor}" size="30"/>
 
 
-                            </p:tabView>
-                 <h:panelGrid columns="2">
-                       <p:commandButton value="Guardar" actionListener="#{professorMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
-                       <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
-                 </h:panelGrid>
-                          
-                        </h:form>
+                        </h:panelGrid>
+                    </p:tab>
+
+                    <p:tab title="Outros dados">
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="N.o BI"/>
+                            <p:inputText value="#{professorMBean.professor.numeroBIProfessor}" size="50"/>
+                            <p:outputLabel value="N.º Passaport"/>
+                            <p:inputText value="#{professorMBean.professor.numeroPassaporteProfessor}" size="50"/>
+                            <p:outputLabel value="NIF"/>
+                            <p:inputText value="#{professorMBean.professor.nifProfessor}" size="20"/>
+                            <p:outputLabel value="IBAM"/>
+                            <p:inputText value="#{professorMBean.professor.IBAMProfessor}" size="30"/>
+
+
+
+                        </h:panelGrid>
+                    </p:tab>
+
+
+                </p:tabView>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Guardar" actionListener="#{professorMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+                    <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                </h:panelGrid>
+
+            </h:form>
 
         </p:panel>
     </h:body>

@@ -28,6 +28,8 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
     private static final String SELECT_ALL = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia ORDER BY nome_municipio ASC;";
     private static final String SELECT_BY_ID = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia WHERE id_municipio = ?";
     
+      private static final String SELECT_BY_ID_PROVINCIA = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia WHERE m.id_provincia = ?";
+    
     @Override
     public void save(Municipio municipio) {
         PreparedStatement ps = null;
@@ -95,7 +97,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         }
     }
     
-    public Municipio findByIdProv(int id) {
+    public Municipio findById(int id) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -115,6 +117,31 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
             Conexao.closeConnection(conn, ps, rs);
         }
         return municipio;
+    }
+    
+    
+     public List<Municipio> findByIdProvincia(Provincia provincia) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        
+      List<Municipio> municipios = new ArrayList<>();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_ID_PROVINCIA);
+            ps.setInt(1, provincia.getIdProvincia());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Municipio municipio = new Municipio();
+                popularComDados(municipio, rs);
+                municipios.add(municipio);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn);
+        }
+        return municipios;
     }
     
     @Override

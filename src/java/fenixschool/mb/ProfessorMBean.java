@@ -7,8 +7,10 @@ package fenixschool.mb;
 
 import fenixschool.dao.MunicipioDAO;
 import fenixschool.dao.ProfessorDAO;
+import fenixschool.dao.ProvinciaDAO;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Professor;
+import fenixschool.modelo.Provincia;
 import fenixschool.modelo.Sexo;
 import fenixschool.util.FicheiroUtil;
 import java.awt.event.ActionEvent;
@@ -27,6 +29,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
@@ -46,12 +49,16 @@ public class ProfessorMBean implements Serializable {
     private ProfessorDAO professorDAO;
     private List<Professor> professores;
     private MunicipioDAO municipioDAO;
+    private ProvinciaDAO provinciaDAO;
     private List<Municipio> municipios;
+    private List<Provincia> provincias;
+    private Municipio municipio;
 
     // Variaveis para as consultas
     private String nome;
     private String sobrenome;
     private String numeroBI;
+    private Provincia provincia;
 
     public ProfessorMBean() {
     }
@@ -60,9 +67,13 @@ public class ProfessorMBean implements Serializable {
     public void inicializar() {
         professor = new Professor();
         professorDAO = new ProfessorDAO();
+        provinciaDAO = new ProvinciaDAO();
+        municipioDAO = new MunicipioDAO();
         professores = new ArrayList<>();
         municipios = new ArrayList<>();
-        municipioDAO = new MunicipioDAO();
+        provincias = new ArrayList<>();
+        municipio = new Municipio();
+
     }
 
     public Professor getProfessor() {
@@ -83,7 +94,7 @@ public class ProfessorMBean implements Serializable {
 
     public List<Municipio> getMunicipios() {
 
-        municipios = municipioDAO.findAll();
+       // municipios = municipioDAO.findAll();
 
         return municipios;
     }
@@ -118,9 +129,38 @@ public class ProfessorMBean implements Serializable {
         this.numeroBI = numeroBI;
     }
 
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
     
     
+
     /*Metodos*/
+    //carregar provincias
+    public List<Provincia> getProvincias() {
+        provincias = provinciaDAO.findAll();
+        return provincias;
+    }
+
+    // carrega municipios em função da provincia
+    public void listaMunicipiosDaProvincia(AjaxBehaviorEvent event) {
+        System.out.println("Provincia ====>>>>"+provincia.getIdProvincia());
+        municipios = municipioDAO.findByIdProvincia(provincia);
+    }
+
+    //Upload de ficheiros
     public void fileUpload(FileUploadEvent event) {
         try {
 
@@ -208,14 +248,12 @@ public class ProfessorMBean implements Serializable {
         }
         return null;
     }
-    
-    
-      public Professor getByNumeroBI() {   
-      
-            professor = professorDAO.findByNumeroBI(numeroBI);
-            return professor;
-      
-    }
 
+    public Professor getByNumeroBI() {
+
+        professor = professorDAO.findByNumeroBI(numeroBI);
+        return professor;
+
+    }
 
 }
