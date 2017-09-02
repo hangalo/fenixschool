@@ -8,6 +8,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Registo de um novo funcionário</title>
+         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
         <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
@@ -97,7 +98,7 @@
                                 <h:outputLabel  value="Sobrenome"/>
                                 <h:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
                                 <p:outputLabel value="Data da Nacimento:"/>
-                                <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy"/>
+                                <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
                                 <p:outputLabel value="Sexo:"/>
                                 <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
                                     <f:selectItems value="#{funcionarioMBean.opSexos}" />
@@ -176,7 +177,7 @@
                                 <h:outputLabel  value="Sobrenome"/>
                                 <h:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
                                 <p:outputLabel value="Data da Nacimento:"/>
-                                <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy"/>
+                                <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
                                 <p:outputLabel value="Sexo:"/>
                                 <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
                                     <f:selectItems value="#{funcionarioMBean.opSexos}" />
@@ -258,7 +259,7 @@
                                 </p:tab>
                                 <p:tab title="Endereço">
                                     <h:panelGrid columns="2" >
-                                        <p:outputLabel value="N.º Casa"/>
+                                        <p:outputLabel value="N.º Casa:"/>
                                         <p:outputLabel id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" />
                           
                                         <p:outputLabel value="Bairro:"/>
@@ -271,12 +272,12 @@
                                 </p:tab>
                                 <p:tab title="Telefone/Email">
                                     <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Telefone fixo"/>
+                                        <p:outputLabel value="Telefone fixo:"/>
                                         <p:outputLabel id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" />
-                                        <p:outputLabel value="Telefone Movél"/>
+                                        <p:outputLabel value="Telefone Movél:"/>
                                         <p:outputLabel id="telefonemovel" value="#{funcionarioMBean.funcionario.telefoneMovelFuncionario}"/>
                                         
-                                        <p:outputLabel value="Email "/>
+                                        <p:outputLabel value="Email: "/>
                                         <p:outputLabel value="#{funcionarioMBean.funcionario.emailFuncionario}" />
 
 

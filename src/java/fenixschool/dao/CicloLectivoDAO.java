@@ -10,13 +10,14 @@ import fenixschool.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
     private static final String INSERIR ="INSERT INTO ciclo_letivo(ciclo_letivo) VALUES (?)";
-    private static final String ATUALIZAR ="UPDATE ciclo_letivo SET ciclo_letivo =? WHERE id_ciclo_letivo=?";
+    private static final String ACTUALIZAR ="UPDATE ciclo_letivo SET ciclo_letivo =? WHERE id_ciclo_letivo=?";
     private static final String ELIMINAR = "DELETE FROM ciclo_letivo WHERE id_ciclo_letivo=?";
     private static final String BUSCAR_POR_CODIGO ="SELECT FROM ciclo_letivo WHERE id_ciclo_letivo=?";
     private static final String LISTAR_TUDO ="SELECT  *FROM ciclo_letivo ORDER BY ciclo_letivo ASC"; 
@@ -25,7 +26,7 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
     public void save(CicloLectivo cicloLectivo) {
         PreparedStatement ps = null;
         Connection conn = null;
-        if (cicloLectivo== null){System.err.println("O valor anterior nao pode ser nullo!");}
+        if (cicloLectivo== null){System.err.println("O valor anterior nao pode ser nulo!");}
         try {
             conn=Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
@@ -43,17 +44,17 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
         PreparedStatement ps = null;
         Connection conn = null;
         if(cicloLectivo == null){
-            System.err.println("O valor anterior nao pode ser nullo");
+            System.err.println("O valor anterior nao pode ser nulo");
         }
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(ATUALIZAR);
-            ps.setInt(1,cicloLectivo.getIdCicloLectivo());
+            ps = conn.prepareStatement(ACTUALIZAR);
+             ps.setInt(1,cicloLectivo.getIdCicloLectivo());
             ps.setString(2,cicloLectivo.getCicloLectivo());
            
             ps.executeUpdate();
             } catch (Exception ex) {
-                System.err.println("Erro na atualizacao dos dados: " + ex.getLocalizedMessage());
+                System.err.println("Erro na actualização dos dados: " + ex.getLocalizedMessage());
         }
         finally {
             Conexao.closeConnection(conn, ps);}   
@@ -64,7 +65,7 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
         PreparedStatement ps = null;
         Connection conn = null;
         if (cicloLectivo == null){
-        System.err.println("O valor anterior nao pode ser nullo");
+        System.err.println("O valor anterior nao pode ser nulo");
         }
         try {
             conn = (Connection) Conexao.getConnection();
@@ -72,7 +73,7 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
             ps.setInt(1,cicloLectivo.getIdCicloLectivo());
             ps.executeUpdate();
         } catch (Exception e) {
-            System.err.println("Erro na eliminacao de dados:" + e.getLocalizedMessage());
+            System.err.println("Erro na eliminação de dados:" + e.getLocalizedMessage());
         }
         finally{
             Conexao.closeConnection(conn, ps);
@@ -135,7 +136,8 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
             cicloLectivo.setIdCicloLectivo(rs.getInt("id_ciclo_letivo"));
             cicloLectivo.setCicloLectivo(rs.getString("ciclo_letivo"));
             
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            System.err.println("Erro ao carregar dados do ciclo lectivo: " + ex.getLocalizedMessage());
         }
         
     }

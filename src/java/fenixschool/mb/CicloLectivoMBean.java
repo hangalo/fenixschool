@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
  * @author Aisha Lubadika
  */
 
-@ManagedBean(name = "cicloLectivoMBean")
+@ManagedBean(name ="cicloLectivoMBean")
 @SessionScoped
 public class CicloLectivoMBean implements Serializable {
     private static final long serialVersionUID = 1L;

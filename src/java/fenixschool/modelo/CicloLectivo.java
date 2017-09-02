@@ -64,9 +64,8 @@ public class CicloLectivo {
 
     @Override
     public String toString() {
-        return "CicloLectivo{" + "idCicloLectivo=" + idCicloLectivo + ", CicloLectivo=" + CicloLectivo + '}';
+        return "CicloLectivo{" + "CicloLectivo=" + CicloLectivo + '}';
     }
 
-    
-    
+        
 }

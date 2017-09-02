@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Lista certificados emitidos</title>
+        <title>Lista dos certificados emitidos</title>
         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
@@ -121,7 +121,7 @@
                         <p:dialog header="Alterar dados do certificado" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                            <h:form >
                             <h:inputHidden value="#{certificadoMBean.certificado.idCertificado}"/>
-                            <h:panelGrid columns="2" title="Editar departamento">
+                            <h:panelGrid columns="2" title="Dados do certificado">
                                 <p:outputLabel value="Data de emissão:"/>
                              <p:calendar id="dataCertificado" value="#{certificadoMBean.certificado.dataCertificado}" pattern="dd/MM/yyyy" locale="pt"/>
                               <p:outputLabel value="Aluno:"/>
@@ -154,7 +154,7 @@
                     <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
                         <h:form>
                             <p:tabView>
-                                <p:tab title="Visualuzação">
+                                <p:tab title="Visualizar">
                                     <p:panelGrid columns="2">
                                         <p:outputLabel value="Código: "/>
                                         <h:outputLabel value="#{certificadoMBean.certificado.idCertificado}"/>

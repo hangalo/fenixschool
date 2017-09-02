@@ -213,7 +213,7 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
             aluno.setProfissaoAluno(profissao);
             aluno.setSexo(Sexo.getAbreviatura(rs.getString("sexo")));
         } catch (SQLException ex) {
-            System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
+            System.err.println("Erro ao carregar dados do aluno: " + ex.getLocalizedMessage());
            
         }
 

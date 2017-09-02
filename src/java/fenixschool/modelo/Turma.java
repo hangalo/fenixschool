@@ -15,18 +15,18 @@ public class Turma {
     private Integer idTurma;
     private String nomeTurma;
     
-    private AnoLectivo idAnoLetivo;
-    private PeriodoLectivo idPeriodoLetivo;
+    private AnoLectivo anoLetivo;
+    private PeriodoLectivo periodoLetivo;
     
     private Integer numeroMaximoInscritos;
     
     public Turma(){}
 
-    public Turma(Integer idTurma, String nomeTurma, AnoLectivo idAnoLetivo, PeriodoLectivo idPeriodoLetivo, Integer numeroMaximoInscritos) {
+    public Turma(Integer idTurma, String nomeTurma, AnoLectivo anoLetivo, PeriodoLectivo periodoLetivo, Integer numeroMaximoInscritos) {
         this.idTurma = idTurma;
         this.nomeTurma = nomeTurma;
-        this.idAnoLetivo = idAnoLetivo;
-        this.idPeriodoLetivo = idPeriodoLetivo;
+        this.anoLetivo = anoLetivo;
+        this.periodoLetivo = periodoLetivo;
         this.numeroMaximoInscritos = numeroMaximoInscritos;
     }
 
@@ -46,20 +46,20 @@ public class Turma {
         this.nomeTurma = nomeTurma;
     }
 
-    public AnoLectivo getIdAnoLetivo() {
-        return idAnoLetivo;
+    public AnoLectivo getAnoLetivo() {
+        return anoLetivo;
     }
 
-    public void setIdAnoLetivo(AnoLectivo idAnoLetivo) {
-        this.idAnoLetivo = idAnoLetivo;
+    public void setAnoLetivo(AnoLectivo anoLetivo) {
+        this.anoLetivo = anoLetivo;
     }
 
-    public PeriodoLectivo getIdPeriodoLetivo() {
-        return idPeriodoLetivo;
+    public PeriodoLectivo getPeriodoLetivo() {
+        return periodoLetivo;
     }
 
-    public void setIdPeriodoLetivo(PeriodoLectivo idPeriodoLetivo) {
-        this.idPeriodoLetivo = idPeriodoLetivo;
+    public void setPeriodoLetivo(PeriodoLectivo periodoLetivo) {
+        this.periodoLetivo = periodoLetivo;
     }
 
     public Integer getNumeroMaximoInscritos() {
@@ -72,8 +72,8 @@ public class Turma {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.idTurma);
+        int hash = 3;
+        hash = 61 * hash + Objects.hashCode(this.idTurma);
         return hash;
     }
 
@@ -91,6 +91,9 @@ public class Turma {
         }
         return true;
     }
+    
+    
+   
 
     @Override
     public String toString(){ 

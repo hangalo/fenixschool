@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Ciclo Lectivo</title>
     </h:head>
     <h:body>
          <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
@@ -49,7 +49,7 @@
 
                             </p:column>
                             <f:facet name="footer">
-                                Total de ciclos lectivos  (#{cicloLectivoMBean.cicloLectivos.size()})
+                                Total de ciclos lectivos: #{cicloLectivoMBean.cicloLectivos.size()}
                             </f:facet>
 
                         </p:dataTable>
@@ -62,13 +62,13 @@
                     </h:form>
 
                     <!--inicio do dialogo guardar-->
-                    <p:dialog  header="Novo ciclo lectivo" id="guardar" widgetVar="dlgNovo" showEffect="clip" hideEffect="blind" style="width: 300px;">
+                    <p:dialog  header="Novo ciclo lectivo"  widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" style="width: 300px;">
                         <h:form >
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Ciclo Lectivo: "/>
                                 <p:inputText size="20" value="#{cicloLectivoMBean.cicloLectivo.cicloLectivo}"/>
                             </h:panelGrid>
-                            <p:commandButton value="Guardar" action="#{cicloLectivoMBean.guardar(evt)}" ajax="false"/>
+                            <p:commandButton value="Guardar" actionListener="#{cicloLectivoMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
                         </h:form>
                     </p:dialog>
 
@@ -76,18 +76,18 @@
 
                     <!--inicio do dialogo editar-->
 
-                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                    <p:dialog  header="Alterar dados ciclo Lectivo" id="editar" widgetVar="dialogoEditar" showEffect="explode" hideEffect="bounce" style="width: 300px;">
                         <h:form >
                             <h:inputHidden value="#{cicloLectivoMBean.cicloLectivo.idCicloLectivo}"/>
                             <p:tabView>
                                 <p:tab title="Editar dados do ciclo lectivo">
-                                    <h:panelGrid columns="2">
+                                    <h:panelGrid columns="2" title="Editar Ciclo">
                                         <p:outputLabel value="Ciclo lectivo:"/>
                                         <p:inputText size="20" value="#{cicloLectivoMBean.cicloLectivo.cicloLectivo}"/>
                                     </h:panelGrid>
                                 </p:tab>
                             </p:tabView>
-                            <p:commandButton value="Editar" action="#{cicloLectivoMBean.edit(event)}" ajax="false"/>
+                            <p:commandButton value="Editar" actionListener="#{cicloLectivoMBean.edit(event)}" update="growl" ajax="false"/>
                         </h:form>
                     </p:dialog>
                     <!--fim do dialogo editar-->
@@ -96,7 +96,7 @@
                     <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
                         <h:form>
                             <p:tabView>
-                                <p:tab title="Visualuzação">
+                                <p:tab title="Visualizar">
                                     <p:panelGrid columns="2">
                                         <p:outputLabel value="Código: "/>
                                         <h:outputLabel value="#{cicloLectivoMBean.cicloLectivo.idCicloLectivo}"/>

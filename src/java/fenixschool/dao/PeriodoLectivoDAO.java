@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class PeriodoLectivoDAO implements GenericoDAO<PeriodoLectivo>{
     private static final String INSERIR = "INSERT into periodo_letivo (periodo_letivo) VALUES (?)";
-    private static final String ACTUALIZAR = "UPDATE periodo_letivo set periodo_letivo = ? WHERE id_periodo_letivo = ?";
+    private static final String ACTUALIZAR = "UPDATE periodo_letivo SET periodo_letivo = ? WHERE id_periodo_letivo = ?";
     private static final String ELIMINAR = "DELETE FROM periodo_letivo WHERE id_periodo_letivo = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM periodo_letivo WHRER id_periodo_letivo = ?";
-    private static final String LISTAR_TUDO = "SELECT * FROM periodo_letivo ORDER BY periodo_letivo ASC;";
+    private static final String BUSCAR_POR_CODIGO = "SELECT id_periodo_letivo, periodo_letivo from periodo_letivo WHERE id_periodo_letivo =?";
+    private static final String LISTAR_TUDO = "SELECT *FROM periodo_letivo ORDER BY periodo_letivo DESC";
 
     @Override
     public void save(PeriodoLectivo periodoletivo) {
@@ -37,7 +37,7 @@ public class PeriodoLectivoDAO implements GenericoDAO<PeriodoLectivo>{
             ps.setString(1,periodoletivo.getPeriodoLectivo());
             ps.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Erro na insercao de dados: " +e.getMessage());
+            System.out.println("Erro na insersao de dados: " +e.getMessage());
         } finally{
             Conexao.closeConnection(conn, ps);
         
@@ -49,7 +49,7 @@ public class PeriodoLectivoDAO implements GenericoDAO<PeriodoLectivo>{
         PreparedStatement ps = null;
         Connection conn = null;
         if(periodoletivo == null){
-            System.err.println("O valor anterior nao pode ser nullo");
+            System.err.println("O valor anterior nao pode ser nulo");
         
         }
         try {
@@ -70,7 +70,7 @@ public class PeriodoLectivoDAO implements GenericoDAO<PeriodoLectivo>{
         PreparedStatement ps = null;
         Connection conn = null;
         if (periodoletivo == null){
-            System.err.println("O valor anterior nao pode ser nullo");
+            System.err.println("O valor anterior nao pode ser nulo");
         
         }
         try {
@@ -118,22 +118,22 @@ public class PeriodoLectivoDAO implements GenericoDAO<PeriodoLectivo>{
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-        List<PeriodoLectivo> periodoletivo = new ArrayList<>();
+        List<PeriodoLectivo> periodoLectivos = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_TUDO);
             rs = ps.executeQuery();
             while (rs.next()){
-                PeriodoLectivo periodoletivo1 = new PeriodoLectivo();
-                popularComDados(periodoletivo1, rs);
-                periodoletivo.add(periodoletivo1);
+                PeriodoLectivo periodoletivo = new PeriodoLectivo();
+                popularComDados(periodoletivo, rs);
+                periodoLectivos.add(periodoletivo);
             }
         } catch (Exception e) {
             System.err.println("Erro na leitura dos dados: " + e.getLocalizedMessage());
        } finally{
             Conexao.closeConnection(conn);
         }
-        return periodoletivo;
+        return periodoLectivos;
         }
     
 

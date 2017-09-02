@@ -125,7 +125,7 @@ public class AnoCurricularDAO implements GenericoDAO<AnoCurricular>{
             }
            
         } catch (SQLException ex) {
-             System.out.println("Erro ao carregar dados: "+ex.getMessage());
+             System.out.println("Erro ao carregar dados ano curricular: "+ex.getMessage());
        }finally{
             Conexao.closeConnection(conn, ps, rs);
         }
@@ -139,7 +139,7 @@ public class AnoCurricularDAO implements GenericoDAO<AnoCurricular>{
             anoCurricular.setIdAnoCurricular(rs.getInt(1));
             anoCurricular.setAnoCurricular(rs.getString(2));
         } catch (SQLException ex) {
-            System.out.println("Erro ao ler dados: "+ex.getMessage());
+            System.out.println("Erro ao ler dados ano curricular: "+ex.getMessage());
         }
         
    

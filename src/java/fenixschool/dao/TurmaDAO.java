@@ -22,11 +22,11 @@ import java.util.List;
  */
 public class TurmaDAO implements GenericoDAO<Turma> {
 
-    private static final String INSERIR = "INSERT INTO turma(nome_turma, id_ano_letivo, id_periodo_letivo, mumero_maximo_inscritos)VALUES(?, ?, ?, ?)";
-    private static final String ACTUALIZAR = "UPDATE turma SET nome_turma = ?, id_ano_letivo = ?, id_periodo_letivo = ?, mumero_maximo_inscritos = ? WHERE id_turma = ?";
+    private static final String INSERIR = "INSERT INTO turma(nome_turma, id_ano_letivo, id_periodo_letivo, mumero_maximo_inscristos)VALUES(?, ?, ?, ?)";
+    private static final String ACTUALIZAR = "UPDATE turma SET nome_turma = ?, id_ano_letivo = ?, id_periodo_letivo = ?, mumero_maximo_inscristos =? WHERE id_turma = ?";
     private static final String ELIMINAR = "DELETE FROM turma WHERE id_turma = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT id_turma t, nome_turma t, ano_letivo a, periodo_letivo p FROM turma t INNER JOIN ano_letivo a ON t.id_ano_letivo=a.id_ano_letivo INNER JOIN periodo_letivo p ON t.id_periodo_letivo=p.id_periodo_letivo WHERE t.id_turma = ?";
-    private static final String LISTAR_TUDO = "SELECT id_turma t, nome_turma t, ano_letivo a, periodo_letivo p FROM turma t INNER JOIN ano_letivo a ON t.id_ano_letivo=a.id_ano_letivo INNER JOIN periodo_letivo p ON t.id_periodo_letivo=p.id_periodo_letivo";
+    private static final String BUSCAR_POR_CODIGO = "SELECT t.id_turma , t.nome_turma ,a.ano_letivo , p.periodo_letivo, t.numero_maximo_inscristos FROM turma t INNER JOIN ano_letivo a ON t.id_ano_letivo=a.id_ano_letivo INNER JOIN periodo_letivo p ON t.id_periodo_letivo=p.id_periodo_letivo WHERE id_turma= ?";
+    private static final String LISTAR_TUDO = "SELECT t.id_turma , t.nome_turma ,a.ano_letivo , p.periodo_letivo, t.numero_maximo_inscristos FROM turma t INNER JOIN ano_letivo a ON t.id_ano_letivo=a.id_ano_letivo INNER JOIN periodo_letivo p ON t.id_periodo_letivo=p.id_periodo_letivo";
 
     @Override
     public void save(Turma turma) {
@@ -40,8 +40,8 @@ public class TurmaDAO implements GenericoDAO<Turma> {
             ps = conn.prepareStatement(INSERIR);
 
             ps.setString(1, turma.getNomeTurma());
-            ps.setInt(2, turma.getIdAnoLetivo().getIdAnoLectivo());
-            ps.setInt(3, turma.getIdPeriodoLetivo().getIdPeriodoLectivo());
+            ps.setInt(2, turma.getAnoLetivo().getIdAnoLectivo());
+            ps.setInt(3, turma.getPeriodoLetivo().getIdPeriodoLectivo());
             ps.setInt(4, turma.getNumeroMaximoInscritos());
             ps.executeUpdate();
 
@@ -63,8 +63,8 @@ public class TurmaDAO implements GenericoDAO<Turma> {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ACTUALIZAR);
             ps.setString(1, turma.getNomeTurma());
-            ps.setInt(2, turma.getIdAnoLetivo().getIdAnoLectivo());
-            ps.setInt(3, turma.getIdPeriodoLetivo().getIdPeriodoLectivo());
+            ps.setInt(2, turma.getAnoLetivo().getIdAnoLectivo());
+            ps.setInt(3, turma.getPeriodoLetivo().getIdPeriodoLectivo());
             ps.setInt(4, turma.getNumeroMaximoInscritos());
             ps.setInt(5, turma.getIdTurma());
             ps.executeUpdate();
@@ -149,17 +149,18 @@ public class TurmaDAO implements GenericoDAO<Turma> {
     public void popularComDados(Turma turma, ResultSet rs) {
         try {
 
-            turma.setIdTurma(rs.getInt("id_ano_letivo"));
+            turma.setIdTurma(rs.getInt("id_turma"));
             turma.setNomeTurma(rs.getString("nome_turma"));
+            
             AnoLectivo anoLectivo = new AnoLectivo();
-            anoLectivo.setAnoLectivo(rs.getString("ano_Letivo"));
-            turma.setIdAnoLetivo(anoLectivo);
+            anoLectivo.setAnoLectivo(rs.getString("ano_letivo"));
+            turma.setAnoLetivo(anoLectivo);
 
             PeriodoLectivo periodoLectivo = new PeriodoLectivo();
             periodoLectivo.setPeriodoLectivo(rs.getString("periodo_letivo"));
-            turma.setIdPeriodoLetivo(periodoLectivo);
+            turma.setPeriodoLetivo(periodoLectivo);
 
-            turma.setNumeroMaximoInscritos(rs.getInt("numero_maximo_inscritos"));
+            turma.setNumeroMaximoInscritos(rs.getInt("numero_maximo_inscristos"));
 
         } catch (SQLException ex) {
             System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());

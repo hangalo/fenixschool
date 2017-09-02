@@ -15,8 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -28,7 +27,7 @@ public class FuncionarioDAO implements  GenericoDAO<Funcionario>{
     private static final String ELIMINAR="DELETE FROM funcionario WHERE id_funcionario=?";
     private static final String BUSCAR_POR_CODIGO="SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio WHERE f.id_funcionario = ?";
     
-    private static final String LISTAR_TUDO ="SELECT f.id_funcionario,f.nome_funcionario,f.sobrenome_funcionario,f.data_nascimento, f.sexo,casa_funcionario,f.bairro_funcionario,f.distrito_funcionario,m.nome_municipio,f.foto_funcionario,f.url_foto_funcionario,f.telefone_fixo,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio";
+    private static final String LISTAR_TUDO ="SELECT f.id_funcionario,f.nome_funcionario,f.sobrenome_funcionario,f.data_nascimento, f.sexo, f.casa_funcionario,f.bairro_funcionario,f.distrito_funcionario,m.nome_municipio,f.foto_funcionario,f.url_foto_funcionario,f.telefone_fixo,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio";
     
     Connection conn;
     PreparedStatement ps;
@@ -71,7 +70,7 @@ public class FuncionarioDAO implements  GenericoDAO<Funcionario>{
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERIR);
+            ps = conn.prepareStatement(ACTUALIZAR);
          
             ps.setString(1, funcionario.getNomeFuncionario());
             ps.setString(2, funcionario.getSobrenomeFuncionario());
@@ -193,7 +192,7 @@ public class FuncionarioDAO implements  GenericoDAO<Funcionario>{
 
             
         } catch (SQLException ex) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+              System.err.println("Erro ao carregar dados do funcionário: " + ex.getLocalizedMessage());
         }
 
         
