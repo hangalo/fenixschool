@@ -36,7 +36,8 @@ public class CandidatoConverter implements Converter{
     public String getAsString(FacesContext context, UIComponent component, Object value) {
          
       if (value != null) {
-            return ((Candidato) value).getIdCandidato().toString();
+          Candidato candidato = (Candidato)value;
+            return String.valueOf(candidato.getIdCandidato());
         }
         return null;
     }

@@ -6,7 +6,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
@@ -67,7 +66,7 @@
                                         <p:outputLabel value="Valor Juro: "/>
                                         <p:inputText value="#{mensalidadeMBean.mensalidade.valorJuro}" size="20"/>
                                         <p:outputLabel value="Data de Pagamento: "/>
-                                        <p:calendar value="#{mensalidadeMBean.mensalidade.dataPagamento}" size="20"  pattern="dd/MM/yyyy"/>                                                                               
+                                        <p:calendar locale="pt" value="#{mensalidadeMBean.mensalidade.dataPagamento}" size="20"  pattern="dd/MM/yyyy"/>                                                                               
                                     </h:panelGrid>
                                     <h:panelGroup>
                                         <p:panelGrid columns="1">
@@ -81,34 +80,39 @@
                                 <p:tab title="Outros dados">
                                     <h:panelGrid columns="2">
                                         <p:outputLabel value="Aluno: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.aluno}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.aluno}" converter="alunoConverter">
                                             <f:selectItem itemLabel="Selecione um Aluno" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{alunoMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                                            <f:selectItems value="#{mensalidadeMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Departamento: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.departamento}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.departamento}" converter="departamentoConverter">
                                             <f:selectItem itemLabel="Selecione um Departamento" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{departamentoMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
+                                            <f:selectItems value="#{mensalidadeMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Turma: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.turma}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.turma}" converter="turmaConverter">
                                             <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                            <f:selectItems value="#{mensalidadeMBean.turmas}" var="turma" itemValue="#{turma}" itemLabel="#{turma.nomeTurma}" />
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Ciclo Letivo: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.cicloLectivo}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.cicloLectivo}" converter="cicloLectivoConverter">
                                             <f:selectItem itemLabel="Selecione uma Ciclo Letivo" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                            <f:selectItems value="#{mensalidadeMBean.cicloLetivos}" var="cicloLetivo" itemValue="#{cicloLetivo}" itemLabel="#{cicloLetivo.cicloLectivo}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Ano Lectivo: "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.anoLetivo}" converter="anoLectivoConverter">
+                                            <f:selectItem itemLabel="Selecione uma Ano Letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{mensalidadeMBean.anoletivos}" var="anoletivo" itemValue="#{anoletivo}" itemLabel="#{anoletivo.anoLectivo}" />
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Mes: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.mes}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.mes}" converter="mesConverter">
                                             <f:selectItem itemLabel="Selecione uma Mes" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                            <f:selectItems value="#{mensalidadeMBean.meses}" var="mes" itemValue="#{mes}" itemLabel="#{mes.nomeMes}" />
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Curso: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.curso}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.curso}" converter="cursoConverter">
                                             <f:selectItem itemLabel="Selecione uma Curso" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{cursoMBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nomeCurso}" />
+                                            <f:selectItems value="#{mensalidadeMBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nomeCurso}" />
                                         </p:selectOneMenu>
                                     </h:panelGrid>
 
@@ -129,14 +133,13 @@
                             <p:tabView>
                                 <p:tab title="Dados da Mensalidade">
                                     <p:growl id="messages" showDetail="true"/>
-                                    <h:inputHidden value="#{mensalidadeMBean.mensalidade.idMensalidade}"/>
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Valor Pago: "/>
                                         <p:inputText value="#{mensalidadeMBean.mensalidade.valorPago}" size="20"/>
                                         <p:outputLabel value="Valor Juro: "/>
                                         <p:inputText value="#{mensalidadeMBean.mensalidade.valorJuro}" size="20"/>
                                         <p:outputLabel value="Data de Pagamento: "/>
-                                        <p:calendar value="#{mensalidadeMBean.mensalidade.dataPagamento}" size="20"  pattern="dd/MM/yyyy"/>                                                                               
+                                        <p:calendar locale="pt" value="#{mensalidadeMBean.mensalidade.dataPagamento}" size="20"  pattern="dd/MM/yyyy"/>                                                                               
                                     </h:panelGrid>
                                     <h:panelGroup>
                                         <p:panelGrid columns="1">
@@ -150,34 +153,42 @@
                                 <p:tab title="Outros dados">
                                     <h:panelGrid columns="2">
                                         <p:outputLabel value="Aluno: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.aluno}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.aluno}" converter="alunoConverter">
                                             <f:selectItem itemLabel="Selecione um Aluno" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{alunoMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                                            <f:selectItems value="#{mensalidadeMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Departamento: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.departamento}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.departamento}" converter="departamentoConverter">
                                             <f:selectItem itemLabel="Selecione um Departamento" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{departamentoMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
+                                            <f:selectItems value="#{mensalidadeMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Turma: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.turma}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.turma}" converter="turmaConverter">
                                             <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                            <f:selectItems value="#{mensalidadeMBean.turmas}" var="turma" itemValue="#{turma}" itemLabel="#{turma.nomeTurma}" />
                                         </p:selectOneMenu>
+                                        
+                                        <p:outputLabel value="Ano Lectivo: "/>
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.anoLetivo}" converter="anoLectivoConverter">
+                                            <f:selectItem itemLabel="Selecione uma Ano Letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{mensalidadeMBean.anoletivos}" var="anoletivo" itemValue="#{anoletivo}" itemLabel="#{anoletivo.anoLectivo}" />
+                                        </p:selectOneMenu>
+                                        
                                         <p:outputLabel value="Ciclo Letivo: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.cicloLectivo}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.cicloLectivo}" converter="cicloLectivoConverter">
                                             <f:selectItem itemLabel="Selecione uma Ciclo Letivo" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                            <f:selectItems value="#{mensalidadeMBean.cicloLetivos}" var="cicloLetivo" itemValue="#{cicloLetivo}" itemLabel="#{cicloLetivo.cicloLectivo}" />
                                         </p:selectOneMenu>
+                                        
                                         <p:outputLabel value="Mes: "/>
-                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.mes}">
+                                        <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.mes}" converter="mesConverter">
                                             <f:selectItem itemLabel="Selecione uma Mes" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="" var="" itemValue="" itemLabel="" />
+                                            <f:selectItems value="#{mensalidadeMBean.meses}" var="mes" itemValue="#{mes}" itemLabel="#{mes.nomeMes}" />
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Curso: "/>
                                         <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.curso}">
                                             <f:selectItem itemLabel="Selecione uma Curso" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{cursoMBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nomeCurso}" />
+                                            <f:selectItems value="#{mensalidadeMBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nomeCurso}" />
                                         </p:selectOneMenu>
                                     </h:panelGrid>
 
@@ -221,16 +232,20 @@
                                 </p:tab>
                                 <p:tab title="Outros dados">
                                     <h:panelGrid columns="2">
+                                        
                                         <p:outputLabel value="Aluno: "/>
                                         <h:outputText value="#{mensalidadeMBean.mensalidade.aluno.nomeAluno}"/>
                                         <p:outputLabel value="Departamento: "/>
                                         <h:outputText value="#{mensalidadeMBean.mensalidade.departamento.nomeDepartamento}"/>
                                         <p:outputLabel value="Turma: "/>
-                                         <h:outputText value="ainda não tem turma..."/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.turma.nomeTurma}"/>
+                                        <p:outputLabel value="Ano Lectivo: "/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.anoLetivo.anoLectivo}"/>
+                                        
                                         <p:outputLabel value="Ciclo Letivo: "/>
-                                        <h:outputText value="ainda não tem ciclo letivo..."/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.cicloLectivo.cicloLectivo}"/>
                                         <p:outputLabel value="Mes: "/>
-                                        <h:outputText value="ainda não tem mes..."/>
+                                        <h:outputText value="#{mensalidadeMBean.mensalidade.mes.nomeMes}"/>
                                         <p:outputLabel value="Curso: "/>
                                         <h:outputText value="#{mensalidadeMBean.mensalidade.curso.nomeCurso}"/>
                                     </h:panelGrid>
@@ -238,7 +253,7 @@
                                 </p:tab>
                             </p:tabView>
 
-                           
+
                         </h:form>
 
                     </p:dialog>

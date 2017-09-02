@@ -72,8 +72,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
 
     @Override
     public void update(Candidato candidato) {
-        PreparedStatement ps = null;
-        Connection conn = null;
+       
         if (candidato == null) {
 
             System.err.println("O valor passado nao pode ser nulo");
@@ -111,8 +110,6 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
 
     @Override
     public void delete(Candidato candidato) {
-        PreparedStatement ps = null;
-        Connection conn = null;
         if (candidato == null) {
             System.err.println("O valor passado não pode ser nulo");
         }
@@ -130,16 +127,13 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
 
     @Override
     public Candidato findById(Integer id) {
-        PreparedStatement ps = null;
-        Connection conn = null;
-        ResultSet rs = null;
         Candidato candidato = new Candidato();
 
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_POR_CODIGO);
             ps.setInt(1, id);
-            rs = (ResultSet) ps.executeQuery();
+            rs = ps.executeQuery();
             if (!rs.next()) {
                 System.err.println("Não foi possivel encontrado nenhum registro com o id:  " + id);
             }
@@ -158,14 +152,12 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
 
     @Override
     public List<Candidato> findAll() {
-        PreparedStatement ps = null;
-        Connection conn = null;
-        ResultSet rs = null;
+        
         List<Candidato> candidatos = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_TUDO);
-            rs = (ResultSet) ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Candidato candidato = new Candidato();
                 popularComDados(candidato, rs);

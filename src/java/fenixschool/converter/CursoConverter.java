@@ -5,8 +5,8 @@
  */
 package fenixschool.converter;
 
-import fenixschool.dao.TipoDocumentoIdentidadeDAO;
-import fenixschool.modelo.TipoDocumentoIdentidade;
+import fenixschool.dao.CursoDAO;
+import fenixschool.modelo.Curso;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -16,15 +16,16 @@ import javax.faces.convert.FacesConverter;
  *
  * @author Elísio Kavaimunwa
  */
-@FacesConverter(value = "tipoDocumentoIdentidadeConverter", forClass = TipoDocumentoIdentidade.class)
-public class TipoDocumentoIdentidadeConverter implements Converter{
-    TipoDocumentoIdentidadeDAO tipoDocumentoIdentidadeDAO = new TipoDocumentoIdentidadeDAO();
+@FacesConverter(value = "cursoConverter", forClass = Curso.class)
+public class CursoConverter implements Converter{
 
+    CursoDAO cursoDAO = new CursoDAO();
+    
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Integer id = Integer.parseInt(value);
         try {
-            return tipoDocumentoIdentidadeDAO.findById(id);
+            return cursoDAO.findById(id);
         } catch (Exception ex) {
             System.err.println("Erro na conversão: " + ex.getMessage());
         }
@@ -33,9 +34,9 @@ public class TipoDocumentoIdentidadeConverter implements Converter{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null) {
-            TipoDocumentoIdentidade tipoDocumentoIdentidade = (TipoDocumentoIdentidade)value;
-             return String.valueOf(tipoDocumentoIdentidade.getIdTipoDocumentoIdentidade());
+       if (value != null) {
+           Curso curso = (Curso)value;
+            return ((Curso) value).getCodigoCurso();
         }
         return null;
     }

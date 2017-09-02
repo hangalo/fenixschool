@@ -12,6 +12,7 @@ import fenixschool.modelo.Candidato;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Profissao;
 import fenixschool.modelo.Sexo;
+import fenixschool.util.FicheiroUtil;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,13 +36,11 @@ import org.primefaces.model.UploadedFile;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-
-
 /**
  *
  * @author Elísio Kavaimunwa
  */
-@ManagedBean(name ="candidatoMBean")
+@ManagedBean(name = "candidatoMBean")
 @SessionScoped
 
 public class CandidatoMBean implements Serializable {
@@ -94,7 +93,7 @@ public class CandidatoMBean implements Serializable {
 
             //Cria um objeto do tipo UploadedFile, para receber o ficheiro do evento
             UploadedFile arq = event.getFile();
-           
+
             //transformar a imagem em bytes para guardar na base de dados  
             byte[] foto = IOUtils.toByteArray(arq.getInputstream());
 
@@ -103,10 +102,9 @@ public class CandidatoMBean implements Serializable {
 
             //para guardar o ficheiro num pasta local (no disco duro)
             InputStream in = new BufferedInputStream(arq.getInputstream());
-            File file = new File("C://fotos//" + arq.getFileName());
+            File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arq.getFileName());
            
-            //Guarda num disco de rede
-            //   File file = new File("\\\\192.168.0.18\\photo\\fratiofmcap\\" + arq.getFileName());
+      
           
             FileOutputStream fout = new FileOutputStream(file);
             while (in.available() != 0) {
@@ -114,7 +112,7 @@ public class CandidatoMBean implements Serializable {
             }
             fout.close();
           
-            FacesMessage msg = new FacesMessage("Foto:", arq.getFileName() + "Carregada com sucesso");
+            FacesMessage msg = new FacesMessage("Foto:\t", arq.getFileName() + "\tCarregada com sucesso");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (IOException ex) {
@@ -128,16 +126,17 @@ public class CandidatoMBean implements Serializable {
         candidato = new Candidato();
         return "candidato_listar?faces-redirect=true";
     }
-    
+
     public void guardar(ActionEvent evt) {
         candidatoDAO.save(candidato);
         candidato = new Candidato();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Candidato registado com sucesso"));
     }
+
     public String startEdit() {
         return "candidato_listar?faces-redirect=true";
     }
-    
+
     public void edit(ActionEvent event) {
         candidatoDAO.update(candidato);
         candidatos = null;
@@ -148,14 +147,13 @@ public class CandidatoMBean implements Serializable {
         }
 
     }
-     public String delete() {
+
+    public String delete() {
         candidatoDAO.delete(candidato);
         candidatos = null;
         return "candidato_listar?faces-redirect=true";
     }
 
-    
-    
     public List<Profissao> getProssifoes() {
         profissoes = profissaoDAO.findAll();
         return profissoes;
@@ -166,14 +164,14 @@ public class CandidatoMBean implements Serializable {
         return municipios;
     }
 
-     public List<SelectItem> getOpSexos() {
+    public List<SelectItem> getOpSexos() {
         List<SelectItem> list = new ArrayList<>();
         for (Sexo sexo : Sexo.values()) {
             list.add(new SelectItem(sexo, sexo.getAbreviatura()));
         }
         return list;
     }
-    
+
     public void setProssifoes(List<Profissao> profissoes) {
         this.profissoes = profissoes;
     }
@@ -181,10 +179,12 @@ public class CandidatoMBean implements Serializable {
     public void setMunicipios(List<Municipio> municipios) {
         this.municipios = municipios;
     }
-    
-    
-    
-   
-    
-     
+
+    public static String getPathPastaAplicacaoJSF() {
+        String separador = System.getProperty("file.separator");
+        String pasta = "fotos" + separador;
+        String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+        return raizAplicacao + pasta;
+    }
+
 }

@@ -108,7 +108,7 @@ public class FuncionarioMBean implements Serializable{
 
             //para guardar o ficheiro num pasta local (no disco duro)
             InputStream in = new BufferedInputStream(arq.getInputstream());
-           File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arq.getFileName());
+            File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arq.getFileName());
            
       
           

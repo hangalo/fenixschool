@@ -22,7 +22,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * @author Elísio Kavaimunwa
@@ -30,10 +29,10 @@ import java.util.List;
 public class MensalidadeDAO implements GenericoDAO<Mensalidade> {
 
     private static final String INSERIR = "INSERT INTO mensalidade(descricao_mensalidade, data_pagamento, valor_pago, valor_juro, "
-            + "observacao_mensalidade, id_ano_letivo, id_departamento, id_turma, id_ciclo_letivo, id_mes, id_aluno, codigo_curso) "
+            + "observacao, id_ano_letivo, id_departamento, id_turma, id_ciclo_letivo, id_mes, id_aluno, codigo_curso) "
             + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String ACTUALIZAR = "UPDATE mensalidade SET descricao_mensalidade =?, data_pagamento=?, valor_pago=?, valor_juro=?, "
-            + "observacao_mensalidade=?, id_ano_letivo=?,  id_departamento=?, id_turma=?, id_ciclo_letivo=?, id_mes=?, id_aluno=?, codigo_curso=?  "
+            + "observacao=?, id_ano_letivo=?,  id_departamento=?, id_turma=?, id_ciclo_letivo=?, id_mes=?, id_aluno=?, codigo_curso=?  "
             + "WHERE id_mensalidade =?";
     private static final String ELIMINAR = "DELETE FROM mensalidade WHERE id_mensalidade=?";
 
@@ -128,8 +127,6 @@ public class MensalidadeDAO implements GenericoDAO<Mensalidade> {
 
     @Override
     public void delete(Mensalidade mensalidade) {
-        PreparedStatement ps = null;
-        Connection conn = null;
         if (mensalidade == null) {
             System.err.println("O valor passado não pode ser nulo");
         }
@@ -153,7 +150,7 @@ public class MensalidadeDAO implements GenericoDAO<Mensalidade> {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_POR_CODIGO);
             ps.setInt(1, id);
-            rs = (ResultSet) ps.executeQuery();
+            rs = ps.executeQuery();
             if (!rs.next()) {
                 System.err.println("Não foi possivel encontrado nenhum registro com o id:  " + id);
             }
@@ -163,9 +160,6 @@ public class MensalidadeDAO implements GenericoDAO<Mensalidade> {
             System.err.println("Erro ao ler os dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection((java.sql.Connection) conn, ps, rs);
-
-            {
-            }
         }
         return mensalidade;
     }
@@ -176,7 +170,7 @@ public class MensalidadeDAO implements GenericoDAO<Mensalidade> {
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_TUDO);
-            rs = (ResultSet) ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Mensalidade mensalidade = new Mensalidade();
                 popularComDados(mensalidade, rs);
@@ -198,7 +192,7 @@ public class MensalidadeDAO implements GenericoDAO<Mensalidade> {
             mensalidade.setDescricaoMensalidade(rs.getString("descricao_mensalidade"));
             mensalidade.setValorPago(rs.getDouble("valor_pago"));
             mensalidade.setValorJuro(rs.getDouble("valor_juro"));
-            mensalidade.setObservacaoMensalidade(rs.getString("observacao_mensalidade"));
+            mensalidade.setObservacaoMensalidade(rs.getString("observacao"));
             mensalidade.setDataPagamento(rs.getDate("data_pagamento"));
 
             AnoLectivo anoLetivo = new AnoLectivo();
@@ -233,7 +227,7 @@ public class MensalidadeDAO implements GenericoDAO<Mensalidade> {
             aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
             aluno.setDataNascimentoAluno(rs.getDate("data_nascimento"));
             mensalidade.setAluno(aluno);
-            
+
             Curso curso = new Curso();
             curso.setCodigoCurso(rs.getString("codigo_curso"));
             curso.setNomeCurso(rs.getString("nome_curso"));

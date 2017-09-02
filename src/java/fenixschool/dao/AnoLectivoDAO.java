@@ -32,12 +32,12 @@ public class AnoLectivoDAO implements GenericoDAO<AnoLectivo> {
 
     public AnoLectivoDAO() {
     }
-
+/*
     public AnoLectivoDAO(Connection conn, PreparedStatement ps, ResultSet rs) {
         this.conn = conn;
         this.ps = ps;
         this.rs = rs;
-    }
+    }*/
 
     @Override
     public void save(AnoLectivo anoLectivo) {

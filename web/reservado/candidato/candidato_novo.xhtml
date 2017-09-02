@@ -6,6 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
         <p:panel header="Novo Candidato" footer="registo de candidatos">
@@ -21,7 +22,7 @@
                             <p:outputLabel value="Número"/>
                             <p:inputText value="#{candidatoMBean.candidato.numeroCandidato}" size="10"/>
                             <p:outputLabel value="Data de nascimento:"/>
-                            <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" />
+                            <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" locale="pt"  />
                             <p:outputLabel value="Sexo:"/>
                             <p:selectOneRadio id="sexo" value="#{candidatoMBean.candidato.sexo}">
                                 <f:selectItems value="#{candidatoMBean.opSexos}" />

@@ -93,14 +93,10 @@ public class Turma {
     }
 
     @Override
-    public String toString() {
-        return "Turma{" + "idTurma=" + idTurma + ", nomeTurma=" + nomeTurma + ", idAnoLetivo=" + idAnoLetivo + ", idPeriodoLetivo=" + idPeriodoLetivo + ", numeroMaximoInscritos=" + numeroMaximoInscritos + '}';
-    }
+    public String toString(){ 
+        return this.nomeTurma;
     
-    
-    
-    
-    
+    }  
    
 }
 

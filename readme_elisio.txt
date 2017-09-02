@@ -1,0 +1,39 @@
+Continuação da tafera 1.
+	Problema: Não listava foto dos Candidatos, não editava.
+	Solução: Já lista e edita.
+
+Tarefa 2.
+	CRUD tipoDisciplina, funcional;
+	CRUD tipoDocumentoIdentidade, funcional;
+	CRUD Mensalidade, 80%  funcional. 
+		20 % em construção...
+
+DAOs feitos:
+	TipoDisciplinaDAO;
+	TipoDocumentoIdentidadeDAO;
+	MensalidadeDAO;
+
+Converters feitos: 
+	TipoDisciplinaConverter;
+	TipoDocumentoIdentidadeConverter;
+	CursoConverter;
+	
+MBeans:
+	TipoDisciplinaMbean;
+	TipoDocumentoIdentidadeMBean;
+	MensalidadeMBean;
+
+O.B.S.1: A Classe DateUtill2 que está no pacote util, fui eu quem a colocou aí, precisei dela quando testava o DAO da mensalidade. Não eliminei porque ainda precisarei dela. 
+
+Os dados a mais que estão na tabela Mensalidade inseri enquanto testava as funcionalidades. 
+
+Erros não corrigidos:
+	Formulário da mensalidade, no campo turma;
+	No diálogo editar não trás o anoLetivo, consequentemente o output 		alerta a seguinte mensagem: Erro ao carregar dados: Column 		'id_ano_letivo' not found. É estranho porque no texte do DAO 	carrega normalmente.
+
+O.B.S.2.: Testei Os DAOs com JUnit.
+	Alterei o método toString da Turma. Orientação do Frei.
+
+Último pull feito em  2/set/2017 10:51:31
+	 	
+

@@ -38,7 +38,7 @@
                                 </f:facet>
                                 <h:outputText value="#{candidato.sobrenomeCandidato}"/>
                             </p:column>
-                            <p:column>
+                            <p:column width="50">
                                 <f:facet name="header">
                                     <h:outputText value="Foto"/>
                                 </f:facet>
@@ -89,7 +89,7 @@
                                         <p:outputLabel value="Número"/>
                                         <p:inputText value="#{candidatoMBean.candidato.numeroCandidato}" size="10"/>
                                         <p:outputLabel value="Data de nascimento:"/>
-                                        <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" />
+                                        <p:calendar locale="pt" value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" />
                                         <p:outputLabel value="Sexo:"/>
                                         <p:selectOneRadio id="sexo" value="#{candidatoMBean.candidato.sexo}">
                                             <f:selectItems value="#{candidatoMBean.opSexos}" />
@@ -157,7 +157,7 @@
                                         <p:outputLabel value="Número"/>
                                         <p:inputText value="#{candidatoMBean.candidato.numeroCandidato}" size="10"/>
                                         <p:outputLabel value="Data de nascimento:"/>
-                                        <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" />
+                                        <p:calendar locale="pt" value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" />
                                         <p:outputLabel value="Sexo:"/>
                                         <p:selectOneRadio id="sexo" value="#{candidatoMBean.candidato.sexo}">
                                             <f:selectItems value="#{candidatoMBean.opSexos}" />
