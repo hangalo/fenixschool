@@ -23,9 +23,9 @@ public class CursoConverter implements Converter{
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Integer id = Integer.parseInt(value);
+        
         try {
-            return cursoDAO.findById(id);
+            return cursoDAO.findByCodigo(value);
         } catch (Exception ex) {
             System.err.println("Erro na conversão: " + ex.getMessage());
         }
