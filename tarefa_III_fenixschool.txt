@@ -1,0 +1,104 @@
+Tarefa III
+
+
+04 a 18 de Setembro
+
+NB.: Para as consultas usar como referencia a entidade professor.
+     
+	O mesmo serve para a implementacao das combos dependentes (ver indicacoes no fim)
+     	
+
+	
+
+Aisha
+
+
+-Consulta Funcionario por: - Nome e Sobrenome; por departamento; data de nascimento
+-Implementar combo boxes dependentes entre Provincia e Municipio
+
+Elsio
+
+- Conslta Candidado por: Nome e Sobrenome; por numero; Sexo; data de nascimento
+-Implementar combo boxes dependentes entre Provincia e Municipio
+
+Pena
+
+Consulta Encarregado por: Nome e Sobrenome; Municipio; Sexo; Municipio
+-Implementar combo boxes dependentes entre Provincia e Municipio
+
+Deu
+
+CRUD Matricula; consulta alunos por turma
+
+Paulo
+- Consulta aluno por: Nome e Sobrenome; por numero;  data de nascimento; sexo; municipio; profissao
+- Implementar combo boxes dependentes entre Provincia e Municipio
+Santo
+CRUD - Transferencia
+
+Ju
+CRUD - docencia - local_emissao_documento - periodo_letivo
+
+
+
+CRIAR COMBOS DEPENDENTES
+
+
+
+No ManagedBean, colocar o medoto 
+
+
+public void carregaMunicipiosDaProvincia() {
+ municipios = municipioDAO.findByIdProvincia(provincia);
+}
+
+
+o metodo getMunicipios fica da seguinte forma
+
+public List<Municipio> getMunicipios() {
+        return municipios;
+}
+
+
+
+portanto, sem receber nada do proprio dao
+
+antes estava assim
+public List<Municipio> getMunicipios() {
+	municipios = municipioDAO.findAll();
+        return municipios;
+}
+
+
+
+NA Pagina colocar antes da combobox do municipio
+
+
+
+                            <h:selectOneMenu value="#{professorMBean.provincia}" converter="provinciaConverter">
+                                <f:selectItem itemValue="#{null}" itemLabel="-- Selecione --" noSelectionOption="true"  />
+                                <f:selectItems value="#{professorMBean.provincias}" var="provincia" 
+                                               itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
+                                <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
+                            </h:selectOneMenu>
+
+
+
+Prestar atencao a linha
+  <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
+
+aquele "municipios" do render è o id do selectOneMenu do municio ou seja è o id="municipio"
+
+
+ <h:selectOneMenu id="municipios" value="#{professorMBean.municipio}" converter="municipioConverter">
+                                <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
+                                <f:selectItems value="#{professorMBean.municipios}" var="municipio" 
+                                               itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
+                            </h:selectOneMenu>
+
+
+
+
+qualquer duvida vejam no meu github
+
+https://github.com/hangalo/comobosdependesJSFJDBC.git

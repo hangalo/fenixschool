@@ -5,10 +5,10 @@
  */
 package fenixschool.mb;
 
-
 import fenixschool.dao.MunicipioDAO;
 
 import fenixschool.modelo.Municipio;
+import fenixschool.modelo.Provincia;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
@@ -19,17 +19,13 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Named;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author PENA
  */
-
-        
-        @ManagedBean(name = "municipioMBean")
+@ManagedBean(name = "municipioMBean")
 @RequestScoped
 public class MunicipioMBean implements Serializable {
 
@@ -38,6 +34,7 @@ public class MunicipioMBean implements Serializable {
     private Municipio municipio;
     private MunicipioDAO municipioDAO;
     private List<Municipio> municipios;
+    private Provincia provincia;
 
     public MunicipioMBean() {
     }
@@ -45,12 +42,11 @@ public class MunicipioMBean implements Serializable {
     @PostConstruct
     public void inicializar() {
         municipio = new Municipio();
+        provincia = new Provincia();
         municipioDAO = new MunicipioDAO();
         municipios = new ArrayList<>();
 
     }
-
-   
 
     public void guardar(ActionEvent evt) {
         municipioDAO.save(municipio);
@@ -58,12 +54,24 @@ public class MunicipioMBean implements Serializable {
     }
 
     public List<Municipio> getMunicipios() {
-       municipios = municipioDAO.findAll();
+        municipios = municipioDAO.findAll();
         return municipios;
     }
 
-  
+    public Provincia getProvincia() {
+        return provincia;
+    }
 
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public void carregaMunicipiosDaProvincia() {
+
+        municipios = municipioDAO.findByIdProvincia(provincia);
+    }
+
+    
     
     
     public String newSave() {
@@ -76,7 +84,7 @@ public class MunicipioMBean implements Serializable {
     }
 
     public void edit(ActionEvent event) {
-       municipioDAO.update(municipio);
+        municipioDAO.update(municipio);
         municipios = null;
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("municipio_gestao.jsf");

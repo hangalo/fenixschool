@@ -73,6 +73,7 @@ public class ProfessorMBean implements Serializable {
         municipios = new ArrayList<>();
         provincias = new ArrayList<>();
         municipio = new Municipio();
+        provincias = provinciaDAO.findAll();
 
     }
 
@@ -90,13 +91,6 @@ public class ProfessorMBean implements Serializable {
             list.add(new SelectItem(sexo, sexo.getAbreviatura()));
         }
         return list;
-    }
-
-    public List<Municipio> getMunicipios() {
-
-       // municipios = municipioDAO.findAll();
-
-        return municipios;
     }
 
     public List<Professor> getProfessores() {
@@ -144,19 +138,20 @@ public class ProfessorMBean implements Serializable {
     public void setMunicipio(Municipio municipio) {
         this.municipio = municipio;
     }
-    
-    
+
+    public List<Municipio> getMunicipios() {
+        return municipios;
+    }
 
     /*Metodos*/
     //carregar provincias
     public List<Provincia> getProvincias() {
-        provincias = provinciaDAO.findAll();
         return provincias;
     }
 
     // carrega municipios em função da provincia
-    public void listaMunicipiosDaProvincia(AjaxBehaviorEvent event) {
-        System.out.println("Provincia ====>>>>"+provincia.getIdProvincia());
+    public void carregaMunicipiosDaProvincia() {
+        System.out.println("Provncia >>>>>" + provincia);
         municipios = municipioDAO.findByIdProvincia(provincia);
     }
 
