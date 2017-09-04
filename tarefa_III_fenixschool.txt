@@ -74,18 +74,17 @@ public List<Municipio> getMunicipios() {
 NA Pagina colocar antes da combobox do municipio
 
 
-
-                            <h:selectOneMenu value="#{professorMBean.provincia}" converter="provinciaConverter">
-                                <f:selectItem itemValue="#{null}" itemLabel="-- Selecione --" noSelectionOption="true"  />
-                                <f:selectItems value="#{professorMBean.provincias}" var="provincia" 
-                                               itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
-                                <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
-                            </h:selectOneMenu>
+ <h:selectOneMenu id="provincias" value="#{municipioBean.provincia}" converter="provinciaConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true"  />
+                    <f:selectItems value="#{municipioBean.provincias}" var="provincia" 
+                                   itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
+                    <f:ajax listener="#{municipioBean.loadMunicipios}" render="municipios" execute="provincias" />
+                </h:selectOneMenu>
 
 
 
 Prestar atencao a linha
-  <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
+   <f:ajax listener="#{municipioBean.loadMunicipios}" render="municipios" execute="provincias" />
 
 aquele "municipios" do render è o id do selectOneMenu do municio ou seja è o id="municipio"
 

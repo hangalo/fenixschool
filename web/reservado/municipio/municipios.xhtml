@@ -14,11 +14,11 @@
         <h:messages showDetail="true" showSummary="true"/>
         <p:panel header="outro">
             <h:form>
-                <h:selectOneMenu value="#{municipioBean.provincia}" converter="provinciaConverter">
+                <h:selectOneMenu id="provincias" value="#{municipioBean.provincia}" converter="provinciaConverter">
                     <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true"  />
                     <f:selectItems value="#{municipioBean.provincias}" var="provincia" 
                                    itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
-                    <f:ajax listener="#{municipioBean.loadMunicipios}" render="municipios" />
+                    <f:ajax listener="#{municipioBean.loadMunicipios}" render="municipios" execute="provincias" />
                 </h:selectOneMenu>
                 <h:selectOneMenu id="municipios" value="#{municipioBean.municipio}" converter="municipioConverter">
                     <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
