@@ -152,7 +152,7 @@ public class ProfessorMBean implements Serializable {
     // carrega municipios em função da provincia
     public void carregaMunicipiosDaProvincia() {
         System.out.println("Provncia >>>>>" + provincia);
-        municipios = municipioDAO.findByIdProvincia(provincia);
+        municipios = municipioDAO.findByIdProvincia2(provincia);
     }
 
     //Upload de ficheiros

@@ -15,6 +15,7 @@
                     <p:tab title="Dados Pessoais">
                         <p:growl id="messages" showDetail="true"/>
                         <h:messages showSummary="true" showDetail="true"/>
+                        <h:message for="provincias"/>
                         <h:panelGrid columns="2" >
                             <p:outputLabel value="Nome"/>
                             <p:inputText id="nome" value="#{professorMBean.professor.nomeProfessor}" size="50"/>
@@ -42,23 +43,29 @@
                             <p:outputLabel value="Distrito:"/>
                             <p:inputText id="distrito" value="#{professorMBean.professor.distritoUrbanoProfessor}" size="40"/>
 
-                            <h:outputLabel value="Provincia:" />
+                            
+                                <h:outputLabel value="Provincia:" />
+                                <h:selectOneMenu id="provincias" value="#{professorMBean.provincia}" converter="provinciaConverter">
+                                    <f:selectItem itemValue="#{null}" itemLabel="-- Selecione --" noSelectionOption="true"  />
+                                    <f:selectItems value="#{professorMBean.provincias}" var="provincia" 
+                                                   itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
+                                    <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Municipio:" />
+                                <h:selectOneMenu id="municipios" value="#{professorMBean.municipio}" converter="municipioConverter">
+                                    <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
+                                    <f:selectItems value="#{professorMBean.municipios}" var="municipio" 
+                                                   itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
+                                </h:selectOneMenu>
 
-                            <h:selectOneMenu value="#{professorMBean.provincia}" converter="provinciaConverter">
-                                <f:selectItem itemValue="#{null}" itemLabel="-- Selecione --" noSelectionOption="true"  />
-                                <f:selectItems value="#{professorMBean.provincias}" var="provincia" 
-                                               itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
-                                <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
-                            </h:selectOneMenu>
-                            <h:outputLabel value="Municipio:" />
-                            <h:selectOneMenu id="municipios" value="#{professorMBean.municipio}" converter="municipioConverter">
-                                <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
-                                <f:selectItems value="#{professorMBean.municipios}" var="municipio" 
-                                               itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
-                            </h:selectOneMenu>
 
 
                         </h:panelGrid>
+
+
+
+
+
                     </p:tab>
 
                     <p:tab title="Telefene/Email">

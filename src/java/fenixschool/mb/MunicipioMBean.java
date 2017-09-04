@@ -5,57 +5,64 @@
  */
 package fenixschool.mb;
 
-import fenixschool.dao.MunicipioDAO;
 
+
+import fenixschool.dao.MunicipioDAO;
+import fenixschool.dao.ProvinciaDAO;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Provincia;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  *
- * @author PENA
+ * @author desenvolvimento
  */
-@ManagedBean(name = "municipioMBean")
-@RequestScoped
+@ManagedBean(name = "municipioBean")
+@SessionScoped
 public class MunicipioMBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private ProvinciaDAO provinciaDAO;
+    private MunicipioDAO municipioDAO;
 
     private Municipio municipio;
-    private MunicipioDAO municipioDAO;
-    private List<Municipio> municipios;
     private Provincia provincia;
+    private List<Municipio> municipios;
+    private List<Provincia> provincias;
 
+    /**
+     * Creates a new instance of MunicipioBean
+     */
     public MunicipioMBean() {
+
     }
 
     @PostConstruct
-    public void inicializar() {
+    public void init() {
+
         municipio = new Municipio();
         provincia = new Provincia();
-        municipioDAO = new MunicipioDAO();
         municipios = new ArrayList<>();
-
+        provincias = new ArrayList<>();
+        municipioDAO = new MunicipioDAO();
+        provinciaDAO = new ProvinciaDAO();
+        provincias = provinciaDAO.findAll();
     }
 
-    public void guardar(ActionEvent evt) {
-        municipioDAO.save(municipio);
-        municipio = new Municipio();
+    public Municipio getMunicipio() {
+        return municipio;
     }
 
-    public List<Municipio> getMunicipios() {
-        municipios = municipioDAO.findAll();
-        return municipios;
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
     }
 
     public Provincia getProvincia() {
@@ -66,38 +73,51 @@ public class MunicipioMBean implements Serializable {
         this.provincia = provincia;
     }
 
-    public void carregaMunicipiosDaProvincia() {
-
-        municipios = municipioDAO.findByIdProvincia(provincia);
+    public void setMunicipios(List<Municipio> municipios) {
+        this.municipios = municipios;
     }
 
-    
-    
-    
-    public String newSave() {
-        municipio = new Municipio();
-        return "municipio_gestao?faces-redirect=true";
+    /**
+     * Carregar a lista de provincias
+     *
+     * @return
+     */
+    public List<Provincia> getProvincias() {
+
+        return provincias;
     }
 
-    public String startEdit() {
-        return "municipio_gestao?faces-redirect=true";
+    public void loadMunicipios() {
+
+        municipios = municipioDAO.findByIdProvincia2(provincia);
     }
 
-    public void edit(ActionEvent event) {
-        municipioDAO.update(municipio);
-        municipios = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("municipio_gestao.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(MunicipioMBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void carregaMunicipiosDaProvincia(ValueChangeEvent event) {
+        Provincia p = (Provincia) event.getNewValue();
+        Integer id = p.getIdProvincia();
+        System.out.print("Sigla>>>>>>" + event.getNewValue().toString());
+        municipios = municipioDAO.findByIdProvincia(id);
 
     }
 
-    public String delete() {
-        municipioDAO.delete(municipio);
-        municipios = null;
-        return "municipio_gestao?faces-redirect=true";
+    /**
+     *
+     * @param event - carrega os municipios da proncia seleccionada
+     */
+    public void listaMunicipiosDaProvincia(AjaxBehaviorEvent event) {
+
+        String dueDate = (String) ((UIOutput) event.getSource()).getValue();
+
+        System.out.println("Provincia <<<<<=====" + dueDate);
+        //  municipios = municipioDAO.findByIdProvincia(provincia);
+    }
+
+    public void setProvincias(List<Provincia> provincias) {
+        this.provincias = provincias;
+    }
+
+    public List<Municipio> getMunicipios() {
+        return municipios;
     }
 
 }

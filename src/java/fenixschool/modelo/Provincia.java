@@ -5,19 +5,24 @@
  */
 package fenixschool.modelo;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  *
  * @author informatica
  */
-public class Provincia {
-    private Integer idProvincia;
+public class Provincia implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+      private Integer idProvincia;
     private String nomeProvincia;
     
 
     public Provincia() {
     }
 
-    public Provincia(Integer idProvincia, String nomeProvincia, Pais paisProvincia) {
+    public Provincia(Integer idProvincia, String nomeProvincia) {
         this.idProvincia = idProvincia;
         this.nomeProvincia = nomeProvincia;
         
@@ -38,6 +43,35 @@ public class Provincia {
     public void setNomeProvincia(String nomeProvincia) {
         this.nomeProvincia = nomeProvincia;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.idProvincia);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Provincia other = (Provincia) obj;
+        if (!Objects.equals(this.idProvincia, other.idProvincia)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+    
 
     @Override
     public String toString() {
