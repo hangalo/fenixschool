@@ -33,8 +33,8 @@ public class NotaDAO implements GenericoDAO<Nota> {
     private static final String INSERIR = "INSERT INTO nota(id_periodo_letivo,id_aluno,codigo_curso,id_disciplina,descricao,data_lancamento,nota,peso,id_ano_letivo,id_ciclo_letivo,id_classificacao_nota,id_departamento,id_turma,id_ano_curricular,observacao)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String ACTUALIZAR = "UPDATE nota SET id_periodo_letivo = ?,id_aluno = ?,codigo_curso = ?,id_disciplina = ?,descricao = ?,data_lancamento = ?,nota = ?,peso = ?,id_ano_letivo = ?,id_ciclo_letivo = ?,id_classificacao_nota = ?,id_departamento = ?,id_turma = ?,id_ano_curricular = ?,observacao = ? WHERE id_nota = ?";
     private static final String ELIMINAR = "DELETE FROM nota WHERE id_nota=?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT n.id_nota, n.id_periodo_letivo, p.periodo_letivo, n.id_aluno, a.numero_aluno, a.nome_aluno, n.codigo_curso, c.nome_curso, n.id_disciplina,d.nome_disciplina, n.descricao,n.data_lancamento,n.nota,n.peso,n.id_ano_letivo, an.ano_letivo, n.id_ciclo_letivo, ci.ciclo_letivo,n.id_classificacao_nota, cl.classificacao_nota, n.id_departamento,dp.nome_departamento, n.id_turma, t.nome_turma, n.id_ano_curricular,n.observacao, ac.ano_curricular FROM nota n INNER JOIN periodo_letivo p ON n.id_periodo_letivo=p.id_periodo_letivo INNER JOIN aluno a ON n.id_aluno=a.id_aluno INNER JOIN curso c ON n.codigo_curso=c.codigo_curso INNER JOIN disciplina d ON n.id_disciplina=d.id_disciplina INNER JOIN ano_letivo an ON n.id_ano_letivo = an.id_ano_letivo INNER JOIN ciclo_letivo ci ON n.id_ciclo_letivo = ci.id_ciclo_letivo INNER JOIN classificacao_nota cl ON n.id_classificacao_nota=cl.id_classificacao_nota INNER JOIN departamento dp ON n.id_departamento = dp.id_departamento INNER JOIN turma t ON n.id_turma = t.id_turma INNER JOIN ano_curricular ac ON n.id_ano_curricular = ac.id_ano_curricular WHERE n.id_nota =?";
-    private static final String LISTAR_TUDO = "SELECT n.id_nota, n.id_periodo_letivo, p.periodo_letivo, n.id_aluno, a.numero_aluno, a.nome_aluno, n.codigo_curso, c.nome_curso, n.id_disciplina,d.nome_disciplina, n.descricao,n.data_lancamento,n.nota,n.peso,n.id_ano_letivo, an.ano_letivo, n.id_ciclo_letivo, ci.ciclo_letivo,n.id_classificacao_nota, cl.classificacao_nota, n.id_departamento,dp.nome_departamento, n.id_turma, t.nome_turma, n.id_ano_curricular,n.observacao, ac.ano_curricular FROM nota n INNER JOIN periodo_letivo p ON n.id_periodo_letivo=p.id_periodo_letivo INNER JOIN aluno a ON n.id_aluno=a.id_aluno INNER JOIN curso c ON n.codigo_curso=c.codigo_curso INNER JOIN disciplina d ON n.id_disciplina=d.id_disciplina INNER JOIN ano_letivo an ON n.id_ano_letivo = an.id_ano_letivo INNER JOIN ciclo_letivo ci ON n.id_ciclo_letivo = ci.id_ciclo_letivo INNER JOIN classificacao_nota cl ON n.id_classificacao_nota=cl.id_classificacao_nota INNER JOIN departamento dp ON n.id_departamento = dp.id_departamento INNER JOIN turma t ON n.id_turma = t.id_turma INNER JOIN ano_curricular ac ON n.id_ano_curricular = ac.id_ano_curricular";
+    private static final String BUSCAR_POR_CODIGO = "SELECT n.id_nota, p.periodo_letivo, a.numero_aluno, a.nome_aluno, c.nome_curso, d.nome_disciplina, n.descricao, n.data_lancamento, n.nota, n.peso, an.ano_letivo, ci.ciclo_letivo, cl.classificacao_nota, dp.nome_departamento, t.nome_turma, n.observacao, ac.ano_curricular FROM nota n INNER JOIN periodo_letivo p ON n.id_periodo_letivo=p.id_periodo_letivo INNER JOIN aluno a ON n.id_aluno=a.id_aluno INNER JOIN curso c ON n.codigo_curso=c.codigo_curso INNER JOIN disciplina d ON n.id_disciplina=d.id_disciplina INNER JOIN ano_letivo an ON n.id_ano_letivo = an.id_ano_letivo INNER JOIN ciclo_letivo ci ON n.id_ciclo_letivo = ci.id_ciclo_letivo INNER JOIN classificacao_nota cl ON n.id_classificacao_nota=cl.id_classificacao_nota INNER JOIN departamento dp ON n.id_departamento = dp.id_departamento INNER JOIN turma t ON n.id_turma = t.id_turma INNER JOIN ano_curricular ac ON n.id_ano_curricular = ac.id_ano_curricular WHERE n.id_nota =?";
+    private static final String LISTAR_TUDO = "SELECT n.id_nota, p.periodo_letivo, a.numero_aluno, a.nome_aluno, c.nome_curso, d.nome_disciplina, n.descricao, n.data_lancamento, n.nota, n.peso, an.ano_letivo, ci.ciclo_letivo, cl.classificacao_nota, dp.nome_departamento, t.nome_turma, n.observacao, ac.ano_curricular FROM nota n INNER JOIN periodo_letivo p ON n.id_periodo_letivo=p.id_periodo_letivo INNER JOIN aluno a ON n.id_aluno=a.id_aluno INNER JOIN curso c ON n.codigo_curso=c.codigo_curso INNER JOIN disciplina d ON n.id_disciplina=d.id_disciplina INNER JOIN ano_letivo an ON n.id_ano_letivo = an.id_ano_letivo INNER JOIN ciclo_letivo ci ON n.id_ciclo_letivo = ci.id_ciclo_letivo INNER JOIN classificacao_nota cl ON n.id_classificacao_nota=cl.id_classificacao_nota INNER JOIN departamento dp ON n.id_departamento = dp.id_departamento INNER JOIN turma t ON n.id_turma = t.id_turma INNER JOIN ano_curricular ac ON n.id_ano_curricular = ac.id_ano_curricular";
 
     Connection conn;
     PreparedStatement ps;
@@ -193,52 +193,31 @@ public class NotaDAO implements GenericoDAO<Nota> {
             AnoCurricular anoCurricular = new AnoCurricular();
 
             nota.setIdNota(rs.getInt("id_nota"));
-            periodoLectivo.setIdPeriodoLectivo(rs.getInt("id_periodo_letivo"));
             periodoLectivo.setPeriodoLectivo(rs.getString("periodo_letivo"));
             nota.setPeriodoLectivo(periodoLectivo);
-
-            aluno.setIdAluno(rs.getInt("id_aluno"));
             aluno.setNumeroAluno(rs.getString("numero_aluno"));
             aluno.setNomeAluno(rs.getString("nome_aluno"));
             nota.setAluno(aluno);
-
-            curso.setCodigoCurso(rs.getString("codigo_curso"));
             curso.setNomeCurso(rs.getString("nome_curso"));
             nota.setCurso(curso);
-
-            disciplina.setIdDisciplina(rs.getInt("id_disciplina"));
             disciplina.setNomeDisciplina(rs.getString("nome_disciplina"));
             nota.setDisciplina(disciplina);
-
             nota.setDescricao(rs.getString("descricao"));
             nota.setDataLancamento(rs.getDate("data_lancamento"));
             nota.setNota(rs.getDouble("nota"));
             nota.setPeso(rs.getDouble("peso"));
-
-            anoLectivo.setIdAnoLectivo(rs.getInt("id_ano_letivo"));
             anoLectivo.setAnoLectivo(rs.getString("ano_letivo"));
             nota.setAluno(aluno);
-
-            cicloLectivo.setIdCicloLectivo(rs.getInt("id_ciclo_letivo"));
             cicloLectivo.setCicloLectivo(rs.getString("ciclo_letivo"));
             nota.setCicloLectivo(cicloLectivo);
-
-            classificacaoNota.setIdClassificacaoNota(rs.getInt("id_classificacao_nota"));
             classificacaoNota.setClassificacaoNota(rs.getString("classificacao_nota"));
             nota.setClassificacaoNota(classificacaoNota);
-
-            departamento.setIdDepartamento(rs.getInt("id_departamento"));
             departamento.setNomeDepartamento(rs.getString("nome_departamento"));
             nota.setDepartamento(departamento);
-
-            turma.setIdTurma(rs.getInt("id_turma"));
             turma.setNomeTurma(rs.getString("nome_turma"));
             nota.setTurma(turma);
-
-            anoCurricular.setIdAnoCurricular(rs.getInt("id_ano_curricular"));
             anoCurricular.setAnoCurricular(rs.getString("ano_curricular"));
             nota.setAnoCurricular(anoCurricular);
-
             nota.setObservacao(rs.getString("observacao"));
 
         } catch (SQLException ex) {

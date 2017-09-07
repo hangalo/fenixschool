@@ -57,6 +57,11 @@ public class AnoLectivo {
     public void setFimAnoLetivo(Date fimAnoLetivo) {
         this.fimAnoLetivo = fimAnoLetivo;
     }
+
+    @Override
+    public String toString() {
+        return "AnoLectivo{" + "anoLectivo=" + anoLectivo + '}';
+    }
     
     
 }

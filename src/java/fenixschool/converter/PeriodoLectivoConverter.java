@@ -35,7 +35,7 @@ public class PeriodoLectivoConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
          if (value != null) {
-            PeriodoLectivo periodoLectivo =(PeriodoLectivo)value;
+            PeriodoLectivo periodoLectivo =(PeriodoLectivo) value;
             return String.valueOf(periodoLectivo.getIdPeriodoLectivo());
         }
         return null;

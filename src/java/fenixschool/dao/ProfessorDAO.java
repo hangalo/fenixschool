@@ -227,7 +227,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_NOME_E_SOBRENOME);
-              ps.setString(1, nome);
+            ps.setString(1, nome);
             ps.setString(2, sobrenome);
             rs = ps.executeQuery();
             if (!rs.next()) {

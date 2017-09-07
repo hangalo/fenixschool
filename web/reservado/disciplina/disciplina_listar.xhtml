@@ -18,9 +18,9 @@
                     <h1>Lista de disciplinas</h1>
                     <p:dataTable paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  var="disciplina" value="#{disciplinaMBean.disciplinas}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
-                        <p:column style="width: 50px;">
+                        <p:column style="width: 55px;">
                             <f:facet name="header">
-                                <p:outputLabel value="Codigo"/>
+                                <p:outputLabel value="Código"/>
                             </f:facet>
                             <p:outputLabel value="#{disciplina.idDisciplina}"/>
                         </p:column>
@@ -42,7 +42,7 @@
                             </f:facet>
                             <p:outputLabel value="#{disciplina.descricaoDisplina}"/>
                         </p:column>
-                        <p:column style="width: 100px;">
+                        <p:column style="width: 150px;">
                             <f:facet name="header">
                                 <p:outputLabel value="Operações"/>
                             </f:facet>
@@ -111,39 +111,42 @@
                                     <p:outputLabel value="Abreviatura:"/>
                                     <h:inputText value="#{disciplinaMBean.disciplina.abreviatura}"/>
                                     <p:outputLabel value="Descrição:"/>
-                                    <h:inputTextarea rows="5" cols="31" value="#{disciplinaMBean.disciplina.descricaoDisplina}"/>
+                                    <h:inputTextarea rows="4" cols="31" value="#{disciplinaMBean.disciplina.descricaoDisplina}"/>
                                     <p:outputLabel value="Sumário:"/>
-                                    <h:inputText value="#{disciplinaMBean.disciplina.sumarioDdisciplina}"/>
+                                    <h:inputTextarea value="#{disciplinaMBean.disciplina.sumarioDdisciplina}" rows="4" cols="31" />
                                     <p:outputLabel value="Data de criação:"/>
                                     <p:calendar pattern="dd/MM/yyyy" value="#{disciplinaMBean.disciplina.dataCriacao}"/>
                                 </h:panelGrid>
                             </p:tab>
 
-
                             <p:tab title="Outras informações">
                                 <h:panelGrid columns="2">
                                     <p:outputLabel value="Tipo de disciplina:"/>
-                                    <p:selectOneMenu label="Tipo de disciplina" value="#{disciplinaMBean.disciplina.tipoDisciplina}" required="true">
+                                    <p:selectOneMenu label="Tipo de disciplina" value="#{disciplinaMBean.disciplina.tipoDisciplina}" converter="tipoDisciplinaConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o tipo--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="tipoDisciplina" itemValue="#{tipoDisciplina}" value="#{disciplinaMBean.tipoDisciplinas}" itemLabel="#{tipoDisciplina.tipoDisciplina}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Curso:"/>
-                                    <p:selectOneMenu label="Curso" value="#{disciplinaMBean.disciplina.curso}" required="true">
+                                    <p:selectOneMenu label="Curso" value="#{disciplinaMBean.disciplina.curso}" filter="true" converter="cursoConverter" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o curso--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="curso" itemValue="#{curso}" value="#{disciplinaMBean.cursos}" itemLabel="#{curso.nomeCurso}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Ano lectivo:"/>
-                                    <p:selectOneMenu label="Ano lectivo" value="#{disciplinaMBean.disciplina.anoLectivo}" required="true" converter="anoLectivoConverter">
+                                    
+                                    
+                                    <p:selectOneMenu label="Ano lectivo" value="#{disciplinaMBean.disciplina.anoLectivo}"  converter="anoLectivoConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o ano lectivo--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="anoLectivo" itemValue="#{anoLectivo}" value="#{disciplinaMBean.anoLectivos}" itemLabel="#{anoLectivo.anoLectivo}"/>
                                     </p:selectOneMenu>
+                                   
                                     <p:outputLabel value="Período lectivo:"/>
-                                    <p:selectOneMenu label="Perído lectivo" value="#{disciplinaMBean.disciplina.curso}" required="true">
+           
+                                    <p:selectOneMenu label="Perído lectivo" value="#{disciplinaMBean.disciplina.periodoLetivo}" converter="periodoLectivoConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o período--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="periodoLectivo" itemValue="#{periodoLectivo}" value="#{disciplinaMBean.periodoLectivos}" itemLabel="#{periodoLectivo.periodoLectivo}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Ciclo lectivo:"/>
-                                    <p:selectOneMenu label="Ciclo lectivo" value="#{disciplinaMBean.disciplina.cicloLetivo}" required="true">
+                                    <p:selectOneMenu label="Ciclo lectivo" value="#{disciplinaMBean.disciplina.cicloLetivo}" converter="cicloLectivoConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o ciclo--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="cicloLectivo" itemValue="#{cicloLectivo}" value="#{disciplinaMBean.cicloLectivos}" itemLabel="#{cicloLectivo.cicloLectivo}"/>
                                     </p:selectOneMenu>
@@ -173,9 +176,9 @@
                                     <p:outputLabel value="Abreviatura:"/>
                                     <h:inputText value="#{disciplinaMBean.disciplina.abreviatura}"/>
                                     <p:outputLabel value="Descrição:"/>
-                                    <h:inputTextarea rows="5" cols="31" value="#{disciplinaMBean.disciplina.descricaoDisplina}"/>
+                                    <h:inputTextarea rows="4" cols="31" value="#{disciplinaMBean.disciplina.descricaoDisplina}"/>
                                     <p:outputLabel value="Sumário:"/>
-                                    <h:inputText value="#{disciplinaMBean.disciplina.sumarioDdisciplina}"/>
+                                    <h:inputTextarea value="#{disciplinaMBean.disciplina.sumarioDdisciplina}" rows="4" cols="31"/>
                                     <p:outputLabel value="Data de criação:"/>
                                     <p:calendar pattern="dd/MM/yyyy" value="#{disciplinaMBean.disciplina.dataCriacao}"/>
                                 </h:panelGrid>
@@ -184,28 +187,28 @@
 
                             <p:tab title="Outras informações">
                                 <h:panelGrid columns="2">
-                                    <p:outputLabel value="Tipo de disciplina:"/>
-                                    <p:selectOneMenu label="Tipo de disciplina" value="#{disciplinaMBean.disciplina.tipoDisciplina}" required="true">
+                                    <p:outputLabel value="Tipo de disciplina:"/> 
+                                    <p:selectOneMenu label="Tipo de disciplina" value="#{disciplinaMBean.disciplina.tipoDisciplina}" converter="tipoDisciplinaConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o tipo--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="tipoDisciplina" itemValue="#{tipoDisciplina}" value="#{disciplinaMBean.tipoDisciplinas}" itemLabel="#{tipoDisciplina.tipoDisciplina}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Curso:"/>
-                                    <p:selectOneMenu label="Curso" value="#{disciplinaMBean.disciplina.curso}" required="true">
+                                    <p:selectOneMenu label="Curso" value="#{disciplinaMBean.disciplina.curso}" converter="cursoConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o curso--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="curso" itemValue="#{curso}" value="#{disciplinaMBean.cursos}" itemLabel="#{curso.nomeCurso}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Ano lectivo:"/>
-                                    <p:selectOneMenu label="Ano lectivo" value="#{disciplinaMBean.disciplina.anoLectivo}" required="true" converter="anoLectivoConverter">
+                                    <p:selectOneMenu label="Ano lectivo" value="#{disciplinaMBean.disciplina.anoLectivo}" converter="anoLectivoConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o ano lectivo--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="anoLectivo" itemValue="#{anoLectivo}" value="#{disciplinaMBean.anoLectivos}" itemLabel="#{anoLectivo.anoLectivo}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Período lectivo:"/>
-                                    <p:selectOneMenu label="Perído lectivo" value="#{disciplinaMBean.disciplina.curso}" required="true">
+                                    <p:selectOneMenu label="Perído lectivo" value="#{disciplinaMBean.disciplina.periodoLetivo}" converter="periodoLectivoConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o período--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="periodoLectivo" itemValue="#{periodoLectivo}" value="#{disciplinaMBean.periodoLectivos}" itemLabel="#{periodoLectivo.periodoLectivo}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Ciclo lectivo:"/>
-                                    <p:selectOneMenu label="Ciclo lectivo" value="#{disciplinaMBean.disciplina.cicloLetivo}" required="true">
+                                    <p:selectOneMenu label="Ciclo lectivo" value="#{disciplinaMBean.disciplina.cicloLetivo}" converter="cicloLectivoConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem itemLabel="--Selecione o ciclo--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="cicloLectivo" itemValue="#{cicloLectivo}" value="#{disciplinaMBean.cicloLectivos}" itemLabel="#{cicloLectivo.cicloLectivo}"/>
                                     </p:selectOneMenu>

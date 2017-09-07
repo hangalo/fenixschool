@@ -7,7 +7,6 @@ package fenixschool.dao;
 
 import fenixschool.modelo.Aluno;
 import fenixschool.modelo.BoletimNotas;
-import fenixschool.modelo.Sexo;
 import fenixschool.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,13 +21,13 @@ import java.util.List;
  */
 public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
 
-    private static final String INSERIR = "INSERT INTO boletin_notas (data_boletin_notas,id_aluno) VALUES (?,?)";
-    private static final String ACTUALIZAR = "UPDATE boletin_notas SET data_boletin_notas = ?, id_aluno =? WHERE id_boletin_notas = ?";
-    private static final String ELIMINAR = "DELETE FROM boletin_notas WHERE id_boletin_notas=?";
-    private static final String LISTAR_POR_CODIGO = "SELECT b.id_boletin_notas,b.data_boletin_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
-            + "a.data_nascimento,a.sexo FROM boletin_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno WHERE b.id_boletin_notas=?";
-    private static final String LISTAR_TUDO = "SELECT b.id_boletin_notas,b.data_boletin_notas, b.id_aluno, a.numero_aluno,a.nome_aluno,a.sobrenome_aluno,"
-            + "a.data_nascimento,a.sexo FROM boletin_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno";
+    private static final String INSERIR = "INSERT INTO boletim_notas (data_boletin_notas,id_aluno) VALUES (?,?)";
+    private static final String ACTUALIZAR = "UPDATE boletim_notas SET data_boletin_notas = ?, id_aluno =? WHERE id_boletin_notas = ?";
+    private static final String ELIMINAR = "DELETE FROM boletim_notas WHERE id_boletin_notas=?";
+    private static final String LISTAR_POR_CODIGO = "SELECT b.id_boletin_notas,b.data_boletin_notas, b.id_aluno, a.numero_aluno,a.nome_aluno "
+            + " FROM boletim_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno WHERE b.id_boletin_notas=?";
+    private static final String LISTAR_TUDO = "SELECT b.id_boletin_notas,b.data_boletin_notas, b.id_aluno, a.numero_aluno,a.nome_aluno "
+            + " FROM boletim_notas b INNER JOIN aluno a ON b.id_aluno=a.id_aluno";
 
     Connection conn;
     PreparedStatement ps;
@@ -152,10 +151,6 @@ public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
             aluno.setIdAluno(rs.getInt("id_aluno"));
             aluno.setNumeroAluno(rs.getString("numero_aluno"));
             aluno.setNomeAluno(rs.getString("nome_aluno"));
-            aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
-            aluno.setDataNascimentoAluno(rs.getDate("data_nascimento"));
-            aluno.setSexo(Sexo.getAbreviatura(rs.getString("sexo")));
-            
             boletimNotas.setAluno(aluno);
             
         } catch (SQLException e) {

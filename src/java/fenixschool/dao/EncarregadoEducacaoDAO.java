@@ -19,6 +19,10 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
     private static final String ELIMINAR = "DELETE FROM encarregado_educacao WHERE id_encarregado = ?";
     private static final String BUSCAR_POR_CODIGO = "SELECT e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE id_encarregado=?";
     private static final String LISTAR_TUDO = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado";
+    private static final String BUSCAR_POR_NOME = "";
+    private static final String BSUCAR_POR_NOME_SOBRENOME="";
+    private static final String BUSCAR_POR_MUNICIPIO="";
+    private static final String BUSCAR_POR_SEXO="";
 
     @Override
     public void save(EncarregadoEducacao encarregadoEducacao) {
@@ -163,10 +167,10 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         try {
 
             Profissao profissao = new Profissao();
-            
-                     profissao.setNomeProfissao(rs.getString("nome_profissao"));
+
+            profissao.setNomeProfissao(rs.getString("nome_profissao"));
             encarregadoEducacao.setProfissao(profissao);
-            
+
             encarregadoEducacao.setIdEncarregadoEducacao(rs.getInt("id_encarregado"));
             encarregadoEducacao.setNomeEncarregado(rs.getString("nome_encarregado"));
             encarregadoEducacao.setSobrenomeEncarregado(rs.getString("sobrenome_encarregado"));
@@ -181,11 +185,11 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
             encarregadoEducacao.setEmailAlternativoEncarregado(rs.getString("email_alternativo_encarregado"));
             encarregadoEducacao.setFotoEncarregado(rs.getBytes("foto_encarregado"));
             encarregadoEducacao.setUrlFotoEncarregado(rs.getString("url_foto_encarregado"));
-            
+
             Municipio municipio = new Municipio();
-           municipio.setNomeMunicipio(rs.getString("nome_municipio"));
+            municipio.setNomeMunicipio(rs.getString("nome_municipio"));
             encarregadoEducacao.setMunicipio(municipio);
-   
+
         } catch (SQLException ex) {
             System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
         }

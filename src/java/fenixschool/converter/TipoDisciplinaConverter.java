@@ -35,7 +35,7 @@ public class TipoDisciplinaConverter implements Converter{
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
        if (value != null) {
-            TipoDisciplina tipoDisciplina = (TipoDisciplina)value;
+            TipoDisciplina tipoDisciplina = (TipoDisciplina) value;
             return String.valueOf(tipoDisciplina.getIdTipoDisciplina());
         }
         return null;

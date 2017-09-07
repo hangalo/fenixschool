@@ -28,22 +28,16 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
     private static final String INSERIR = "INSERT INTO disciplina(nome_disciplina,abreviatura,descricao_displina,sumario_disciplina,data_criacao,codigo_curso,id_ano_letivo,id_periodo_letivo,id_ciclo_letivo,id_tipo_disciplina)VALUES(?,?,?,?,?,?,?,?,?,?)";
     private static final String ACTUALIZAR = "UPDATE disciplina SET nome_disciplina = ?, abreviatura = ?,descricao_displina = ?,sumario_disciplina = ?,data_criacao = ?,codigo_curso = ?,id_ano_letivo = ?,id_periodo_letivo = ?,id_ciclo_letivo = ?,id_tipo_disciplina = ? WHERE id_disciplina = ?";
     private static final String ELIMINAR = "DELETE FROM disciplina WHERE id_disciplina=?";
-    private static final String LISTAR_POR_CODIGO = "SELECT d.id_disciplina,d.nome_disciplina,d.abreviatura,d.descricao_displina,d.sumario_disciplina,d.data_criacao,"
-            + "d.codigo_curso,c.codigo_curso,c.nome_curso,d.id_ano_letivo,a.id_ano_letivo,a.ano_letivo,d.id_periodo_letivo,"
-            + "p.id_periodo_letivo,p.periodo_letivo,d.id_ciclo_letivo,ci.id_ciclo_letivo,ci.ciclo_letivo,d.id_tipo_disciplina,"
-            + "t.id_tipo_disciplina,t.tipo_disciplina FROM disciplina d INNER JOIN curso c ON d.codigo_curso=c.codigo_curso"
-            + "INNER JOIN ano_letivo a ON d.id_ano_letivo=a.id_ano_letivo"
-            + "INNER JOIN periodo_letivo p ON d.id_periodo_letivo=p.id_periodo_letivo"
-            + "INNER JOIN ciclo_letivo ci ON d.id_ciclo_letivo = ci.id_ciclo_letivo"
-            + "INNER JOIN tipo_disciplina t ON d.id_tipo_disciplina = t.tipo_disciplina WHERE d.id_disciplina=?";
-    private static final String LISTAR_TUDO = "SELECT d.id_disciplina,d.nome_disciplina,d.abreviatura,d.descricao_displina,d.sumario_disciplina,d.data_criacao,"
-            + "d.codigo_curso,c.codigo_curso,c.nome_curso,d.id_ano_letivo,a.id_ano_letivo,a.ano_letivo,d.id_periodo_letivo,"
-            + "p.id_periodo_letivo,p.periodo_letivo,d.id_ciclo_letivo,ci.id_ciclo_letivo,ci.ciclo_letivo,d.id_tipo_disciplina,"
-            + "t.id_tipo_disciplina,t.tipo_disciplina FROM disciplina d INNER JOIN curso c ON d.codigo_curso=c.codigo_curso"
-            + "INNER JOIN ano_letivo a ON d.id_ano_letivo=a.id_ano_letivo"
-            + "INNER JOIN periodo_letivo p ON d.id_periodo_letivo=p.id_periodo_letivo"
-            + "INNER JOIN ciclo_letivo ci ON d.id_ciclo_letivo = ci.id_ciclo_letivo"
-            + "INNER JOIN tipo_disciplina t ON d.id_tipo_disciplina = t.tipo_disciplina";
+    private static final String LISTAR_POR_CODIGO = "SELECT d.id_disciplina, d.nome_disciplina, d.abreviatura, d.descricao_displina, d.sumario_disciplina, "
+            + " d.data_criacao, cr.nome_curso, an.ano_letivo, pr.periodo_letivo, ci.ciclo_letivo, ti.tipo_disciplina  "
+            + " FROM disciplina d INNER JOIN curso cr ON d.codigo_curso =cr.codigo_curso  INNER JOIN ano_letivo an ON "
+            + " d.id_ano_letivo = an.id_ano_letivo INNER JOIN periodo_letivo pr ON d.id_periodo_letivo = pr.id_periodo_letivo INNER JOIN ciclo_letivo ci ON "
+            + " d.id_ciclo_letivo=ci.id_ciclo_letivo INNER JOIN tipo_disciplina ti ON d.id_tipo_disciplina = ti.id_tipo_disciplina WHERE d.id_disciplina=? ";
+    private static final String LISTAR_TUDO = "SELECT d.id_disciplina, d.nome_disciplina, d.abreviatura, d.descricao_displina, d.sumario_disciplina, "
+            + " d.data_criacao, cr.nome_curso, an.ano_letivo, pr.periodo_letivo, ci.ciclo_letivo, ti.tipo_disciplina  "
+            + " FROM disciplina d INNER JOIN curso cr ON d.codigo_curso =cr.codigo_curso  INNER JOIN ano_letivo an ON "
+            + " d.id_ano_letivo = an.id_ano_letivo INNER JOIN periodo_letivo pr ON d.id_periodo_letivo = pr.id_periodo_letivo INNER JOIN ciclo_letivo ci ON "
+            + " d.id_ciclo_letivo=ci.id_ciclo_letivo INNER JOIN tipo_disciplina ti ON d.id_tipo_disciplina = ti.id_tipo_disciplina ";
 
     Connection conn;
     PreparedStatement ps;
@@ -189,27 +183,22 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
             disciplina.setDataCriacao(rs.getDate("data_criacao"));
 
             Curso curso = new Curso();
-            curso.setCodigoCurso(rs.getString("codigo_curso"));
             curso.setNomeCurso(rs.getString("nome_curso"));
             disciplina.setCurso(curso);
 
             AnoLectivo anoLectivo = new AnoLectivo();
-            anoLectivo.setIdAnoLectivo(rs.getInt("id_ano_letivo"));
             anoLectivo.setAnoLectivo(rs.getString("ano_letivo"));
             disciplina.setAnoLectivo(anoLectivo);
 
             PeriodoLectivo periodoLectivo = new PeriodoLectivo();
-            periodoLectivo.setIdPeriodoLectivo(rs.getInt("id_periodo_letivo"));
             periodoLectivo.setPeriodoLectivo(rs.getString("periodo_letivo"));
             disciplina.setPeriodoLetivo(periodoLectivo);
 
             CicloLectivo cicloLectivo = new CicloLectivo();
-            cicloLectivo.setIdCicloLectivo(rs.getInt("id_ciclo_letivo"));
             cicloLectivo.setCicloLectivo(rs.getString("ciclo_letivo"));
             disciplina.setCicloLetivo(cicloLectivo);
 
             TipoDisciplina tipoDisciplina = new TipoDisciplina();
-            tipoDisciplina.setIdTipoDisciplina(rs.getInt("id_tipo_disciplina"));
             tipoDisciplina.setTipoDisciplina(rs.getString("tipo_disciplina"));
             disciplina.setTipoDisciplina(tipoDisciplina);
 

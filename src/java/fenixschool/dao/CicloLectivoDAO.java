@@ -19,7 +19,7 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
     private static final String INSERIR ="INSERT INTO ciclo_letivo(ciclo_letivo) VALUES (?)";
     private static final String ACTUALIZAR ="UPDATE ciclo_letivo SET ciclo_letivo =? WHERE id_ciclo_letivo=?";
     private static final String ELIMINAR = "DELETE FROM ciclo_letivo WHERE id_ciclo_letivo=?";
-    private static final String BUSCAR_POR_CODIGO ="SELECT FROM ciclo_letivo WHERE id_ciclo_letivo=?";
+    private static final String BUSCAR_POR_CODIGO ="SELECT * FROM ciclo_letivo WHERE id_ciclo_letivo=?";
     private static final String LISTAR_TUDO ="SELECT  *FROM ciclo_letivo ORDER BY ciclo_letivo ASC"; 
 
     @Override

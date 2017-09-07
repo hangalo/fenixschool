@@ -192,11 +192,11 @@ public class NotaMBean implements Serializable {
     }
 
     public List<Departamento> getDepartamentos() {
+        departamentos = departamentoDAO.findAll();
         return departamentos;
     }
 
     public void setDepartamentos(List<Departamento> departamentos) {
-        departamentos = departamentoDAO.findAll();
         this.departamentos = departamentos;
     }
 

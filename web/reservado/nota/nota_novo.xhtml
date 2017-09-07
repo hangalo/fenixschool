@@ -48,7 +48,7 @@
                                         <f:selectItems var="aluno" itemValue="#{aluno}" value="#{notaMBean.alunos}" itemLabel="#{aluno.nomeAluno}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Turma:"/>
-                                    <p:selectOneMenu label="Tutma" value="#{notaMBean.nota.turma}" required="true">
+                                    <p:selectOneMenu label="Tutma" value="#{notaMBean.nota.turma}" required="true" converter="turmaConverter">
                                         <f:selectItem noSelectionOption="true" itemLabel="--Selecione a turma--" value="#{null}"/>
                                         <f:selectItems var="turma" itemValue="#{turma}" value="#{notaMBean.turmas}" itemLabel="#{turma.nomeTurma}"/>
                                     </p:selectOneMenu>
@@ -83,12 +83,12 @@
                                         <f:selectItems var="anoCurricular" itemValue="#{anoCurricular}" value="#{notaMBean.anoCurriculares}" itemLabel="#{anoCurricular.anoCurricular}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Ciclo lectivo:"/>
-                                    <p:selectOneMenu value="#{notaMBean.nota.cicloLectivo}" required="true">
+                                    <p:selectOneMenu value="#{notaMBean.nota.cicloLectivo}" required="true" converter="cicloLectivoConverter">
                                         <f:selectItem noSelectionOption="true" itemLabel="--Selecione o ciclo--" value="#{null}"/>
                                         <f:selectItems var="cicloLectivo" itemValue="#{cicloLectivo}" value="#{notaMBean.cicloLectivos}" itemLabel="#{cicloLectivo.cicloLectivo}"/>
                                     </p:selectOneMenu>
                                      <p:outputLabel value="Período lectivo:"/>
-                                    <p:selectOneMenu value="#{notaMBean.nota.anoCurricular}" required="true">
+                                     <p:selectOneMenu value="#{notaMBean.nota.anoCurricular}" required="true" converter="periodoLectivoConverter">
                                         <f:selectItem noSelectionOption="true" itemLabel="--Selecione o período--" value="#{null}"/>
                                         <f:selectItems var="periodoLectivo" itemValue="#{periodoLectivo}" value="#{notaMBean.periodoLectivos}" itemLabel="#{periodoLectivo.periodoLectivo}"/>
                                     </p:selectOneMenu>
