@@ -39,15 +39,22 @@ public class TipoDocumentoIdentidade {
     }
 
     @Override
+    public String toString() {
+        return "TipoDocumentoIdentidade{" + "idTipoDocumentoIdentidade=" + idTipoDocumentoIdentidade + ", tipoDOcumentoIdentidade=" + tipoDOcumentoIdentidade + '}';
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
         hash = 59 * hash + Objects.hashCode(this.idTipoDocumentoIdentidade);
-        hash = 59 * hash + Objects.hashCode(this.tipoDOcumentoIdentidade);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -58,16 +65,9 @@ public class TipoDocumentoIdentidade {
         if (!Objects.equals(this.idTipoDocumentoIdentidade, other.idTipoDocumentoIdentidade)) {
             return false;
         }
-        if (!Objects.equals(this.tipoDOcumentoIdentidade, other.tipoDOcumentoIdentidade)) {
-            return false;
-        }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "TipoDocumentoIdentidade{" + "idTipoDocumentoIdentidade=" + idTipoDocumentoIdentidade + '}';
-    }
     
     
     

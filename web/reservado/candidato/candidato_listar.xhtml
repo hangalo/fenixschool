@@ -44,7 +44,7 @@
                                 </f:facet>
                                 <h:graphicImage value="/candidatoVisualizarFotoServlet?file=#{candidato.urlFotoCandidato}" alt="foto" width="50" height="50"/>
                             </p:column>
-                            <p:column style="width: 100px; text-align: center">
+                            <p:column style="width: 100px; text-align: center" width="160">
                                 <f:facet name="header">
                                     <p:outputLabel value="Operações"/>
                                 </f:facet>
@@ -111,13 +111,26 @@
                                         <p:inputText value="#{candidatoMBean.candidato.bairroCandidato}" size="50"/>
                                         <p:outputLabel value="Distrito:"/>
                                         <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="40"/>
-                                        <p:outputLabel value="Municipio:"/>
-                                        <p:selectOneMenu id="dropmunicipio" value="#{candidatoMBean.candidato.municipio}" converter="municipioConverter">
-                                            <f:selectItem value="#{null}" itemLabel="Escolha um Municipio" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.municipios}"
-                                                           var="municipio" itemValue="#{municipio}"  
-                                                           itemLabel="#{municipio.nomeMunicipio}"  />
+
+                                        <p:outputLabel value="Província: "/>
+                                        <p:selectOneMenu id="provincias" value="#{municipioBean.provincia}" converter="provinciaConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true"  />
+                                            <f:selectItems value="#{municipioBean.provincias}" var="provincia" 
+                                                           itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
+                                            <f:ajax listener="#{municipioBean.loadMunicipios()}" render="municipios" execute="provincias" />
                                         </p:selectOneMenu>
+
+                                        <p:outputLabel value="Municipio:"/>
+                                        <p:selectOneMenu id="municipios" value="#{candidatoMBean.municipio}" converter="municipioConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
+                                            <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" 
+                                                           itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
+                                        </p:selectOneMenu>
+                                        
+                                        
+                                        
+
+
                                     </h:panelGrid>
                                 </p:tab>
                                 <p:tab title="Telefene/Email">

@@ -38,7 +38,6 @@ public class DepartamentoConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-     
        if (value != null) {
             Departamento departamento =(Departamento)value;
             return String.valueOf(departamento.getIdDepartamento());

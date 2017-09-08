@@ -14,10 +14,8 @@ import fenixschool.modelo.Mensalidade;
 import fenixschool.modelo.Mes;
 import fenixschool.modelo.Turma;
 import fenixschool.util.DateUtill2;
-import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -117,7 +115,7 @@ public class MensalidadeDAOTest {
 
         System.out.println("update");
         MensalidadeDAO instance = new MensalidadeDAO();
-        instance.update(mensalidade);
+        //instance.update(mensalidade);
         // TODO review the generated test code and remove the default call to fail.
         // fail("The test case is a prototype.");
 

@@ -159,18 +159,6 @@ public class Mensalidade {
     public int hashCode() {
         int hash = 7;
         hash = 47 * hash + Objects.hashCode(this.idMensalidade);
-        hash = 47 * hash + Objects.hashCode(this.descricaoMensalidade);
-        hash = 47 * hash + Objects.hashCode(this.dataPagamento);
-        hash = 47 * hash + (int) (Double.doubleToLongBits(this.valorPago) ^ (Double.doubleToLongBits(this.valorPago) >>> 32));
-        hash = 47 * hash + (int) (Double.doubleToLongBits(this.valorJuro) ^ (Double.doubleToLongBits(this.valorJuro) >>> 32));
-        hash = 47 * hash + Objects.hashCode(this.observacaoMensalidade);
-        hash = 47 * hash + Objects.hashCode(this.anoLetivo);
-        hash = 47 * hash + Objects.hashCode(this.departamento);
-        hash = 47 * hash + Objects.hashCode(this.turma);
-        hash = 47 * hash + Objects.hashCode(this.cicloLectivo);
-        hash = 47 * hash + Objects.hashCode(this.mes);
-        hash = 47 * hash + Objects.hashCode(this.aluno);
-        hash = 47 * hash + Objects.hashCode(this.curso);
         return hash;
     }
 
@@ -186,49 +174,12 @@ public class Mensalidade {
             return false;
         }
         final Mensalidade other = (Mensalidade) obj;
-        if (Double.doubleToLongBits(this.valorPago) != Double.doubleToLongBits(other.valorPago)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.valorJuro) != Double.doubleToLongBits(other.valorJuro)) {
-            return false;
-        }
-        if (!Objects.equals(this.descricaoMensalidade, other.descricaoMensalidade)) {
-            return false;
-        }
-        if (!Objects.equals(this.observacaoMensalidade, other.observacaoMensalidade)) {
-            return false;
-        }
         if (!Objects.equals(this.idMensalidade, other.idMensalidade)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataPagamento, other.dataPagamento)) {
-            return false;
-        }
-        if (!Objects.equals(this.anoLetivo, other.anoLetivo)) {
-            return false;
-        }
-        if (!Objects.equals(this.departamento, other.departamento)) {
-            return false;
-        }
-        if (!Objects.equals(this.turma, other.turma)) {
-            return false;
-        }
-        if (!Objects.equals(this.cicloLectivo, other.cicloLectivo)) {
-            return false;
-        }
-        if (!Objects.equals(this.mes, other.mes)) {
-            return false;
-        }
-        if (!Objects.equals(this.aluno, other.aluno)) {
-            return false;
-        }
-        if (!Objects.equals(this.curso, other.curso)) {
             return false;
         }
         return true;
     }
 
-    
     
 
     

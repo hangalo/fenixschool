@@ -8,33 +8,32 @@
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Gestão Professores</title>
-        
     </h:head>
     <h:body>
         <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
-                    
-                      <h:form id="formBusca" >
-                    <h:messages/>
-                    <p:panel header="Pesquisar Professor por Nº do Bilhete de Identidade">
 
-                        <h:panelGrid columns="6"  cellspacing="10%">
-                            <h:outputLabel value="Nº BI:  " style="margin-right: 10px"/>
-                            <h:inputText id="cognome" value="#{professorMBean.numeroBI}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
-                                                       
-                            <b:commandButton value="Pesquisar..." look="primary"/>
+                    <h:form id="formBusca" >
+                        <h:messages/>
+                        <p:panel header="Pesquisar Professor por Nº do Bilhete de Identidade">
 
-                        </h:panelGrid>
+                            <h:panelGrid columns="6"  cellspacing="10%">
+                                <h:outputLabel value="Nº BI:  " style="margin-right: 10px"/>
+                                <h:inputText id="cognome" value="#{professorMBean.numeroBI}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
 
-                    </p:panel>
-                </h:form>
-                    
-                    
+                                <b:commandButton value="Pesquisar..." look="primary"/>
+
+                            </h:panelGrid>
+
+                        </p:panel>
+                    </h:form>
+
+
                     <h:form>
                         <h1>Dados do Professor</h1>
-                        
+
                         <!--Inicio Data table-->
 
                         <p:dataTable value="#{professorMBean.byNomeSobrenome}"   var="professor" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
@@ -109,11 +108,11 @@
 
 
                     <!--Inicio Formulario auxiliar-->
-                     <h:form>
-                    <h:panelGrid columns="2">
-                        <b:commandButton value="Fechar" action="/index" ajax="false" immediate="true" look="primary" />
-                    </h:panelGrid>
-                </h:form>
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <b:commandButton value="Fechar" action="/index" ajax="false" immediate="true" look="primary" />
+                        </h:panelGrid>
+                    </h:form>
                     <!--Fim  Formulario auxiliar-->
 
                     <!-- Inicio Dialogo Guardar-->
@@ -385,7 +384,7 @@
 
                         </h:form>
 
-                   </p:dialog>
+                    </p:dialog>
 
                     <!-- Fim  Dialogo Ver detalhes do curso-->
                 </f:view>

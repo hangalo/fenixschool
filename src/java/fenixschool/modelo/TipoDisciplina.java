@@ -5,6 +5,8 @@
  */
 package fenixschool.modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author HP
@@ -35,6 +37,38 @@ public class TipoDisciplina {
     public void setTipoDisciplina(String tipoDisciplina) {
         this.tipoDisciplina = tipoDisciplina;
     }
+
+    @Override
+    public String toString() {
+        return "TipoDisciplina{" + "idTipoDisciplina=" + idTipoDisciplina + ", tipoDisciplina=" + tipoDisciplina + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.idTipoDisciplina);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TipoDisciplina other = (TipoDisciplina) obj;
+        if (!Objects.equals(this.idTipoDisciplina, other.idTipoDisciplina)) {
+            return false;
+        }
+        return true;
+    }
+
+    
     
     
 }

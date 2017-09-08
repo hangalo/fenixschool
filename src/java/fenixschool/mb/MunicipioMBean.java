@@ -82,13 +82,11 @@ public class MunicipioMBean implements Serializable {
      *
      * @return
      */
-    public List<Provincia> getProvincias() {
-
+    public List<Provincia> getProvincias(){
         return provincias;
     }
 
     public void loadMunicipios() {
-
         municipios = municipioDAO.findByIdProvincia2(provincia);
     }
 

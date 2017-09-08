@@ -64,7 +64,7 @@ public class ProfessorMBean implements Serializable {
     }
 
     @PostConstruct
-    public void inicializar() {
+    public void inicializar(){
         professor = new Professor();
         professorDAO = new ProfessorDAO();
         provinciaDAO = new ProvinciaDAO();
@@ -145,12 +145,12 @@ public class ProfessorMBean implements Serializable {
 
     /*Metodos*/
     //carregar provincias
-    public List<Provincia> getProvincias() {
+    public List<Provincia> getProvincias(){
         return provincias;
     }
 
     // carrega municipios em função da provincia
-    public void carregaMunicipiosDaProvincia() {
+    public void carregaMunicipiosDaProvincia(){
         System.out.println("Provncia >>>>>" + provincia);
         municipios = municipioDAO.findByIdProvincia2(provincia);
     }
@@ -245,10 +245,8 @@ public class ProfessorMBean implements Serializable {
     }
 
     public Professor getByNumeroBI() {
-
         professor = professorDAO.findByNumeroBI(numeroBI);
         return professor;
-
     }
 
 }

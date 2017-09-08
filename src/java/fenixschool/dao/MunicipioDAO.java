@@ -29,7 +29,7 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
     private static final String SELECT_ALL = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia ORDER BY nome_municipio ASC;";
     private static final String SELECT_BY_ID = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia WHERE id_municipio = ?";
     
-      private static final String SELECT_BY_ID_PROVINCIA = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia WHERE m.id_provincia = ?";
+    private static final String SELECT_BY_ID_PROVINCIA = "SELECT m.id_municipio, m.nome_municipio, p.nome_provincia FROM municipio m INNER JOIN provincia p on p.id_provincia = m.id_provincia WHERE m.id_provincia = ?";
     
     @Override
     public void save(Municipio municipio) {
@@ -144,14 +144,14 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         }
         return municipios;
     }
-     
-     
+    
        public List<Municipio> findByIdProvincia2(Provincia p) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
         System.out.println("Provincia DAO <<<<<=====" + p.getNomeProvincia());
-      List<Municipio> municipios = new ArrayList<>();
+        
+        List<Municipio> municipios = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_ID_PROVINCIA);
@@ -198,7 +198,6 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         
         try {
            
-            
             municipio.setIdMunicipio(rs.getInt("m.id_municipio"));
             municipio.setNomeMunicipio(rs.getString("m.nome_municipio"));
              Provincia p = new Provincia();
@@ -208,7 +207,6 @@ public class MunicipioDAO implements GenericoDAO<Municipio> {
         } catch (SQLException ex) {
             System.err.println("Erro ao carregar dados do municipio: " + ex.getLocalizedMessage());
         }
-        
     }
     
     @Override

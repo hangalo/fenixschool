@@ -17,10 +17,10 @@ import javax.faces.convert.FacesConverter;
  * @author Elísio Kavaimunwa
  */
 @FacesConverter(value = "mesConverter", forClass = Mes.class)
-public class MesConverter implements Converter{
+public class MesConverter implements Converter {
 
     MesDAO mesDAO = new MesDAO();
-    
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Integer id = Integer.parseInt(value);
@@ -34,11 +34,11 @@ public class MesConverter implements Converter{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-         if (value != null) {
-            return ((Mes) value).getIdMes().toString();
+        if (value != null) {
+            Mes mes = (Mes)value;
+            return String.valueOf(mes.getIdMes());
         }
         return null;
     }
-    
-    
+
 }

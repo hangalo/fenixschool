@@ -23,7 +23,6 @@ public class CursoConverter implements Converter{
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        
         try {
             return cursoDAO.findByCodigo(value);
         } catch (Exception ex) {

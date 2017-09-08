@@ -35,7 +35,7 @@ public class TipoDocumentoIdentidadeConverter implements Converter{
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value != null) {
             TipoDocumentoIdentidade tipoDocumentoIdentidade = (TipoDocumentoIdentidade)value;
-             return String.valueOf(tipoDocumentoIdentidade.getIdTipoDocumentoIdentidade());
+            return String.valueOf(tipoDocumentoIdentidade.getIdTipoDocumentoIdentidade());
         }
         return null;
     }

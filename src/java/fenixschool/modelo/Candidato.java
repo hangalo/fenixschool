@@ -6,6 +6,7 @@
 package fenixschool.modelo;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -180,5 +181,35 @@ public class Candidato {
         this.profissao = profissao;
     }
 
-   
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.idCandidato);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Candidato other = (Candidato) obj;
+        if (!Objects.equals(this.idCandidato, other.idCandidato)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Candidato{" + "idCandidato=" + idCandidato + ", numeroCandidato=" + numeroCandidato + ", nomeCandidato=" + nomeCandidato + ", sobrenomeCandidato=" + sobrenomeCandidato + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", casaCandidato=" + casaCandidato + ", bairroCandidato=" + bairroCandidato + ", distritoCandidato=" + distritoCandidato + ", municipio=" + municipio + ", urlFotoCandidato=" + urlFotoCandidato + ", fotoCandidato=" + fotoCandidato + ", telefoneFixo=" + telefoneFixo + ", telefoneMovel=" + telefoneMovel + ", emailCandidato=" + emailCandidato + ", profissao=" + profissao + '}';
+    }
+
+    
 }

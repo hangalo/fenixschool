@@ -99,11 +99,9 @@ public class CursoDAO implements GenericoDAO<Curso> {
 
     @Override
     public Curso findById(Integer id) {
-return null;
-
+        return null;
     }
-    
-    
+
     public Curso findByCodigo(String id) {
 
         PreparedStatement ps = null;
@@ -126,8 +124,6 @@ return null;
         }
         return curso;
     }
-
-    
 
     @Override
     public List<Curso> findAll() {
