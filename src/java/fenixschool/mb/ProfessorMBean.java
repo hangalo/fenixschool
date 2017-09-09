@@ -53,6 +53,7 @@ public class ProfessorMBean implements Serializable {
     private List<Municipio> municipios;
     private List<Provincia> provincias;
     private Municipio municipio;
+   
 
     // Variaveis para as consultas
     private String nome;
@@ -93,6 +94,8 @@ public class ProfessorMBean implements Serializable {
         return list;
     }
 
+    
+    
     public List<Professor> getProfessores() {
         professores = professorDAO.findAll();
         return professores;

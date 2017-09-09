@@ -38,25 +38,40 @@ public class LocalEmissaoDocumento {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + this.idLocalEmissaoDocumento;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LocalEmissaoDocumento other = (LocalEmissaoDocumento) obj;
+        if (this.idLocalEmissaoDocumento != other.idLocalEmissaoDocumento) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
+    
+    
+    @Override
     public String toString() {
-        return "LocalEmissaoDocumento{" + "localEmissaoDocumento=" + localEmissaoDocumento + '}';
+        return this.localEmissaoDocumento;
     }
 
-    public String getlocal_emissao_documento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public int getid_local_emissao_documento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void setid_local_elmissao_documento(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void setlocal_emissao_document(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
     
     
 }

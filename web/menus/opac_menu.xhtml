@@ -22,7 +22,7 @@
         <b:jumbotron style="text-align: center; color:#000fef; background-color: #ece3a5;">
             <center>
                 <h:graphicImage library="imagens" name="beca.png" width="100" height="100"/>
-        </center>
+            </center>
             <h2 style="font-size: 2.2em;"> Fénix School - Sistema de Gestão Escolar para o Ensino Médio</h2>
         </b:jumbotron>
         <h:form>  
@@ -80,14 +80,17 @@
 
 
                 <p:submenu label="Tabelas" icon="ui-icon-home ">
-                    <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo.jsf"/>
-                    <p:submenu label="Pesquisa por:" icon="ui-icon-search">
-                        <p:menuitem value="N.º de Aluno" url="#"/>
-                        <p:menuitem value="Nome" url="#"/>
-                        <p:menuitem value="Nº do BI"  url="#"/>
-                        <p:menuitem value="data de nascimento" url="#"/>
-                        <p:menuitem value="Listagem Geral"  url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
+                   
+                    <p:submenu label="Emissão de documentos">
+                        <p:menuitem value="Locais"  url="/reservado/localemissaodocumento/localemissaodocumento_gestao.jsf" ajax="false" icon="ui-icon-search" />
                     </p:submenu>
+
+                    <p:submenu label="Periodo lectivo:">
+                       
+                        <p:menuitem value="Periodos Lectivos"  url="/reservado/periodolectivo/periodolectivo_gestao.jsf" ajax="false" icon="ui-icon-search" />
+                         <p:menuitem value="Novo"  url="/reservado/periodolectivo/periodolectivo_novo.jsf" ajax="false" icon="ui-icon-search" />
+                    </p:submenu>
+
                 </p:submenu>
 
 
@@ -118,7 +121,7 @@
 
 
 
-      
+
         <br/>
         <br/>
         <br/>

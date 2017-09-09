@@ -5,6 +5,8 @@
  */
 package fenixschool.modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author informatica
@@ -39,6 +41,36 @@ public class Pais {
 
     public void setNomePais(String nomePais) {
         this.nomePais = nomePais;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.codigoISOAlpha2Pais);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pais other = (Pais) obj;
+        if (!Objects.equals(this.codigoISOAlpha2Pais, other.codigoISOAlpha2Pais)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Pais{" + "nomePais=" + nomePais + '}';
     }
 
    
