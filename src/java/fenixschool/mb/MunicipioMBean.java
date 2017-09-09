@@ -107,7 +107,7 @@ public class MunicipioMBean implements Serializable {
         String dueDate = (String) ((UIOutput) event.getSource()).getValue();
 
         System.out.println("Provincia <<<<<=====" + dueDate);
-        //  municipios = municipioDAO.findByIdProvincia(provincia);
+        //municipios = municipioDAO.findByIdProvincia(provincia);
     }
 
     public void setProvincias(List<Provincia> provincias) {

@@ -172,7 +172,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
 
         
  
-    public Professor findByNome(String nome) {
+    public Professor findByNome(String nome){
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;

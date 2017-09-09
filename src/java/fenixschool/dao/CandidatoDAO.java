@@ -40,7 +40,14 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
    
      private static final String LISTAR_POR_DATA_DE_NACIMENTO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE data_nascimento=? ORDER BY nome_candidato ASC";
-    @Override
+    
+     private static final String SELECT_BY_NOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
+            + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE nome_candidato=? ORDER BY nome_candidato ASC ";
+     
+     private static final String SELECT_BY_SOBRENOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
+            + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE sobrenome_candidato=? ORDER BY nome_candidato ASC ";
+     
+     @Override
     public void save(Candidato candidato) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -163,7 +170,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
       
     }
     
-    public Candidato findNomeSobrenome(String nome, String sobrenome) {
+    public Candidato findByNomeSobrenome(String nome, String sobrenome) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -186,8 +193,54 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
         }
         return candidato;
     }
+     public Candidato findByNome(String nome) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Candidato candidato = new Candidato();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_NOME);
+            ps.setString(1, nome);
+            
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Não foi possivel encontrado nenhum registro com o nome:  " + nome);
+            }
+            popularComDados(candidato, rs);
+
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return candidato;
+    }
+      public Candidato findBySobrenome(String sobrenome) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Candidato candidato = new Candidato();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_SOBRENOME);
+            ps.setString(1, sobrenome);
+            
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Não foi possivel encontrado nenhum registro com o sobrenome:  " + sobrenome);
+            }
+            popularComDados(candidato, rs);
+
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return candidato;
+    }
      
-    public Candidato findNumero(String numero) {
+    public Candidato findByNumero(String numero) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -210,7 +263,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
         return candidato;
     }
     
-    public Candidato findSexo(String sexo) {
+    public Candidato findBySexo(String sexo) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -233,7 +286,7 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
         return candidato;
     }
 
-     public Candidato findDataDeNascimento(Date data) {
+     public Candidato findByDataDeNascimento(Date data) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;

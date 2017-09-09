@@ -44,13 +44,18 @@
                             <p:inputText value="#{candidatoMBean.candidato.bairroCandidato}" size="50"/>
                             <p:outputLabel value="Distrito:"/>
                             <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="40"/>
-                            <p:outputLabel value="Municipio:"/>
-                            <p:selectOneMenu id="dropmunicipio" value="#{candidatoMBean.candidato.municipio}" converter="municipioConverter">
-                                <f:selectItem value="#{null}" itemLabel="Escolha um Municipio" noSelectionOption="true"/>
-                                <f:selectItems value="#{candidatoMBean.municipios}"
-                                               var="municipio" itemValue="#{municipio}"  
-                                               itemLabel="#{municipio.nomeMunicipio}"  />
-                            </p:selectOneMenu>
+                             
+                            <p:outputLabel value="Província: "/>
+                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
+                                            <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                            <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Município:"/>
+                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
+                                            <f:selectItem itemLabel="--Seleccione o município--" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                        </p:selectOneMenu>
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Telefene/Email">

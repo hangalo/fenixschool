@@ -8,6 +8,7 @@ package fenixschool.mb;
 import fenixschool.dao.CandidatoDAO;
 import fenixschool.dao.MunicipioDAO;
 import fenixschool.dao.ProfissaoDAO;
+import fenixschool.dao.ProvinciaDAO;
 import fenixschool.modelo.Candidato;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Profissao;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +53,12 @@ public class CandidatoMBean implements Serializable {
     private Candidato candidato;
     private Provincia provincia; // utilizado no metodo findByIdProvincia do municipio
     private Municipio municipio;
+    private String nome;
+    private String sobrenome;
+    private Date dataDeNascimento;
+    private Sexo sexo;
+    private String Bi;
+    private String numero;
     
     private List<Candidato> candidatos;
     private List<Municipio> municipios;
@@ -58,7 +66,8 @@ public class CandidatoMBean implements Serializable {
     private CandidatoDAO candidatoDAO;
     private MunicipioDAO municipioDAO;
     private ProfissaoDAO profissaoDAO;
-    
+    private List<Provincia> provincias;
+    private ProvinciaDAO provinciaDAO;
 
     public CandidatoMBean() {
     }
@@ -69,10 +78,12 @@ public class CandidatoMBean implements Serializable {
         candidatoDAO = new CandidatoDAO();
         profissaoDAO = new ProfissaoDAO();
         municipioDAO = new MunicipioDAO();
+        provinciaDAO = new ProvinciaDAO();
         candidatos = new ArrayList<>();
         municipios = new ArrayList<>();
         profissoes = new ArrayList<>();
         municipio = new Municipio();
+        provincias = provinciaDAO.findAll();
 
     }
 
@@ -108,6 +119,63 @@ public class CandidatoMBean implements Serializable {
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
     }
+    
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public Date getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(Date dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+    
+     public String getBi() {
+        return Bi;
+    }
+
+    public void setBi(String Bi) {
+        this.Bi = Bi;
+    }
+    
+     public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    public List<Provincia> getProvincias() {
+        return provincias;
+    }
+
+    public void setProvincias(List<Provincia> provincias) {
+        this.provincias = provincias;
+    }
+
+    
     
     public void fileUpload(FileUploadEvent event) {
         try {
@@ -185,7 +253,7 @@ public class CandidatoMBean implements Serializable {
     
 
     public List<Municipio> getMunicipios() {
-       // municipios = municipioDAO.findAll(); Agora não preciso de listar todos os municipios
+        // municipios = municipioDAO.findAll(); //Agora não preciso de listar todos os municipios
         return municipios;
     }
     
@@ -212,7 +280,46 @@ public class CandidatoMBean implements Serializable {
         String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
         return raizAplicacao + pasta;
     }
+    
+    public Candidato getByNumero(){
+        candidato = candidatoDAO.findByNumero(numero);
+        return candidato;
+    }
+    
+     public Candidato getByDataNascimento(){
+        candidato = candidatoDAO.findByDataDeNascimento(dataDeNascimento);
+        return candidato;
+    }
+    
+     public Candidato getByNomeSobrenome(){
 
+        if ((getNome() == null || getNome().isEmpty()) && (getSobrenome() == null)) {
+            return null;
+
+        } else if (((getSobrenome() == null) || (getSobrenome().isEmpty())) && ((getNome() != null || !getNome().isEmpty()))) {
+            candidato = candidatoDAO.findByNome(nome);
+            return candidato;
+        } else if ((getNome() == null || getNome().isEmpty() && getSobrenome() != null )) {
+              candidato = candidatoDAO.findBySobrenome(sobrenome);
+             return candidato;
+        } else if ((getNome() != null || !getNome().isEmpty()) && (getSobrenome() != null || !getSobrenome().isEmpty())) {
+            candidato = candidatoDAO.findByNomeSobrenome(nome, sobrenome);
+            return candidato;
+        }
+        return null;
+    }
+
+    
+
+
+    
+   
+
+    
+   
+    
+
+    
     
 
     

@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <body>
 
@@ -13,65 +14,80 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
+
+                    <h:form id="formBusca" >
+                        <h:messages/>
+                        <p:panel header="Pesquisar Candidato por Data de Nascimento.">
+
+                            <h:panelGrid columns="6"  cellspacing="10%">
+                                <p:outputLabel value="Data de nascimento:"/>
+                                <p:calendar id="cogdatanascimento"  locale="pt" value="#{candidatoMBean.dataDeNascimento}" pattern="dd/MM/yyyy"  immediate="true" />
+                                <b:commandButton value="Pesquisar..." look="primary"/>
+                            </h:panelGrid>
+
+                        </p:panel>
+                    </h:form>
+
                     <h:form>
-                        <h1>Lista de candidatos</h1>
+                        <h1>Dados do Candidato</h1>
 
                         <!-- Inicio Data Table-->
-
-
-                        <p:dataTable  value="#{candidatoMBean.candidatos}" var="candidato" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom" scrollable="true">
-                            <p:column width="50">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Número"/>
-                                </f:facet>
-                                <h:outputText value="#{candidato.numeroCandidato}"/>
-                            </p:column>
-                            <p:column width="50">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Nome"/>
-                                </f:facet>
-                                <h:outputText value="#{candidato.nomeCandidato}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Sobrenome"/>
-                                </f:facet>
-                                <h:outputText value="#{candidato.sobrenomeCandidato}"/>
-                            </p:column>
-                            <p:column width="50">
-                                <f:facet name="header">
-                                    <h:outputText value="Foto"/>
-                                </f:facet>
-                                <h:graphicImage value="/candidatoVisualizarFotoServlet?file=#{candidato.urlFotoCandidato}" alt="foto" width="50" height="50"/>
-                            </p:column>
-                            <p:column style="width: 100px; text-align: center" width="160">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Operações"/>
-                                </f:facet>
-                                <p:commandButton  action="#{candidatoMBean.delete()}" icon="ui-icon-trash ">
-                                    <f:setPropertyActionListener target="#{candidatoMBean.candidato}" value="#{candidato}"/>
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
-                                    <f:setPropertyActionListener target="#{candidatoMBean.candidato}" value="#{candidato}"/>
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVerCandidato').show();" >
-                                    <f:setPropertyActionListener target="#{candidatoMBean.candidato}" value="#{candidato}"/>
-                                </p:commandButton>
-                            </p:column>
-                            <f:facet name="footer">  
-                                N.º Candidatos #{(candidatoMBean.candidatos.size())}.  
-                            </f:facet> 
-                        </p:dataTable>
+                        <h:form>
+                            <p:dataTable value="#{candidatoMBean.byDataNascimento}" var="candidato">
+                                <p:column width="50">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Número"/>
+                                    </f:facet>
+                                    <h:outputText value="#{candidato.numeroCandidato}"/>
+                                </p:column>
+                                <p:column width="50">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Nome"/>
+                                    </f:facet>
+                                    <h:outputText value="#{candidato.nomeCandidato}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Sobrenome"/>
+                                    </f:facet>
+                                    <h:outputText value="#{candidato.sobrenomeCandidato}"/>
+                                </p:column>
+                                <p:column width="50">
+                                    <f:facet name="header">
+                                        <h:outputText value="Foto"/>
+                                    </f:facet>
+                                    <h:graphicImage value="/candidatoVisualizarFotoServlet?file=#{candidato.urlFotoCandidato}" alt="foto" width="50" height="50"/>
+                                </p:column>
+                                <p:column style="width: 100px; text-align: center" width="160">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Operações"/>
+                                    </f:facet>
+                                    <p:commandButton  action="#{candidatoMBean.delete()}" icon="ui-icon-trash ">
+                                        <f:setPropertyActionListener target="#{candidatoMBean.candidato}" value="#{candidato}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
+                                        <f:setPropertyActionListener target="#{candidatoMBean.candidato}" value="#{candidato}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVerCandidato').show();" >
+                                        <f:setPropertyActionListener target="#{candidatoMBean.candidato}" value="#{candidato}"/>
+                                    </p:commandButton>
+                                </p:column>
+                                <f:facet name="footer">  
+                                    N.º Candidatos #{(candidatoMBean.candidatos.size())}.  
+                                </f:facet> 
+                            </p:dataTable>
+                        </h:form>
 
                         <!-- Fim Data Table-->
 
                     </h:form>
-
                     <!-- Formulario auxiliar-->
-
-                    <h:form id="operacoes">
-                        <p:commandButton value="Novo Candidato" type="button" onclick="PF('dlgNovoCandidato').show();" />
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <b:commandButton value="Fechar" action="/index" ajax="false" immediate="true" look="primary" />
+                        </h:panelGrid>
                     </h:form>
+
 
                     <!-- Fim Formulario auxiliar-->
 
@@ -113,18 +129,19 @@
                                         <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="40"/>
 
                                         <p:outputLabel value="Província: "/>
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
-                                            <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                            <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
-                                        </p:selectOneMenu>
-                                        <p:outputLabel value="Município:"/>
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
-                                            <f:selectItem itemLabel="--Seleccione o município--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                        <p:selectOneMenu id="provincias" value="#{municipioBean.provincia}" converter="provinciaConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true"  />
+                                            <f:selectItems value="#{municipioBean.provincias}" var="provincia" 
+                                                           itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
+                                            <f:ajax listener="#{municipioBean.loadMunicipios()}" render="municipios" execute="provincias" />
                                         </p:selectOneMenu>
 
-                                        
+                                        <p:outputLabel value="Municipio:"/>
+                                        <p:selectOneMenu id="municipios" value="#{candidatoMBean.municipio}" converter="municipioConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
+                                            <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" 
+                                                           itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
+                                        </p:selectOneMenu>
 
 
 
@@ -191,17 +208,10 @@
                                         <p:inputText value="#{candidatoMBean.candidato.bairroCandidato}" size="50"/>
                                         <p:outputLabel value="Distrito:"/>
                                         <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="40"/>
-                                         
-                                        <p:outputLabel value="Província: "/>
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
-                                            <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                            <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
-                                        </p:selectOneMenu>
-                                        <p:outputLabel value="Município:"/>
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
-                                            <f:selectItem itemLabel="--Seleccione o município--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                        <p:outputLabel value="Municipio:"/>
+                                        <p:selectOneMenu value="#{candidatoMBean.candidato.municipio}" converter="municipioConverter">
+                                            <f:selectItem itemLabel="Selecione um municipio" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{municipioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
                                         </p:selectOneMenu>
                                     </h:panelGrid>
                                 </p:tab>
@@ -290,8 +300,10 @@
 
                     <!-- Fim  Dialogo Ver detalhes do candidato-->
 
+
                 </f:view>
             </ui:define>
+
         </ui:composition>
 
     </body>

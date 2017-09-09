@@ -91,7 +91,7 @@ public class CandidatoDAOTest {
         String sobrenome = "Kavaimunwa";
         CandidatoDAO instance = new CandidatoDAO();
         //Candidato expResult = null;
-        Candidato candidato = instance.findNomeSobrenome(nome, sobrenome);
+        Candidato candidato = instance.findByNomeSobrenome(nome, sobrenome);
         assertTrue(candidato != null);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -120,7 +120,7 @@ public class CandidatoDAOTest {
         String numero = "12345";
         CandidatoDAO instance = new CandidatoDAO();
         //Candidato expResult = null;
-        Candidato candidato = instance.findNumero(numero);
+        Candidato candidato = instance.findByNumero(numero);
         assertTrue(candidato != null);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");*/
@@ -151,7 +151,7 @@ public class CandidatoDAOTest {
         String sexo = "M";
         CandidatoDAO instance = new CandidatoDAO();
         //Candidato expResult = null;
-        Candidato candidato = instance.findSexo(sexo);
+        Candidato candidato = instance.findBySexo(sexo);
         assertTrue(candidato != null);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");*/
