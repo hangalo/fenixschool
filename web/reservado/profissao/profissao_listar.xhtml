@@ -19,7 +19,7 @@
                         
                         <h1>Lista de profissões</h1>
                         <p:dataTable value="#{profissaoMBean.profissoes}"  var="profissao" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                            <p:column style="width: 40px; text-align: center">
+                            <p:column style="width: 55px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
                                 </f:facet>
@@ -31,7 +31,7 @@
                                 </f:facet>
                                 <h:outputText value="#{profissao.nomeProfissao}"/>
                             </p:column>
-                            <p:column style="width: 80px; text-align: center">
+                            <p:column style="width: 120px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Operações"/>
                                 </f:facet>

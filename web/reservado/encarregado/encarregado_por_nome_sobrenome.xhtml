@@ -4,22 +4,38 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Lista de Encarregados</title>
-         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
+        <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
         <ui:composition template="./../../WEB-INF/templates/padrao/padrao.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
+                    
+                    <h:form id="formBuscar" >
+                        <h:messages/>
+                        <p:panel header="Localizar Encarregado por Nome e Sobrenome">
+                            <h:panelGrid columns="6" cellspacing="10%">
+                                <p:outputLabel value="Sobrenome: " style="margin-right: 10px;"/>
+                                <h:inputText value="#{encarregadoEducacaoMBean.sobrenome}" id="cognome" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
+                                <p:outputLabel value="Nome:"/>
+                                <h:inputText id="nome" value="#{encarregadoEducacaoMBean.nome}"/>
+                                <h:message for="nome"/>
+                                <b:commandButton  icon="ui-icon-search" value="Pesquisar..." immediate="true"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+
 
                     <!-- Inicio do form para o DataTable-->
                     <h:form enctype="multipart/form-data"> 
                         <h1>Lista de encarregados de educação</h1>
-                        <p:dataTable  value="#{encarregadoEducacaoMBean.encarregadoEducacoes}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                            <p:column style="width:60px; text-align: center;">
+                        <p:dataTable  value="#{encarregadoEducacaoMBean.encarregadoByNomeSobrenome}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                            <p:column style="width:70px; text-align: center;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
                                 </f:facet>
@@ -37,7 +53,7 @@
                                 </f:facet>
                                 <h:outputText value="#{encarregado.sobrenomeEncarregado}"/>
                             </p:column>
-                            <p:column style="width: 40px;">
+                            <p:column style="width: 60px;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Sexo"/>
                                 </f:facet>
@@ -92,7 +108,7 @@
                                 <p:outputLabel value="Telemóvel: "/>
                                 <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelAlternativoEncarregado}"/>
                                 <p:outputLabel value="Sexo:"/>
-                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo}"/>
+                                <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo.abreviatura}"/>
                                 <p:outputLabel value="Bairro: "/>
                                 <h:outputText value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairroEncarregado}" />
                                 <p:outputLabel value="Casa Nº: "/>

@@ -6,9 +6,13 @@
 package fenixschool.mb;
 
 import fenixschool.dao.EncarregadoEducacaoDAO;
+import fenixschool.dao.MunicipioDAO;
 import fenixschool.dao.ProfissaoDAO;
+import fenixschool.dao.ProvinciaDAO;
 import fenixschool.modelo.EncarregadoEducacao;
+import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Profissao;
+import fenixschool.modelo.Provincia;
 import fenixschool.modelo.Sexo;
 import fenixschool.util.FicheiroUtil;
 import java.io.BufferedInputStream;
@@ -38,8 +42,6 @@ import org.primefaces.model.UploadedFile;
  *
  * @author PENA
  */
-
-
 @ManagedBean(name = "encarregadoEducacaoMBean")
 @SessionScoped
 
@@ -53,16 +55,27 @@ public class EncarregadoEducacaoMBean implements Serializable {
     private List<Profissao> profissoes;
     private ProfissaoDAO profissaoDAO;
     private EncarregadoEducacaoDAO encarregadoEducacaoDAO;
+    private List<Municipio> municipios;
+    private MunicipioDAO municipioDAO;
+    private ProvinciaDAO provinciaDAO;
+    private List<Provincia> provincias;
+
+    private String nome;
+    private String sobrenome;
+    private Sexo sexo;
+    private Provincia provincia;
 
     @PostConstruct
     public void inicializar() {
-
         encarregadoEducacao = new EncarregadoEducacao();
         encarregadoEducacaoDAO = new EncarregadoEducacaoDAO();
         encarregadoEducacoes = new ArrayList<>();
-
         profissaoDAO = new ProfissaoDAO();
         profissoes = new ArrayList<>();
+        provinciaDAO = new ProvinciaDAO();
+        provincias = provinciaDAO.findAll();
+        municipioDAO = new MunicipioDAO();
+        municipios = new ArrayList<>();
     }
 
     public EncarregadoEducacao getEncarregadoEducacao() {
@@ -86,7 +99,8 @@ public class EncarregadoEducacaoMBean implements Serializable {
 
         encarregadoEducacaoDAO.save(encarregadoEducacao);
         encarregadoEducacao = new EncarregadoEducacao();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Encarregado registado com sucesso!"));
+        FacesMessage msg = new FacesMessage("Guardar", "Encarregado registado com sucesso!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public List<Profissao> getProssifoes() {
@@ -106,6 +120,60 @@ public class EncarregadoEducacaoMBean implements Serializable {
         this.profissoes = profissoes;
     }
 
+    public List<Municipio> getMunicipios() {
+        return municipios;
+    }
+
+    public void setMunicipios(List<Municipio> municipios) {
+        this.municipios = municipios;
+    }
+
+    public List<Provincia> getProvincias() {
+        return provincias;
+    }
+
+    public void setProvincias(List<Provincia> provincias) {
+        this.provincias = provincias;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+   public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexos(Sexo sexo) {
+        this.sexo = sexo;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    //Carrega municipios de cada provincia
+    public void carregarMunicipiosDaProvincia() {
+        System.out.println("Provincias >>>>>" + provincia);
+        municipios = municipioDAO.findByIdProvincia2(provincia);
+    }
+
     public void fileUpload(FileUploadEvent event) {
 
         try {
@@ -120,9 +188,8 @@ public class EncarregadoEducacaoMBean implements Serializable {
 
             //comandos para guardar o objecto numa pasta local ou num disco duro
             InputStream in = new BufferedInputStream(arquivo.getInputstream());
-               
-           File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arquivo.getFileName());
-           
+
+            File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arquivo.getFileName());
 
             //Comandos para guardar no disco em rede
             // File file = new File("\\\\192.168.0.18\\photo\\fratiofmcpa"+arquivo.getFileName());
@@ -159,4 +226,24 @@ public class EncarregadoEducacaoMBean implements Serializable {
         return "encarregado_educacao_listar?faces-redirect=true";
     }
 
+    /*
+    public EncarregadoEducacao getEncarregadoByNomeSobrenome() {
+
+        if ((getNome().isEmpty() || getNome() == null) && (getSobrenome().isEmpty() || getSobrenome() == null)) {
+            return null;
+        } else if ((!getNome().isEmpty() || getNome() != null) && (!getSobrenome().isEmpty() || getSobrenome() != null)) {
+            encarregadoEducacao = encarregadoEducacaoDAO.findByNomeSobrenome(nome, sobrenome);
+            return encarregadoEducacao;
+        }
+        return null;
+    }*/
+    public EncarregadoEducacao getEncarregadoByNomeSobrenome() {
+        encarregadoEducacao = encarregadoEducacaoDAO.findByNomeSobrenome(nome, sobrenome);
+        return encarregadoEducacao;
+    }
+
+    public EncarregadoEducacao getEncarregadoBySexo() {
+        encarregadoEducacao = encarregadoEducacaoDAO.findBySexo(sexo);
+        return encarregadoEducacao;
+    }
 }
