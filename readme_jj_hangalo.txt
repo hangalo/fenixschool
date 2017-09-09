@@ -1,4 +1,18 @@
 
+10/09/2017
+
+>>> Inicio
+
+Notas importantes
+
+1) Prestar atenção ao aspecto estético e uniforme dos formularios e tabelas que se constroem
+
+2) Sugiro uma nova forma de implementar os metodos guardar, editar e delete. Devem retornar um boolean
+(ver a implementação no ProfessorDAO, PeriodoLectivoDAO, LocalEmissaoDocumentoDAO e ProfessorMBeam, 
+PeriodoLectivoMBeam e LocalEmissaoDocumentoMBean
+Só assim se poderá ter um controlo sobre as mensagens do cliente de forma mais facil e logica
+
+
 
 29/08/2017
 
