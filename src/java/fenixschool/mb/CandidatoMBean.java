@@ -56,7 +56,7 @@ public class CandidatoMBean implements Serializable {
     private String nome;
     private String sobrenome;
     private Date dataDeNascimento;
-    private Sexo sexo;
+    private String sexo;
     private String Bi;
     private String numero;
     
@@ -144,13 +144,7 @@ public class CandidatoMBean implements Serializable {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public Sexo getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
-    }
+    
     
      public String getBi() {
         return Bi;
@@ -175,7 +169,14 @@ public class CandidatoMBean implements Serializable {
         this.provincias = provincias;
     }
 
-    
+     public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
     
     public void fileUpload(FileUploadEvent event) {
         try {
@@ -290,6 +291,10 @@ public class CandidatoMBean implements Serializable {
         candidato = candidatoDAO.findByDataDeNascimento(dataDeNascimento);
         return candidato;
     }
+      public Candidato getBySexo(){
+        candidato = candidatoDAO.findBySexo(sexo);
+        return candidato;
+    }
     
      public Candidato getByNomeSobrenome(){
 
@@ -309,6 +314,7 @@ public class CandidatoMBean implements Serializable {
         return null;
     }
 
+   
     
 
 
