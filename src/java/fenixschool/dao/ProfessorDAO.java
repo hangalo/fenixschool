@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author kulley
  */
-public class ProfessorDAO implements GenericoDAO<Professor> {
+public class ProfessorDAO implements GenericoDAOLogico<Professor> {
 
     private static final String INSERT = "INSERT INTO professor (nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor, casa_professor, rua_professor,bairro_professor,distrito_urbano_professor,telemovel_principal_professor, telemovel_alternativo_professor,telefone_principal_professor,telefone_alternativo_professor, email_principal_professor,email_aternativo_professor,numero_bi_professor,iban_professor,numero_passaporte_professor, id_municipio)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE Professor SET nome_professor = ?, sobrenome_professor = ?,data_nascimento_professor = ?,sexo_professor = ?,nif_professor = ?,foto_professor = ?,url_foto_professor = ?, casa_professor = ?,rua_professor = ?,bairro_professor = ?,distrito_urbano_professor = ?,telemovel_principal_professor = ?, telemovel_alternativo_professor = ?,telefone_principal_professor = ?,telefone_alternativo_professor = ?, email_principal_professor = ?,email_aternativo_professor = ?,numero_bi_professor = ?,iban_professor = ?,numero_passaporte_professor = ?, id_municipio = ? WHERE id_professor = ?";
@@ -30,15 +30,14 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
     private static final String SELECT_BY_NOME = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE nome_professor = ?";
     private static final String SELECT_BY_SOBRENOME = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE sobrenome_professor = ?";
     private static final String SELECT_BY_NOME_E_SOBRENOME = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE nome_professor = ? AND sobrenome_professor = ?";
-    
+
     private static final String SELECT_BY_BI = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE numero_bi_professor = ?";
 
-    
-
-     @Override
-    public void save(Professor professor) {
+    @Override
+    public boolean save(Professor professor) {
         PreparedStatement ps = null;
         Connection conn = null;
+        boolean flagControlo = false;
         if (professor == null) {
             System.err.println("O valor oassado nÃ£o pode ser nulo!");
         }
@@ -66,35 +65,34 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             ps.setString(18, professor.getNumeroBIProfessor());
             ps.setString(19, professor.getIBAMProfessor());
             ps.setString(20, professor.getNumeroPassaporteProfessor());
-            ps.setInt(21, professor.getMunicipio().getIdMunicipio());            
-            ps.executeUpdate();
-             System.out.println("Dados inseridos com sucesso: "+ps.getUpdateCount());
-
-
-            ps.setString(17, professor.getEmailAlternativoProfessor());
-            ps.setString(18, professor.getNumeroBIProfessor());
-            ps.setString(19, professor.getIBAMProfessor());
-            ps.setString(20, professor.getNumeroPassaporteProfessor());
             ps.setInt(21, professor.getMunicipio().getIdMunicipio());
-            ps.executeUpdate();
-            System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
 
         } catch (SQLException e) {
             System.out.println("Erro ao inserir dados: " + e.getMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
 
     @Override
-    public void update(Professor professor) {
+    public boolean update(Professor professor) {
         PreparedStatement ps = null;
         Connection conn = null;
+        boolean flagControlo = false;
         if (professor == null) {
             System.err.println("O valor passado nao pode ser nulo");
         }
         try {
-            conn = (Connection) Conexao.getConnection();
+            conn = Conexao.getConnection();
             ps = conn.prepareStatement(UPDATE);
             ps.setString(1, professor.getNomeProfessor());
             ps.setString(2, professor.getSobrenomeProfessor());
@@ -110,26 +108,37 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             ps.setString(12, professor.getTelemovelPrincipalProfessor());
             ps.setString(13, professor.getTelemovelAlternativoProfessor());
             ps.setString(14, professor.getTelefonePrincipalProfessor());
-            ps.setString(15, professor.getEmailPrincipalProfessor());
-            ps.setString(16, professor.getEmailAlternativoProfessor());
-            ps.setString(17, professor.getNumeroBIProfessor());
-            ps.setString(18, professor.getIBAMProfessor());
-            ps.setString(19, professor.getNumeroPassaporteProfessor());
-            ps.setInt(20, professor.getMunicipio().getIdMunicipio());
-            ps.setInt(21, professor.getIdProfessor());
+            ps.setString(15, professor.getTelefoneAlternativoProfessor());
+            ps.setString(16, professor.getEmailPrincipalProfessor());
+            ps.setString(17, professor.getEmailAlternativoProfessor());
+            ps.setString(18, professor.getNumeroBIProfessor());
+            ps.setString(19, professor.getIBAMProfessor());
+            ps.setString(20, professor.getNumeroPassaporteProfessor());
+            ps.setInt(21, professor.getMunicipio().getIdMunicipio());
+            ps.setInt(22, professor.getIdProfessor());
 
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
+
+            if (retorno > 0) {
+                System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
+
         } catch (Exception ex) {
             System.err.println("Erro ao actualizar dados: " + ex.getLocalizedMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
 
     @Override
-    public void delete(Professor professor) {
+    public boolean delete(Professor professor) {
         PreparedStatement ps = null;
         Connection conn = null;
+        boolean flagControlo = false;
         if (professor == null) {
             System.err.println("O valor passado nao pode ser nulo");
         }
@@ -137,9 +146,18 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(DELETE);
             ps.setInt(1, professor.getIdProfessor());
-            ps.executeUpdate();
+
+            int retorno = ps.executeUpdate();
+
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            
+             return flagControlo;
         } catch (Exception ex) {
             System.err.println("Erro ao eliminar dados: " + ex.getLocalizedMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
             {
@@ -170,9 +188,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         return professor;
     }
 
-        
- 
-    public Professor findByNome(String nome){
+    public Professor findByNome(String nome) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -193,10 +209,8 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         }
         return professor;
     }
-    
-    
-    
-     public Professor findBySobrenome(String sobrenome) {
+
+    public Professor findBySobrenome(String sobrenome) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -217,9 +231,8 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         }
         return professor;
     }
-    
-     
-       public Professor findByNomeSobrenome(String nome, String sobrenome) {
+
+    public Professor findByNomeSobrenome(String nome, String sobrenome) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -241,7 +254,7 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         }
         return professor;
     }
-    
+
     public Professor findByNumeroBI(String numeroBI) {
         PreparedStatement ps = null;
         Connection conn = null;
@@ -250,8 +263,8 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_BI);
-              ps.setString(1, numeroBI);
-          
+            ps.setString(1, numeroBI);
+
             rs = ps.executeQuery();
             if (!rs.next()) {
                 System.err.println("Não foi encontrado nenhum registo com o BI: " + numeroBI);
@@ -264,8 +277,8 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         }
         return professor;
     }
-    
-      @Override
+
+    @Override
     public List<Professor> findAll() {
         PreparedStatement ps = null;
         Connection conn = null;
@@ -322,6 +335,5 @@ public class ProfessorDAO implements GenericoDAO<Professor> {
         }
 
     }
-
 
 }

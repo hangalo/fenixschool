@@ -62,17 +62,19 @@ public class LocalEmissaoDocumentoMBean implements Serializable {
         this.localEmissaoDocumentos = localEmissaoDocumentos;
     }
 
-    
-    
-     public void newSave(ActionEvent evt) {
+    public void newSave(ActionEvent evt) {
         localEmissaoDocumento = new LocalEmissaoDocumento();
-      
+
     }
-    
+
     public void guardar(ActionEvent evt) {
-        localEmissaoDocumentoDAO.save(localEmissaoDocumento);
-        localEmissaoDocumento = new LocalEmissaoDocumento();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDadoregistado com sucesso"));
+        try {
+            localEmissaoDocumentoDAO.save(localEmissaoDocumento);
+            localEmissaoDocumento = new LocalEmissaoDocumento();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado registado com sucesso"));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar:\t", "\t Falha ao registar os dados"));
+        }
     }
 
     public String startEdit() {
@@ -95,6 +97,5 @@ public class LocalEmissaoDocumentoMBean implements Serializable {
         localEmissaoDocumentos = null;
         return "localemissaodocumento_gestao?faces-redirect=true";
     }
-    
-    
+
 }

@@ -53,7 +53,6 @@ public class ProfessorMBean implements Serializable {
     private List<Municipio> municipios;
     private List<Provincia> provincias;
     private Municipio municipio;
-   
 
     // Variaveis para as consultas
     private String nome;
@@ -65,7 +64,7 @@ public class ProfessorMBean implements Serializable {
     }
 
     @PostConstruct
-    public void inicializar(){
+    public void inicializar() {
         professor = new Professor();
         professorDAO = new ProfessorDAO();
         provinciaDAO = new ProvinciaDAO();
@@ -94,8 +93,6 @@ public class ProfessorMBean implements Serializable {
         return list;
     }
 
-    
-    
     public List<Professor> getProfessores() {
         professores = professorDAO.findAll();
         return professores;
@@ -148,12 +145,12 @@ public class ProfessorMBean implements Serializable {
 
     /*Metodos*/
     //carregar provincias
-    public List<Provincia> getProvincias(){
+    public List<Provincia> getProvincias() {
         return provincias;
     }
 
     // carrega municipios em função da provincia
-    public void carregaMunicipiosDaProvincia(){
+    public void carregaMunicipiosDaProvincia() {
         System.out.println("Provncia >>>>>" + provincia);
         municipios = municipioDAO.findByIdProvincia2(provincia);
     }
@@ -198,13 +195,18 @@ public class ProfessorMBean implements Serializable {
 
     public void newSave(ActionEvent evt) {
         professor = new Professor();
-        //return "professor_listar?faces-redirect=true";
+
     }
 
     public void guardar(ActionEvent evt) {
-        professorDAO.save(professor);
-        professor = new Professor();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Professor registado com sucesso"));
+        if (professorDAO.save(professor)) {
+            professor = new Professor();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Sucesso ao guardar os dados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar", "Erro ao guardar os dados"));
+
+        }
+
     }
 
     public String startEdit() {
@@ -212,20 +214,31 @@ public class ProfessorMBean implements Serializable {
     }
 
     public void edit(ActionEvent event) {
-        professorDAO.update(professor);
-        professores = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("professor_listar.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(ProfessorMBean.class.getName()).log(Level.SEVERE, null, ex);
+        if (professorDAO.update(professor)) {
+            professores = null;
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("professor_listar.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(ProfessorMBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar", "Erro ao editar dados"));
+
         }
 
     }
 
     public String delete() {
-        professorDAO.delete(professor);
-        professores = null;
-        return "professor_listar?faces-redirect=true";
+        if (professorDAO.delete(professor)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Dados Eliminados com sucesso"));
+            professores = null;
+            return "professor_listar?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Erro ao eliminar dados"));
+            return null;
+        }
+
     }
 
     public Professor getByNomeSobrenome() {
