@@ -21,6 +21,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
     private static final String LISTAR_TUDO = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado";
     private static final String FIND_BY_NOME_SOBRENOME = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.nome_encarregado LIKE ?  AND e.sobrenome_encarregado LIKE ? ";
     private static final String FIND_BY_SEXO = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.sexo_encarregado = ? ";
+    private static final String FIND_BY_NOME = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.nome_encarregado LIKE ? ";
 
     @Override
     public void save(EncarregadoEducacao encarregadoEducacao) {
@@ -137,49 +138,75 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         return encarregadoEducacao;
     }
 
-    public EncarregadoEducacao findByNomeSobrenome(String nome, String sobrenome) {
+    
+    public List<EncarregadoEducacao> findByNomeSobrenome(String nome, String sobrenome) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-        EncarregadoEducacao encarregadoEducacao = new EncarregadoEducacao();
+        List<EncarregadoEducacao> educacaos = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(FIND_BY_NOME_SOBRENOME);
             ps.setString(1, nome);
             ps.setString(2, sobrenome);
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("NÃ£o foi encontrado nenhum registo com o nome : " + nome + " e sobrenome: " + sobrenome);
+            while (rs.next()) {
+                EncarregadoEducacao educacao = new EncarregadoEducacao();
+                popularComDados(educacao, rs);
+                educacaos.add(educacao);
             }
-            popularComDados(encarregadoEducacao, rs);
         } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
-            Conexao.closeConnection(conn, ps, rs);
+            Conexao.closeConnection(conn);
         }
-        return encarregadoEducacao;
+        return educacaos;
     }
-
-    public EncarregadoEducacao findBySexo(Sexo sexo) {
+    
+    public List<EncarregadoEducacao> findByNome(String nome) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-        EncarregadoEducacao encarregadoEducacao = new EncarregadoEducacao();
+        List<EncarregadoEducacao> educacaos = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(FIND_BY_SEXO);
-            ps.setString(1, sexo.getAbreviatura());
+            ps = conn.prepareStatement(FIND_BY_NOME);
+            ps.setString(1, nome);
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("Não foi encontrado nenhum registo com o sexo: " + sexo);
+            while (rs.next()) {
+                EncarregadoEducacao educacao = new EncarregadoEducacao();
+                popularComDados(educacao, rs);
+                educacaos.add(educacao);
             }
-            popularComDados(encarregadoEducacao, rs);
         } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
-            Conexao.closeConnection(conn, ps, rs);
+            Conexao.closeConnection(conn);
         }
-        return encarregadoEducacao;
+        return educacaos;
+    }
+
+    public List<EncarregadoEducacao> findBySexo(String sexo) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        List<EncarregadoEducacao> educacaos = new ArrayList<>();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(FIND_BY_SEXO);
+            ps.setString(1, sexo);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                EncarregadoEducacao educacao = new EncarregadoEducacao();
+                popularComDados(educacao, rs);
+                educacaos.add(educacao);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn);
+        }
+        return educacaos;
     }
 
     @Override

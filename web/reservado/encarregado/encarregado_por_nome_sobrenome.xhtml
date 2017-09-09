@@ -34,7 +34,7 @@
                     <!-- Inicio do form para o DataTable-->
                     <h:form enctype="multipart/form-data"> 
                         <h1>Lista de encarregados de educação</h1>
-                        <p:dataTable  value="#{encarregadoEducacaoMBean.encarregadoByNomeSobrenome}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                        <p:dataTable  value="#{encarregadoEducacaoMBean.buscarEncarregagoByNomeSobrenome}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                             <p:column style="width:70px; text-align: center;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
@@ -81,7 +81,7 @@
                                 </p:commandButton>
                             </p:column>
                             <f:facet name="footer">
-                                Total de Encarregados: #{encarregadoEducacaoMBean.encarregadoEducacoes.size()}
+                                Total de Encarregados: #{encarregadoEducacaoMBean.buscarEncarregagoByNomeSobrenome.size()}
                             </f:facet>
                         </p:dataTable>
                     </h:form>

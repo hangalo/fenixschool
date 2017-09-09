@@ -60,10 +60,15 @@ public class EncarregadoEducacaoMBean implements Serializable {
     private ProvinciaDAO provinciaDAO;
     private List<Provincia> provincias;
 
+    //variaveis auxiliar para localizar um determinando encarregado em funcao
+    //do parametro fornecido
     private String nome;
     private String sobrenome;
-    private Sexo sexo;
+    private List<EncarregadoEducacao> listaEncarregadoBySexo;
+    private List<EncarregadoEducacao> buscarEncarregagoByNomeSobrenome;
+    private List<EncarregadoEducacao> buscarEncarregadoByNome;
     private Provincia provincia;
+    private String sexo;
 
     @PostConstruct
     public void inicializar() {
@@ -152,12 +157,41 @@ public class EncarregadoEducacaoMBean implements Serializable {
         this.sobrenome = sobrenome;
     }
 
-   public Sexo getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexos(Sexo sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+    //Retorna lista de encarregados por Encarregados por sexo
+    public List<EncarregadoEducacao> getListaEncarregadoBySexo() {
+        listaEncarregadoBySexo = encarregadoEducacaoDAO.findBySexo(sexo);
+        return listaEncarregadoBySexo;
+    }
+
+    public void setListaEncarregadoBySexo(List<EncarregadoEducacao> listaEncarregadoBySexo) {
+        this.listaEncarregadoBySexo = listaEncarregadoBySexo;
+    }
+
+    //Retorna lista de encarregados com nomes e sobrenomes digtados
+    public List<EncarregadoEducacao> getBuscarEncarregagoByNomeSobrenome() {
+        buscarEncarregagoByNomeSobrenome = encarregadoEducacaoDAO.findByNomeSobrenome(nome, sobrenome);
+        return buscarEncarregagoByNomeSobrenome;
+    }
+
+    public void setBuscarEncarregagoByNomeSobrenome(List<EncarregadoEducacao> buscarEncarregagoByNomeSobrenome) {
+        this.buscarEncarregagoByNomeSobrenome = buscarEncarregagoByNomeSobrenome;
+    }
+
+    public List<EncarregadoEducacao> getBuscarEncarregadoByNome() {
+        buscarEncarregadoByNome = encarregadoEducacaoDAO.findByNome(nome);
+        return buscarEncarregadoByNome;
+    }
+
+    public void setBuscarEncarregadoByNome(List<EncarregadoEducacao> buscarEncarregadoByNome) {
+        this.buscarEncarregadoByNome = buscarEncarregadoByNome;
     }
 
     public Provincia getProvincia() {
@@ -237,13 +271,4 @@ public class EncarregadoEducacaoMBean implements Serializable {
         }
         return null;
     }*/
-    public EncarregadoEducacao getEncarregadoByNomeSobrenome() {
-        encarregadoEducacao = encarregadoEducacaoDAO.findByNomeSobrenome(nome, sobrenome);
-        return encarregadoEducacao;
-    }
-
-    public EncarregadoEducacao getEncarregadoBySexo() {
-        encarregadoEducacao = encarregadoEducacaoDAO.findBySexo(sexo);
-        return encarregadoEducacao;
-    }
 }

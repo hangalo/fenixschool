@@ -15,15 +15,15 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
-
+                    
                     <h:form id="formBuscar" >
                         <h:messages/>
-                        <p:panel header="Localizar Encarregado por Sexo">
+                        <p:panel header="Localizar Encarregado por Nome e Sobrenome">
                             <h:panelGrid columns="6" cellspacing="10%">
-                                <p:outputLabel value="Sexo: " style="margin-right: 10px;"/>
-                                <h:inputText value="#{encarregadoEducacaoMBean.sexo}" id="cogsexo" required="true"  immediate="true"/>
-                                <h:message for="sexo"/>
-                                <b:commandButton  value="Pesquisar..." immediate="true"/>
+                                <p:outputLabel value="Nome:"/>
+                                <h:inputText id="nome" value="#{encarregadoEducacaoMBean.nome}" required="true" requiredMessage="#{msg.msg_nome}" immediate="true"/>
+                                <h:message for="nome"/>
+                                <b:commandButton  icon="ui-icon-search" value="Pesquisar..." immediate="true"/>
                             </h:panelGrid>
                         </p:panel>
                     </h:form>
@@ -32,7 +32,7 @@
                     <!-- Inicio do form para o DataTable-->
                     <h:form enctype="multipart/form-data"> 
                         <h1>Lista de encarregados de educação</h1>
-                        <p:dataTable  value="#{encarregadoEducacaoMBean.listaEncarregadoBySexo}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                        <p:dataTable  value="#{encarregadoEducacaoMBean.buscarEncarregadoByNome}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                             <p:column style="width:70px; text-align: center;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
@@ -79,7 +79,7 @@
                                 </p:commandButton>
                             </p:column>
                             <f:facet name="footer">
-                                Total de Encarregados: #{encarregadoEducacaoMBean.listaEncarregadoBySexo.size()}
+                                Total de Encarregados: #{encarregadoEducacaoMBean.buscarEncarregadoByNome.size()}
                             </f:facet>
                         </p:dataTable>
                     </h:form>
