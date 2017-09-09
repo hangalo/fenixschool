@@ -201,9 +201,9 @@ public class ProfessorMBean implements Serializable {
     public void guardar(ActionEvent evt) {
         if (professorDAO.save(professor)) {
             professor = new Professor();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Sucesso ao guardar os dados"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar", "Erro ao guardar os dados"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
 
         }
 
@@ -215,6 +215,7 @@ public class ProfessorMBean implements Serializable {
 
     public void edit(ActionEvent event) {
         if (professorDAO.update(professor)) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
             professores = null;
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("professor_listar.jsf");
@@ -223,19 +224,20 @@ public class ProfessorMBean implements Serializable {
             }
         } else {
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar", "Erro ao editar dados"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
 
         }
 
     }
 
     public String delete() {
+
         if (professorDAO.delete(professor)) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Dados Eliminados com sucesso"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
             professores = null;
             return "professor_listar?faces-redirect=true";
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Erro ao eliminar dados"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
             return null;
         }
 

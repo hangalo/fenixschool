@@ -155,6 +155,7 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
             }
             
              return flagControlo;
+             
         } catch (Exception ex) {
             System.err.println("Erro ao eliminar dados: " + ex.getLocalizedMessage());
             return false;

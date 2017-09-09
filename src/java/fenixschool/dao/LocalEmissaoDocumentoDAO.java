@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author henriques elias
  */
-public class LocalEmissaoDocumentoDAO implements GenericoDAO <LocalEmissaoDocumento> {
+public class LocalEmissaoDocumentoDAO implements GenericoDAOLogico<LocalEmissaoDocumento> {
     private static final String INSERIR = "INSERT into local_emissao_documento (local_emissao_documento) VALUES (?)";
     private static final String ACTUALIZAR = "UPDATE local_emissao_documento set local_emissao_documento = ? WHERE id_local_emissao_documento = ?";
     private static final String ELIMINAR = "DELETE FROM local_emissao_documento WHERE id_local_emissao_documento = ?";
@@ -27,18 +27,28 @@ public class LocalEmissaoDocumentoDAO implements GenericoDAO <LocalEmissaoDocume
     private static final String LISTAR_TUDO = "SELECT * FROM local_emissao_documento ORDER BY local_emissao_documento ASC;";
 
    @Override
-    public void save(LocalEmissaoDocumento local) {
+    public boolean save(LocalEmissaoDocumento local) {
         PreparedStatement ps = null;
         Connection conn = null;
+         boolean flagControlo = false;
         if (local== null){
             System.err.println("O valor anterior nao pode ser nullo!");}
         try {
             conn=Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
             ps.setString(1, local.getLocalEmissaoDocumento());
-            ps.executeUpdate();
+           int retorno = ps.executeUpdate();
+           
+             if (retorno > 0) {
+                System.out.println("Dados guardados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
+            
         } catch (Exception e) {
             System.out.println("Erro na insersao de dados: " +e.getMessage());
+            return false;
         } finally{
             Conexao.closeConnection(conn, ps);
         
@@ -46,9 +56,10 @@ public class LocalEmissaoDocumentoDAO implements GenericoDAO <LocalEmissaoDocume
     }
 
     @Override
-    public void update(LocalEmissaoDocumento local) {
+    public boolean update(LocalEmissaoDocumento local) {
         PreparedStatement ps = null;
         Connection conn = null;
+          boolean flagControlo = false;
         if(local == null){
             System.err.println("O valor anterior nao pode ser nulo");
         
@@ -58,18 +69,28 @@ public class LocalEmissaoDocumentoDAO implements GenericoDAO <LocalEmissaoDocume
             ps = conn.prepareStatement(ACTUALIZAR);
             ps.setString(1,local.getLocalEmissaoDocumento());
             ps.setInt(2,local.getIdLocalEmissaoDocumento());
-            ps.executeUpdate();
+           int retorno =  ps.executeUpdate();
+           
+             if (retorno > 0) {
+                System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
+            
         } catch (Exception e) {
             System.err.println("Erro na actualizacao de dados: " + e.getLocalizedMessage());
+            return false;
         }
         finally{
             Conexao.closeConnection(conn, ps);
         }}
 
     @Override
-    public void delete(LocalEmissaoDocumento local) {
+    public boolean delete(LocalEmissaoDocumento local) {
         PreparedStatement ps = null;
         Connection conn = null;
+          boolean flagControlo = false;
         if (local == null){
             System.err.println("O valor anterior nao pode ser nulo");
         
@@ -78,9 +99,17 @@ public class LocalEmissaoDocumentoDAO implements GenericoDAO <LocalEmissaoDocume
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
             ps.setInt(1,local.getIdLocalEmissaoDocumento());
-            ps.executeUpdate();
+           int retorno = ps.executeUpdate();
+           
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            return flagControlo;
+            
         } catch (Exception e) {
             System.err.println("Erro na eliminacao de dados:" + e.getLocalizedMessage());
+            return false;
         }
         finally{
             Conexao.closeConnection(conn, ps);

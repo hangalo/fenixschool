@@ -68,13 +68,15 @@ public class LocalEmissaoDocumentoMBean implements Serializable {
     }
 
     public void guardar(ActionEvent evt) {
-        try {
-            localEmissaoDocumentoDAO.save(localEmissaoDocumento);
+        if (localEmissaoDocumentoDAO.save(localEmissaoDocumento)) {
+
             localEmissaoDocumento = new LocalEmissaoDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado registado com sucesso"));
-        } catch (Exception ex) {
+
+        } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar:\t", "\t Falha ao registar os dados"));
         }
+
     }
 
     public String startEdit() {
@@ -82,20 +84,34 @@ public class LocalEmissaoDocumentoMBean implements Serializable {
     }
 
     public void edit(ActionEvent event) {
-        localEmissaoDocumentoDAO.update(localEmissaoDocumento);
-        localEmissaoDocumentos = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("localemissaodocumento_gestao.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(PeriodoLectivoMBean.class.getName()).log(Level.SEVERE, null, ex);
+        if (localEmissaoDocumentoDAO.update(localEmissaoDocumento)) {
+            localEmissaoDocumentos = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Editar:\t", "\tDado alterado com sucesso"));
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("localemissaodocumento_gestao.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(PeriodoLectivoMBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
+
         }
 
     }
 
     public String delete() {
-        localEmissaoDocumentoDAO.delete(localEmissaoDocumento);
-        localEmissaoDocumentos = null;
-        return "localemissaodocumento_gestao?faces-redirect=true";
+
+        if (localEmissaoDocumentoDAO.delete(localEmissaoDocumento)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
+            localEmissaoDocumentos = null;
+            return "localemissaodocumento_gestao?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Eliminar\t", "\tErro ao eliminar dados"));
+            return null;
+
+        }
+
     }
 
 }

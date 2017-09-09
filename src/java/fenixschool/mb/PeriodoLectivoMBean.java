@@ -62,13 +62,18 @@ public class PeriodoLectivoMBean {
 
     public void newSave(ActionEvent evt) {
         periodoLectivo = new PeriodoLectivo();
-      
+
     }
-    
+
     public void guardar(ActionEvent evt) {
-        periodoLectivoDAO.save(periodoLectivo);
-        periodoLectivo = new PeriodoLectivo();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDadoregistado com sucesso"));
+        if (periodoLectivoDAO.save(periodoLectivo)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado registado com sucesso"));
+            periodoLectivo = new PeriodoLectivo();
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
+
+        }
+
     }
 
     public String startEdit() {
@@ -76,20 +81,34 @@ public class PeriodoLectivoMBean {
     }
 
     public void edit(ActionEvent event) {
-        periodoLectivoDAO.update(periodoLectivo);
-        periodoLectivos = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("periodolectivo_gestao.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(PeriodoLectivoMBean.class.getName()).log(Level.SEVERE, null, ex);
+        if (periodoLectivoDAO.update(periodoLectivo)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
+            periodoLectivos = null;
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("periodolectivo_gestao.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(PeriodoLectivoMBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
+
         }
 
     }
 
     public String delete() {
-        periodoLectivoDAO.delete(periodoLectivo);
-        periodoLectivos = null;
-        return "periodolectivo_gestao?faces-redirect=true";
+        if (periodoLectivoDAO.delete(periodoLectivo)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
+            periodoLectivos = null;
+
+            return "periodolectivo_gestao?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
+            return null;
+
+        }
+
     }
 
 }
