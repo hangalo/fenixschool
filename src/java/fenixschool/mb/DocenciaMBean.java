@@ -79,13 +79,19 @@ public class DocenciaMBean implements Serializable {
     public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
+    
+    
+    
 
     public void guardar(ActionEvent evt) {
+         boolean controlo = false;
         for (Disciplina disciplinaLida : disciplinas) {
             Disciplina disciplina = disciplinaDAO.findById(disciplinaLida.getIdDisciplina());
             docencia.setDisciplina(disciplina);
-
-            if (docenciaDAO.save(docencia)) {
+            controlo = docenciaDAO.save(docencia);
+        }
+        
+          if (controlo) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado registado com sucesso"));
                 docencia = new Docencia();
             } else {
@@ -93,7 +99,6 @@ public class DocenciaMBean implements Serializable {
 
             }
 
-        }
     }
 
     public String startEdit() {
@@ -101,7 +106,14 @@ public class DocenciaMBean implements Serializable {
     }
 
     public void edit(ActionEvent event) {
-        if (docenciaDAO.update(docencia)) {
+           boolean controlo = false;
+        for (Disciplina disciplinaLida : disciplinas) {
+            Disciplina disciplina = disciplinaDAO.findById(disciplinaLida.getIdDisciplina());
+            docencia.setDisciplina(disciplina);
+            controlo = docenciaDAO.update(docencia);
+        }
+               
+        if (controlo) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
             docencias = null;
             try {

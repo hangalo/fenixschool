@@ -192,7 +192,7 @@
                                 
                                 
 
-                            <p:commandButton value="Guardar" actionListener="#{docenciaMBean.guardar(evt)}" update="growl" ajax="false">
+                            <p:commandButton value="Guardar" actionListener="#{docenciaMBean.edit(event)}" update="growl" ajax="false">
                               <f:ajax render="@form" resetValues="true"/>
                             </p:commandButton>
                             </h:form>

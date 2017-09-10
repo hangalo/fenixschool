@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class PeriodoLectivoDAO implements GenericoDAOLogico<PeriodoLectivo> {
 
-    private static final String INSERIR = "INSERT into periodo_letivo (periodo_letivo) VALUES (?)";
-    private static final String ACTUALIZAR = "UPDATE periodo_letivo SET periodo_letivo = ? WHERE id_periodo_letivo = ?";
-    private static final String ELIMINAR = "DELETE FROM periodo_letivo WHERE id_periodo_letivo = ?";
+    private static final String INSERT = "INSERT into periodo_letivo (periodo_letivo) VALUES (?)";
+    private static final String UPDATE = "UPDATE periodo_letivo SET periodo_letivo = ? WHERE id_periodo_letivo = ?";
+    private static final String DELETE = "DELETE FROM periodo_letivo WHERE id_periodo_letivo = ?";
     private static final String BUSCAR_POR_CODIGO = "SELECT id_periodo_letivo, periodo_letivo from periodo_letivo WHERE id_periodo_letivo =?";
     private static final String LISTAR_TUDO = "SELECT *FROM periodo_letivo ORDER BY periodo_letivo DESC";
 
@@ -36,7 +36,7 @@ public class PeriodoLectivoDAO implements GenericoDAOLogico<PeriodoLectivo> {
         }
         try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERIR);
+            ps = conn.prepareStatement(INSERT);
             ps.setString(1, periodoletivo.getPeriodoLectivo());
             int retorno = ps.executeUpdate();
             if (retorno > 0) {
@@ -66,7 +66,7 @@ public class PeriodoLectivoDAO implements GenericoDAOLogico<PeriodoLectivo> {
         }
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(ACTUALIZAR);
+            ps = conn.prepareStatement(UPDATE);
             ps.setString(1, periodoletivo.getPeriodoLectivo());
             ps.setInt(2, periodoletivo.getIdPeriodoLectivo());
             int retorno = ps.executeUpdate();
@@ -96,7 +96,7 @@ public class PeriodoLectivoDAO implements GenericoDAOLogico<PeriodoLectivo> {
         }
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(ELIMINAR);
+            ps = conn.prepareStatement(DELETE);
             ps.setInt(1, periodoletivo.getIdPeriodoLectivo());
             int retorno = ps.executeUpdate();
 
@@ -168,7 +168,7 @@ public class PeriodoLectivoDAO implements GenericoDAOLogico<PeriodoLectivo> {
         try {
             periodoletivo.setIdPeriodoLectivo(rs.getInt("id_periodo_letivo"));
             periodoletivo.setPeriodoLectivo(rs.getString("periodo_letivo"));
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println("Erro no carregamento de dados: " + e.getLocalizedMessage());
         }
     }
