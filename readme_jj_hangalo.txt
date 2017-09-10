@@ -12,6 +12,12 @@ Notas importantes
 PeriodoLectivoMBeam e LocalEmissaoDocumentoMBean
 Só assim se poderá ter um controlo sobre as mensagens do cliente de forma mais facil e logica
 
+4) Esta presente no projecto um GenericoDAOLogico com a definicao do metodos que retornam boolean
+3) No readme deixar a informação actual no topo
+
+
+>>> FIM
+
 
 
 29/08/2017
