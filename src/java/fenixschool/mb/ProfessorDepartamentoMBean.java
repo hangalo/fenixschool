@@ -84,7 +84,7 @@ public class ProfessorDepartamentoMBean {
     }
 
     public void guardar(ActionEvent evt) {
-         boolean controlo = false;
+        boolean controlo = false;
         for (Departamento departamentoLido : departamentos) {
             Departamento departamento = departamentoDAO.findById(departamentoLido.getIdDepartamento());
             professorDepartamento.setDepartamento(departamento);

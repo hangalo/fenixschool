@@ -1,3 +1,59 @@
+11/09/2017
+
+
+Uso do p:selectManyCheckbox
+
+Para associar de uma so vez um funcinario á varios departamentos temos a tabela funcionario_departamento.
+Os DAOS constroem-se de forma comum...
+
+O metodo guardar do managedbem é que tem a diferença
+
+
+******
+
+
+public void guardar(ActionEvent evt) {
+        boolean controlo = false;
+
+ (1)       for (Departamento departamentoLido : departamentos) {
+ (2)          Departamento departamento = departamentoDAO.findById(departamentoLido.getIdDepartamento());
+ (3)           professorDepartamento.setDepartamento(departamento);
+ (4)          controlo = professorDepartamentoDAO.save(professorDepartamento);
+        }
+        if (controlo) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado registado com sucesso"));
+            professorDepartamento = new ProfessorDepartamento();
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
+
+        }
+    }
+
+****
+na pagina
+
+******
+
+
+
+       			(5)	 <p:selectManyCheckbox id="idDepartamento" value="#{professorDepartamentoMBean.departamentos}" converter="departamentoConverter" converterMessage="Departamento - Erro de conversao" layout="grid" columns="1">
+				<f:selectItems value="#{departamentoMBean.departamentos}"
+                                                       var="departamento"
+                                                       itemValue="#{departamento}"
+                                                       itemLabel="#{departamento.nomeDepartamento}"/>
+                                    </p:selectManyCheckbox>
+****
+
+
+Explicação
+
+No ManagedBeam foi criado um List<Departamento> departamentos que foi associado o ao value do <p:selectManyCheckbox(5) esta lista pode receber quantos elementos
+forem seleccionados
+no medoto guardar, atraves do loop for percorrer-se a lista carregada dos elementos seleccionads (1)
+(2) localiza-se cada elemento lido pelo seu id
+(3) com este elemento criar-se um valor a armazenar
+(4) é chamado o medoto guardar para este elemento e o loop regressa até ler e guardar todos elementos 
+
 
 10/09/2017
 
