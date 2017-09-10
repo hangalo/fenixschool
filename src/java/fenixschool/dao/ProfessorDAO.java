@@ -217,7 +217,7 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
         ResultSet rs = null;
         Professor professor = new Professor();
         try {
-            conn = (Connection) Conexao.getConnection();
+            conn = Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_SOBRENOME);
             ps.setString(1, sobrenome);
             rs = ps.executeQuery();
@@ -239,7 +239,7 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
         ResultSet rs = null;
         Professor professor = new Professor();
         try {
-            conn = (Connection) Conexao.getConnection();
+            conn = Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_NOME_E_SOBRENOME);
             ps.setString(1, nome);
             ps.setString(2, sobrenome);
@@ -262,7 +262,7 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
         ResultSet rs = null;
         Professor professor = new Professor();
         try {
-            conn = (Connection) Conexao.getConnection();
+            conn = Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_BI);
             ps.setString(1, numeroBI);
 
