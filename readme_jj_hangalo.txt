@@ -1,3 +1,15 @@
+tarefas concluidas
+
+CRUD e interface para:
+-> local_emissao_documento
+-> periodo_letivo
+-> professor_departamento (colocação - na interface)
+
+Melhorias feitas
+-> padronização do tamanho das dialogs para a manipulacao dos dados do professor
+-> e do periodo lectivo
+
+
 11/09/2017
 
 

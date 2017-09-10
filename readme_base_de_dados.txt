@@ -1,3 +1,8 @@
+11/09/2017
+
+Nova versao so script da base de dados
+
+
 10/09/2017
 
 adicionada #tabela funcionario_departamento
