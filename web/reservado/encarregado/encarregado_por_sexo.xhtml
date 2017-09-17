@@ -18,20 +18,22 @@
 
                     <h:form id="formBuscar" >
                         <h:messages/>
-                        <p:panel header="Localizar Encarregado por Sexo">
-                            <h:panelGrid columns="6" cellspacing="10%">
+                        <b:panel title="Localizar Encarregados por Sexo" collapsible="false" look="primary">
+                            <h:panelGrid columns="4" cellspacing="15%">
                                 <p:outputLabel value="Sexo: " style="margin-right: 10px;"/>
-                                <h:inputText value="#{encarregadoEducacaoMBean.sexo}" id="cogsexo" required="true"  immediate="true"/>
+                                <p:selectOneRadio value="#{encarregadoEducacaoMBean.sexo}" id="sexo" required="true" immediate="true" >
+                                    <f:selectItem itemLabel="M" itemValue="M"/>
+                                    <f:selectItem itemLabel="F" itemValue="F"/>
+                                </p:selectOneRadio>
                                 <h:message for="sexo"/>
-                                <b:commandButton  value="Pesquisar..." immediate="true"/>
+                                <b:commandButton icon="search" value="Pesquisar..." immediate="true" />
                             </h:panelGrid>
-                        </p:panel>
+                        </b:panel>
                     </h:form>
 
-
-                    <!-- Inicio do form para o DataTable-->
+                    <b:panel title="Lista de encarregados de educação" collapsible="false" look="primary">
+                        <!-- Inicio do form para o DataTable-->
                     <h:form enctype="multipart/form-data"> 
-                        <h1>Lista de encarregados de educação</h1>
                         <p:dataTable  value="#{encarregadoEducacaoMBean.listaEncarregadoBySexo}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                             <p:column style="width:70px; text-align: center;">
                                 <f:facet name="header">
@@ -272,6 +274,7 @@
                             <p:commandButton value="Alterar" icon="ui-icon-pencil" actionListener="#{encarregadoEducacaoMBean.edit(event)}" update="growl" ajax="false"/>
                         </h:form>
                     </p:dialog>
+                    </b:panel>
                 </f:view>
             </ui:define>
         </ui:composition>

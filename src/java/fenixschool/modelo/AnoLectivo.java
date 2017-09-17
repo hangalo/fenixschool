@@ -6,31 +6,33 @@
 package fenixschool.modelo;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
  * @author HP
  */
 public class AnoLectivo {
-    private Integer IdAnoLectivo;
+    private int IdAnoLectivo;
     private String anoLectivo;
     private Date inicioAnoLetivo;
     private Date fimAnoLetivo;
-    
-    public AnoLectivo(){}
 
-    public AnoLectivo(Integer IdAnoLectivo, String anoLectivo, Date inicioAnoLetivo, Date fimAnoLetivo) {
+    public AnoLectivo() {
+    }
+
+    public AnoLectivo(int IdAnoLectivo, String anoLectivo, Date inicioAnoLetivo, Date fimAnoLetivo) {
         this.IdAnoLectivo = IdAnoLectivo;
         this.anoLectivo = anoLectivo;
         this.inicioAnoLetivo = inicioAnoLetivo;
         this.fimAnoLetivo = fimAnoLetivo;
     }
 
-    public Integer getIdAnoLectivo() {
+    public int getIdAnoLectivo() {
         return IdAnoLectivo;
     }
 
-    public void setIdAnoLectivo(Integer IdAnoLectivo) {
+    public void setIdAnoLectivo(int IdAnoLectivo) {
         this.IdAnoLectivo = IdAnoLectivo;
     }
 
@@ -56,11 +58,6 @@ public class AnoLectivo {
 
     public void setFimAnoLetivo(Date fimAnoLetivo) {
         this.fimAnoLetivo = fimAnoLetivo;
-    }
-
-    @Override
-    public String toString() {
-        return "AnoLectivo{" + "anoLectivo=" + anoLectivo + '}';
     }
     
     

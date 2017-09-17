@@ -19,7 +19,7 @@
                         <!--Inicio Data table-->
 
                         <p:dataTable value="#{departamentoMBean.departamentos}"   var="departamento" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                            <p:column style="width: 40px; text-align: center">
+                            <p:column style="width: 55px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
                                 </f:facet>
@@ -32,7 +32,7 @@
                                 <h:outputText value="#{departamento.nomeDepartamento}"/>
                             </p:column>
 
-                            <p:column style="width: 80px; text-align: center">
+                            <p:column style="width: 100px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Operações"/>
                                 </f:facet>

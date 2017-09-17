@@ -20,7 +20,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import javax.inject.Named;
 import javax.faces.context.FacesContext;
 
 /**

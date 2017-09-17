@@ -18,20 +18,20 @@
                     
                     <h:form id="formBuscar" >
                         <h:messages/>
-                        <p:panel header="Localizar Encarregado por Nome e Sobrenome">
+                        <b:panel title="Localizar Encarregado por Nome e Sobrenome" collapsible="false" look="primary">
                             <h:panelGrid columns="6" cellspacing="10%">
                                 <p:outputLabel value="Nome:"/>
                                 <h:inputText id="nome" value="#{encarregadoEducacaoMBean.nome}" required="true" requiredMessage="#{msg.msg_nome}" immediate="true"/>
                                 <h:message for="nome"/>
-                                <b:commandButton  icon="ui-icon-search" value="Pesquisar..." immediate="true"/>
+                                <b:commandButton  icon="search" value="Pesquisar..." immediate="true"/>
                             </h:panelGrid>
-                        </p:panel>
+                        </b:panel>
                     </h:form>
 
-
+                    <b:panel title="Lista de encarregados de educação" collapsible="false" look="primary">
+                        
                     <!-- Inicio do form para o DataTable-->
                     <h:form enctype="multipart/form-data"> 
-                        <h1>Lista de encarregados de educação</h1>
                         <p:dataTable  value="#{encarregadoEducacaoMBean.buscarEncarregadoByNome}"  var="encarregado" rows="10" paginator="true" cellSeparator="true"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                             <p:column style="width:70px; text-align: center;">
                                 <f:facet name="header">
@@ -272,6 +272,7 @@
                             <p:commandButton value="Alterar" icon="ui-icon-pencil" actionListener="#{encarregadoEducacaoMBean.edit(event)}" update="growl" ajax="false"/>
                         </h:form>
                     </p:dialog>
+                    </b:panel>
                 </f:view>
             </ui:define>
         </ui:composition>

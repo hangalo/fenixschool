@@ -5,28 +5,42 @@
  */
 package fenixschool.modelo;
 
-import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
  * @author PENA
  */
-public class Disciplina implements Serializable{
+public class Disciplina {
 
     private int idDisciplina;
     private String nomeDisciplina;
     private String abreviatura;
     private String descricaoDisplina;
-    private String sumarioDdisciplina;
+    private String sumarioDisciplina;
     private Date dataCriacao;
-    private Curso curso;
-    private AnoLectivo anoLectivo;
+    private Curso codigoCurso;
+    private AnoLectivo anoLetivo;
     private PeriodoLectivo periodoLetivo;
     private CicloLectivo cicloLetivo;
     private TipoDisciplina tipoDisciplina;
 
     public Disciplina() {
+    }
+
+    public Disciplina(int idDisciplina, String nomeDisciplina, String abreviatura, String descricaoDisplina, String sumarioDisciplina, Date dataCriacao, Curso codigoCurso, AnoLectivo anoLetivo, PeriodoLectivo periodoLetivo, CicloLectivo cicloLetivo, TipoDisciplina tipoDisciplina) {
+        this.idDisciplina = idDisciplina;
+        this.nomeDisciplina = nomeDisciplina;
+        this.abreviatura = abreviatura;
+        this.descricaoDisplina = descricaoDisplina;
+        this.sumarioDisciplina = sumarioDisciplina;
+        this.dataCriacao = dataCriacao;
+        this.codigoCurso = codigoCurso;
+        this.anoLetivo = anoLetivo;
+        this.periodoLetivo = periodoLetivo;
+        this.cicloLetivo = cicloLetivo;
+        this.tipoDisciplina = tipoDisciplina;
     }
 
     public int getIdDisciplina() {
@@ -61,12 +75,12 @@ public class Disciplina implements Serializable{
         this.descricaoDisplina = descricaoDisplina;
     }
 
-    public String getSumarioDdisciplina() {
-        return sumarioDdisciplina;
+    public String getSumarioDisciplina() {
+        return sumarioDisciplina;
     }
 
-    public void setSumarioDdisciplina(String sumarioDdisciplina) {
-        this.sumarioDdisciplina = sumarioDdisciplina;
+    public void setSumarioDisciplina(String sumarioDisciplina) {
+        this.sumarioDisciplina = sumarioDisciplina;
     }
 
     public Date getDataCriacao() {
@@ -77,20 +91,20 @@ public class Disciplina implements Serializable{
         this.dataCriacao = dataCriacao;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public Curso getCodigoCurso() {
+        return codigoCurso;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void setCodigoCurso(Curso codigoCurso) {
+        this.codigoCurso = codigoCurso;
     }
 
-    public AnoLectivo getAnoLectivo() {
-        return anoLectivo;
+    public AnoLectivo getAnoLetivo() {
+        return anoLetivo;
     }
 
-    public void setAnoLectivo(AnoLectivo anoLectivo) {
-        this.anoLectivo = anoLectivo;
+    public void setAnoLetivo(AnoLectivo anoLetivo) {
+        this.anoLetivo = anoLetivo;
     }
 
     public PeriodoLectivo getPeriodoLetivo() {
@@ -120,7 +134,17 @@ public class Disciplina implements Serializable{
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + this.idDisciplina;
+        hash = 83 * hash + this.idDisciplina;
+        hash = 83 * hash + Objects.hashCode(this.nomeDisciplina);
+        hash = 83 * hash + Objects.hashCode(this.abreviatura);
+        hash = 83 * hash + Objects.hashCode(this.descricaoDisplina);
+        hash = 83 * hash + Objects.hashCode(this.sumarioDisciplina);
+        hash = 83 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 83 * hash + Objects.hashCode(this.codigoCurso);
+        hash = 83 * hash + Objects.hashCode(this.anoLetivo);
+        hash = 83 * hash + Objects.hashCode(this.periodoLetivo);
+        hash = 83 * hash + Objects.hashCode(this.cicloLetivo);
+        hash = 83 * hash + Objects.hashCode(this.tipoDisciplina);
         return hash;
     }
 
@@ -139,14 +163,43 @@ public class Disciplina implements Serializable{
         if (this.idDisciplina != other.idDisciplina) {
             return false;
         }
+        if (!Objects.equals(this.nomeDisciplina, other.nomeDisciplina)) {
+            return false;
+        }
+        if (!Objects.equals(this.abreviatura, other.abreviatura)) {
+            return false;
+        }
+        if (!Objects.equals(this.descricaoDisplina, other.descricaoDisplina)) {
+            return false;
+        }
+        if (!Objects.equals(this.sumarioDisciplina, other.sumarioDisciplina)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
+            return false;
+        }
+        if (!Objects.equals(this.codigoCurso, other.codigoCurso)) {
+            return false;
+        }
+        if (!Objects.equals(this.anoLetivo, other.anoLetivo)) {
+            return false;
+        }
+        if (!Objects.equals(this.periodoLetivo, other.periodoLetivo)) {
+            return false;
+        }
+        if (!Objects.equals(this.cicloLetivo, other.cicloLetivo)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoDisciplina, other.tipoDisciplina)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Disciplina{" + "nomeDisciplina=" + nomeDisciplina + ", abreviatura=" + abreviatura + '}';
+        return "Disciplina{" + "nomeDisciplina=" + nomeDisciplina + '}';
     }
 
-    
     
 }

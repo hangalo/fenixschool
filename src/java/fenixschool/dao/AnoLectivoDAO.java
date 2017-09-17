@@ -24,7 +24,7 @@ public class AnoLectivoDAO implements GenericoDAO<AnoLectivo> {
     private static final String ACTUALIZAR = "UPDATE ano_letivo SET ano_letivo = ?, inicio_ano_letivo = ?, fim_ano_letivo = ? WHERE id_ano_letivo =?";
     private static final String ELIMINAR = "DELETE FROM ano_letivo WHERE id_ano_letivo=?";
     private static final String LISTAR_POR_CODIGO = "SELECT id_ano_letivo, ano_letivo,inicio_ano_letivo,fim_ano_letivo FROM ano_letivo WHERE id_ano_letivo=?";
-    private static final String LISTAR_TUDO = "SELECT id_ano_letivo, ano_letivo,inicio_ano_letivo,fim_ano_letivo FROM ano_letivo";
+    private static final String LISTAR_TUDO = "SELECT * FROM ano_letivo";
 
     Connection conn;
     PreparedStatement ps;
@@ -32,12 +32,12 @@ public class AnoLectivoDAO implements GenericoDAO<AnoLectivo> {
 
     public AnoLectivoDAO() {
     }
-/*
+
     public AnoLectivoDAO(Connection conn, PreparedStatement ps, ResultSet rs) {
         this.conn = conn;
         this.ps = ps;
         this.rs = rs;
-    }*/
+    }
 
     @Override
     public void save(AnoLectivo anoLectivo) {
@@ -122,7 +122,7 @@ public class AnoLectivoDAO implements GenericoDAO<AnoLectivo> {
 
     @Override
     public List<AnoLectivo> findAll() {
-        List<AnoLectivo> anoLectivos = new ArrayList<AnoLectivo>();
+        List<AnoLectivo> anoLectivos = new ArrayList<>();
 
         try {
             conn = Conexao.getConnection();

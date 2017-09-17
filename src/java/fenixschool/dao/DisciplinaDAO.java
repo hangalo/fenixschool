@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class DisciplinaDAO implements GenericoDAO<Disciplina> {
 
-    private static final String INSERIR = "INSERT INTO disciplina(nome_disciplina,abreviatura,descricao_displina,sumario_disciplina,data_criacao,codigo_curso,id_ano_letivo,id_periodo_letivo,id_ciclo_letivo,id_tipo_disciplina)VALUES(?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERIR = "INSERT INTO disciplina (nome_disciplina, abreviatura, descricao_displina, sumario_disciplina, data_criacao, codigo_curso, id_ano_letivo, id_periodo_letivo, id_ciclo_letivo, id_tipo_disciplina) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String ACTUALIZAR = "UPDATE disciplina SET nome_disciplina = ?, abreviatura = ?,descricao_displina = ?,sumario_disciplina = ?,data_criacao = ?,codigo_curso = ?,id_ano_letivo = ?,id_periodo_letivo = ?,id_ciclo_letivo = ?,id_tipo_disciplina = ? WHERE id_disciplina = ?";
     private static final String ELIMINAR = "DELETE FROM disciplina WHERE id_disciplina=?";
     private static final String LISTAR_POR_CODIGO = "SELECT d.id_disciplina, d.nome_disciplina, d.abreviatura, d.descricao_displina, d.sumario_disciplina, "
@@ -64,10 +64,10 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
             ps.setString(1, disciplina.getNomeDisciplina());
             ps.setString(2, disciplina.getAbreviatura());
             ps.setString(3, disciplina.getDescricaoDisplina());
-            ps.setString(4, disciplina.getSumarioDdisciplina());
+            ps.setString(4, disciplina.getSumarioDisciplina());
             ps.setDate(5, new java.sql.Date(disciplina.getDataCriacao().getTime()));
-            ps.setString(6, disciplina.getCurso().getCodigoCurso());
-            ps.setInt(7, disciplina.getAnoLectivo().getIdAnoLectivo());
+            ps.setString(6, disciplina.getCodigoCurso().getCodigoCurso());          
+            ps.setInt(7, disciplina.getAnoLetivo().getIdAnoLectivo());
             ps.setInt(8, disciplina.getPeriodoLetivo().getIdPeriodoLectivo());
             ps.setInt(9, disciplina.getCicloLetivo().getIdCicloLectivo());
             ps.setInt(10, disciplina.getTipoDisciplina().getIdTipoDisciplina());
@@ -87,13 +87,13 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(ACTUALIZAR);
-            ps.setString(1, disciplina.getNomeDisciplina());
+           ps.setString(1, disciplina.getNomeDisciplina());
             ps.setString(2, disciplina.getAbreviatura());
             ps.setString(3, disciplina.getDescricaoDisplina());
-            ps.setString(4, disciplina.getSumarioDdisciplina());
+            ps.setString(4, disciplina.getSumarioDisciplina());
             ps.setDate(5, new java.sql.Date(disciplina.getDataCriacao().getTime()));
-            ps.setString(6, disciplina.getCurso().getCodigoCurso());
-            ps.setInt(7, disciplina.getAnoLectivo().getIdAnoLectivo());
+            ps.setString(6, disciplina.getCodigoCurso().getCodigoCurso());
+            ps.setInt(7, disciplina.getAnoLetivo().getIdAnoLectivo());
             ps.setInt(8, disciplina.getPeriodoLetivo().getIdPeriodoLectivo());
             ps.setInt(9, disciplina.getCicloLetivo().getIdCicloLectivo());
             ps.setInt(10, disciplina.getTipoDisciplina().getIdTipoDisciplina());
@@ -179,16 +179,16 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
             disciplina.setNomeDisciplina(rs.getString("nome_disciplina"));
             disciplina.setAbreviatura(rs.getString("abreviatura"));
             disciplina.setDescricaoDisplina(rs.getString("descricao_displina"));
-            disciplina.setSumarioDdisciplina(rs.getString("sumario_disciplina"));
+            disciplina.setSumarioDisciplina(rs.getString("sumario_disciplina"));
             disciplina.setDataCriacao(rs.getDate("data_criacao"));
 
             Curso curso = new Curso();
             curso.setNomeCurso(rs.getString("nome_curso"));
-            disciplina.setCurso(curso);
+            disciplina.setCodigoCurso(curso);
 
             AnoLectivo anoLectivo = new AnoLectivo();
             anoLectivo.setAnoLectivo(rs.getString("ano_letivo"));
-            disciplina.setAnoLectivo(anoLectivo);
+            disciplina.setAnoLetivo(anoLectivo);
 
             PeriodoLectivo periodoLectivo = new PeriodoLectivo();
             periodoLectivo.setPeriodoLectivo(rs.getString("periodo_letivo"));

@@ -117,6 +117,8 @@ public class DisciplinaMBean implements Serializable {
     public void setAnoLectivos(List<AnoLectivo> anoLectivos) {
         this.anoLectivos = anoLectivos;
     }
+    
+    
 
     public List<PeriodoLectivo> getPeriodoLectivos() {
         periodoLectivos = periodoLectivoDAO.findAll();

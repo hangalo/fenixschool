@@ -3,13 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Novo Professor</title>
         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
-        <p:panel header="Novo Professor" footer="registo de novo professor">
+        <b:panel title="Novo Professor" collapsible="false" look="primary">
             <h:form  id="frmNovo"  enctype="multipart/form-data">
                 <p:tabView>
                     <p:tab title="Dados Pessoais">
@@ -48,7 +49,7 @@
                                 <h:selectOneMenu id="provincias" value="#{professorMBean.provincia}" converter="provinciaConverter">
                                     <f:selectItem itemValue="#{null}" itemLabel="-- Selecione --" noSelectionOption="true"  />
                                     <f:selectItems value="#{professorMBean.provincias}" var="provincia" 
-                                                   itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
+                                                   itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}"/>
                                     <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
                                 </h:selectOneMenu>
                                 <h:outputLabel value="Municipio:" />
@@ -112,7 +113,7 @@
 
             </h:form>
 
-        </p:panel>
+        </b:panel>
     </h:body>
 </html>
 
