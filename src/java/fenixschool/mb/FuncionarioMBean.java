@@ -7,8 +7,11 @@ package fenixschool.mb;
 
 import fenixschool.dao.FuncionarioDAO;
 import fenixschool.dao.MunicipioDAO;
+import fenixschool.dao.ProvinciaDAO;
+import fenixschool.modelo.Departamento;
 import fenixschool.modelo.Funcionario;
 import fenixschool.modelo.Municipio;
+import fenixschool.modelo.Provincia;
 import fenixschool.modelo.Sexo;
 import fenixschool.util.FicheiroUtil;
 import java.awt.event.ActionEvent;
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,24 +40,30 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Aisha Lubadika
  */
-
-
 @ManagedBean(name = "funcionarioMBean")
 @SessionScoped
-public class FuncionarioMBean implements Serializable{
+public class FuncionarioMBean implements Serializable {
 
-    /**
-     * Creates a new instance of FuncionarioMBean
-     */
-    
     private static final long serialVersionUID = 1L;
 
     private Funcionario funcionario;
+    private List<Provincia> provincias;
     private FuncionarioDAO funcionarioDAO;
+    private ProvinciaDAO provinciaDAO;
     private List<Funcionario> funcionarios;
     private MunicipioDAO municipioDAO;
-  
+    private Municipio municipio;
     private List<Municipio> municipios;
+
+    /*variaveis para as consultas*/
+    private String nome;
+    private String sobrenome;
+    private Date dataDeNascimento;
+
+   
+    private Provincia provincia;
+    private Departamento departamento;
+
     public FuncionarioMBean() {
     }
 
@@ -63,7 +73,11 @@ public class FuncionarioMBean implements Serializable{
         funcionarioDAO = new FuncionarioDAO();
         funcionarios = new ArrayList<>();
         municipios = new ArrayList<>();
+        provinciaDAO = new ProvinciaDAO();
+        municipio = new Municipio();
         municipioDAO = new MunicipioDAO();
+        provincias = new ArrayList<>();
+        provincias = provinciaDAO.findAll();
     }
 
     public Funcionario getFuncionario() {
@@ -81,20 +95,69 @@ public class FuncionarioMBean implements Serializable{
         }
         return list;
     }
-    
+
+    /*Variaveis para as consultas*/
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
     public List<Municipio> getMunicipios() {
-            
-            municipios = municipioDAO.findAll();
-        
         return municipios;
+    }
+     public Date getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(Date dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    /*Metodos*/
+    //carregar provincias
+    public List<Provincia> getProvincias() {
+        return provincias;
+    }
+
+    // carrega municipios em função da provincia
+    public void carregaMunicipiosDaProvincia() {
+        System.out.println("Provncia >>>>>" + provincia);
+        municipios = municipioDAO.findByIdProvincia2(provincia);
     }
 
     public List<Funcionario> getFuncionarios() {
         funcionarios = funcionarioDAO.findAll();
         return funcionarios;
     }
-    
-     public void fileUpload(FileUploadEvent event) {
+
+    public void fileUpload(FileUploadEvent event) {
         try {
 
             //Cria um objeto do tipo UploadedFile, para receber o ficheiro do evento
@@ -109,15 +172,13 @@ public class FuncionarioMBean implements Serializable{
             //para guardar o ficheiro num pasta local (no disco duro)
             InputStream in = new BufferedInputStream(arq.getInputstream());
             File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arq.getFileName());
-           
-      
-          
+
             FileOutputStream fout = new FileOutputStream(file);
             while (in.available() != 0) {
                 fout.write(in.read());
             }
             fout.close();
-          
+
             FacesMessage msg = new FacesMessage("Foto:\t", arq.getFileName() + "\tCarregada com sucesso");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
@@ -126,43 +187,86 @@ public class FuncionarioMBean implements Serializable{
         }
 
     }
-    
+
     public String newSave() {
         funcionario = new Funcionario();
         return "funcionario_listar?faces-redirect=true";
     }
 
-      public void guardar(ActionEvent evt) {
-        funcionarioDAO.save(funcionario);
-        funcionario = new Funcionario();
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Funcionario registado com sucesso"));
+    public void guardar(ActionEvent evt) {
+        if (funcionarioDAO.save(funcionario)) {
+            funcionario = new Funcionario();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
+
+        }
+
     }
+
     public String startEdit() {
         return "funcionario_listar?faces-redirect=true";
     }
 
     public void edit(ActionEvent event) {
-        funcionarioDAO.update(funcionario);
-        funcionarios = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("funcionario_listar.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(FuncionarioMBean.class.getName()).log(Level.SEVERE, null, ex);
+        if (funcionarioDAO.update(funcionario)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
+            funcionarios = null;
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("funcionario_listar.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(FuncionarioMBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
+
         }
 
     }
 
     public String delete() {
-        funcionarioDAO.delete(funcionario);
-        funcionarios = null;
-        return "funcionario_listar?faces-redirect=true";
-    }   
-    
-      public static String getPathPastaAplicacaoJSF() {
-        String separador = System.getProperty("file.separator");
-        String pasta = "fotos"+ separador;
-        String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
-       return raizAplicacao + pasta;
+        if (funcionarioDAO.delete(funcionario)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
+            funcionarios = null;
+            return "funcionario_listar?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
+            return null;
+        }
+    }
+
+    public Funcionario getByNomeSobrenome() {
+
+        if ((getNome() == null || getNome().isEmpty()) && (getSobrenome() == null)) {
+            return null;
+
+        } else if (((getSobrenome() == null) || (getSobrenome().isEmpty())) && ((getNome() != null || !getNome().isEmpty()))) {
+            funcionario = funcionarioDAO.findBySobrenome(sobrenome);
+            return funcionario;
+        } else if ((getNome() == null || getNome().isEmpty() && getSobrenome() != null)) {
+            funcionario = funcionarioDAO.findBySobrenome(sobrenome);
+
+            return funcionario;
+        } else if ((getNome() != null || !getNome().isEmpty()) && (getSobrenome() != null || !getSobrenome().isEmpty())) {
+            funcionario = funcionarioDAO.findByNomeSobrenome(nome, sobrenome);
+            return funcionario;
+        }
+        return null;
     }
     
+    public Funcionario getByDataNascimento(){
+    
+      funcionario = funcionarioDAO.findByDataNascimento(dataDeNascimento);
+        return funcionario;
+    }
+            
+
+    public static String getPathPastaAplicacaoJSF() {
+        String separador = System.getProperty("file.separator");
+        String pasta = "fotos" + separador;
+        String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+        return raizAplicacao + pasta;
+    }
+
 }

@@ -5,7 +5,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Adionar novo funcionario</title>
+         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
         <p:panel header="Novo Funcionario" footer="registo de novos funcionarios">
@@ -22,7 +23,7 @@
                                 <h:outputLabel  value="Sobrenome"/>
                                 <h:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
                                 <p:outputLabel value="Data da Nacimento:"/>
-                                <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy"/>
+                                <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
                                 <p:outputLabel value="Sexo:"/>
                                 <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
                                     <f:selectItems value="#{funcionarioMBean.opSexos}" />
@@ -43,13 +44,18 @@
                                         <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
                                         <p:outputLabel value="Distrito:"/>
                                         <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
-                                        <h:outputLabel value="Municipio:"/>
-                                        <h:selectOneMenu id="dropmunicipio" value="#{funcionarioMBean.funcionario.municipio}" converter="municipioConverter">
-                                            <f:selectItem value="#{null}" itemLabel="Escolha um Municipio" noSelectionOption="true"/>
-
-                                            <f:selectItems value="#{funcionarioMBean.municipios}"
-                                                           var="municipio" itemValue="#{municipio}"  
-                                                           itemLabel="#{municipio.nomeMunicipio}"  />
+                                        <h:outputLabel value="Provincia:" />
+                                         <h:selectOneMenu id="provincias" value="#{funcionarioMBean.provincia}" converter="provinciaConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="-- Selecione o a provincia--" noSelectionOption="true"  />
+                                            <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" 
+                                                           itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
+                                            <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios" />
+                                        </h:selectOneMenu>
+                                       <h:outputLabel value="Municipio:" />
+                                       <h:selectOneMenu id="municipios" value="#{funcionarioMBean.municipio}" converter="municipioConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="-- seleccione o municipio --" noSelectionOption="true" />
+                                            <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" 
+                                                           itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
                                         </h:selectOneMenu>
 
 
@@ -75,7 +81,7 @@
                             </p:tabView>
                               
                               
-                            <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+                  <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
                             
                         </h:form>
  
