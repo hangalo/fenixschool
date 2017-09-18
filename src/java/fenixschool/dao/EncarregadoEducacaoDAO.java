@@ -22,6 +22,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
     private static final String FIND_BY_NOME_SOBRENOME = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.nome_encarregado LIKE ?  AND e.sobrenome_encarregado LIKE ? ";
     private static final String FIND_BY_SEXO = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.sexo_encarregado = ? ";
     private static final String FIND_BY_NOME = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.nome_encarregado LIKE ? ";
+    private static final String FIND_BY_MUNICIPIO = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.id_municipio = ? ";
 
     @Override
     public void save(EncarregadoEducacao encarregadoEducacao) {
@@ -138,7 +139,6 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         return encarregadoEducacao;
     }
 
-    
     public List<EncarregadoEducacao> findByNomeSobrenome(String nome, String sobrenome) {
         PreparedStatement ps = null;
         Connection conn = null;
@@ -162,7 +162,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         }
         return educacaos;
     }
-    
+
     public List<EncarregadoEducacao> findByNome(String nome) {
         PreparedStatement ps = null;
         Connection conn = null;
@@ -185,7 +185,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         }
         return educacaos;
     }
-
+    
     public List<EncarregadoEducacao> findBySexo(String sexo) {
         PreparedStatement ps = null;
         Connection conn = null;

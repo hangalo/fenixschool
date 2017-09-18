@@ -34,3 +34,34 @@ tarefas reliazados com dificuldades e não concluidas a 100%
 -disciplina
 -nota.
 ******************************************FIM******************************
+
+
+18/09/2017
+
+III Tarefa conculida com êxito. A pesquisa de encarregado por nome,
+por nome e sobrenome, por sexo está funcional. A localização de um 
+encarregado por sexo já esta funcional com o SelectOneRadio
+....
+
+Dificuldades:
+Fiquei quase duas semanas a tentar resolver os erros da tabela disciplina 
+que ja estava funcional mais parou e a tabela Nota. 
+como problema eu não sei realmente mais não estão adicionando nem apresentam
+mensagem de erros no OUTPUT da IDE. Para quem tem a tabela ano lectivo como 
+relacionado não consegue adicionar na tabela com que esta relacionada a mesma
+traz um erro do tipo "invalid value" e não adiciona.
+
+Como dificuldades são mais essas.
+-------------------------------------fim------------------------
+
+
+
+
+
+
+
+
+
+
+
+
