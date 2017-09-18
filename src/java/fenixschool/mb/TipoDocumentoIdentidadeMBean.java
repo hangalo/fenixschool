@@ -21,57 +21,70 @@ import javax.faces.bean.SessionScoped;
 
 import javax.faces.context.FacesContext;
 
-
 /**
  *
  * @author Elísio Kavaimunwa
  */
-
-@ManagedBean(name ="tipoDocumentoIdentidadeMBean")
+@ManagedBean(name = "tipoDocumentoIdentidadeMBean")
 @SessionScoped
 public class TipoDocumentoIdentidadeMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     TipoDocumentoIdentidade tipoDocumentoIdentidade;
     private TipoDocumentoIdentidadeDAO tipoDocumentoIdentidadeDAO;
     private List<TipoDocumentoIdentidade> tipoDeDocumentos;
 
     public TipoDocumentoIdentidadeMBean() {
-        
+
     }
-    
+
     @PostConstruct
     public void inicializar() {
         tipoDocumentoIdentidade = new TipoDocumentoIdentidade();
         tipoDocumentoIdentidadeDAO = new TipoDocumentoIdentidadeDAO();
         tipoDeDocumentos = new ArrayList<>();
     }
-    
-    
-    public void guardar(ActionEvent evt){
-        tipoDocumentoIdentidadeDAO.save(tipoDocumentoIdentidade);
+
+    public String newSave() {
         tipoDocumentoIdentidade = new TipoDocumentoIdentidade();
-        
-        FacesMessage msg = new FacesMessage("Guardar", "Tipo de Documento Identidade registado com sucesso!");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return "tipo_documento_identidade_listar?faces-redirect=true";
     }
-    
-    public void edit(java.awt.event.ActionEvent event){
-        tipoDocumentoIdentidadeDAO.update(tipoDocumentoIdentidade);
-        tipoDeDocumentos = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("tipo_documento_identidade_listar.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(TipoDocumentoIdentidadeMBean.class.getName()).log(Level.SEVERE, null, ex);
+
+    public void guardar(ActionEvent evt) {
+        if (tipoDocumentoIdentidadeDAO.save(tipoDocumentoIdentidade)) {
+            tipoDocumentoIdentidade = new TipoDocumentoIdentidade();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
+
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
+        }
+    }
+
+    public void edit(java.awt.event.ActionEvent event) {
+        if (tipoDocumentoIdentidadeDAO.update(tipoDocumentoIdentidade)) {
+            tipoDeDocumentos = null;
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("tipo_documento_identidade_listar.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(TipoDocumentoIdentidadeMBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
         }
 
     }
-    
+
     public String delete() {
-        tipoDocumentoIdentidadeDAO.delete(tipoDocumentoIdentidade);
-        tipoDeDocumentos = null;
-        return "tipo_documento_identidade_listar?faces-redirect=true";
+        if (tipoDocumentoIdentidadeDAO.delete(tipoDocumentoIdentidade)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
+            tipoDeDocumentos = null;
+            return "tipo_documento_identidade_listar?faces-redirect=true";
+        } else {
+            return null;
+        }
+
     }
 
     public TipoDocumentoIdentidade getTipoDocumentoIdentidade() {
@@ -81,6 +94,7 @@ public class TipoDocumentoIdentidadeMBean implements Serializable {
     public void setTipoDocumentoIdentidade(TipoDocumentoIdentidade tipoDocumentoIdentidade) {
         this.tipoDocumentoIdentidade = tipoDocumentoIdentidade;
     }
+
     public List<TipoDocumentoIdentidade> getTipoDeDocumentos() {
         tipoDeDocumentos = tipoDocumentoIdentidadeDAO.findAll();
         return tipoDeDocumentos;
@@ -89,11 +103,5 @@ public class TipoDocumentoIdentidadeMBean implements Serializable {
     public void setTipoDeDocumentos(List<TipoDocumentoIdentidade> tipoDeDocumentos) {
         this.tipoDeDocumentos = tipoDeDocumentos;
     }
-    
-    
 
-    
-
-    
-    
 }

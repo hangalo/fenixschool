@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <body>
 
@@ -13,49 +14,52 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
-                    <h:form>
-                        <h1>Lista de Tipos de Documento Identidade</h1>
+                    <b:panel title="Lista - TipoDocumento Identidade" collapsible="false" look="primary">
+                        <h:form>
 
-                        <!--inicio Datatable-->
-                        <p:dataTable value="#{tipoDocumentoIdentidadeMBean.tipoDeDocumentos}" var="tipoDocumento" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Código"/>
-                                </f:facet>
-                                <h:outputText value="#{tipoDocumento.idTipoDocumentoIdentidade}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Tipo: "/>
-                                </f:facet>
-                                <h:outputText value="#{tipoDocumento.tipoDOcumentoIdentidade}"/>
-                            </p:column>
-                            <p:column style="width: 100px; text-align: center" width="160">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Operações"/>
-                                </f:facet>
-                                <p:commandButton  icon="ui-icon-trash" action="#{tipoDocumentoIdentidadeMBean.delete()}">
-                                    <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoEditar').show();">
-                                    <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-zoomin" update=":ver" oncomplete="PF('dialogoVer').show();">
-                                    <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
-                                </p:commandButton>
-                                
-                            </p:column>
 
-                            <f:facet name="footer">
-                                Total de Tipos de Documentos  (#{tipoDocumentoIdentidadeMBean.tipoDeDocumentos.size()})
-                            </f:facet>                           
-                        </p:dataTable>
+                            <!--inicio Datatable-->
+                            <p:dataTable value="#{tipoDocumentoIdentidadeMBean.tipoDeDocumentos}" var="tipoDocumento" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Código"/>
+                                    </f:facet>
+                                    <h:outputText value="#{tipoDocumento.idTipoDocumentoIdentidade}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Tipo: "/>
+                                    </f:facet>
+                                    <h:outputText value="#{tipoDocumento.tipoDOcumentoIdentidade}"/>
+                                </p:column>
+                                <p:column style="width: 100px; text-align: center" width="160">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Operações"/>
+                                    </f:facet>
+                                    <p:commandButton  icon="ui-icon-trash" action="#{tipoDocumentoIdentidadeMBean.delete()}">
+                                        <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoEditar').show();">
+                                        <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-zoomin" update=":ver" oncomplete="PF('dialogoVer').show();">
+                                        <f:setPropertyActionListener target="#{tipoDocumentoIdentidadeMBean.tipoDocumentoIdentidade}" value="#{tipoDocumento}"/>
+                                    </p:commandButton>
 
-                        <!--Fim Datatable-->
-                    </h:form>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    Total de Tipos de Documentos  (#{tipoDocumentoIdentidadeMBean.tipoDeDocumentos.size()})
+                                </f:facet>                           
+                            </p:dataTable>
+
+                            <!--Fim Datatable-->
+                        </h:form>
+                    </b:panel>
 
                     <h:form id="Operacoes">
                         <p:commandButton value="Novo Tipo de Doc. Identidade" type="button" onclick="PF('dialogoGuardar').show();"/>
+                        <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />                   
                     </h:form>
 
                     <!--inicio do dialogo guardar-->
@@ -88,7 +92,7 @@
                         </h:form>
                     </p:dialog>
                     <!--fim do dialogo editar-->
-                    
+
                     <!--Inicio do dialog ver-->
                     <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
                         <h:form>
@@ -103,6 +107,7 @@
                                 </p:tab>
                             </p:tabView>
                         </h:form>
+
                     </p:dialog>
 
                     <!--Fim do dialog ver-->

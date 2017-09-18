@@ -204,7 +204,6 @@ public class ProfessorMBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
-
         }
 
     }
@@ -215,7 +214,7 @@ public class ProfessorMBean implements Serializable {
 
     public void edit(ActionEvent event) {
         if (professorDAO.update(professor)) {
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
             professores = null;
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("professor_listar.jsf");
@@ -225,7 +224,6 @@ public class ProfessorMBean implements Serializable {
         } else {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
-
         }
 
     }
@@ -240,7 +238,6 @@ public class ProfessorMBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
             return null;
         }
-
     }
 
     public Professor getByNomeSobrenome() {

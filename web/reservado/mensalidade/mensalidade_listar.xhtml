@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <body>
 
@@ -13,49 +14,51 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
-                    <h:form>
-                        <h1>Lista de Mensalidades</h1>
-                        <!--inicio Datatable-->
-                        <p:dataTable value="#{mensalidadeMBean.mensalidades}" var="mensalidade" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Código"/>
-                                </f:facet>
-                                <h:outputText value="#{mensalidade.idMensalidade}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Data de Pagamento"/>
-                                </f:facet>
-                                <h:outputText value="#{mensalidade.dataPagamento}"/>
-                            </p:column>
-                            <p:column style="width: 100px; text-align: center" width="160">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Operações"/>
-                                </f:facet>
-                                <p:commandButton  icon="ui-icon-trash" action="#{mensalidadeMBean.delete()}">
-                                    <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
-                                    <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVerMensalidade').show();" >
-                                    <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
-                                </p:commandButton>
+                    <b:panel title="Lista - Mensalidade" collapsible="false" look="primary">
+                        <h:form>
+                            <!--inicio Datatable-->
+                            <p:dataTable value="#{mensalidadeMBean.mensalidades}" var="mensalidade" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Código"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.idMensalidade}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Data de Pagamento"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.dataPagamento}"/>
+                                </p:column>
+                                <p:column style="width: 100px; text-align: center" width="160">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Operações"/>
+                                    </f:facet>
+                                    <p:commandButton  icon="ui-icon-trash" action="#{mensalidadeMBean.delete()}">
+                                        <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
+                                        <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVerMensalidade').show();" >
+                                        <f:setPropertyActionListener target="#{mensalidadeMBean.mensalidade}" value="#{mensalidade}"/>
+                                    </p:commandButton>
 
 
-                            </p:column>
-                        </p:dataTable>
-                        <!--fim Datatable-->
-                    </h:form>
+                                </p:column>
+                            </p:dataTable>
+                            <!--fim Datatable-->
+                        </h:form>
+                    </b:panel>
 
                     <h:form id="Operacoes">
                         <p:commandButton value="Nova Mensalidade" type="button" onclick="PF('dialogoGuardar').show();"/>
+                        <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />                   
                     </h:form>
 
                     <!--inicio do dialogo guardar-->
 
-                    <p:dialog header="Nova Mensalidade" widgetVar="dialogoGuardar" showEffect="explode" hideEffect="bounce" height="400">
+                    <p:dialog header="Nova Mensalidade" widgetVar="dialogoGuardar" showEffect="explode" hideEffect="bounce" height="450" width="900">
                         <h:form>
                             <p:tabView>
                                 <p:tab title="Dados da Mensalidade">
@@ -71,9 +74,9 @@
                                     <h:panelGroup>
                                         <p:panelGrid columns="1">
                                             <p:outputLabel value="Descrição:"/>
-                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.descricaoMensalidade}" cols="40" rows="8"/>
+                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.descricaoMensalidade}" cols="80" rows="8"/>
                                             <p:outputLabel value="Observção:"/>
-                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.observacaoMensalidade}" cols="30" rows="6"/>
+                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.observacaoMensalidade}" cols="80" rows="6"/>
                                         </p:panelGrid>
                                     </h:panelGroup> 
                                 </p:tab>
@@ -99,11 +102,13 @@
                                             <f:selectItem itemLabel="Selecione uma Ciclo Letivo" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{mensalidadeMBean.cicloLetivos}" var="cicloLetivo" itemValue="#{cicloLetivo}" itemLabel="#{cicloLetivo.cicloLectivo}" />
                                         </p:selectOneMenu>
+
                                         <p:outputLabel value="Ano Lectivo: "/>
                                         <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.anoLetivo}" converter="anoLectivoConverter">
                                             <f:selectItem itemLabel="Selecione uma Ano Letivo" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{mensalidadeMBean.anoletivos}" var="anoletivo" itemValue="#{anoletivo}" itemLabel="#{anoletivo.anoLectivo}" />
                                         </p:selectOneMenu>
+
                                         <p:outputLabel value="Mes: "/>
                                         <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.mes}" converter="mesConverter">
                                             <f:selectItem itemLabel="Selecione uma Mes" itemValue="#{null}" noSelectionOption="true"/>
@@ -128,7 +133,7 @@
 
                     <!-- Inicio Dialogo Editar-->
 
-                    <p:dialog header="Alterar dados da Mensalidade" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="400">
+                    <p:dialog header="Alterar dados da Mensalidade" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="explode" hideEffect="bounce" height="450" width="900">
                         <h:form>
                             <p:tabView>
                                 <p:tab title="Dados da Mensalidade">
@@ -144,9 +149,9 @@
                                     <h:panelGroup>
                                         <p:panelGrid columns="1">
                                             <p:outputLabel value="Descrição:"/>
-                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.descricaoMensalidade}" cols="40" rows="8"/>
+                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.descricaoMensalidade}" cols="80" rows="8"/>
                                             <p:outputLabel value="Observção:"/>
-                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.observacaoMensalidade}" cols="30" rows="6"/>
+                                            <p:inputTextarea value="#{mensalidadeMBean.mensalidade.observacaoMensalidade}" cols="80" rows="6"/>
                                         </p:panelGrid>
                                     </h:panelGroup> 
                                 </p:tab>
@@ -167,19 +172,19 @@
                                             <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{mensalidadeMBean.turmas}" var="turma" itemValue="#{turma}" itemLabel="#{turma.nomeTurma}" />
                                         </p:selectOneMenu>
-                                        
+
                                         <p:outputLabel value="Ano Lectivo: "/>
                                         <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.anoLetivo}" converter="anoLectivoConverter">
                                             <f:selectItem itemLabel="Selecione uma Ano Letivo" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{mensalidadeMBean.anoletivos}" var="anoletivo" itemValue="#{anoletivo}" itemLabel="#{anoletivo.anoLectivo}" />
                                         </p:selectOneMenu>
-                                        
+
                                         <p:outputLabel value="Ciclo Letivo: "/>
                                         <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.cicloLectivo}" converter="cicloLectivoConverter">
                                             <f:selectItem itemLabel="Selecione uma Ciclo Letivo" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{mensalidadeMBean.cicloLetivos}" var="cicloLetivo" itemValue="#{cicloLetivo}" itemLabel="#{cicloLetivo.cicloLectivo}" />
                                         </p:selectOneMenu>
-                                        
+
                                         <p:outputLabel value="Mes: "/>
                                         <p:selectOneMenu value="#{mensalidadeMBean.mensalidade.mes}" converter="mesConverter">
                                             <f:selectItem itemLabel="Selecione uma Mes" itemValue="#{null}" noSelectionOption="true"/>
@@ -204,7 +209,7 @@
 
                     <!-- Inicio Dialogo Ver-->
 
-                    <p:dialog header="Detalhes da Mensalidade" id="ver" widgetVar="dlgVerMensalidade" showEffect="explode" hideEffect="bounce">
+                    <p:dialog header="Detalhes da Mensalidade" id="ver" widgetVar="dlgVerMensalidade" showEffect="explode" hideEffect="bounce" height="450" width="900">
 
                         <h:form>
                             <p:tabView>
@@ -232,7 +237,7 @@
                                 </p:tab>
                                 <p:tab title="Outros dados">
                                     <h:panelGrid columns="2">
-                                        
+
                                         <p:outputLabel value="Aluno: "/>
                                         <h:outputText value="#{mensalidadeMBean.mensalidade.aluno.nomeAluno}"/>
                                         <p:outputLabel value="Departamento: "/>
@@ -241,7 +246,7 @@
                                         <h:outputText value="#{mensalidadeMBean.mensalidade.turma.nomeTurma}"/>
                                         <p:outputLabel value="Ano Lectivo: "/>
                                         <h:outputText value="#{mensalidadeMBean.mensalidade.anoLetivo.anoLectivo}"/>
-                                        
+
                                         <p:outputLabel value="Ciclo Letivo: "/>
                                         <h:outputText value="#{mensalidadeMBean.mensalidade.cicloLectivo.cicloLectivo}"/>
                                         <p:outputLabel value="Mes: "/>

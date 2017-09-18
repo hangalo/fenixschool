@@ -38,12 +38,12 @@ import javax.faces.context.FacesContext;
  *
  * @author Elísio Kavaimunwa
  */
-@ManagedBean(name="mensalidadeMBean")
+@ManagedBean(name = "mensalidadeMBean")
 @SessionScoped
-public class MensalidadeMBean implements Serializable{
+public class MensalidadeMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Mensalidade mensalidade;
     private MensalidadeDAO mensalidadeDAO;
     private AnoLectivoDAO anoletivoDAO;
@@ -76,7 +76,7 @@ public class MensalidadeMBean implements Serializable{
         mesDAO = new MesDAO();
         alunoDAO = new AlunoDAO();
         cursoDAO = new CursoDAO();
-        
+
         mensalidades = new ArrayList<>();
         anoletivos = new ArrayList<>();
         departamentos = new ArrayList<>();
@@ -166,37 +166,52 @@ public class MensalidadeMBean implements Serializable{
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-    
+
     public String newSave() {
         mensalidade = new Mensalidade();
         return "mensalidade_listar?faces-redirect=true";
     }
-    
-    
-     public void guardar(ActionEvent evt) {
-        mensalidadeDAO.save(mensalidade);
-        mensalidade = new Mensalidade();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Mensalidade registada com sucesso!"));
+
+    public void guardar(ActionEvent evt) {
+        if (mensalidadeDAO.save(mensalidade)) {
+            mensalidade = new Mensalidade();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
+        }
     }
-     public String startEdit() {
+
+    public String startEdit() {
         return "mensalidade_listar?faces-redirect=true";
     }
-     public void edit(ActionEvent event) {
-        mensalidadeDAO.update(mensalidade);
-        mensalidades = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("mensalidade_listar.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(MensalidadeMBean.class.getName()).log(Level.SEVERE, null, ex);
+
+    public void edit(ActionEvent event) {
+        if (mensalidadeDAO.update(mensalidade)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
+            mensalidades = null;
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("mensalidade_listar.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(MensalidadeMBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
         }
 
     }
-     public String delete() {
-        mensalidadeDAO.delete(mensalidade);
-        mensalidades = null;
-        mensalidade = new Mensalidade();
-        return "mensalidade_listar?faces-redirect=true";
+
+    public String delete() {
+        if (mensalidadeDAO.delete(mensalidade)) {
+            mensalidades = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
+            
+            return "mensalidade_listar?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
+            return null;
+        }
+
     }
 
-    
 }

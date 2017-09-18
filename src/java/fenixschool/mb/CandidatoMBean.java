@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,7 +60,7 @@ public class CandidatoMBean implements Serializable {
     private String sexo;
     private String Bi;
     private String numero;
-    
+
     private List<Candidato> candidatos;
     private List<Municipio> municipios;
     private List<Profissao> profissoes;
@@ -68,6 +69,12 @@ public class CandidatoMBean implements Serializable {
     private ProfissaoDAO profissaoDAO;
     private List<Provincia> provincias;
     private ProvinciaDAO provinciaDAO;
+
+    private List<Candidato> findByNomeSobrenome;
+    private List<Candidato> findByNome;
+    private List<Candidato> findBySobrenome;
+    private List<Candidato> findBySexo;
+    private List<Candidato> findBydataNascimento;
 
     public CandidatoMBean() {
     }
@@ -83,6 +90,11 @@ public class CandidatoMBean implements Serializable {
         municipios = new ArrayList<>();
         profissoes = new ArrayList<>();
         municipio = new Municipio();
+        findByNomeSobrenome = new ArrayList<>();
+        findByNome = new ArrayList<>();
+        findBySobrenome = new ArrayList<>();
+        findBySexo = new ArrayList<>();
+        findBydataNascimento = new ArrayList<>();
         provincias = provinciaDAO.findAll();
 
     }
@@ -103,7 +115,7 @@ public class CandidatoMBean implements Serializable {
     public void setCandidatos(List<Candidato> candidatos) {
         this.candidatos = candidatos;
     }
-    
+
     public Municipio getMunicipio() {
         return municipio;
     }
@@ -119,7 +131,7 @@ public class CandidatoMBean implements Serializable {
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
     }
-    
+
     public String getNome() {
         return nome;
     }
@@ -144,23 +156,22 @@ public class CandidatoMBean implements Serializable {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    
-    
-     public String getBi() {
+    public String getBi() {
         return Bi;
     }
 
     public void setBi(String Bi) {
         this.Bi = Bi;
     }
-    
-     public String getNumero() {
+
+    public String getNumero() {
         return numero;
     }
 
     public void setNumero(String numero) {
         this.numero = numero;
     }
+
     public List<Provincia> getProvincias() {
         return provincias;
     }
@@ -169,7 +180,7 @@ public class CandidatoMBean implements Serializable {
         this.provincias = provincias;
     }
 
-     public String getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
@@ -177,7 +188,6 @@ public class CandidatoMBean implements Serializable {
         this.sexo = sexo;
     }
 
-    
     public void fileUpload(FileUploadEvent event) {
         try {
 
@@ -192,16 +202,15 @@ public class CandidatoMBean implements Serializable {
             //para guardar o ficheiro num pasta local (no disco duro)
             InputStream in = new BufferedInputStream(arquivo.getInputstream());
             File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arquivo.getFileName());
-           
+
             //Comandos para guardar no disco em rede
             // File file = new File("\\\\192.168.0.18\\photo\\fratiofmcpa"+arquivo.getFileName());
-            
             FileOutputStream fout = new FileOutputStream(file);
             while (in.available() != 0) {
                 fout.write(in.read());
             }
             fout.close();
-          
+
             FacesMessage msg = new FacesMessage("Foto: ", arquivo.getFileName() + " carregada com sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
@@ -216,9 +225,12 @@ public class CandidatoMBean implements Serializable {
     }
 
     public void guardar(ActionEvent evt) {
-        candidatoDAO.save(candidato);
-        candidato = new Candidato();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Candidato registado com sucesso"));
+        if (candidatoDAO.save(candidato)){
+            candidato = new Candidato();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
+        }
     }
 
     public String startEdit() {
@@ -226,38 +238,46 @@ public class CandidatoMBean implements Serializable {
     }
 
     public void edit(ActionEvent event) {
-        candidatoDAO.update(candidato);
-        candidatos = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("candidato_listar.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(CandidatoMBean.class.getName()).log(Level.SEVERE, null, ex);
+        if (candidatoDAO.update(candidato)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
+            candidatos = null;
+
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("candidato_listar.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(CandidatoMBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+         else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
         }
 
     }
 
     public String delete() {
-        candidatoDAO.delete(candidato);
-        candidatos = null;
-        return "candidato_listar?faces-redirect=true";
+        if (candidatoDAO.delete(candidato)) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
+             candidatos = null;
+             return "candidato_listar?faces-redirect=true";
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
+            return null;
+        }      
     }
 
     public List<Profissao> getProssifoes() {
         profissoes = profissaoDAO.findAll();
         return profissoes;
     }
-    
+
     // metodo novo. Ainda esta em análise.
     public void carregaMunicipiosDaProvincia() {
         municipios = municipioDAO.findByIdProvincia2(provincia);
     }
-    
 
     public List<Municipio> getMunicipios() {
-        // municipios = municipioDAO.findAll(); //Agora não preciso de listar todos os municipios
         return municipios;
     }
-    
 
     public List<SelectItem> getOpSexos() {
         List<SelectItem> list = new ArrayList<>();
@@ -281,54 +301,38 @@ public class CandidatoMBean implements Serializable {
         String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
         return raizAplicacao + pasta;
     }
-    
-    public Candidato getByNumero(){
+
+    public Candidato getByNumero() {
         candidato = candidatoDAO.findByNumero(numero);
         return candidato;
     }
-    
-     public Candidato getByDataNascimento(){
-        candidato = candidatoDAO.findByDataDeNascimento(dataDeNascimento);
-        return candidato;
+
+    public List<Candidato> getByDataNascimento() {
+        findBydataNascimento = candidatoDAO.findByDataDeNascimento((java.sql.Date) dataDeNascimento);
+        return findBydataNascimento;
     }
-      public Candidato getBySexo(){
-        candidato = candidatoDAO.findBySexo(sexo);
-        return candidato;
+
+    public List<Candidato> getBySexo() {
+        findBySexo = candidatoDAO.findBySexo(sexo);
+        return findBySexo;
     }
-    
-     public Candidato getByNomeSobrenome(){
+
+    public List<Candidato> getByNomeSobrenome(){
 
         if ((getNome() == null || getNome().isEmpty()) && (getSobrenome() == null)) {
             return null;
 
         } else if (((getSobrenome() == null) || (getSobrenome().isEmpty())) && ((getNome() != null || !getNome().isEmpty()))) {
-            candidato = candidatoDAO.findByNome(nome);
-            return candidato;
-        } else if ((getNome() == null || getNome().isEmpty() && getSobrenome() != null )) {
-              candidato = candidatoDAO.findBySobrenome(sobrenome);
-             return candidato;
+            findByNome = candidatoDAO.findByNome(nome);
+            return findByNome;
+        } else if ((getNome() == null || getNome().isEmpty() && getSobrenome() != null)) {
+            findBySobrenome = candidatoDAO.findBySobrenome(sobrenome);
+            return findBySobrenome;
         } else if ((getNome() != null || !getNome().isEmpty()) && (getSobrenome() != null || !getSobrenome().isEmpty())) {
-            candidato = candidatoDAO.findByNomeSobrenome(nome, sobrenome);
-            return candidato;
+            findByNomeSobrenome = candidatoDAO.findByNomeSobrenome(nome, sobrenome);
+            return findByNomeSobrenome;
         }
         return null;
     }
-
-   
-    
-
-
-    
-   
-
-    
-   
-    
-
-    
-    
-
-    
-    
 
 }

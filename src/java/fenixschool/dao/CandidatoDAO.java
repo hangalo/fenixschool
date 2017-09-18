@@ -16,41 +16,42 @@ import java.util.List;
 import fenixschool.modelo.Sexo;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.Date;
+import java.sql.Date;
 
-public class CandidatoDAO implements GenericoDAO<Candidato> {
+public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
 
     private static final String INSERIR = "INSERT INTO candidato (numero_candidato, nome_candidato, sobrenome_candidato, data_nascimento, sexo, casa_candidato, bairro_candidato, distrito_candidato, id_municipio, url_foto_candidato, foto_candidato, telefone_fixo, telefone_movel, email_candidato, id_profissao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String ACTUALIZAR = "UPDATE candidato SET numero_candidato =?, nome_candidato=?, sobrenome_candidato=?, data_nascimento=?, sexo=?, casa_candidato=?, bairro_candidato=?, distrito_candidato=?,id_municipio=?, url_foto_candidato=?, foto_candidato=?, telefone_fixo=?, telefone_movel=?, email_candidato=?, id_profissao=? WHERE id_candidato=? ";
     private static final String ELIMINAR = "DELETE FROM candidato WHERE id_candidato = ? ";
     private static final String LISTAR_POR_CODIGO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE id_candidato =? ORDER BY nome_candidato ASC";
-   
+
     private static final String LISTAR_TUDO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio ORDER BY nome_candidato ASC";
-   
+
     private static final String LISTAR_POR_NOME_E_SOBRENOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE nome_candidato =? AND sobrenome_candidato=? ORDER BY nome_candidato ASC";
-    
+
     private static final String LISTAR_POR_NUMERO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE numero_candidato=? ORDER BY nome_candidato ASC";
-    
+
     private static final String LISTAR_POR_SEXO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE sexo=? ORDER BY nome_candidato ASC";
-   
-     private static final String LISTAR_POR_DATA_DE_NACIMENTO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
+
+    private static final String LISTAR_POR_DATA_DE_NACIMENTO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE data_nascimento=? ORDER BY nome_candidato ASC";
-    
-     private static final String SELECT_BY_NOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
+
+    private static final String SELECT_BY_NOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE nome_candidato=? ORDER BY nome_candidato ASC ";
-     
-     private static final String SELECT_BY_SOBRENOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
+
+    private static final String SELECT_BY_SOBRENOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE sobrenome_candidato=? ORDER BY nome_candidato ASC ";
-     
-     @Override
-    public void save(Candidato candidato) {
+
+    @Override
+    public boolean save(Candidato candidato) {
         Connection conn = null;
         PreparedStatement ps = null;
+        boolean flagControlo = false;
         if (candidato == null) {
             System.err.println("O campo anterior nao pode ser nulo");
         }
@@ -76,20 +77,26 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
             ps.setString(14, candidato.getEmailCandidato());
             ps.setInt(15, candidato.getProfissao().getIdProfissao());
 
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            return flagControlo;
 
         } catch (SQLException e) {
-            System.err.println("Erro a inserir dados: " + e.getLocalizedMessage());
-            System.out.println(e.getMessage());
+            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
 
     @Override
-    public void update(Candidato candidato) {
+    public boolean update(Candidato candidato) {
         Connection conn = null;
         PreparedStatement ps = null;
+        boolean flagControlo = false;
         if (candidato == null) {
 
             System.err.println("O valor passado nao pode ser nulo");
@@ -116,19 +123,28 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
             ps.setInt(15, candidato.getProfissao().getIdProfissao());
             ps.setInt(16, candidato.getIdCandidato());
 
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
 
-        } catch (Exception ex) {
+            if (retorno > 0) {
+                System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
+
+         } catch (Exception ex) {
             System.err.println("Erro ao actualizar dados: " + ex.getLocalizedMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
 
     @Override
-    public void delete(Candidato candidato) {
-        Connection conn = null;
+    public boolean delete(Candidato candidato) {
+          Connection conn = null;
         PreparedStatement ps = null;
+        boolean flagControlo = false;
         if (candidato == null) {
             System.err.println("O valor passado não pode ser nulo");
         }
@@ -136,14 +152,25 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
             ps.setInt(1, candidato.getIdCandidato());
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
+
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            
+             return flagControlo;
         } catch (Exception ex) {
             System.err.println("Erro ao eliminar dados: " + ex.getLocalizedMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
+            {
+            }
         }
     }
-
+    
+    
     @Override
     public Candidato findById(Integer id) {
         Connection conn = null;
@@ -161,85 +188,87 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
             }
             popularComDados(candidato, rs);
 
-         } catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
         return candidato;
-      
+
     }
-    
-    public Candidato findByNomeSobrenome(String nome, String sobrenome) {
+
+    public List<Candidato> findByNomeSobrenome(String nome, String sobrenome) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Candidato candidato = new Candidato();
+        List<Candidato> candidatos = new ArrayList();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_POR_NOME_E_SOBRENOME);
             ps.setString(1, nome);
             ps.setString(2, sobrenome);
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("Não foi possivel encontrado nenhum registro com o nome:  " + nome + " " + sobrenome);
-            }
-            popularComDados(candidato, rs);
-
+             while (rs.next()) {
+                Candidato candidato = new Candidato();
+                popularComDados(candidato, rs);
+                candidatos.add(candidato);
+            } 
         } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-        return candidato;
+        return candidatos;
     }
-     public Candidato findByNome(String nome) {
+
+    public List<Candidato> findByNome(String nome) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Candidato candidato = new Candidato();
+        List<Candidato> candidatos = new ArrayList();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_NOME);
             ps.setString(1, nome);
-            
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("Não foi possivel encontrado nenhum registro com o nome:  " + nome);
-            }
-            popularComDados(candidato, rs);
-
+            while (rs.next()) {
+                Candidato candidato = new Candidato();
+                popularComDados(candidato, rs);
+                candidatos.add(candidato);
+            } 
+          
         } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-        return candidato;
+        return candidatos;
     }
-      public Candidato findBySobrenome(String sobrenome) {
+
+    public List<Candidato> findBySobrenome(String sobrenome) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Candidato candidato = new Candidato();
+        List<Candidato> candidatos = new ArrayList();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_SOBRENOME);
             ps.setString(1, sobrenome);
-            
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("Não foi possivel encontrado nenhum registro com o sobrenome:  " + sobrenome);
-            }
-            popularComDados(candidato, rs);
+            while (rs.next()) {
+                Candidato candidato = new Candidato();
+                popularComDados(candidato, rs);
+                candidatos.add(candidato);
+            }  
 
         } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-        return candidato;
+        return candidatos;
     }
-     
+
     public Candidato findByNumero(String numero) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -262,53 +291,53 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
         }
         return candidato;
     }
-    
-    public Candidato findBySexo(String sexo) {
+
+    public List<Candidato> findBySexo(String sexo) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Candidato candidato = new Candidato();
+        List<Candidato> candidatos = new ArrayList();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_POR_SEXO);
             ps.setString(1, sexo);
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("Não foi possivel encontrado nenhum registro com o sexo:  " + sexo);
-            }
-            popularComDados(candidato, rs);
-
+            while (rs.next()) {
+                Candidato candidato = new Candidato();
+                popularComDados(candidato, rs);
+                candidatos.add(candidato);
+            }  
         } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-        return candidato;
+        return candidatos;
     }
 
-     public Candidato findByDataDeNascimento(Date data) {
+    public List<Candidato> findByDataDeNascimento(Date data) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Candidato candidato = new Candidato();
+        List<Candidato> candidatos = new ArrayList();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_POR_DATA_DE_NACIMENTO);
-            ps.setDate(1, (java.sql.Date) data);
+           // ps.setDate(1, (java.sql.Date) data);
+          ps.setDate(1, new java.sql.Date(data.getTime()));
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("Não foi possivel encontrado nenhum registro com a data:  " + data);
+            while (rs.next()){
+                Candidato candidato = new Candidato();
+                popularComDados(candidato, rs);
+                candidatos.add(candidato);
             }
-            popularComDados(candidato, rs);
-
         } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-        return candidato;
+        return candidatos;
     }
-
 
     @Override
     public List<Candidato> findAll() {
@@ -371,4 +400,6 @@ public class CandidatoDAO implements GenericoDAO<Candidato> {
             System.out.println("Erro ao carregar dados");
         }
     }
+
+    
 }

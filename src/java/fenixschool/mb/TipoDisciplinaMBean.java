@@ -5,7 +5,6 @@
  */
 package fenixschool.mb;
 
-
 import fenixschool.dao.TipoDisciplinaDAO;
 import fenixschool.modelo.TipoDisciplina;
 import java.awt.event.ActionEvent;
@@ -25,56 +24,65 @@ import javax.faces.context.FacesContext;
  *
  * @author Elísio Kavaimunwa
  */
-@ManagedBean(name ="tipoDisciplinaMBean")
+@ManagedBean(name = "tipoDisciplinaMBean")
 @SessionScoped
 public class TipoDisciplinaMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private TipoDisciplina tipoDisciplina;
     private TipoDisciplinaDAO tipoDisciplinaDAO;
     private List<TipoDisciplina> tipoDisciplinas;
-    
-    public TipoDisciplinaMBean(){
+
+    public TipoDisciplinaMBean() {
     }
-    
+
     @PostConstruct
-    public void inicializar(){
+    public void inicializar() {
         tipoDisciplina = new TipoDisciplina();
         tipoDisciplinaDAO = new TipoDisciplinaDAO();
         tipoDisciplinas = new ArrayList<>();
     }
 
-    
-    
-    
-    
     public List<TipoDisciplina> getTipoDisciplinas() {
         tipoDisciplinas = tipoDisciplinaDAO.findAll();
         return tipoDisciplinas;
     }
+
     public void guardar(ActionEvent evt) {
-        tipoDisciplinaDAO.save(tipoDisciplina);
-        tipoDisciplina = new TipoDisciplina();
-        
-        FacesMessage msg = new FacesMessage("Guardar", "Tipo de disciplina registada com sucesso!");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        if (tipoDisciplinaDAO.save(tipoDisciplina)){
+            tipoDisciplina = new TipoDisciplina();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
+        }
     }
-    
-     public void edit(java.awt.event.ActionEvent event) {
-        tipoDisciplinaDAO.update(tipoDisciplina);
-        tipoDisciplinas = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("tipo_disciplina_listar.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(TipoDisciplinaMBean.class.getName()).log(Level.SEVERE, null, ex);
+
+    public void edit(java.awt.event.ActionEvent event) {
+        if (tipoDisciplinaDAO.update(tipoDisciplina)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Editar:\t", "\tDado alterado com sucesso"));
+            tipoDisciplinas = null;
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("tipo_disciplina_listar.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(TipoDisciplinaMBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
         }
 
     }
-     public String delete() {
-        tipoDisciplinaDAO.delete(tipoDisciplina);
-        tipoDisciplinas = null;
-        return "tipo_disciplina_listar?faces-redirect=true";
+
+    public String delete(){
+        if (tipoDisciplinaDAO.delete(tipoDisciplina)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
+            tipoDisciplinas = null;
+            return "tipo_disciplina_listar?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
+            return null;
+        }
+        
     }
 
     public TipoDisciplina getTipoDisciplina() {
@@ -89,10 +97,4 @@ public class TipoDisciplinaMBean implements Serializable {
         this.tipoDisciplinas = tipoDisciplinas;
     }
 
-    
-    
-    
-    
-    
-    
 }

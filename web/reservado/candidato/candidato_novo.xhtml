@@ -16,11 +16,11 @@
                         <p:growl id="messages" showDetail="true"/>
                         <h:panelGrid columns="2" >
                             <p:outputLabel value="Nome"/>
-                            <p:inputText value="#{candidatoMBean.candidato.nomeCandidato}" size="50"/>
+                            <p:inputText value="#{candidatoMBean.candidato.nomeCandidato}" size="45"/>
                             <p:outputLabel value="Sobrenome:"/>
-                            <p:inputText value="#{candidatoMBean.candidato.sobrenomeCandidato}" size="25"/>
+                            <p:inputText value="#{candidatoMBean.candidato.sobrenomeCandidato}" size="20"/>
                             <p:outputLabel value="Número"/>
-                            <p:inputText value="#{candidatoMBean.candidato.numeroCandidato}" size="10"/>
+                            <p:inputText value="#{candidatoMBean.candidato.numeroCandidato}" size="20"/>
                             <p:outputLabel value="Data de nascimento:"/>
                             <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" locale="pt"  />
                             <p:outputLabel value="Sexo:"/>
@@ -39,41 +39,40 @@
                     <p:tab title="Endereço">
                         <h:panelGrid columns="2" >
                             <p:outputLabel value="N.º Casa"/>
-                            <p:inputText value="#{candidatoMBean.candidato.casaCandidato}" size="20"/>
+                            <p:inputText value="#{candidatoMBean.candidato.casaCandidato}" size="21"/>
                             <p:outputLabel value="Bairro:"/>
-                            <p:inputText value="#{candidatoMBean.candidato.bairroCandidato}" size="50"/>
+                            <p:inputText value="#{candidatoMBean.candidato.bairroCandidato}" size="21"/>
                             <p:outputLabel value="Distrito:"/>
-                            <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="40"/>
-                             
+                            <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="21"/>
+
                             <p:outputLabel value="Província: "/>
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
-                                            <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                            <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
-                                        </p:selectOneMenu>
-                                        <p:outputLabel value="Município:"/>
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
-                                            <f:selectItem itemLabel="--Seleccione o município--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
-                                        </p:selectOneMenu>
+                            <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
+                                <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="Município:"/>
+                            <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
+                                <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                            </p:selectOneMenu>
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Telefene/Email">
                         <h:panelGrid columns="2" >
                             <p:outputLabel value="Telefone Movel"/>
-                            <p:inputText value="#{candidatoMBean.candidato.telefoneMovel}" size="30"/>
+                            <p:inputText value="#{candidatoMBean.candidato.telefoneMovel}" size="20"/>
                             <p:outputLabel value="Telefone Fixo"/>
-                            <p:inputText value="#{candidatoMBean.candidato.telefoneFixo}" size="30"/>
+                            <p:inputText value="#{candidatoMBean.candidato.telefoneFixo}" size="20"/>
                             <p:outputLabel value="Email"/>
-                            <p:inputText value="#{candidatoMBean.candidato.emailCandidato}" size="30"/>
+                            <p:inputText value="#{candidatoMBean.candidato.emailCandidato}" size="20"/>
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Outros dados">
-                        Em construção...
-                    </p:tab>
+                    
                 </p:tabView>
                 <p:commandButton value="Guardar" actionListener="#{candidatoMBean.guardar(evt)}" ajax="false"/>
-               
+
             </h:form>
         </p:panel>
 

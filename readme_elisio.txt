@@ -1,3 +1,47 @@
+18/09/2017
+Implementação da interface GenericoLogicDAO e dos seus respectivos MBeans nas seguintes entidades:
+	Candidato, Mensalidade, TipoDisciplina, TipoDocumentoIdentidade.
+
+Implementação do <b:painel>
+
+Padronização na estética das páginas(baseados nas paginas do professor)
+
+Implementação da tarefa III
+	---> fingByNomeSobrenome;
+	---> findBySexo;
+	---> findByNumero;
+	---> findByDataNascimento, (está com erros de conversão de datas).
+
+Implementação das cbms dependentes entre municipio e provincia. 
+
+
+Dificuldades:
+	---> findByDataNascimento
+	---> Guardar e Editar da Mensalidade (está com erro na profissão que não é minha 	       responsabilidade).
+
+
+««««««««««««««««««««««««««««««FIM»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+04/09/2017
+
 Continuação da tafera 1.
 	Problema: Não listava foto dos Candidatos, não editava.
 	Solução: Já lista e edita.

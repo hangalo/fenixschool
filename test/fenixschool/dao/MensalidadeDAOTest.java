@@ -31,16 +31,13 @@ public class MensalidadeDAOTest {
     public MensalidadeDAOTest() {
     }
     
-    @Before
-    public void setUp() {
-    }
-
+   
     /**
      * Test of save method, of class MensalidadeDAO.
      */
     @Test
     public void testSave() {
-        /*AnoLectivo anoLectivo = new AnoLectivo();
+        AnoLectivo anoLectivo = new AnoLectivo();
         anoLectivo.setIdAnoLectivo(1);
         
         Departamento departamento = new Departamento();
@@ -57,8 +54,8 @@ public class MensalidadeDAOTest {
         curso.setCodigoCurso("MAT");
 
         Mensalidade mensalidade = new Mensalidade();
-        mensalidade.setDescricaoMensalidade("Descricao 2");
-        mensalidade.setObservacaoMensalidade("Observação 12");
+        mensalidade.setDescricaoMensalidade("Descricao 4");
+        mensalidade.setObservacaoMensalidade("Observação 4");
         mensalidade.setDataPagamento(dataFormatada);
         mensalidade.setAnoLetivo(anoLectivo);
         mensalidade.setDepartamento(departamento);
@@ -70,10 +67,10 @@ public class MensalidadeDAOTest {
         System.out.println("save");
        
         MensalidadeDAO instance = new MensalidadeDAO();
-        //instance.save(mensalidade);
+        instance.save(mensalidade);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
-        */
+        
     }
 
     /**
@@ -82,7 +79,7 @@ public class MensalidadeDAOTest {
     @Test
     public void testUpdate() {
         
-        AnoLectivo anoLectivo = new AnoLectivo();
+       /* AnoLectivo anoLectivo = new AnoLectivo();
         anoLectivo.setIdAnoLectivo(1);
         Departamento departamento = new Departamento();
         departamento.setIdDepartamento(5);
@@ -102,8 +99,8 @@ public class MensalidadeDAOTest {
         
         mensalidade.setValorJuro(150000);
         mensalidade.setValorPago(250000);
-        mensalidade.setDescricaoMensalidade("Descricao 2");
-        mensalidade.setObservacaoMensalidade("Observação 2");
+        mensalidade.setDescricaoMensalidade("Descricao 5");
+        mensalidade.setObservacaoMensalidade("Observação 5");
         mensalidade.setDataPagamento(dataFormatada);
         mensalidade.setAnoLetivo(anoLectivo);
         mensalidade.setDepartamento(departamento);
@@ -115,9 +112,9 @@ public class MensalidadeDAOTest {
 
         System.out.println("update");
         MensalidadeDAO instance = new MensalidadeDAO();
-        //instance.update(mensalidade);
+        instance.update(mensalidade);
         // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
+        // fail("The test case is a prototype.");*/
 
     }
 
@@ -127,11 +124,12 @@ public class MensalidadeDAOTest {
     @Test
     public void testDelete() {
        /* System.out.println("delete");
-        //Mensalidade mensalidade = null;
+        Mensalidade mensalidade = new Mensalidade();
+        mensalidade.setIdMensalidade(1);
         MensalidadeDAO instance = new MensalidadeDAO();
         //instance.delete(mensalidade);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");*/
+        //fail("The test case is a prototype.");*/
     }
 
     /**
@@ -140,10 +138,10 @@ public class MensalidadeDAOTest {
     @Test
     public void testFindById() {
         /*System.out.println("findById");
-        Integer id = 4;
+        Integer id = 2;
         MensalidadeDAO instance = new MensalidadeDAO();
         Mensalidade mensalidade = new Mensalidade();
-        //mensalidade = instance.findById(id);
+        mensalidade = instance.findById(id);
         //Assert.assertTrue(mensalidade != null);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -169,7 +167,7 @@ public class MensalidadeDAOTest {
      */
     @Test
     public void testFindAll() {
-        System.out.println("findAll");
+       /* System.out.println("findAll");
         MensalidadeDAO instance = new MensalidadeDAO();
         //List<Mensalidade> expResult = null;
         List<Mensalidade> mensalidades = instance.findAll();
@@ -191,7 +189,7 @@ public class MensalidadeDAOTest {
             System.out.println("Aluno: " + mensalidade.getAluno().getNomeAluno());
             System.out.println("Curso: " + mensalidade.getCurso().getNomeCurso());
             System.out.println("\n---------------------------------------------------");
-        }
+        }*/
     }
 
     /**

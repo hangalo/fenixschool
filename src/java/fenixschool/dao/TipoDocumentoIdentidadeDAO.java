@@ -10,6 +10,7 @@ import fenixschool.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author HP
  */
-public class TipoDocumentoIdentidadeDAO implements GenericoDAO<TipoDocumentoIdentidade> {
+public class TipoDocumentoIdentidadeDAO implements GenericoDAOLogico<TipoDocumentoIdentidade> {
 
     private static final String INSERIR = "INSERT INTO tipo_documento_identidade (tipo_documento_identidade) VALUES (?)";
     private static final String ACTUALIZAR = "UPDATE tipo_documento_identidade SET tipo_documento_identidade = ? WHERE id_tipo_documento_identidade = ?";
@@ -25,10 +26,7 @@ public class TipoDocumentoIdentidadeDAO implements GenericoDAO<TipoDocumentoIden
     private static final String BUSCAR_POR_CODIGO = "SELECT * FROM tipo_documento_identidade WHERE id_tipo_documento_identidade = ? ORDER BY tipo_documento_identidade ASC";
     private static final String LISTAR_TUDO = "SELECT * FROM tipo_documento_identidade ORDER BY tipo_documento_identidade ASC";
 
-    PreparedStatement ps = null;
-    Connection conn = null;
-    ResultSet rs = null;
-
+    /*
     @Override
     public void save(TipoDocumentoIdentidade tipoDocumentoIdentidade) {
 
@@ -142,5 +140,159 @@ public class TipoDocumentoIdentidadeDAO implements GenericoDAO<TipoDocumentoIden
             System.err.println("Erro no carregamento de dados: " + e.getLocalizedMessage());
         }
     }
+     */
+    @Override
+    public boolean save(TipoDocumentoIdentidade tipoDocumentoIdentidade) {
+        PreparedStatement ps = null;
+        Connection conn = null;
 
+        boolean flagControlo = false;
+        if (tipoDocumentoIdentidade == null) {
+            System.err.println("O valor anterior nao pode ser nullo!");
+        }
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(INSERIR);
+            ps.setString(1, tipoDocumentoIdentidade.getTipoDOcumentoIdentidade());
+            
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+    }
+
+    @Override
+    public boolean update(TipoDocumentoIdentidade tipoDocumentoIdentidade) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+
+        boolean flagControlo = false;
+        if (tipoDocumentoIdentidade == null) {
+            System.err.println("O valor anterior nao pode ser nullo");
+
+        }
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(ACTUALIZAR);
+            ps.setString(1, tipoDocumentoIdentidade.getTipoDOcumentoIdentidade());
+            ps.setInt(2, tipoDocumentoIdentidade.getIdTipoDocumentoIdentidade());
+           
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
+
+        } catch (Exception ex) {
+            System.err.println("Erro ao actualizar dados: " + ex.getLocalizedMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+
+    }
+
+    @Override
+    public boolean delete(TipoDocumentoIdentidade tipoDocumentoIdentidade) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        
+        boolean flagControlo = false;
+        if (tipoDocumentoIdentidade == null) {
+            System.err.println("O valor anterior nao pode ser nullo");
+
+        }
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(ELIMINAR);
+            ps.setInt(1, tipoDocumentoIdentidade.getIdTipoDocumentoIdentidade());
+           
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
+
+        } catch (Exception ex) {
+            System.err.println("Erro ao eliminar dados: " + ex.getLocalizedMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+
+    }
+
+    @Override
+    public TipoDocumentoIdentidade findById(Integer id) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        TipoDocumentoIdentidade tipoDocumentoIdentidade = new TipoDocumentoIdentidade();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(BUSCAR_POR_CODIGO);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Nao foi encontrado nenhum registo com o id: " + id);
+            }
+            popularComDados(tipoDocumentoIdentidade, rs);
+
+        } catch (Exception e) {
+            System.err.println("Erro ao ler dados: " + e.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return tipoDocumentoIdentidade;
+
+    }
+
+    @Override
+    public List<TipoDocumentoIdentidade> findAll() {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        List<TipoDocumentoIdentidade> tipoDocumentoIdentidades = new ArrayList<>();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(LISTAR_TUDO);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                TipoDocumentoIdentidade tipoDocumentoIdentidade = new TipoDocumentoIdentidade();
+                popularComDados(tipoDocumentoIdentidade, rs);
+                tipoDocumentoIdentidades.add(tipoDocumentoIdentidade);
+            }
+        } catch (Exception e) {
+            System.err.println("Erro na leitura dos dados: " + e.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn);
+        }
+        return tipoDocumentoIdentidades;
+    }
+
+    @Override
+    public void popularComDados(TipoDocumentoIdentidade tipoDocumentoIdentidade, ResultSet rs) {
+        try {
+            tipoDocumentoIdentidade.setIdTipoDocumentoIdentidade(rs.getInt("id_tipo_documento_identidade"));
+            tipoDocumentoIdentidade.setTipoDOcumentoIdentidade(rs.getString("tipo_documento_identidade"));
+        } catch (Exception e) {
+            System.err.println("Erro no carregamento de dados: " + e.getLocalizedMessage());
+        }
+    }
 }
