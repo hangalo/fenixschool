@@ -323,8 +323,8 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_POR_DATA_DE_NACIMENTO);
-           // ps.setDate(1, (java.sql.Date) data);
-          ps.setDate(1, new java.sql.Date(data.getTime()));
+            ps.setDate(1, data);
+         
             rs = ps.executeQuery();
             while (rs.next()){
                 Candidato candidato = new Candidato();

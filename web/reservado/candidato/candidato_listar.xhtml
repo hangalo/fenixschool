@@ -97,7 +97,7 @@
                                             <f:selectItems value="#{candidatoMBean.opSexos}" />
                                         </p:selectOneRadio >
                                         <p:outputLabel value="Profissão:"/>
-                                        <p:selectOneMenu id="droprofissao" value="#{candidatoMBean.candidato.profissao}" converter="profissaoConverter">
+                                        <p:selectOneMenu style="width:200px" id="droprofissao" value="#{candidatoMBean.candidato.profissao}" converter="profissaoConverter">
                                             <f:selectItem itemLabel="Selecione a profissão" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{candidatoMBean.prossifoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
                                         </p:selectOneMenu>
@@ -115,14 +115,14 @@
                                         <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="21"/>
 
                                         <p:outputLabel value="Província: "/>
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
+                                        <p:selectOneMenu  style="width:200px" id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
                                             <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
                                             <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
                                         </p:selectOneMenu>
 
                                         <p:outputLabel value="Município:"/>
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
+                                        <p:selectOneMenu style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
                                             <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
                                         </p:selectOneMenu>
@@ -168,7 +168,7 @@
                                             <f:selectItems value="#{candidatoMBean.opSexos}" />
                                         </p:selectOneRadio >
                                         <p:outputLabel value="Profissão:"/>
-                                        <p:selectOneMenu id="droprofissao" value="#{candidatoMBean.candidato.profissao}" converter="profissaoConverter">
+                                        <p:selectOneMenu style="width:200px" id="droprofissao" value="#{candidatoMBean.candidato.profissao}" converter="profissaoConverter">
                                             <f:selectItem itemLabel="Selecione a profissão" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{candidatoMBean.prossifoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
                                         </p:selectOneMenu>
@@ -186,14 +186,14 @@
                                         <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="21"/>
 
                                         <p:outputLabel value="Província: "/>
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
+                                        <p:selectOneMenu style="width:200px" id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
                                             <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
                                             <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
                                         </p:selectOneMenu>
 
                                         <p:outputLabel value="Município:"/>
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
+                                        <p:selectOneMenu  style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
                                             <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
                                         </p:selectOneMenu>
