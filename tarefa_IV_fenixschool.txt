@@ -1,0 +1,76 @@
+Tarefa IV
+
+
+20 a 26 de Setembro
+
+Instalar e estudar a criação de relatorios com o TIBCO Jaspersoft Studio-6.2.0.final
+
+>>NB.: - muito importante<<<
+
+>>Ao criar as novas paginas, usar o template chamado padrao.xhtml que se encontra na pasta templates
+>> ler o readme_jj_hangalo.txt	
+
+	
+
+Aisha
+
+
+
+Concluir as actividades das tarefas anteriores
+
+Colocar todos os dialog com o mesmo tamanho (altura e largua) de modo que quando se muda de tab não se altera o tamanho
+
+Rever os aspectos esteticos de cada formulario e tabela ja feitos.
+
+Instalar e estudar a criação de relatorios com o TIBCO Jaspersoft Studio-6.2.0.final
+
+Elsio
+Concluir as actividades das tarefas anteriores
+
+Colocar todos os dialog com o mesmo tamanho (altura e largua) de modo que quando se muda de tab não se altera o tamanho
+
+Rever os aspectos esteticos de cada formulario e tabela ja feitos.
+
+Instalar e estudar a criação de relatorios com o TIBCO Jaspersoft Studio-6.2.0.final
+
+Pena
+
+Concluir as actividades das tarefas anteriores
+
+Colocar todos os dialog com o mesmo tamanho (altura e largua) de modo que quando se muda de tab não se altera o tamanho
+
+Rever os aspectos esteticos de cada formulario e tabela ja feitos.
+
+Instalar e estudar a criação de relatorios com o TIBCO Jaspersoft Studio-6.2.0.finall
+
+Deu
+
+Concluir as actividades das tarefas anteriores
+
+Colocar todos os dialog com o mesmo tamanho (altura e largua) de modo que quando se muda de tab não se altera o tamanho
+
+Rever os aspectos esteticos de cada formulario e tabela ja feitos.
+
+Instalar e estudar a criação de relatorios com o TIBCO Jaspersoft Studio-6.2.0.final
+
+
+Paulo
+Concluir as actividades das tarefas anteriores
+
+Colocar todos os dialog com o mesmo tamanho (altura e largua) de modo que quando se muda de tab não se altera o tamanho
+
+Rever os aspectos esteticos de cada formulario e tabela ja feitos.
+
+Instalar e estudar a criação de relatorios com o TIBCO Jaspersoft Studio-6.2.0.final
+
+Santo
+
+
+Instalar e estudar a criação de relatorios com o TIBCO Jaspersoft Studio-6.2.0.final
+
+Ju
+
+Instalar e estudar a criação de relatorios com o TIBCO Jaspersoft Studio-6.2.0.final
+
+
+

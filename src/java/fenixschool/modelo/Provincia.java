@@ -69,8 +69,7 @@ public class Provincia implements Serializable{
         return true;
     }
     
-    
-    
+       
     
 
     @Override

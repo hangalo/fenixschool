@@ -1,3 +1,17 @@
+
+/>>>>>>>>20/09/2017 >>>>>>>>
+
+Na pasta WEB-INF foi criada uma nova subpsta chamada "menus" e dentro dela o ficheiro "opac_menu_final.xhmtl"
+
+Orientação.
+
+Na parte final deste ficheiro ("opac_menu_final.xhmtl") foram definidos MENUS PARA CASA PROGRAMADOR.
+Cada um deverá colocar os links das suas tarefas num dos submenus como facilmente pode-se intuir.
+
+Os itens de menu do menu anterior serão progressivamente transportados para este a medida que forem sendo classificados
+
+********************Fim ****************************
+
 tarefas concluidas
 
 CRUD e interface para:

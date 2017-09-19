@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
+        
+        
+         <title>Fénix School - Sistema de Gestão Escolar para o Ensino Médio</title>
+
+        <style rel="stylesheet">
+            body {
+                background-image: url("../../resources/imagens/background.jpg");
+                background-repeat: repeat;
+            }
+        </style>
+       
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+                
+                
+        <b:jumbotron style="text-align: center; color:#000fef; background-color: #ece3a5;">
+            <center>
+                <h:graphicImage library="imagens" name="beca.png" width="100" height="100"/>
+            </center>
+            <h2 style="font-size: 2.2em;"> Fénix School - Sistema de Gestão Escolar para o Ensino Médio</h2>
+        </b:jumbotron>
+                
+                <ui:include src="../menus/opac_menu_final.xhtml"/>
+            </ui:insert>
+        </div>
+        <div>
+
+            <div>
+
+                <div id="content"  style="height: 600px">
+                    <ui:insert name="content">
+                        <center>
+                            <br/><br/><br/> <br/><br/><br/> <br/><br/><br/>
+                           <h:graphicImage library="imagens" name="fundofenxschool_1.jpg"/>
+                        </center>
+                        </ui:insert>
+                </div>
+                
+            </div>
+             
+                
+               
+        </div>
+       
+        <div id="bottom">
+          
+           <b:row>
+               
+            <b:label severity="primary" text="Powered by  Fénix Innovation 2017" large-screen="full-width" style="font-size: 1.2em;" />
+
+        </b:row>
+        <b:progressBar value="100" animated="true" renderCaption="false"  />
+        </div>
+
+    </h:body>
+
+</html>

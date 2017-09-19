@@ -8,6 +8,7 @@
     <h:head>
         <title>Novo Professor</title>
         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
+        <h:outputStylesheet library="css" name="ui_componentes.css"/>
     </h:head>
     <h:body>
         <b:panel title="Novo Professor" collapsible="false" look="primary">
@@ -45,19 +46,19 @@
                             <p:inputText id="distrito" value="#{professorMBean.professor.distritoUrbanoProfessor}" size="40"/>
 
                             
-                                <h:outputLabel value="Provincia:" />
-                                <h:selectOneMenu id="provincias" value="#{professorMBean.provincia}" converter="provinciaConverter">
+                                <p:outputLabel value="Provincia:" />
+                                <p:selectOneMenu id="provincias" value="#{professorMBean.provincia}" converter="provinciaConverter" style="width:200px">
                                     <f:selectItem itemValue="#{null}" itemLabel="-- Selecione --" noSelectionOption="true"  />
                                     <f:selectItems value="#{professorMBean.provincias}" var="provincia" 
                                                    itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}"/>
                                     <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
-                                </h:selectOneMenu>
-                                <h:outputLabel value="Municipio:" />
-                                <h:selectOneMenu id="municipios" value="#{professorMBean.municipio}" converter="municipioConverter">
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Municipio:" />
+                                <p:selectOneMenu id="municipios" value="#{professorMBean.municipio}" converter="municipioConverter" style="width:200px">
                                     <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
                                     <f:selectItems value="#{professorMBean.municipios}" var="municipio" 
                                                    itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
-                                </h:selectOneMenu>
+                                </p:selectOneMenu>
 
 
 
