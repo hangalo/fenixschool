@@ -63,6 +63,8 @@ public class FuncionarioMBean implements Serializable {
    
     private Provincia provincia;
     private Departamento departamento;
+    private List<Funcionario> findBydataNascimento;
+    
 
     public FuncionarioMBean() {
     }
@@ -76,6 +78,7 @@ public class FuncionarioMBean implements Serializable {
         provinciaDAO = new ProvinciaDAO();
         municipio = new Municipio();
         municipioDAO = new MunicipioDAO();
+        findBydataNascimento = new ArrayList<>();
         provincias = new ArrayList<>();
         provincias = provinciaDAO.findAll();
     }
@@ -157,6 +160,16 @@ public class FuncionarioMBean implements Serializable {
         return funcionarios;
     }
 
+    public List<Funcionario> getFindBydataNascimento() {
+        findBydataNascimento = funcionarioDAO.findByDataNascimento((java.sql.Date) dataDeNascimento);
+       
+        return findBydataNascimento;
+    }
+
+    public void setFindBydataNascimento(List<Funcionario> findBydataNascimento) {
+        this.findBydataNascimento = findBydataNascimento;
+    }
+
     public void fileUpload(FileUploadEvent event) {
         try {
 
@@ -201,6 +214,8 @@ public class FuncionarioMBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
 
         }
+        
+       
 
     }
 
@@ -255,11 +270,7 @@ public class FuncionarioMBean implements Serializable {
         return null;
     }
     
-    public Funcionario getByDataNascimento(){
     
-      funcionario = funcionarioDAO.findByDataNascimento(dataDeNascimento);
-        return funcionario;
-    }
             
 
     public static String getPathPastaAplicacaoJSF() {

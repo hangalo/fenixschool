@@ -18,10 +18,10 @@
                          <h:messages/>
                          <p:panel header="Pesquisar Funcionario por Nome e Sobrenome">
                              <h:panelGrid columns="6"  cellspacing="10%">
-                                <h:outputLabel value="Sobrenome: " style="margin-right: 10px"/>
-                                <h:inputText id="cognome" value="#{funcionarioMBean.sobrenome}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
-                                <h:outputLabel value="Nome: " style="margin-right: 10px"/>
-                                <h:inputText id="nome" value="#{funcionarioMBean.nome}" />
+                                <p:outputLabel value="Sobrenome: " style="margin-right: 10px"/>
+                                <p:inputText id="cognome" value="#{funcionarioMBean.sobrenome}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
+                                <p:outputLabel value="Nome: " style="margin-right: 10px"/>
+                                <p:inputText id="nome" value="#{funcionarioMBean.nome}" />
                             <h:message for="nome"/>
                             
                             <b:commandButton value="Pesquisar..." look="primary"/>
@@ -103,10 +103,10 @@
                                 <h:panelGrid columns="2" >
                                   
                                
-                                <h:outputLabel value="Nome:" />
-                                <h:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
-                                <h:outputLabel  value="Sobrenome"/>
-                                <h:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
+                                <p:outputLabel value="Nome:" />
+                                <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
+                                <p:outputLabel  value="Sobrenome"/>
+                                <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
                                 <p:outputLabel value="Data da Nacimento:"/>
                                 <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
                                 <p:outputLabel value="Sexo:"/>

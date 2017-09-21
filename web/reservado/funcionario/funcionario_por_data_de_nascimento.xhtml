@@ -20,7 +20,7 @@
                          <p:panel header="Pesquisar Funcionario por data de nascimento">
                              <h:panelGrid columns="6"  cellspacing="10%">
                                 <h:outputLabel value="Data de nascimento: " style="margin-right: 10px"/>
-                                <p:calendar id="cogdatanascimento"  locale="pt" value="#{funcionarioMBean.dataDeNascimento}" pattern="dd/MM/yyyy"  immediate="true" />
+                                <p:calendar   locale="pt" value="" pattern="dd/MM/yyyy"  immediate="true" />
                                
                                 
                             <h:message for="data"/>
@@ -33,7 +33,7 @@
                     <!--Inicio Data table-->
                     
                     <h1>Dados do Funcionário</h1>
-                    <p:dataTable  value="#{funcionarioMBean.byDataNascimento}" var="funcionario" rows="10" >
+                    <p:dataTable  value="" var="funcionario" rows="10" >
                              <p:column style="width: 40px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código:"/>

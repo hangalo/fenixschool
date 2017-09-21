@@ -16,7 +16,7 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
-                    <b:panel title="Lista - Professores" collapsible="false" look="primary">
+                    <b:panel title="Lista - funcionarios" collapsible="false" look="primary">
                         <h:form>
                             <h1>Lista dos funcionários</h1>
 
@@ -98,10 +98,10 @@
                                     <h:panelGrid columns="2" >
 
 
-                                        <h:outputLabel value="Nome:" />
-                                        <h:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
-                                        <h:outputLabel  value="Sobrenome"/>
-                                        <h:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
+                                        <p:outputLabel value="Nome:" />
+                                        <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
+                                        <p:outputLabel  value="Sobrenome"/>
+                                        <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
                                         <p:outputLabel value="Data da Nacimento:"/>
                                         <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
                                         <p:outputLabel value="Sexo:"/>
@@ -126,18 +126,16 @@
                                         <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
 
                                         <h:outputLabel value="Provincia:" />
-                                        <h:selectOneMenu id="provincias" value="#{funcionarioMBean.provincia}" converter="provinciaConverter">
-                                            <f:selectItem itemValue="#{null}" itemLabel="-- Selecione a provincia--" noSelectionOption="true"  />
-                                            <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" 
-                                                           itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
-                                            <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios" />
-                                        </h:selectOneMenu>
+                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{funcionarioMBean.provincia}" required="true" converter="provinciaConverter" style="width:200px">
+                                            <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                            <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                        </p:selectOneMenu>
                                         <h:outputLabel value="Municipio:" />
-                                        <h:selectOneMenu id="municipios" value="#{funcionarioMBean.municipio}" converter="municipioConverter">
-                                            <f:selectItem itemValue="#{null}" itemLabel="-- seleccione o municipio --" noSelectionOption="true" />
-                                            <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" 
-                                                           itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
-                                        </h:selectOneMenu>
+                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{funcionarioMBean.funcionario.municipio}" required="true" converter="municipioConverter" style="width:200px">
+                                            <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                        </p:selectOneMenu>
 
 
                                     </h:panelGrid>
@@ -179,14 +177,14 @@
                                 <p:tab title="Dados Pessoais">
 
                                     <p:growl id="messages" showDetail="true"/>
-                                    <h:messages  for="dropmunicipio"  showDetail="true"/>
+                                    <p:messages  for="dropmunicipio"  showDetail="true"/>
                                     <h:panelGrid columns="2" >
 
 
-                                        <h:outputLabel value="Nome:" />
-                                        <h:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
-                                        <h:outputLabel  value="Sobrenome"/>
-                                        <h:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
+                                        <p:outputLabel value="Nome:" />
+                                        <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
+                                        <p:outputLabel  value="Sobrenome"/>
+                                        <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
                                         <p:outputLabel value="Data da Nacimento:"/>
                                         <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
                                         <p:outputLabel value="Sexo:"/>
@@ -209,20 +207,17 @@
                                         <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
                                         <p:outputLabel value="Distrito:"/>
                                         <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
-                                        <h:outputLabel value="Provincia:" />
-                                        <h:selectOneMenu id="provincias" value="#{funcionarioMBean.provincia}" converter="provinciaConverter">
-                                            <f:selectItem itemValue="#{null}" itemLabel="-- Selecione a provincia--" noSelectionOption="true"  />
-                                            <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" 
-                                                           itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}" />
-                                            <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios" />
-                                        </h:selectOneMenu>
+                                       <h:outputLabel value="Provincia:" />
+                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{funcionarioMBean.provincia}" required="true" converter="provinciaConverter" style="width:200px">
+                                            <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                            <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                        </p:selectOneMenu>
                                         <h:outputLabel value="Municipio:" />
-                                        <h:selectOneMenu id="municipios" value="#{funcionarioMBean.municipio}" converter="municipioConverter">
-                                            <f:selectItem itemValue="#{null}" itemLabel="-- seleccione o municipio --" noSelectionOption="true" />
-                                            <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" 
-                                                           itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
-                                        </h:selectOneMenu>
-
+                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{funcionarioMBean.funcionario.municipio}" required="true" converter="municipioConverter" style="width:200px">
+                                            <f:selectItem itemLabel="-Seleccione -" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                        </p:selectOneMenu>
 
                                     </h:panelGrid>
                                 </p:tab>

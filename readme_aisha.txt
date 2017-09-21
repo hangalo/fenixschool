@@ -1,3 +1,8 @@
+Tarefa 3
+ ainda não concluida pesquisar por data de nascimento.
+Alterações feitas no DAO do funcionario , e alterações estecticas.
+
+
 --tarefa 1 Concluida sem erros.
   Funcionário 100% funcional. 
 

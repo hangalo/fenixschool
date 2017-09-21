@@ -29,12 +29,18 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
     private static final String SELECT_BY_NOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE nome_funcionario = ?";
     private static final String SELECT_BY_SOBRENOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario, m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE sobrenome_funcionario = ?";
     private static final String SELECT_BY_NOME_E_SOBRENOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE nome_funcionario = ? AND sobrenome_funcionario= ?";
-   
+
     private static final String BUSCAR_POR_CODIGO = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio WHERE f.id_funcionario = ?";
     private static final String BUSCAR_POR_DATA_NASCIMENTO = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio WHERE f.data_nascimento = ?";
 
     private static final String LISTAR_TUDO = "SELECT f.id_funcionario,f.nome_funcionario,f.sobrenome_funcionario,f.data_nascimento, f.sexo, f.casa_funcionario,f.bairro_funcionario,f.distrito_funcionario,m.nome_municipio,f.foto_funcionario,f.url_foto_funcionario,f.telefone_fixo,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio";
 
+    /**
+     *
+     * @param funcionario
+     * @return
+     */
+    @Override
     public boolean save(Funcionario funcionario) {
         PreparedStatement ps = null;
         Connection conn = null;
@@ -54,7 +60,7 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
             ps.setString(6, funcionario.getBairroFuncionario());
 
             ps.setString(7, funcionario.getDistritoFuncionario());
-            ps.setInt(8, funcionario.getMunicipio().getProvinciaMunicipio().getIdProvincia());
+            ps.setInt(8, funcionario.getMunicipio().getIdMunicipio());
             ps.setBytes(9, funcionario.getFotoFuncionario());
             ps.setString(10, funcionario.getUrlfotoFuncionario());
 
@@ -67,8 +73,8 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
                 flagControlo = true;
             }
             return flagControlo;
-        } catch (SQLException ex) {
-            System.out.println("Erro ao inserir dados: " + ex.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir dados: " + e.getMessage());
             return false;
         } finally {
             Conexao.closeConnection(conn, ps);
@@ -95,15 +101,14 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
             ps.setString(5, funcionario.getBairroFuncionario());
             ps.setString(6, funcionario.getCasaFuncionario());
             ps.setString(7, funcionario.getDistritoFuncionario());
-            ps.setInt(8, funcionario.getMunicipio().getProvinciaMunicipio().getIdProvincia());
+            
+            ps.setInt(8, funcionario.getMunicipio().getIdMunicipio());
             ps.setString(9, funcionario.getUrlfotoFuncionario());
             ps.setBytes(10, funcionario.getFotoFuncionario());
             ps.setString(11, funcionario.getTelefoneFixoFuncionario());
             ps.setString(12, funcionario.getTelefoneMovelFuncionario());
             ps.setString(13, funcionario.getEmailFuncionario());
             ps.setInt(14, funcionario.getIdFuncionario());
-            
-            
 
             int retorno = ps.executeUpdate();
 
@@ -204,11 +209,12 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
         }
         return funcionarios;
     }
+
     public Funcionario findByNome(String nome) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-       Funcionario funcionario = new Funcionario();
+        Funcionario funcionario = new Funcionario();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_NOME);
@@ -225,11 +231,12 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
         }
         return funcionario;
     }
+
     public Funcionario findBySobrenome(String sobrenome) {
-                 PreparedStatement ps = null;
+        PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-       Funcionario funcionario = new Funcionario();
+        Funcionario funcionario = new Funcionario();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_SOBRENOME);
@@ -247,8 +254,8 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
         return funcionario;
 
     }
-    
-     public Funcionario findByNomeSobrenome(String nome, String sobrenome) {
+
+    public Funcionario findByNomeSobrenome(String nome, String sobrenome) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -270,37 +277,40 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
         }
         return funcionario;
     }
-     public Funcionario findByDataNascimento(Date data) {
+
+    public List<Funcionario> findByDataNascimento(Date data) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-        Funcionario funcionario = new Funcionario();
+        List<Funcionario> funcionarios = new ArrayList();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(BUSCAR_POR_DATA_NASCIMENTO);
-           ps.setDate(1, (java.sql.Date) data);
+
+            ps.setDate(1, new java.sql.Date(data.getTime()));
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("Não foi encontrado nenhum registo com essa data de nascimento: " + data);
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario();
+                popularComDados(funcionario, rs);
+                funcionarios.add(funcionario);
             }
-            popularComDados(funcionario, rs);
         } catch (SQLException ex) {
             System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-        return funcionario;
+        return funcionarios;
     }
 
     @Override
     public void popularComDados(Funcionario funcionario, ResultSet rs) {
-         try {
+        try {
             funcionario.setIdFuncionario(rs.getInt("id_funcionario"));
-           
+
             funcionario.setNomeFuncionario(rs.getString("nome_funcionario"));
             funcionario.setSobrenomeFuncionario(rs.getString("sobrenome_funcionario"));
             funcionario.setDataNascimentoFuncionario(rs.getDate("data_nascimento"));
- 
+
             funcionario.setSexo(Sexo.getAbreviatura(rs.getString("sexo")));
 
             funcionario.setCasaFuncionario(rs.getString("casa_funcionario"));
@@ -314,16 +324,13 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
 
             funcionario.setFotoFuncionario(rs.getBytes("foto_funcionario"));
             funcionario.setTelefoneFixoFuncionario(rs.getString("telefone_fixo"));
-           funcionario.setTelefoneMovelFuncionario(rs.getString("telefone_movel"));
+            funcionario.setTelefoneMovelFuncionario(rs.getString("telefone_movel"));
             funcionario.setEmailFuncionario(rs.getString("email_funcionario"));
 
-            
         } catch (SQLException ex) {
-              System.err.println("Erro ao carregar dados do funcionário: " + ex.getLocalizedMessage());
+            System.err.println("Erro ao carregar dados do funcionário: " + ex.getLocalizedMessage());
         }
-       
-    }
 
-    
+    }
 
 }
