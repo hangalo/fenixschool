@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-       
+
     </h:head>
     <h:body>
 
@@ -16,7 +16,7 @@
 
             <p:menubar>
                 <p:submenu label="Administração" icon="ui-icon-document">
-                     <p:menuitem value="Antigo Menu" url="/reservado/01menuantigo/antigo_menu_padrao.jsf" />
+                   
                     <p:submenu label="Escola" icon="ui-icon-contact">
                         <p:menuitem value="Dados" url="/reservado/instituicao/instituicao_listar.jsf"/>
                         <p:menuitem value="Other" url="#" />
@@ -35,8 +35,8 @@
                     <p:menuitem value="Grades Curriculares" url="#" icon="ui-icon-arrowreturnthick-1-e" />
                     <p:menuitem value="Criterios de avaliação" url="#" icon="ui-icon-arrowreturnthick-1-e" />
                 </p:submenu>
-               
-                
+
+
 
                 <p:submenu label="Funcionarios" icon="ui-icon-home ">
                     <p:menuitem value="Novo Professor"  url="/reservado/professor/professor_novo.jsf"/>
@@ -44,16 +44,18 @@
                         <p:menuitem value="Nome" url="/reservado/professor/professor_por_nome_sobrenome.jsf"/>
                         <p:menuitem value="Nº do BI"  url="/reservado/professor/professor_por_numero_bi.jsf"/>
                         <p:menuitem value="Listagem Geral" url="/reservado/professor/professor_gestao.jsf" />
+
+                        <p:submenu label="Colocação" icon="ui-icon-search">
+                            <p:menuitem value="Docência" url="/reservado/professor/docencia_gestao.jsf"/>
+                            <p:menuitem value="Departamentos" url="/reservado/professor/colocacao_gestao.jsf"/>
+
+                        </p:submenu>
+
                     </p:submenu>
 
-                    <p:submenu label="Colocação" icon="ui-icon-search">
-                        <p:menuitem value="Docência" url="/reservado/professor/docencia_gestao.jsf"/>
-                        <p:menuitem value="Departamentos" url="/reservado/professor/colocacao_gestao.jsf"/>
 
-                    </p:submenu>
 
-                    
-                     <p:submenu label="Funcionarios:" icon="ui-icon-search">
+                    <p:submenu label="Funcionarios:" icon="ui-icon-search">
                         <p:menuitem value="Nome" url="/reservado/professor/professor_por_nome_sobrenome.jsf"/>
                         <p:menuitem value="Nº do BI"  url="/reservado/professor/professor_por_numero_bi.jsf"/>
                         <p:menuitem value="Listagem Geral" url="/reservado/professor/professor_gestao.jsf" />
@@ -62,7 +64,7 @@
                 </p:submenu>
 
 
-                <p:submenu label="Alunos" icon="ui-icon-home ">
+                <p:submenu label="Inscrições" icon="ui-icon-home ">
                     <p:menuitem value="Novo Aluno"  url="/reservado/aluno/aluno_novo.jsf" />
                     <p:submenu label="Pesquisa por:" icon="ui-icon-search">
                         <p:menuitem value="N.º de Aluno" url="#"/>
@@ -71,21 +73,23 @@
                         <p:menuitem value="data de nascimento" url="#"/>
                         <p:menuitem value="Listagem Geral" url="/reservado/aluno/aluno_listar.jsf" />
                     </p:submenu>
-                       <p:menuitem value="Matricula" url="#" />
-                     <p:menuitem value="Transferencias" url="#" />
-                </p:submenu>
 
+                    <p:submenu label="Canditados:" icon="ui-icon-search">
+                        <p:menuitem value="Novo" url="/reservado/candidato/candidato_novo.jsf" ajax="false" icon="ui-icon-search" />
+                        <p:menuitem value="Candidatos" url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
+                        <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                            <p:menuitem value="N.º de Aluno" url="/reservado/candidato/candidato_por_numero.jsf"/>
+                            <p:menuitem value="Nome" url="/reservado/candidato/candidato_por_nome_sobrenome.jsf"/>
+                            <p:menuitem value="Sexo" url="/reservado/candidato/candidato_por_sexo.jsf"/>
+                            <p:menuitem value="data de nascimento"  url="/reservado/candidato/candidato_por_data_nascimento.jsf"/>
+                            <p:menuitem value="Listagem Geral"  url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
+                        </p:submenu>
 
-                <p:submenu label="Candidaturas" icon="ui-icon-home ">
-                    <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo.jsf"/>
-                    <p:submenu label="Pesquisa por:" icon="ui-icon-search">
-                        <p:menuitem value="N.º de Aluno" url="/reservado/candidato/candidato_por_numero.jsf"/>
-                        <p:menuitem value="Nome" url="/reservado/candidato/candidato_por_nome_sobrenome.jsf"/>
-                        <p:menuitem value="Sexo" url="/reservado/candidato/candidato_por_sexo.jsf"/>
-                        <p:menuitem value="data de nascimento"  url="/reservado/candidato/candidato_por_data_nascimento.jsf"/>
-                        <p:menuitem value="Listagem Geral"  url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
                     </p:submenu>
+
                 </p:submenu>
+
+
 
 
 
@@ -94,18 +98,100 @@
                     <p:submenu label="Emissão de documentos">
                         <p:menuitem value="Locais"  url="/reservado/localemissaodocumento/localemissaodocumento_gestao.jsf" ajax="false" icon="ui-icon-search" />
                     </p:submenu>
-
+                    <p:submenu label="Ano Levito">
+                        <p:menuitem icon="ui-icon-search" value="Ano curricular" url="/reservado/anocurricular/anocurricular_listar.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Ano lectivo" url="/reservado/anolectivo/anolectivo_listar.jsf" />
+                    </p:submenu>
                     <p:submenu label="Periodo lectivo:">
-
                         <p:menuitem value="Periodos Lectivos"  url="/reservado/periodolectivo/periodolectivo_gestao.jsf" ajax="false" icon="ui-icon-search" />
                         <p:menuitem value="Novo"  url="/reservado/periodolectivo/periodolectivo_novo.jsf" ajax="false" icon="ui-icon-search" />
                     </p:submenu>
+                    
+                    <p:submenu label="Administração">
+                                <p:menuitem value="Departamentos" url="/reservado/departamento/departamento_listar.jsf" ajax="false" icon="ui-icon-search" />
+                                <p:menuitem value="Profissões" url="/reservado/profissao/profissao_listar.jsf" ajax="false" icon="ui-icon-search" />
+
+                                <p:menuitem value="Cursos" url="/reservado/curso/curso_listar.jsf" ajax="false" icon="ui-icon-search" />
+                            </p:submenu>
+                            <p:submenu label="Instituição">
+
+                                <p:menuitem  value="Instituição" url="/reservado/instituicao/instituicao_listar.jsf" />
+                                <p:menuitem value="Proprinas.2.3" url="#" />
+                            </p:submenu>
+
+
+                            <p:submenu label="Localizacao">
+
+                                <p:menuitem  value="Municipios" url="/reservado/municipio/municipios.jsf" />
+
+                            </p:submenu>
+
+
+                            <p:submenu label="Lectivo">
+
+                                <p:menuitem icon="ui-icon-search" value="Ciclo Lectivo" url="/reservado/ciclolectivo/ciclolectivo_listar.jsf" />
+
+                            </p:submenu>
+
+
+                            <p:submenu label="Vários">
+
+                                <p:menuitem icon="ui-icon-search" value="Tipo Documento Identidade" url="/reservado/tipo_documento_identidade/tipo_documento_identidade_listar.jsf" />
+
+                            </p:submenu>
+
+
+
+                            <p:submenu label="Disciplina">
+
+                                <p:menuitem icon="ui-icon-plus" value="Nova Disciplina " url="/reservado/disciplina/disciplina_novo.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Disciplinas" url="/reservado/disciplina/disciplina_listar.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Tipo Disciplina" url="/reservado/tipo_disciplina/tipo_disciplina_listar.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Tipo Documento Identidade" url="/reservado/tipo_documento_identidade/tipo_documento_identidade_listar.jsf" />
+
+                            </p:submenu>
+
 
                 </p:submenu>
 
 
-
+                <p:submenu label="Area academica" icon="ui-icon-home ">
+                    <p:submenu label="Encarregado">
+                        <p:menuitem value="Novo Encarregado" url="/reservado/encarregado/encarregado_educacao_novo.jsf" />
+                        <p:menuitem value="Encarregados" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                    </p:submenu>
+                </p:submenu>
                 
+                 <p:submenu label="Gestao de Notas" icon="ui-icon-home ">
+                    <p:submenu label="Notas">
+
+
+                                <p:menuitem icon="ui-icon-plus" value="Novas notas" url="/reservado/nota/nota_novo.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Notas" url="/reservado/nota/nota_listar.jsf" />
+                                <p:menuitem icon="ui-icon-plus" value="Novo boletim" url="/reservado/boletimnotas/boletimnotas_novo.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Boletim de notas" url="/reservado/boletimnotas/boletimnotas_listar.jsf" />
+
+                                <p:menuitem icon="ui-icon-search" value="Class. Notas" url="/reservado/classificacao_nota/classificacao_nota_listar.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Declaração" url="/reservado/declaracao/declaracao_listar.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Obj. Declaração" url="/reservado/objetivo_declaracao/objetivo_declaracao_listar.jsf" />
+
+                            </p:submenu>
+
+                            <p:submenu label="Certificados e Declaracoes">
+                                <p:menuitem icon="ui-icon-search" value="Declaração" url="/reservado/declaracao/declaracao_listar.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Obj. Declaração" url="/reservado/objetivo_declaracao/objetivo_declaracao_listar.jsf" />
+                                <p:menuitem icon="ui-icon-search" value="Certificado" url="/reservado/certificado/certificado_listar.jsf" />
+
+
+                            </p:submenu>
+
+
+
+
+
+
+                </p:submenu>
+
                 <p:submenu label="Relatorios" icon="ui-icon-home ">
                     <p:menuitem value="Novo Aluno" url="reservado/aluno/aluno_novo.jsf" />
                     <p:submenu label="Pesquisa por:" icon="ui-icon-search">
@@ -115,93 +201,93 @@
                         <p:menuitem value="data de nascimento" url="#"/>
                         <p:menuitem value="Listagem Geral" url="/reservado/aluno/aluno_listar.jsf" />
                     </p:submenu>
-                       <p:menuitem value="Matricula" url="#" />
-                     <p:menuitem value="Transferencias" url="#" />
-                </p:submenu>
-                
-                
-                
-                 <p:submenu label="Ajuda" icon="ui-icon-home ">
-                    <p:menuitem value="Guida do usuario" url="/reservado/sistema/ajuda.jsf" />
-                   
-                     <p:menuitem value="Sobre..." url="/reservado/sistema/ajuda.jsf" />
+                    <p:menuitem value="Matricula" url="#" />
+                    <p:menuitem value="Transferencias" url="#" />
                 </p:submenu>
 
-                
-                 <p:submenu label="Tarefas actuias" icon="ui-icon-document">
+
+
+                <p:submenu label="Ajuda" icon="ui-icon-home ">
+                    <p:menuitem value="Guida do usuario" url="/reservado/sistema/ajuda.jsf" />
+
+                    <p:menuitem value="Sobre..." url="/reservado/sistema/ajuda.jsf" />
+                </p:submenu>
+
+
+                <p:submenu label="Tarefas actuias" icon="ui-icon-document">
                     <p:submenu label="Elisio" icon="ui-icon-contact">
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
                     </p:submenu>
 
                     <p:separator />
-                    
+
                     <p:submenu label="Pena" icon="ui-icon-contact">
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
-                    </p:submenu>
-                      <p:separator />
-                     <p:submenu label="Aisha" icon="ui-icon-contact">
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
-                    </p:submenu>
-                      <p:separator />
-                     <p:submenu label="Paulo" icon="ui-icon-contact">
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
                     </p:submenu>
-                      <p:separator />
-                     <p:submenu label="Deu" icon="ui-icon-contact">
+                    <p:separator />
+                    <p:submenu label="Aisha" icon="ui-icon-contact">
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu2" url="#" />
+                    </p:submenu>
+                    <p:separator />
+                    <p:submenu label="Paulo" icon="ui-icon-contact">
+                        <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu2" url="#" />
+                        <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu2" url="#" />
+                        <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu2" url="#" />
+                    </p:submenu>
+                    <p:separator />
+                    <p:submenu label="Deu" icon="ui-icon-contact">
+                        <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu2" url="#" />
+                        <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu2" url="#" />
+                        <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
                     </p:submenu>      
 
                     <p:separator />
-                    
-                     <p:submenu label="Santos" icon="ui-icon-contact">
+
+                    <p:submenu label="Santos" icon="ui-icon-contact">
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
                     </p:submenu>      
 
                     <p:separator />
-                    
-                     
-                     <p:submenu label="JU" icon="ui-icon-contact">
+
+
+                    <p:submenu label="JU" icon="ui-icon-contact">
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
-                         <p:menuitem value="Menu1" url="#"/>
+                        <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
                     </p:submenu>      
 
                     <p:separator />
                 </p:submenu>
-             
+
             </p:menubar>
         </h:form>
 
