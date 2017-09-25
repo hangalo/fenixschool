@@ -559,7 +559,7 @@
                     <p:dialog header="Dados do Professor: #{professorMBean.professor.nomeProfessor} #{professorMBean.professor.sobrenomeProfessor}" id="ver" widgetVar="dlgVer" showEffect="explode" hideEffect="bounce"  height="500" width="900">
                         <h:form id="formVer">
                                     <p:accordionPanel>
-                                <p:tab title="Identificação do professor">
+                                <p:tab title="Identificação:">
                                      <h:panelGrid columns="2" >
                                         <p:outputLabel value="Nome"/>
                                         <p:outputLabel id="nome" value="#{professorMBean.professor.nomeProfessor}"/>
@@ -573,17 +573,17 @@
                                         <p:outputLabel id="sexo" value="#{professorMBean.professor.sexo}"/>
 
                                         <p:outputLabel value="Foto:"/>
-                                        <h:graphicImage value="/professorVisualizarFotoServlet?file=#{professorMBean.professor.urlFotoProfessor}" alt="foto" width="100" height="100" style="border: solid #CC0000"/>
+                                        <h:graphicImage value="/professorVisualizarFotoServlet?file=#{professorMBean.professor.urlFotoProfessor}" alt="foto" width="200" height="200" style="border: solid #CCFFDD"/>
                                     </h:panelGrid>
                                     
                                     
                                     
                                 </p:tab>
-                                <p:tab title="Documentos">
+                                <p:tab title="Documentos:">
                                      <h:panelGrid columns="2" >
                                         <p:outputLabel value="N.o BI"/>
                                         <p:outputLabel value="#{professorMBean.professor.numeroBIProfessor}"/>
-                                        <p:outputLabel value="N.º Passaport"/>
+                                        <p:outputLabel value="Passaporte:"/>
                                         <p:outputLabel value="#{professorMBean.professor.numeroPassaporteProfessor}" />
                                         <p:outputLabel value="NIF"/>
                                         <p:outputLabel value="#{professorMBean.professor.nifProfessor}"/>
@@ -595,7 +595,7 @@
                                     
                                 </p:tab>
                                         
-                                <p:tab title="Endereço">
+                                <p:tab title="Endereço:">
                                      <h:panelGrid columns="2" >
                                         <p:outputLabel value="N.º Casa"/>
                                         <p:outputLabel id="casa" value="#{professorMBean.professor.casaProfessor}" />
@@ -610,7 +610,7 @@
                                     </h:panelGrid>
                                 </p:tab>
                                         
-                                 <p:tab title="Telefene/Email">
+                                 <p:tab title="Telefene/Email:">
                                       <h:panelGrid columns="2" >
                                         <p:outputLabel value="Movel principal"/>
                                         <p:outputLabel id="telemovelPrincipal" value="#{professorMBean.professor.telemovelPrincipalProfessor}" />
@@ -628,7 +628,7 @@
 
                                     </h:panelGrid>
                                 </p:tab>        
-                                 <p:tab title="Dados de acesso">
+                                 <p:tab title="Dados de acesso:">
                                      <h:panelGrid columns="2">
                                      <p:outputLabel value="Nome de usuário:"/>
                                      <p:outputLabel value="#{professorMBean.professor.loginProfessor}" />
