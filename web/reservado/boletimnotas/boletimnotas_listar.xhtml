@@ -62,7 +62,7 @@
                 <!--Formulario para auxiliar-->
                 <h:form id="Operacoes">
                     <p:commandButton  icon="ui-icon-plus" value="Novo" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
-                    <p:commandLink value="Voltar" action="index"/>
+                    <p:commandButton value="Fechar" action="/index" immediate="true" icon="ui-icon-close" ajax="false"/>
                 </h:form>
                 <!-- fim do Formluario para auxiliar-->
 
@@ -72,12 +72,12 @@
                     <p:dialog id="guardar" widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind">
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Aluno:"/>
-                            <p:selectOneMenu  value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter" filter="true" filterMatchMode="startsWith">
+                            <p:selectOneMenu  style="width: 250px;"  value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter" filter="true" filterMatchMode="startsWith">
                                 <f:selectItem itemLabel="--Selecione o aluno--" value="#{null}" noSelectionOption="true"/>
                                 <f:selectItems value="#{boletimNotasMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Data:"/>
-                            <p:calendar value="#{boletimNotasMBean.boletimNota.dataBoletimNotas}" pattern="dd/MM/yyyy" size="10" locale="pt"/>
+                            <p:calendar  value="#{boletimNotasMBean.boletimNota.dataBoletimNotas}" pattern="dd/MM/yyyy" size="24" locale="pt"/>
                         </h:panelGrid>
                         <p:commandButton icon="ui-icon-disk" value="Guardar" actionListener="#{boletimNotasMBean.guardar(event)}"/>
                     </p:dialog>
@@ -90,12 +90,12 @@
                         <h:inputHidden value="#{boletimNotasMBean.boletimNota.idBoletimNotas}"/>
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Aluno:"/>
-                            <p:selectOneMenu  value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter" filter="true" filterMatchMode="startsWith">
+                            <p:selectOneMenu  style="width: 250px;" value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter" filter="true" filterMatchMode="startsWith">
                                 <f:selectItem itemLabel="--Selecione o aluno--" value="#{null}" noSelectionOption="true"/>
                                 <f:selectItems value="#{boletimNotasMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Data:"/>
-                            <p:calendar value="#{boletimNotasMBean.boletimNota.dataBoletimNotas}" pattern="dd/MM/yyyy" size="10" locale="pt"/>
+                            <p:calendar  value="#{boletimNotasMBean.boletimNota.dataBoletimNotas}" pattern="dd/MM/yyyy" size="24" locale="pt"/>
                         </h:panelGrid>
                         <p:commandButton value="Actualizar" icon="ui-icon-pencil" action="#{boletimNotasMBean.edit(event)}"/>
                     </p:dialog>

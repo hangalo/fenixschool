@@ -13,15 +13,14 @@
             <ui:define name="content">
                 <p:panel header="Novo Encarregado de Educação" footer="registo de encarregados de educação">
                     <h:form id="frmGuardar" enctype="multipart/form-data">
-                        <p:tabView>
-
+                        <p:tabView  style="height: 280px;">
                             <p:tab title="Dados Pessoais">
                                 <p:growl showDetail="true" id="messages"/>
                                 <h:panelGrid columns="2">
                                     <p:outputLabel value="Nome:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.nomeEncarregado}"/>
+                                    <p:inputText style="width: 351px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.nomeEncarregado}"/>
                                     <p:outputLabel value="Sobrenome:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenomeEncarregado}" />
+                                    <p:inputText style="width: 351px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenomeEncarregado}" />
                                     <p:outputLabel value="Sexo:"/>
                                     <p:selectOneRadio value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo}">
                                         <f:selectItems  value="#{encarregadoEducacaoMBean.opSexos}"/>
@@ -30,7 +29,7 @@
                                     <p:fileUpload fileUploadListener="#{encarregadoEducacaoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                                     <p:outputLabel value="Profissão:"/>
                                     <!--SelectOneMenu Profissao-->
-                                    <p:selectOneMenu style="width: 230px;" label="Profissão:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.profissao}" converter="profissaoConverter">
+                                    <p:selectOneMenu style="width: 351px;" label="Profissão:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.profissao}" converter="profissaoConverter">
                                         <f:selectItem itemLabel="--Seleccione a profissão--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems var="profissao" value="#{encarregadoEducacaoMBean.prossifoes}" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}"/>
                                     </p:selectOneMenu>
@@ -41,22 +40,22 @@
                             <p:tab title="Endereço">
                                 <h:panelGrid columns="2">
                                     <p:outputLabel value="Casa:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.casaEncarregado}"/>
+                                    <p:inputText style="width: 280px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.casaEncarregado}"/>
                                     <p:outputLabel value="Rua:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.ruaEncarregado}"/>
+                                    <p:inputText style="width: 280px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.ruaEncarregado}"/>
                                     <p:outputLabel value="Bairro:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairroEncarregado}"/>
+                                    <p:inputText style="width: 280px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairroEncarregado}"/>
                                     <p:outputLabel value="Distrito urbano:"/>                              
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.distritoUrbanoEncarregado}"/>
+                                    <p:inputText style="width: 280px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.distritoUrbanoEncarregado}"/>
                                     <p:outputLabel value="Província:"/>
                                     <!--SelectOneMenu Municipio-->
-                                    <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{encarregadoEducacaoMBean.provincia}" required="true" converter="provinciaConverter">
+                                    <p:selectOneMenu style="width: 280px;"  id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{encarregadoEducacaoMBean.provincia}" required="true" converter="provinciaConverter">
                                         <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{encarregadoEducacaoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
                                         <f:ajax listener="#{encarregadoEducacaoMBean.carregarMunicipiosDaProvincia()}" render="municipios"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Município:"/>
-                                    <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.municipio}" required="true" converter="municipioConverter">
+                                    <p:selectOneMenu style="width: 280px;"  id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.municipio}" required="true" converter="municipioConverter">
                                         <f:selectItem itemLabel="--Seleccione o município--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{encarregadoEducacaoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
                                     </p:selectOneMenu>
@@ -67,19 +66,21 @@
                             <p:tab title="Telefone/Email">
                                 <h:panelGrid columns="2">
                                     <p:outputLabel  value="Telefone principal:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelPrincipalEncarregado}"/>
+                                    <p:inputText style="width: 300px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelPrincipalEncarregado}"/>
                                     <p:outputLabel value="Telefone altenativo:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelAlternativoEncarregado}"/>
+                                    <p:inputText style="width: 300px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelAlternativoEncarregado}"/>
                                     <p:outputLabel value="Email principal:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailPrincipalEncarregado}"/>
+                                    <p:inputText style="width: 300px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailPrincipalEncarregado}"/>
                                     <p:outputLabel value="Email alternativo:"/>
-                                    <p:inputText style="width: 230px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailAlternativoEncarregado}"/>
+                                    <p:inputText style="width: 300px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailAlternativoEncarregado}"/>
                                 </h:panelGrid>
                             </p:tab>
 
                         </p:tabView>
-                        <p:commandButton value="Guardar" actionListener="#{encarregadoEducacaoMBean.guardar(evt)}" ajax="false"/><br/>
-                        <p:commandButton value="Fechar" action="/index" immediate="true" ajax="false"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Guardar" actionListener="#{encarregadoEducacaoMBean.guardar(evt)}" ajax="false"/>
+                            <p:commandButton value="Fechar" icon="ui-icon-close" action="/index" immediate="true" ajax="false"/>
+                        </h:panelGrid>
                     </h:form>
                 </p:panel>
             </ui:define>

@@ -7,9 +7,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Novo boletim de notas</title>
+        <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
-          <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <p:messages autoUpdate="true" showIcon="true" showDetail="true"/>
@@ -17,14 +18,17 @@
                     <h:form>
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Aluno:"/>
-                            <p:selectOneMenu  value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter">
+                            <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width: 250px;" value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter">
                                 <f:selectItem itemLabel="--Selecione o aluno--" value="#{null}" noSelectionOption="true"/>
                                 <f:selectItems value="#{boletimNotasMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Data:"/>
-                            <p:calendar value="#{boletimNotasMBean.boletimNota.dataBoletimNotas}" pattern="dd/MM/yyyy" size="10"/>
+                            <p:calendar locale="pt" value="#{boletimNotasMBean.boletimNota.dataBoletimNotas}" pattern="dd/MM/yyyy" size="24"/>
                         </h:panelGrid>
-                        <p:commandButton  icon="ui-icon-plus" value="Guardar" actionListener="#{boletimNotasMBean.guardar(event)}" ajax="false"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton  icon="ui-icon-plus" value="Guardar" actionListener="#{boletimNotasMBean.guardar(event)}" ajax="false"/>
+                            <p:commandButton  icon="ui-icon-close" value="Fechar" ajax="false" action="/index" immediate="true"/>
+                        </h:panelGrid>
                     </h:form>
                 </p:panel>
             </ui:define>
