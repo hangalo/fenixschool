@@ -17,6 +17,7 @@
                 <b:panel title="Novo Professor" collapsible="false" look="primary">
                     <h:form  id="frmNovo"  enctype="multipart/form-data">
                         <p:tabView>
+                            
                             <p:tab title="Dados Pessoais">
                                 <p:growl id="messages" showDetail="true"/>
                                 <h:messages showSummary="true" showDetail="true"/>
@@ -106,12 +107,12 @@
 
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
-                                                 <p:outputLabel value="Municipio:" />
-                                        <p:selectOneMenu id="municipios" value="#{professorMBean.municipio}" converter="municipioConverter" style="width:200px">
-                                            <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
-                                            <f:selectItems value="#{professorMBean.municipios}" var="municipio" 
-                                                           itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
-                                        </p:selectOneMenu>
+                                                <p:outputLabel value="Municipio:" />
+                                                <p:selectOneMenu id="municipios" value="#{professorMBean.municipio}" converter="municipioConverter" style="width:200px">
+                                                    <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
+                                                    <f:selectItems value="#{professorMBean.municipios}" var="municipio" 
+                                                                   itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
+                                                </p:selectOneMenu>
                                             </h:panelGrid>
                                         </h:panelGroup>                
 
@@ -122,46 +123,116 @@
 
                                 </p:fieldset>
 
-                            </p:tab>
+                                <p:fieldset legend="Documentos">
+                                    <h:panelGrid columns="4">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="N.o BI"/>
+                                                <p:inputText value="#{professorMBean.professor.numeroBIProfessor}" size="15"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="N.º Passaport"/>
+                                                <p:inputText value="#{professorMBean.professor.numeroPassaporteProfessor}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+
+                                                <p:outputLabel value="NIF"/>
+                                                <p:inputText value="#{professorMBean.professor.nifProfessor}" size="15"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="IBAM"/>
+                                                <p:inputText value="#{professorMBean.professor.IBAMProfessor}" size="30"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                    </h:panelGrid>                         
 
 
-                            <p:tab title="Telefene/Email">
-                                <h:panelGrid columns="2" >
-                                    <p:outputLabel value="Movel principal"/>
-                                    <p:inputText id="telemovelPrincipal" value="#{professorMBean.professor.telemovelPrincipalProfessor}" size="30"/>
-                                    <p:outputLabel value="Movel alternatico"/>
-                                    <p:inputText id="telemovelAlternativo" value="#{professorMBean.professor.telemovelAlternativoProfessor}" size="30"/>
-                                    <p:outputLabel value="Telefone principal"/>
-                                    <p:inputText id="telefonePrincipal" value="#{professorMBean.professor.telefonePrincipalProfessor}" size="30"/>
-                                    <p:outputLabel value="Telefone alternativo"/>
-                                    <p:inputText value="#{professorMBean.professor.telefoneAlternativoProfessor}" size="30"/>
-                                    <p:outputLabel value="Email principal"/>
-                                    <p:inputText value="#{professorMBean.professor.emailPrincipalProfessor}" size="30"/>
-                                    <p:outputLabel value="Email alternativo"/>
+
+                                </p:fieldset>
+
+                                <p:fieldset legend="Contactos">
+                                    <h:panelGrid columns="4">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Movel principal"/>
+                                                <p:inputText id="telemovelPrincipal" value="#{professorMBean.professor.telemovelPrincipalProfessor}" size="15"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Movel alternatico"/>
+                                                <p:inputText id="telemovelAlternativo" value="#{professorMBean.professor.telemovelAlternativoProfessor}" size="15"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone principal"/>
+                                                <p:inputText id="telefonePrincipal" value="#{professorMBean.professor.telefonePrincipalProfessor}" size="15"/>
+
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone alternativo"/>
+                                                <p:inputText value="#{professorMBean.professor.telefoneAlternativoProfessor}" size="15"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Email principal"/>
+                                                <p:inputText value="#{professorMBean.professor.emailPrincipalProfessor}" size="25"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                   <p:outputLabel value="Email alternativo"/>
                                     <p:inputText value="#{professorMBean.professor.emailAlternativoProfessor}" size="30"/>
 
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
 
-                                </h:panelGrid>
+                                </p:fieldset>
+
                             </p:tab>
 
-                            <p:tab title="Outros dados">
-                                <h:panelGrid columns="2" >
-                                    <p:outputLabel value="N.o BI"/>
-                                    <p:inputText value="#{professorMBean.professor.numeroBIProfessor}" size="50"/>
-                                    <p:outputLabel value="N.º Passaport"/>
-                                    <p:inputText value="#{professorMBean.professor.numeroPassaporteProfessor}" size="50"/>
-                                    <p:outputLabel value="NIF"/>
-                                    <p:inputText value="#{professorMBean.professor.nifProfessor}" size="20"/>
-                                    <p:outputLabel value="IBAM"/>
-                                    <p:inputText value="#{professorMBean.professor.IBAMProfessor}" size="30"/>
 
+                         
 
-
+                            <p:tab title="Dados de acesso">
+                                <h:panelGrid columns="1" >
+                                    <p:outputLabel value="Nome de usuário:"/>
+                                    <p:inputText value="#{professorMBean.professor.loginProfessor}"/>
+                                    
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Password:"/>
+                                    <p:password value="#{professorMBean.professor.passwordProfessor}"/>
                                 </h:panelGrid>
                             </p:tab>
 
 
                         </p:tabView>
+                        
                         <h:panelGrid columns="2">
                             <p:commandButton value="Guardar" actionListener="#{professorMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
                             <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />

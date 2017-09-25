@@ -36,14 +36,16 @@ public class Professor implements Serializable{
     private String numeroBIProfessor;
     private String IBAMProfessor;
     private String numeroPassaporteProfessor;
-    private Municipio municipio;      
+    private Municipio municipio; 
+    private String loginProfessor;
+    private String passwordProfessor;
        
     
  
     
     public Professor(){}
 
-    public Professor(int IdProfessor, String nomeProfessor, String sobrenomeProfessor, Date dataNascimentoProfessor, Sexo sexo, String nifProfessor, byte[] fotoProfessor, String urlFotoProfessor, String casaProfessor, String ruaProfessor, String bairroProfessor, String distritoUrbanoProfessor, String telemovelPrincipalProfessor, String telemovelAlternativoProfessor, String telefonePrincipalProfessor, String telefoneAlternativoProfessor, String emailPrincipalProfessor, String emailAlternativoProfessor, String numeroBIProfessor, String IBAMProfessor, String numeroPassaporteProfessor, Municipio municipio) {
+    public Professor(int IdProfessor, String nomeProfessor, String sobrenomeProfessor, Date dataNascimentoProfessor, Sexo sexo, String nifProfessor, byte[] fotoProfessor, String urlFotoProfessor, String casaProfessor, String ruaProfessor, String bairroProfessor, String distritoUrbanoProfessor, String telemovelPrincipalProfessor, String telemovelAlternativoProfessor, String telefonePrincipalProfessor, String telefoneAlternativoProfessor, String emailPrincipalProfessor, String emailAlternativoProfessor, String numeroBIProfessor, String IBAMProfessor, String numeroPassaporteProfessor, Municipio municipio, String loginProfessor, String passwordProfessor) {
         this.IdProfessor = IdProfessor;
         this.nomeProfessor = nomeProfessor;
         this.sobrenomeProfessor = sobrenomeProfessor;
@@ -66,7 +68,11 @@ public class Professor implements Serializable{
         this.IBAMProfessor = IBAMProfessor;
         this.numeroPassaporteProfessor = numeroPassaporteProfessor;
         this.municipio = municipio;
+        this.loginProfessor = loginProfessor;
+        this.passwordProfessor = passwordProfessor;
     }
+
+    
 
    
     public int getIdProfessor() {
@@ -247,6 +253,25 @@ public class Professor implements Serializable{
         this.municipio = municipio;
     }
 
+    public String getLoginProfessor() {
+        return loginProfessor;
+    }
+
+    public void setLoginProfessor(String loginProfessor) {
+        this.loginProfessor = loginProfessor;
+    }
+
+    public String getPasswordProfessor() {
+        return passwordProfessor;
+    }
+
+    public void setPasswordProfessor(String passwordProfessor) {
+        this.passwordProfessor = passwordProfessor;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
