@@ -1,3 +1,14 @@
+>>>>>25/09/2017
+
+Alteração da arrumação dos componentes da pagina Professor passado de formulario horizontais simples para Stacked forms 
+usado a conbinação das tags h:panelGrip e h:panelGroup
+
+Alteração da forma de visualização dos dados das entidades guardadas passando de tabView para accordionPanel
+
+>>>>>>>>>>>>>>>>>>>>>>>FIM >>>>>>>>>>
+
+
+
 
 />>>>>>>>20/09/2017 >>>>>>>>
 
