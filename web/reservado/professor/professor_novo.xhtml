@@ -17,7 +17,7 @@
                 <b:panel title="Novo Professor" collapsible="false" look="primary">
                     <h:form  id="frmNovo"  enctype="multipart/form-data">
                         <p:tabView>
-                            
+
                             <p:tab title="Dados Pessoais">
                                 <p:growl id="messages" showDetail="true"/>
                                 <h:messages showSummary="true" showDetail="true"/>
@@ -51,7 +51,7 @@
                                         <f:selectItems value="#{professorMBean.opSexos}" />
                                     </p:selectOneRadio >
                                     <p:outputLabel value="Foto:"/>
-                                    <p:fileUpload id="foto" fileUploadListener="#{professorMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                                    <p:fileUpload id="foto" fileUploadListener="#{professorMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1073741824" invalidSizeMessage="o tamanho máximo permitido è de 1GB" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                                 </h:panelGrid>
 
                                 <p:fieldset legend="Endereço" style="margin-bottom: 20px">
@@ -95,23 +95,20 @@
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
                                                 <p:outputLabel value="Provincia:" />
-                                                <p:selectOneMenu id="provincias" value="#{professorMBean.provincia}" converter="provinciaConverter" style="width:200px">
-                                                    <f:selectItem itemValue="#{null}" itemLabel="-- Selecione --" noSelectionOption="true"  />
-                                                    <f:selectItems value="#{professorMBean.provincias}" var="provincia" 
-                                                                   itemValue="#{provincia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                                    <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia}" render="municipios" />
+                                                <p:selectOneMenu style="width:200px" id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{professorMBean.provincia}" required="true" converter="provinciaConverter">
+                                                    <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{professorMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                                    <f:ajax listener="#{professorMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
                                                 </p:selectOneMenu>
                                             </h:panelGrid>
                                         </h:panelGroup>
 
-
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
                                                 <p:outputLabel value="Municipio:" />
-                                                <p:selectOneMenu id="municipios" value="#{professorMBean.municipio}" converter="municipioConverter" style="width:200px">
-                                                    <f:selectItem itemValue="#{null}" itemLabel="-- select one --" noSelectionOption="true" />
-                                                    <f:selectItems value="#{professorMBean.municipios}" var="municipio" 
-                                                                   itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}" />
+                                                <p:selectOneMenu style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{professorMBean.professor.municipio}" required="true" converter="municipioConverter">
+                                                    <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{professorMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
                                                 </p:selectOneMenu>
                                             </h:panelGrid>
                                         </h:panelGroup>                
@@ -201,11 +198,11 @@
                                                 <p:inputText value="#{professorMBean.professor.emailPrincipalProfessor}" size="25"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
-                                        
+
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
-                                                   <p:outputLabel value="Email alternativo"/>
-                                    <p:inputText value="#{professorMBean.professor.emailAlternativoProfessor}" size="30"/>
+                                                <p:outputLabel value="Email alternativo"/>
+                                                <p:inputText value="#{professorMBean.professor.emailAlternativoProfessor}" size="30"/>
 
                                             </h:panelGrid>
                                         </h:panelGroup>
@@ -216,13 +213,13 @@
                             </p:tab>
 
 
-                         
+
 
                             <p:tab title="Dados de acesso">
                                 <h:panelGrid columns="1" >
                                     <p:outputLabel value="Nome de usuário:"/>
                                     <p:inputText value="#{professorMBean.professor.loginProfessor}"/>
-                                    
+
                                 </h:panelGrid>
                                 <h:panelGrid columns="1">
                                     <p:outputLabel value="Password:"/>
@@ -232,7 +229,7 @@
 
 
                         </p:tabView>
-                        
+
                         <h:panelGrid columns="2">
                             <p:commandButton value="Guardar" actionListener="#{professorMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
                             <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />

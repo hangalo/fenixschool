@@ -65,6 +65,7 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
             ps.setString(18, professor.getNumeroBIProfessor());
             ps.setString(19, professor.getIBAMProfessor());
             ps.setString(20, professor.getNumeroPassaporteProfessor());
+            System.out.println("Municipio"+professor.getMunicipio().getIdMunicipio());
             ps.setInt(21, professor.getMunicipio().getIdMunicipio());
             ps.setString(22, professor.getLoginProfessor());
             ps.setString(23, professor.getPasswordProfessor());

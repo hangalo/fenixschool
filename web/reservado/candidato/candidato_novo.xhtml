@@ -36,7 +36,7 @@
                                 <f:selectItems value="#{candidatoMBean.prossifoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Foto:"/>
-                            <p:fileUpload fileUploadListener="#{candidatoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                            <p:fileUpload fileUploadListener="#{candidatoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1073741824" invalidSizeMessage="o tamanho máximo permitido è de 1GB" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Endereço">
@@ -60,6 +60,7 @@
                                 <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
                                 <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
                             </p:selectOneMenu>
+                            
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Telefene/Email">
