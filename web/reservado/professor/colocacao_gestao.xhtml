@@ -10,7 +10,7 @@
         <title>Gestão Docência</title>
     </h:head>
     <h:body>
-          <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
@@ -80,16 +80,16 @@
 
                     <!-- Inicio Dialogo Guardar-->
 
-                    <p:dialog header="Novo Registo" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="450" width="700">
-                       
+                    <p:dialog header="Novo Registo" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="700" width="700">
+                        <b:panel title="Colocação do Professor">
                             <h:form  id="frmNovo">
 
                                 <p:growl id="messages" showDetail="true"/>
 
-                                <h:panelGrid columns="2" >
+                                <h:panelGrid columns="1" style="margin-bottom: 13px">
 
                                     <h:outputLabel value="Professor:"/>
-                                    <p:selectOneMenu id="drProfessor" value="#{professorDepartamentoMBean.professorDepartamento.professor}" converter="professorConverter">
+                                    <p:selectOneMenu id="drProfessor" value="#{professorDepartamentoMBean.professorDepartamento.professor}" converter="professorConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem value="#{null}" itemLabel="== Seleccione ==" noSelectionOption="true"/>
 
                                         <f:selectItems value="#{professorMBean.professores}"
@@ -97,51 +97,67 @@
                                                        itemLabel="#{professor.nomeProfessor}, #{professor.sobrenomeProfessor}"  />
                                     </p:selectOneMenu>
 
-                                    <h:outputLabel value="Departamentos" for="idDepartamento" />
-                                    <p:selectManyCheckbox id="idDepartamento" value="#{professorDepartamentoMBean.departamentos}" converter="departamentoConverter" converterMessage="Departamento - Erro de conversao" layout="grid" columns="1">
+                               </h:panelGrid>
+                                
+                                <h:panelGrid columns="1" style="margin-bottom: 13px">
+                                    <h:outputLabel value="Departamentos:" for="idDepartamento" />
+                                    <p:selectManyCheckbox id="idDepartamento" value="#{professorDepartamentoMBean.departamentos}" converter="departamentoConverter" converterMessage="Departamento - Erro de conversao" layout="grid" columns="2" >
                                         <f:selectItems value="#{departamentoMBean.departamentos}"
                                                        var="departamento"
                                                        itemValue="#{departamento}"
                                                        itemLabel="#{departamento.nomeDepartamento}"/>
                                     </p:selectManyCheckbox>
 
-
-                                    <p:outputLabel value="Data de Início"/>
-                                    <p:calendar id="dataIncio" value="#{professorDepartamentoMBean.professorDepartamento.dataInicio}" pattern="dd/MM/yyyy" locale="pt"/>
-                                    <p:outputLabel value="Data de Término"/>
-                                    <p:calendar id="sobrenome" value="#{professorDepartamentoMBean.professorDepartamento.dataFim}" pattern="dd/MM/yyyy" locale="pt"/>
-                                   
-                                   
-                                     
                                 </h:panelGrid>
-                                   
+                                
+                                <h:panelGrid columns="2" style="margin-bottom: 13px">
                                     <h:panelGroup>
-                                <p:panelGrid columns="1">
-                                     <p:outputLabel value="Observações"/>
-                                     <p:inputTextarea value="#{professorDepartamentoMBean.professorDepartamento.observacoes}" cols="60" rows="8"/>
-                                </p:panelGrid>
-                            </h:panelGroup>
+                                        <h:panelGrid columns="1">
+
+                                            <p:outputLabel value="Data de Início"/>
+                                            <p:calendar id="dataIncio" value="#{professorDepartamentoMBean.professorDepartamento.dataInicio}" pattern="dd/MM/yyyy" locale="pt"/>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+
+                                            <p:outputLabel value="Data de Término"/>
+                                            <p:calendar id="sobrenome" value="#{professorDepartamentoMBean.professorDepartamento.dataFim}" pattern="dd/MM/yyyy" locale="pt"/>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
                                 
+                                    <p:panelGrid columns="1" style="margin-bottom: 13px">
+                                        <p:outputLabel value="Observações"/>
+                                        <p:inputTextarea value="#{professorDepartamentoMBean.professorDepartamento.observacoes}" cols="60" rows="8"/>
+                                    </p:panelGrid>
                                 
+
+
 
                                 <p:commandButton value="Guardar" actionListener="#{professorDepartamentoMBean.guardar(evt)}" update="growl" ajax="false">
-                                  <f:ajax render="@form" resetValues="true"/>
+                                    <f:ajax render="@form" resetValues="true"/>
                                 </p:commandButton>
                             </h:form>
 
-                       
+                        </b:panel>
 
                     </p:dialog>
 
-                    <p:dialog header="Alterar dados" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="450" width="700">
-                        <h:form id="formEditar">
+                    <p:dialog header="Alterar dados" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="600" width="700">
+                        <b:panel title="Colocação do Professor:#{professorDepartamentoMBean.professorDepartamento.professor}" >
+                            <h:form id="formEditar">
 
-                            <p:growl id="messages" showDetail="true"/>
-                            <h:inputHidden value="#{professorDepartamentoMBean.professorDepartamento.idProfessorDepartamento}"/>
-                                <h:panelGrid columns="2" >
+                                <p:growl id="messages" showDetail="true"/>
+                                <h:inputHidden value="#{professorDepartamentoMBean.professorDepartamento.idProfessorDepartamento}"/>
 
+                                <h:panelGrid columns="1">
                                     <h:outputLabel value="Professor:"/>
-                                    <p:selectOneMenu id="drProfessor" value="#{professorDepartamentoMBean.professorDepartamento.professor}" converter="professorConverter">
+                                    <p:selectOneMenu id="drProfessor" value="#{professorDepartamentoMBean.professorDepartamento.professor}" converter="professorConverter" filter="true" filterMatchMode="startsWith">
                                         <f:selectItem value="#{null}" itemLabel="== Seleccione ==" noSelectionOption="true"/>
 
                                         <f:selectItems value="#{professorMBean.professores}"
@@ -149,46 +165,61 @@
                                                        itemLabel="#{professor.nomeProfessor}, #{professor.sobrenomeProfessor}"  />
                                     </p:selectOneMenu>
 
-                                    <h:outputLabel value="Departamentos" for="idDepartamento" />
-                                    <p:selectManyCheckbox id="idDepartamento" value="#{professorDepartamentoMBean.departamentos}" converter="departamentoConverter" converterMessage="Departamento - Erro de conversao">
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" >                                
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Data de Início"/>
+                                            <p:calendar id="dataIncio" value="#{professorDepartamentoMBean.professorDepartamento.dataInicio}" pattern="dd/MM/yyyy" locale="pt"/>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+
+                                            <p:outputLabel value="Data de Término"/>
+                                            <p:calendar id="sobrenome" value="#{professorDepartamentoMBean.professorDepartamento.dataFim}" pattern="dd/MM/yyyy" locale="pt"/>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <h:outputLabel value="Departamentos:" for="idDepartamento" />
+                                    <p:selectManyCheckbox id="idDepartamento" value="#{professorDepartamentoMBean.departamentos}" converter="departamentoConverter" converterMessage="Departamento - Erro de conversao" layout="grid" columns="2">
                                         <f:selectItems value="#{departamentoMBean.departamentos}"
                                                        var="departamento"
                                                        itemValue="#{departamento}"
                                                        itemLabel="#{departamento.nomeDepartamento}"/>
                                     </p:selectManyCheckbox>
-
-
-                                    <p:outputLabel value="Data de Início"/>
-                                    <p:calendar id="dataIncio" value="#{professorDepartamentoMBean.professorDepartamento.dataInicio}" pattern="dd/MM/yyyy" locale="pt"/>
-                                    <p:outputLabel value="Data de Término"/>
-                                    <p:calendar id="sobrenome" value="#{professorDepartamentoMBean.professorDepartamento.dataFim}" pattern="dd/MM/yyyy" locale="pt"/>
-                                   
-                                   
-                                     
                                 </h:panelGrid>
-                                   
-                                    <h:panelGroup>
-                                <p:panelGrid columns="1">
-                                     <p:outputLabel value="Observações"/>
-                                     <p:inputTextarea value="#{professorDepartamentoMBean.professorDepartamento.observacoes}" cols="60" rows="8"/>
-                                </p:panelGrid>
-                            </h:panelGroup>
-                                
-                                
-                                
 
-                            <p:commandButton value="Guardar" actionListener="#{professorDepartamentoMBean.edit(event)}" update="growl" ajax="false">
-                              <f:ajax render="@form" resetValues="true"/>
-                            </p:commandButton>
+                                <h:panelGroup>
+                                    <p:panelGrid columns="1">
+                                        <p:outputLabel value="Observações"/>
+                                        <p:inputTextarea value="#{professorDepartamentoMBean.professorDepartamento.observacoes}" cols="60" rows="8"/>
+                                    </p:panelGrid>
+                                </h:panelGroup>
+
+
+
+
+                                <p:commandButton value="Guardar" actionListener="#{professorDepartamentoMBean.edit(event)}" update="growl" ajax="false">
+                                    <f:ajax render="@form" resetValues="true"/>
+                                </p:commandButton>
                             </h:form>
 
 
-                           
+
+                        </b:panel>
 
 
 
 
-                        
 
                     </p:dialog>
 

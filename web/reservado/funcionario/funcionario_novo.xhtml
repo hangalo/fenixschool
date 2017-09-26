@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Adionar novo funcionario</title>
         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
@@ -11,81 +12,85 @@
     <h:body>
         <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
-        <p:panel header="Novo Funcionario" footer="registo de novos funcionarios">
-            <h:form id="frmNovo"  enctype="multipart/form-data">
-                <p:tabView>
-                    <p:tab title="Dados Pessoais">
-                        <p:growl id="messages" showDetail="true"/>
-                        <p:messages  for="dropmunicipio"  showDetail="true"/>
-                        <h:panelGrid columns="2" >
+                <p:panel header="Novo Funcionario" footer="registo de novos funcionarios">
+                    <h:form id="frmNovo"  enctype="multipart/form-data">
+                        <p:tabView>
+                            <p:tab title="Dados Pessoais">
+                                <p:growl id="messages" showDetail="true"/>
+                                <p:messages  for="dropmunicipio"  showDetail="true"/>
+                                <h:panelGrid columns="2" >
 
 
-                            <p:outputLabel value="Nome:" />
-                            <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
-                            <p:outputLabel  value="Sobrenome"/>
-                            <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
-                            <p:outputLabel value="Data da Nacimento:"/>
-                            <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
-                            <p:outputLabel value="Sexo:"/>
-                            <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
-                                <f:selectItems value="#{funcionarioMBean.opSexos}" />
-                            </p:selectOneRadio >
-                            <p:outputLabel value="Foto:"/>
-                            <p:fileUpload id="foto" fileUploadListener="#{funcionarioMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                                    <p:outputLabel value="Nome:" />
+                                    <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
+                                    <p:outputLabel  value="Sobrenome"/>
+                                    <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
+                                    <p:outputLabel value="Data da Nacimento:"/>
+                                    <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
+                                    <p:outputLabel value="Sexo:"/>
+                                    <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
+                                        <f:selectItems value="#{funcionarioMBean.opSexos}" />
+                                    </p:selectOneRadio >
+                                    <p:outputLabel value="Foto:"/>
+                                    <p:fileUpload id="foto" fileUploadListener="#{funcionarioMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
 
 
-                        </h:panelGrid>
-                    </p:tab>
+                                </h:panelGrid>
+                            </p:tab>
 
-                    <p:tab title="Endereço:">
-                        <h:panelGrid columns="2" >
-                            <p:outputLabel value="N.º Casa:"/>
-                            <p:inputText id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" size="20"/>
+                            <p:tab title="Endereço:">
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="N.º Casa:"/>
+                                    <p:inputText id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" size="20"/>
 
-                            <p:outputLabel value="Bairro:"/>
-                            <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
-                            <p:outputLabel value="Distrito:"/>
-                            <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
-                            <h:outputLabel value="Provincia:" />
-                            <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{funcionarioMBean.provincia}" required="true" converter="provinciaConverter" style="width:200px">
-                                <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
-                                <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
-                            </p:selectOneMenu>
-                            <h:outputLabel value="Municipio:" />
-                            <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{funcionarioMBean.funcionario.municipio}" required="true" converter="municipioConverter" style="width:200px">
-                                <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
-                                <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
-                            </p:selectOneMenu>
-
-
-                        </h:panelGrid>
-                    </p:tab>
-
-                    <p:tab title="Telefone/Email">
-                        <h:panelGrid columns="2" >
-                            <p:outputLabel value="Telefone fixo:"/>
-                            <p:inputText id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" size="30"/>
-                            <p:outputLabel value="Telefone movél:"/>
-                            <p:inputText id="telefonemovel" value="#{funcionarioMBean.funcionario.telefoneMovelFuncionario}" size="30"/>
+                                    <p:outputLabel value="Bairro:"/>
+                                    <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
+                                    <p:outputLabel value="Distrito:"/>
+                                    <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
+                                    <h:outputLabel value="Provincia:" />
+                                    <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{funcionarioMBean.provincia}" required="true" converter="provinciaConverter" style="width:200px">
+                                        <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                        <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel value="Municipio:" />
+                                    <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{funcionarioMBean.funcionario.municipio}" required="true" converter="municipioConverter" style="width:200px">
+                                        <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                    </p:selectOneMenu>
 
 
-                            <p:outputLabel value="Email:"/>
-                            <p:inputText value="#{funcionarioMBean.funcionario.emailFuncionario}" size="30"/>
+                                </h:panelGrid>
+                            </p:tab>
+
+                            <p:tab title="Telefone/Email">
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Telefone fixo:"/>
+                                    <p:inputText id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" size="30"/>
+                                    <p:outputLabel value="Telefone movél:"/>
+                                    <p:inputText id="telefonemovel" value="#{funcionarioMBean.funcionario.telefoneMovelFuncionario}" size="30"/>
 
 
-                        </h:panelGrid>
-                    </p:tab>
+                                    <p:outputLabel value="Email:"/>
+                                    <p:inputText value="#{funcionarioMBean.funcionario.emailFuncionario}" size="30"/>
 
 
-                </p:tabView>
+                                </h:panelGrid>
+                            </p:tab>
 
 
-                <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+                        </p:tabView>
 
-            </h:form>
 
-        </p:panel>
+                        <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+
+                    </h:form>
+
+                </p:panel>
+            </ui:define>
+
+
+        </ui:composition>
     </h:body>
 </html>
 

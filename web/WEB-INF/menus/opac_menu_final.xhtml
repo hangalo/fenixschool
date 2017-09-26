@@ -39,17 +39,17 @@
 
 
                 <p:submenu label="Funcionarios" icon="ui-icon-home ">
-                   
+
                     <p:submenu label="Professor:" icon="ui-icon-search">
-                         <p:menuitem value="Novo Professor"  url="/reservado/professor/professor_novo.jsf"/>
-                         
-                         <p:submenu label="Procurar por" icon="ui-icon-search">
+                        <p:menuitem value="Novo Professor"  url="/reservado/professor/professor_novo.jsf"/>
+
+                        <p:submenu label="Procurar por" icon="ui-icon-search">
                             <p:menuitem value="Nome" url="/reservado/professor/professor_por_nome_sobrenome.jsf"/>
-                        <p:menuitem value="Nº do BI"  url="/reservado/professor/professor_por_numero_bi.jsf"/>
-                        <p:menuitem value="Listagem Geral" url="/reservado/professor/professor_gestao.jsf" />
+                            <p:menuitem value="Nº do BI"  url="/reservado/professor/professor_por_numero_bi.jsf"/>
+                            <p:menuitem value="Listagem Geral" url="/reservado/professor/professor_gestao.jsf" />
 
                         </p:submenu>
-                       
+
 
                         <p:submenu label="Colocação" icon="ui-icon-search">
                             <p:menuitem value="Docência" url="/reservado/professor/docencia_gestao.jsf"/>
@@ -62,9 +62,13 @@
 
 
                     <p:submenu label="Funcionarios:" icon="ui-icon-search">
-                        <p:menuitem value="Nome" url="/reservado/professor/professor_por_nome_sobrenome.jsf"/>
-                        <p:menuitem value="Nº do BI"  url="/reservado/professor/professor_por_numero_bi.jsf"/>
-                        <p:menuitem value="Listagem Geral" url="/reservado/professor/professor_gestao.jsf" />
+
+                        <p:menuitem value="Novo Funcionario" url="/reservado/funcionario/funcionario_novo.jsf"/>
+                        <p:submenu label="Procurar por" icon="ui-icon-search">
+                            <p:menuitem value="Nome" url="/reservado/funcionario/funcionario_por_nome_sobrenome.jsf"/>
+                            <p:menuitem value="Data de Nascimento" url="/reservado/funcionario/funcionario_por_data_de_nascimento.jsf"/>
+                            <p:menuitem value="Listagem Geral" url="/reservado/funcionario/funcionario_listar.jsf" />
+                        </p:submenu>
                     </p:submenu>
 
                 </p:submenu>
