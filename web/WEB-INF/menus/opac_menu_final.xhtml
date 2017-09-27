@@ -75,18 +75,21 @@
 
 
                 <p:submenu label="Inscrições" icon="ui-icon-home ">
-                    <p:menuitem value="Novo Aluno"  url="/reservado/aluno/aluno_novo.jsf" />
-                    <p:submenu label="Pesquisa por:" icon="ui-icon-search">
-                        <p:menuitem value="N.º de Aluno" url="#"/>
-                        <p:menuitem value="Nome" url="#"/>
-                        <p:menuitem value="Nº do BI"  url="#"/>
-                        <p:menuitem value="data de nascimento" url="#"/>
-                        <p:menuitem value="Listagem Geral" url="/reservado/aluno/aluno_listar.jsf" />
+
+                    <p:submenu label="Alunos:" icon="ui-icon-search">
+                        <p:menuitem value="Novo Aluno"  url="/reservado/aluno/aluno_novo.jsf" />
+                        <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                            <p:menuitem value="N.º de Aluno" url="#"/>
+                            <p:menuitem value="Nome" url="#"/>
+                            <p:menuitem value="Nº do BI"  url="#"/>
+                            <p:menuitem value="data de nascimento" url="#"/>
+                            <p:menuitem value="Listagem Geral" url="/reservado/aluno/aluno_listar.jsf" />
+                        </p:submenu>
                     </p:submenu>
 
                     <p:submenu label="Canditados:" icon="ui-icon-search">
                         <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo2.jsf" ajax="false" icon="ui-icon-search" />
-                       
+
                         <p:submenu label="Pesquisa por:" icon="ui-icon-search">
                             <p:menuitem value="N.º de Aluno" url="/reservado/candidato/candidato_por_numero.jsf"/>
                             <p:menuitem value="Nome" url="/reservado/candidato/candidato_por_nome_sobrenome.jsf"/>
@@ -227,7 +230,7 @@
                 <p:submenu label="Tarefas actuias" icon="ui-icon-document">
                     <p:submenu label="Elisio" icon="ui-icon-contact">
                         <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo2.jsf" ajax="false" icon="ui-icon-search" />
-                        
+
                         <p:submenu label="Pesquisa por:" icon="ui-icon-search">
                             <p:menuitem value="N.º de Aluno" url="/reservado/candidato/candidato_por_numero.jsf"/>
                             <p:menuitem value="Nome" url="/reservado/candidato/candidato_por_nome_sobrenome.jsf"/>
