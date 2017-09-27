@@ -1,3 +1,34 @@
+27/29/2017
+
+Arruação dos componentes da página candidatos, de horizontais para Stacked forms.
+Usei combinação das tags 
+	<h:panelgrid>
+	<h:panelGroup>
+
+Alteração da forma de visualização dos dados de candidato.
+	De tabVew para accordiooPanel
+
+
+Obs1.: Trabalhei numa nova pagina com nome "candidato_novo2". 
+             Não queria perder a anterior.
+Obs2.: Não gostei muito de como ficou posicionado a cbmx da profissão.
+Obs3.. Esperando a actualização da bd para implementar os campos de acesso.
+
+------------------------------------ FIM --------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 18/09/2017
 Implementação da interface GenericoLogicDAO e dos seus respectivos MBeans nas seguintes entidades:
 	Candidato, Mensalidade, TipoDisciplina, TipoDocumentoIdentidade.

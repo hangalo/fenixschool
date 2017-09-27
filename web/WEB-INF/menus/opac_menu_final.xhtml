@@ -85,8 +85,8 @@
                     </p:submenu>
 
                     <p:submenu label="Canditados:" icon="ui-icon-search">
-                        <p:menuitem value="Novo" url="/reservado/candidato/candidato_novo.jsf" ajax="false" icon="ui-icon-search" />
-                        <p:menuitem value="Candidatos" url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
+                        <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo2.jsf" ajax="false" icon="ui-icon-search" />
+                       
                         <p:submenu label="Pesquisa por:" icon="ui-icon-search">
                             <p:menuitem value="N.º de Aluno" url="/reservado/candidato/candidato_por_numero.jsf"/>
                             <p:menuitem value="Nome" url="/reservado/candidato/candidato_por_nome_sobrenome.jsf"/>
@@ -226,12 +226,15 @@
 
                 <p:submenu label="Tarefas actuias" icon="ui-icon-document">
                     <p:submenu label="Elisio" icon="ui-icon-contact">
-                        <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
-                        <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
-                        <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
+                        <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo2.jsf" ajax="false" icon="ui-icon-search" />
+                        
+                        <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                            <p:menuitem value="N.º de Aluno" url="/reservado/candidato/candidato_por_numero.jsf"/>
+                            <p:menuitem value="Nome" url="/reservado/candidato/candidato_por_nome_sobrenome.jsf"/>
+                            <p:menuitem value="Sexo" url="/reservado/candidato/candidato_por_sexo.jsf"/>
+                            <p:menuitem value="data de nascimento"  url="/reservado/candidato/candidato_por_data_nascimento.jsf"/>
+                            <p:menuitem value="Listagem Geral"  url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
+                        </p:submenu>
                     </p:submenu>
 
                     <p:separator />
