@@ -25,7 +25,7 @@ public class AnoLectivoConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Integer id = Integer.parseInt(value);
         try {
-            return anoLectivoDAO.findById(id);
+           return anoLectivoDAO.findById(id);
         } catch (Exception ex) {
             System.err.println("Erro na conversão: " + ex.getMessage());
         }
@@ -35,7 +35,7 @@ public class AnoLectivoConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value != null) {
-            AnoLectivo anoLectivo = (AnoLectivo) value;
+            AnoLectivo anoLectivo = (AnoLectivo)value;
             return String.valueOf(anoLectivo.getIdAnoLectivo());
         }
         return null;

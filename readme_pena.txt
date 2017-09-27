@@ -1,3 +1,21 @@
+27/09/2017: 
+
+Em funcção dos acabementos e estética no disposicionamento dos controlos, 
+o formulário Encarregado educação e disciplinas estão ja em bom disposicionamento.
+
+Fiz uma alteração no Modelo da Classe ano lectivo que faltava o método
+hash Code e toString, fiz também alteração no FindByID no DAO da Classe periodo lectivo
+que esteve a cargo da dona Aisha Lu que retornava Null. 
+
+Alterei a forma do disposicionamento do Combx periodo lectivo para SelectMenyCheckBox.
+
+OBS: Qualquer sugestão concernente ao melhoramento dos Layout é bem vinda.
+
+Actualmente estpu com problema da classe Nota não Inser nem me traz nenhuma 
+informação no OUTPUT.
+
+------------------------------FIM------------------------------------
+
 
 
 18/09/2017

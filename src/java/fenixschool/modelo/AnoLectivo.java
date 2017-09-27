@@ -59,6 +59,36 @@ public class AnoLectivo {
     public void setFimAnoLetivo(Date fimAnoLetivo) {
         this.fimAnoLetivo = fimAnoLetivo;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + this.IdAnoLectivo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AnoLectivo other = (AnoLectivo) obj;
+        if (this.IdAnoLectivo != other.IdAnoLectivo) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "AnoLectivo{" + "anoLectivo=" + anoLectivo + '}';
+    }
     
     
 }

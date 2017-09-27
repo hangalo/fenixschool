@@ -26,7 +26,7 @@ public class AnoCurricularConverter implements Converter {
 
         Integer id = Integer.parseInt(value);
         try {
-            anoCurricularDAO.findById(id);
+           return anoCurricularDAO.findById(id);
         } catch (Exception e) {
             System.err.println("Erro na conversão: " + e.getMessage());
         }

@@ -25,7 +25,12 @@ public class DisciplinaConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         
         Integer id = Integer.parseInt(value);
-        disciplinaDAO.findById(id);
+        try {
+            return disciplinaDAO.findById(id);
+        } catch (Exception e) {
+            System.err.println("Erro na conversao "+e.getMessage());
+        }
+        
         return null;
     }
 

@@ -26,7 +26,7 @@ import java.util.List;
 public class DisciplinaDAO implements GenericoDAO<Disciplina> {
 
     private static final String INSERIR = "INSERT INTO disciplina (nome_disciplina, abreviatura, descricao_displina, sumario_disciplina, data_criacao, codigo_curso, id_ano_letivo, id_periodo_letivo, id_ciclo_letivo, id_tipo_disciplina) VALUES (?,?,?,?,?,?,?,?,?,?)";
-    private static final String ACTUALIZAR = "UPDATE disciplina SET nome_disciplina = ?, abreviatura = ?,descricao_displina = ?,sumario_disciplina = ?,data_criacao = ?,codigo_curso = ?,id_ano_letivo = ?,id_periodo_letivo = ?,id_ciclo_letivo = ?,id_tipo_disciplina = ? WHERE id_disciplina = ?";
+    private static final String ACTUALIZAR = "UPDATE disciplina SET nome_disciplina = ?, abreviatura = ?, descricao_displina = ?, sumario_disciplina = ?,data_criacao = ?,codigo_curso = ?,id_ano_letivo = ?,id_periodo_letivo = ?,id_ciclo_letivo = ?,id_tipo_disciplina = ? WHERE id_disciplina = ?";
     private static final String ELIMINAR = "DELETE FROM disciplina WHERE id_disciplina=?";
     private static final String LISTAR_POR_CODIGO = "SELECT d.id_disciplina, d.nome_disciplina, d.abreviatura, d.descricao_displina, d.sumario_disciplina, "
             + " d.data_criacao, cr.nome_curso, an.ano_letivo, pr.periodo_letivo, ci.ciclo_letivo, ti.tipo_disciplina  "

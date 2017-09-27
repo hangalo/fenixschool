@@ -102,7 +102,7 @@ public class CicloLectivoDAO implements GenericoDAO<CicloLectivo>{
         }finally{
             Conexao.closeConnection(conn, ps, rs);
         }
-        return null;
+        return cicloLectivo;
         }
 
     @Override
