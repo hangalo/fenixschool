@@ -108,8 +108,9 @@
 
                 <p:submenu label="Tabelas" icon="ui-icon-home ">
 
-                    <p:submenu label="Emissão de documentos">
+                    <p:submenu label="Documentos">
                         <p:menuitem value="Locais"  url="/reservado/localemissaodocumento/localemissaodocumento_gestao.jsf" ajax="false" icon="ui-icon-search" />
+                         <p:menuitem icon="ui-icon-search" value="Tipo Documento Identidade" url="/reservado/tipo_documento_identidade/tipo_documento_identidade_listar.jsf" />
                     </p:submenu>
                     <p:submenu label="Ano Levito">
                         <p:menuitem icon="ui-icon-search" value="Ano curricular" url="/reservado/anocurricular/anocurricular_listar.jsf" />
@@ -126,12 +127,7 @@
 
                         <p:menuitem value="Cursos" url="/reservado/curso/curso_listar.jsf" ajax="false" icon="ui-icon-search" />
                     </p:submenu>
-                    <p:submenu label="Instituição">
-
-                        <p:menuitem  value="Instituição" url="/reservado/instituicao/instituicao_listar.jsf" />
-                        <p:menuitem value="Proprinas.2.3" url="#" />
-                    </p:submenu>
-
+                 
 
                     <p:submenu label="Localizacao">
 
@@ -147,20 +143,14 @@
                     </p:submenu>
 
 
-                    <p:submenu label="Vários">
-
-                        <p:menuitem icon="ui-icon-search" value="Tipo Documento Identidade" url="/reservado/tipo_documento_identidade/tipo_documento_identidade_listar.jsf" />
-
-                    </p:submenu>
-
-
+                  
 
                     <p:submenu label="Disciplina">
 
                         <p:menuitem icon="ui-icon-plus" value="Nova Disciplina " url="/reservado/disciplina/disciplina_novo.jsf" />
                         <p:menuitem icon="ui-icon-search" value="Disciplinas" url="/reservado/disciplina/disciplina_listar.jsf" />
                         <p:menuitem icon="ui-icon-search" value="Tipo Disciplina" url="/reservado/tipo_disciplina/tipo_disciplina_listar.jsf" />
-                        <p:menuitem icon="ui-icon-search" value="Tipo Documento Identidade" url="/reservado/tipo_documento_identidade/tipo_documento_identidade_listar.jsf" />
+                       
 
                     </p:submenu>
 

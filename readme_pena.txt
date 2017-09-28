@@ -1,3 +1,10 @@
+
+Observacoes - Hangalo --- 28/09/2017
+Elimiar os tabs no formulario do encarregado...
+Nas disciplina o periodo lectivo aparece com todas a check seleccionadas... creio que o ideal è deixar apenas uma seleccionada
+
+
+
 27/09/2017: 
 
 Em funcção dos acabementos e estética no disposicionamento dos controlos, 
