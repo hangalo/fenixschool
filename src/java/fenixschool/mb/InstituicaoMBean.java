@@ -6,7 +6,11 @@
 package fenixschool.mb;
 
 import fenixschool.dao.InstituicaoDAO;
+import fenixschool.dao.MunicipioDAO;
+import fenixschool.dao.ProvinciaDAO;
 import fenixschool.modelo.Instituicao;
+import fenixschool.modelo.Municipio;
+import fenixschool.modelo.Provincia;
 import java.awt.event.ActionEvent;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -39,8 +42,14 @@ public class InstituicaoMBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Instituicao instituicao;
+    private Municipio municipio;
+    private Provincia provincia;
     private InstituicaoDAO instituicaoDAO;
+    private ProvinciaDAO provinciaDAO;
+    private MunicipioDAO municipioDAO;
     private List<Instituicao> instituicoes;
+    private List<Provincia> provincias;
+    private List<Municipio> municipios;
 
     public InstituicaoMBean() {
     }
@@ -49,8 +58,23 @@ public class InstituicaoMBean implements Serializable {
     public void inicializar() {
 
         instituicao = new Instituicao();
+        municipio = new Municipio();
         instituicaoDAO = new InstituicaoDAO();
-        instituicoes = new ArrayList<>();
+        provinciaDAO = new ProvinciaDAO();
+        municipioDAO = new MunicipioDAO();
+     
+        instituicoes = instituicaoDAO.findAll(); 
+        
+      
+       
+        municipios = new ArrayList<>();
+        provincias = new ArrayList<>();
+        municipio = new Municipio();
+        provincias = provinciaDAO.findAll();
+
+
+    
+
     }
 
     public Instituicao getInstituicao() {
@@ -62,12 +86,50 @@ public class InstituicaoMBean implements Serializable {
     }
 
     public List<Instituicao> getInstituicoes() {
-        instituicoes = instituicaoDAO.findAll();
-        return instituicoes;
+              return instituicoes;
     }
 
     public void setInstituicoes(List<Instituicao> instituicoes) {
         this.instituicoes = instituicoes;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public List<Provincia> getProvincias() {
+         provincias = provinciaDAO.findAll();
+        return provincias;
+    }
+
+    public void setProvincias(List<Provincia> provincias) {
+        this.provincias = provincias;
+    }
+
+    public List<Municipio> getMunicipios() {
+        return municipios;
+    }
+
+    public void setMunicipios(List<Municipio> municipios) {
+        this.municipios = municipios;
+    }
+
+    // carrega municipios em função da provincia
+    public void carregaMunicipiosDaProvincia() {
+        System.out.println("Provncia >>>>>" + provincia);
+        municipios = municipioDAO.findByIdProvincia2(provincia);
     }
 
     public void guardar(ActionEvent event) {

@@ -35,7 +35,7 @@ public class InstituicaoServlet extends HttpServlet {
 
             BufferedInputStream in = new BufferedInputStream(new FileInputStream(FicheiroUtil.getPathPastaAplicacaoServlet(request) + ficheiro));
 
-//Obtem o conteudo da imagem
+                //Obtem o conteudo da imagem
             if (in.available() > 0) {
                 byte[] bytes = new byte[in.available()];
                 in.read(bytes);

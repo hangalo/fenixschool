@@ -16,6 +16,7 @@ public class Instituicao {
     private String casaInstituicao;
     private String ruaInstituicao;
     private String bairroInstituicao;
+    private Municipio municipio;
     private String telefoneFixoInstituicao;
     private String telefoneUnitelInstituicao;
     private String telefoneMovicelInstituicao;
@@ -82,6 +83,17 @@ public class Instituicao {
         this.bairroInstituicao = bairroInstituicao;
     }
 
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
+    
+    
+    
     public String getTelefoneFixoInstituicao() {
         return telefoneFixoInstituicao;
     }

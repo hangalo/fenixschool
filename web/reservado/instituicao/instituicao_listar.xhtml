@@ -8,187 +8,456 @@
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Instituição</title>
+        <style type="text/css">
+
+            .ui-fieldset .ui-fieldset-legend {
+                color: red;
+            }
+        </style>
     </h:head>
     <h:body>
-          <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
                     <b:panel title="Dados da Escola- Detalhes" collapsible="false" look="primary">
-                    <h:form>
-                      
+                        <h:form>
 
-                        <!--inicio dos Comandos para o Datatable-->
-                        <p:dataTable value="#{instituicaoMBean.instituicoes}" var="instituicao" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-                           
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Nome da Instituição"/>
-                                </f:facet>
-                                <h:outputText value="#{instituicao.nomeInstituicao}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Endereço"/>
-                                </f:facet>
-                                <h:outputText value="#{instituicao.casaInstituicao},#{instituicao.bairroInstituicao}" />
-                            </p:column>
-                          
-                                 <p:column style="width: 20px; text-align: center">
-                                <f:facet name="header">
-                                    <h:outputText value="Foto"/>
-                                </f:facet>
-                                     <h:graphicImage value="/instituicaoServlet?file=#{instituicao.urlLogoInstituicao}" alt="foto" width="50" height="50"/>
-                                
-                            </p:column>
-                            
-                            <p:column width="100">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Operações"/>
-                                </f:facet>
-                                <p:commandButton  icon="ui-icon-trash" action="#{instituicaoMBean.delete}">
-                                    <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoEditar').show();">
-                                    <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-zoomin" update=":ver" oncomplete="PF('dialogoVer').show();">
-                                    <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
-                                </p:commandButton>
-                            </p:column>
-                            <f:facet name="footer">
-                                Total de instituições:  (#{instituicaoMBean.instituicoes.size()})
-                            </f:facet>
-                        </p:dataTable>
-                        <!--Fim dos Comandos para o Datatable-->
 
-                    </h:form>
-</b:panel>
+                            <!--inicio dos Comandos para o Datatable-->
+                            <p:dataTable value="#{instituicaoMBean.instituicoes}" var="instituicao" paginator="true" cellSeparator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                                <p:column style="width: 20%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Nome da Escola"/>
+                                    </f:facet>
+                                    <h:outputText value="#{instituicao.nomeInstituicao}"/>
+                                </p:column>
+                                <p:column style="width: 30%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Endereço"/>
+                                    </f:facet>
+                                    <h:outputText value="#{instituicao.casaInstituicao},#{instituicao.bairroInstituicao}" />
+                                </p:column>
+
+                                <p:column style="width: 10%; text-align: center">
+                                    <f:facet name="header">
+                                        <h:outputText value="Logo"/>
+                                    </f:facet>
+                                    <h:graphicImage value="/instituicaoServlet?file=#{instituicao.urlLogoInstituicao}" alt="foto" width="100" height="100"/>
+
+                                </p:column>
+
+                                <p:column style="width: 6%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Operações"/>
+                                    </f:facet>
+                                    <p:commandButton  icon="ui-icon-trash" action="#{instituicaoMBean.delete}">
+                                        <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoEditar').show();">
+                                        <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-zoomin" update=":ver" oncomplete="PF('dialogoVer').show();">
+                                        <f:setPropertyActionListener target="#{instituicaoMBean.instituicao}" value="#{instituicao}"/>
+                                    </p:commandButton>
+                                </p:column>
+                                <f:facet name="footer">
+                                    Total de instituições:  (#{instituicaoMBean.instituicoes.size()})
+                                </f:facet>
+                            </p:dataTable>
+                            <!--Fim dos Comandos para o Datatable-->
+
+                        </h:form>
+                    </b:panel>
                     <h:form id="Operacoes">
-                        <p:commandButton value="Nova Instituição" type="button" onclick="PF('dialogoGuardar').show();"/>
-                        <p:commandLink action="index" value="Voltar"/>
+                        <p:commandButton value="Nova" type="button" onclick="PF('dialogoGuardar').show();"/>
+                        <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
                     </h:form>
                     <!--inicio do dialogo guardar-->
-                    <p:dialog id="guardar" widgetVar="dialogoGuardar" showEffect="clip" hideEffect="blind" style="width: 500px;">
+                    <p:dialog id="guardar" widgetVar="dialogoGuardar" showEffect="clip" hideEffect="blind" height="700" width="700">
                         <h:form enctype="multipart/form-data" > 
-                            <p:tabView>
-                                <p:tab title="Dados da Instituição">
+                            <b:panel title="Dados da Escola" look="info">
+                                <p:fieldset legend="Indetificação:">
+
+
                                     <h:panelGrid columns="2">
-                                        <p:outputLabel value="Nome da instituição:"/>
-                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.nomeInstituicao}"/>
-                                        <p:outputLabel value="Home:"/>
-                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
-                                        <p:outputLabel value="Logotipo:"/>
-                                        <p:fileUpload  fileUploadListener="#{instituicaoMBean.fileUpload}" mode="advanced"   multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/" />
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Nome da Escola:"/>
+                                                <h:inputText size="30" value="#{instituicaoMBean.instituicao.nomeInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Logotipo:"/>
+                                                <p:fileUpload  fileUploadListener="#{instituicaoMBean.fileUpload}" mode="advanced"   multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
                                     </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Endereço">
+                                </p:fieldset>
+                                <p:fieldset legend="Endereço:" style="margin-top: 12px; margin-bottom: 12px" styleClass="myFieldset">
+
+                                    <h:panelGrid columns="3">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Casa nº:"/>
+                                                <h:inputText size="10" value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Rua:"/>
+                                                <h:inputText size="20" value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>    
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Bairro:"/>
+                                                <h:inputText size="30" value="#{instituicaoMBean.instituicao.bairroInstituicao}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>    
+
+
+
+
+
+                                    </h:panelGrid>
+                                    
+                                     <h:panelGrid columns="2">
+                                             <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Provincia:" />
+                                                <p:selectOneMenu style="width:200px" id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{instituicaoMBean.provincia}" required="true" converter="provinciaConverter">
+                                                    <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{instituicaoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                                    <f:ajax listener="#{instituicaoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                         <h:panelGroup style="margin-left: 12px">
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Municipio:" />
+                                                <p:selectOneMenu style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{instituicaoMBean.instituicao.municipio}" required="true" converter="municipioConverter">
+                                                    <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{instituicaoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>                                           
+                                     </h:panelGrid>
+                                    
+                                </p:fieldset>
+
+                                <p:fieldset legend="Contacto" style="margin-top: 12px; margin-bottom: 12px">
+
+                                    <h:panelGrid columns="3">
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone fixo:"/>
+                                                <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone Unitel:"/>
+                                                <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone Movicel:"/>
+                                                <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                    </h:panelGrid>
+
                                     <h:panelGrid columns="2">
-                                        <p:outputLabel value="Casa nº:"/>
-                                        <h:inputText size="10" value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
-                                        <p:outputLabel value="Rua:"/>
-                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
-                                        <p:outputLabel value="Bairro:"/>
-                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.bairroInstituicao}" />
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="email:"/>
+                                                <h:inputText size="30" value="#{instituicaoMBean.instituicao.emailInstituicao}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Pagina Internet:"/>
+                                                <h:inputText size="30" value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
                                     </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Contactos">
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel value="Telefone fixo:"/>
-                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
-                                        <p:outputLabel value="Telefone Unitel:"/>
-                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
-                                        <p:outputLabel value="Telefone Movicel:"/>
-                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}" />
-                                        <p:outputLabel value="email:"/>
-                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.emailInstituicao}" />
-                                    </h:panelGrid>
-                                </p:tab>
-                            </p:tabView>
-                            <p:commandButton value="Guardar" action="#{instituicaoMBean.guardar(event)}" ajax="false"/>
+
+
+                                </p:fieldset>
+
+                                <h:panelGrid columns="2" style="margin-right: 20px">
+                                    <p:commandButton value="Guardar" action="#{instituicaoMBean.guardar(event)}" ajax="false"/>
+                                    <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                                </h:panelGrid>
+
+
+                            </b:panel>
                         </h:form>
+
+
                     </p:dialog>
                     <!--Fim do dialogo guradr-->
 
 
                     <!--inicio do dialogo editar-->
-                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
-                        <h:form enctype="multipart/form-data">
-                            <h:inputHidden value="#{instituicaoMBean.instituicao.idIsntituicao}"/>
-                            <p:tabView>
-                                <p:tab title="Dados da Instituição">
+                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind" height="700" width="700">
+
+
+                        <h:form enctype="multipart/form-data" > 
+                            <b:panel title="Dados da Escola" look="info">
+                                <p:fieldset legend="Indetificação:">
+                                    <h:inputHidden value="#{instituicaoMBean.instituicao.idIsntituicao}"/>
+
                                     <h:panelGrid columns="2">
-                                        <p:outputLabel value="Nome da instituição:"/>
-                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.nomeInstituicao}"/>
-                                        <p:outputLabel value="Home:"/>
-                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
-                                        <p:outputLabel value="Logotipo:"/>
-                                        <p:fileUpload  fileUploadListener="#{instituicaoMBean.fileUpload}" mode="advanced"  sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/" />
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Nome da Escola:"/>
+                                                <h:inputText size="30" value="#{instituicaoMBean.instituicao.nomeInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Logotipo:"/>
+                                                <p:fileUpload  fileUploadListener="#{instituicaoMBean.fileUpload}" mode="advanced"   multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
                                     </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Endereço">
+                                </p:fieldset>
+                                <p:fieldset legend="Endereço:" style="margin-top: 12px; margin-bottom: 12px">
+
+                                    <h:panelGrid columns="3">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Casa nº:"/>
+                                                <h:inputText size="10" value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Rua:"/>
+                                                <h:inputText size="20" value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>    
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Bairro:"/>
+                                                <h:inputText size="30" value="#{instituicaoMBean.instituicao.bairroInstituicao}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>  
+                                    </h:panelGrid>
+                                    
+                                    
+                                     <h:panelGrid columns="2">
+                                             <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Provincia:" />
+                                                <p:selectOneMenu style="width:200px" id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{instituicaoMBean.provincia}" required="true" converter="provinciaConverter">
+                                                    <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{instituicaoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                                    <f:ajax listener="#{instituicaoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                         <h:panelGroup style="margin-left: 12px">
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Municipio:" />
+                                                <p:selectOneMenu style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{instituicaoMBean.instituicao.municipio}" required="true" converter="municipioConverter">
+                                                    <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{instituicaoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>                                           
+                                     </h:panelGrid>
+
+                                </p:fieldset>
+
+                                <p:fieldset legend="Contacto" style="margin-top: 12px; margin-bottom: 12px">
+
+                                    <h:panelGrid columns="3">
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone fixo:"/>
+                                                <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone Unitel:"/>
+                                                <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone Movicel:"/>
+                                                <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                    </h:panelGrid>
+
                                     <h:panelGrid columns="2">
-                                        <p:outputLabel value="Casa nº:"/>
-                                        <h:inputText size="10" value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
-                                        <p:outputLabel value="Rua:"/>
-                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
-                                        <p:outputLabel value="Bairro:"/>
-                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.bairroInstituicao}" />
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="email:"/>
+                                                <h:inputText size="30" value="#{instituicaoMBean.instituicao.emailInstituicao}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Pagina Internet:"/>
+                                                <h:inputText size="30" value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
                                     </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Contactos">
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel value="Telefone fixo:"/>
-                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
-                                        <p:outputLabel value="Telefone Unitel:"/>
-                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
-                                        <p:outputLabel value="Telefone Movicel:"/>
-                                        <h:inputText size="20" value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}" />
-                                        <p:outputLabel value="email:"/>
-                                        <h:inputText size="30" value="#{instituicaoMBean.instituicao.emailInstituicao}" />
-                                    </h:panelGrid>
-                                </p:tab>
-                            </p:tabView>
-                            <p:commandButton value="Alterar" action="#{instituicaoMBean.edit(event)}" ajax="false"/>
+
+
+                                </p:fieldset>
+
+                                <h:panelGrid columns="2" style="margin-right: 20px">
+                                    <p:commandButton value="Guardar" action="#{instituicaoMBean.guardar(event)}" ajax="false"/>
+                                    <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                                </h:panelGrid>
+
+
+                            </b:panel>
                         </h:form>
+
                     </p:dialog>
                     <!--Fim do dialogo editar-->
 
                     <!--Inicip do dialog ver-->
-                    <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
+                    <p:dialog id="ver" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind" width="650" height="600">
                         <h:form>
-                            <p:tabView>
-                                <p:tab title="Visualização">
-                                    <p:panelGrid columns="2">
-                                         <p:outputLabel value="Foto:"/>
-                                         <h:graphicImage value="/professorVisualizarFotoServlet?file=#{instituicaoMBean.instituicao.urlLogoInstituicao}" alt="foto" width="100" height="100" style="border: solid #CC0000"/>
-                                        <p:outputLabel value="Código:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.idIsntituicao}"/>
-                                        <p:outputLabel value="Nome da instituição:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.nomeInstituicao}"/>
-                                        <p:outputLabel value="Casa:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
-                                        <p:outputLabel value="Home:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
-                                        <p:outputLabel value="Rua:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
-                                        <p:outputLabel value="Bairro:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.bairroInstituicao}"/>
-                                        <p:outputLabel value="Telefone fixo:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
-                                        <p:outputLabel value="Telefone unitel:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
-                                        <p:outputLabel value="Telefone movicel"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.telefoneMovicelInstituicao}"/>
-                                        <p:outputLabel value="Email da instituição:"/>
-                                        <h:outputText value="#{instituicaoMBean.instituicao.emailInstituicao}"/>
-                                         <p:outputLabel value="URL do logo:"/>
-                                         <h:outputText value="#{instituicaoMBean.instituicao.urlLogoInstituicao}"/>
-                                        <p:outputLabel value="Logo:"/>
-                                        <p:graphicImage value="/instituicaoServlet/?ficheiro=#{instituicaoMBean.instituicao.logoTipoInstituicao}" alt="Imagem" width="50" height="50"/>
+                            <p:accordionPanel>
+
+                                <p:tab title="Identificativo">
+
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1" style="margin-right: 20px;">
+                                                <p:outputLabel value="Logotipo"/>
+                                                <h:graphicImage value="/instituicaoServlet?file=#{instituicaoMBean.instituicao.urlLogoInstituicao}" alt="Logo" width="100" height="100" style="border: solid #CC0000"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup style="margin-left: 20px;">
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Nome da instituição:"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.nomeInstituicao}"/> 
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                    </h:panelGrid>
+
+                                </p:tab>
+                                <p:tab title="Endereço">
+
+                                    <p:panelGrid columns="3">
+                                        <h:panelGroup>
+                                            <h:panelGrid  columns="1">
+                                                <p:outputLabel value="Casa:"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.casaInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid  columns="1">
+                                                <p:outputLabel value="Rua:"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.ruaInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid  columns="1">
+                                                <p:outputLabel value="Bairro:"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.bairroInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
                                     </p:panelGrid>
                                 </p:tab>
-                            </p:tabView>
+                                <p:tab title="Contactos">
+                                    <p:panelGrid columns="3">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone fixo:"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.telefoneFixoInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone unitel:"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.telefoneUnitelInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone movicel"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.telefoneMovicelInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>                         
+
+
+                                    </p:panelGrid>
+
+                                </p:tab>
+                                <p:tab title="Home e Email">
+                                    <h:panelGrid columns="2">
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Home:"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.homeInstituicao}"/>
+
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Email da instituição:"/>
+                                                <h:outputText value="#{instituicaoMBean.instituicao.emailInstituicao}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                </p:tab>
+
+                            </p:accordionPanel>
                         </h:form>
                     </p:dialog>
                     <!--Fim do dialogo ver-->

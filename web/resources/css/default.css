@@ -2,10 +2,13 @@
 
 
 
-
+.myFieldset .ui-fieldset, .ui-fieldset .ui-fieldset-legend{
+    background-color: transparent;
+    border-color: transparent;
+}
 
 .ui-widget, .ui-widget .ui-widget {
-    font-size: 90%;
+    font-size: 90% !important;
 }
 
 .ui-widget input,
