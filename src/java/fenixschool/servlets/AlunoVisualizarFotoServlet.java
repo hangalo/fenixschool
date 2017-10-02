@@ -30,54 +30,15 @@ public class AlunoVisualizarFotoServlet extends HttpServlet {
 
             //Obtem o parametro ficheiro do cliente
             String ficheiro = request.getParameter("file");
-
-             System.out.println(" Valor Imagems>>>>>>"+ficheiro);
-                 
+            if (ficheiro == null) {
+                ficheiro = FicheiroUtil.getPathPastaAplicacaoServlet(request) + "padrao.png";
+            }
+            
             BufferedInputStream in = new BufferedInputStream(new FileInputStream(FicheiroUtil.getPathPastaAplicacaoServlet(request) + ficheiro));
+
             //Obtem o conteudo da imagem
-            byte[] bytes = new byte[in.available()];
-            in.read(bytes);
-            in.close();
-
-            // Write image contents to response
-            // Escreve o conteudo na saida
-            response.getOutputStream().write(bytes);
-
-        } catch (IOException ex) {
-            System.err.println("Ficheiro nao encontraro:\t" + ex.getMessage());
-            ex.printStackTrace(System.out);
-        }
-
-        /*
-        try {
-
-            
-           
-            String separador = System.getProperty("file.separator");
-            String caminhoFicheiro = "C:" + separador + "fotos" + separador;
-           
-            // Equivalente a    String caminhoFicheiro = "C:\\fotos\\";
-                       
-        
-
-            //Obtem o parametro ficheiro do cliente
-            String ficheiroDesejado = request.getParameter("file");
-
-         
-
-            File absolutePath = new File(caminhoFicheiro + ficheiroDesejado);
-
-            FileInputStream fileInputStream = new FileInputStream(absolutePath);
-
-           
-            BufferedInputStream in = new BufferedInputStream(fileInputStream);
-           
-
-            
-            if (in.available() > 0) {
-                //Obtem o conteudo da imagem
+            if (in.available() > 0){
                 byte[] bytes = new byte[in.available()];
-               
                 in.read(bytes);
                 in.close();
 
@@ -86,13 +47,11 @@ public class AlunoVisualizarFotoServlet extends HttpServlet {
                 response.getOutputStream().write(bytes);
             }
         } catch (IOException ex) {
-            System.err.println("File non trovato" + ex.getMessage());
+            System.err.println("Ficheiro nao encontraro:\t" + ex.getMessage());
             ex.printStackTrace(System.out);
         }
-*/
-    }
         
-    
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -134,3 +93,6 @@ public class AlunoVisualizarFotoServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
+         

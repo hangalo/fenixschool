@@ -79,10 +79,11 @@
                     <p:submenu label="Alunos:" icon="ui-icon-search">
                         <p:menuitem value="Novo Aluno"  url="/reservado/aluno/aluno_novo.jsf" />
                         <p:submenu label="Pesquisa por:" icon="ui-icon-search">
-                            <p:menuitem value="N.º de Aluno" url="#"/>
-                            <p:menuitem value="Nome" url="#"/>
+                            <p:menuitem value="N.º de Aluno" url="/reservado/aluno/aluno_por_numero.jsf"/>
+                            <p:menuitem value="Nome" url="/reservado/aluno/aluno_por_nome_sobrenome.jsf"/>
                             <p:menuitem value="Nº do BI"  url="#"/>
-                            <p:menuitem value="data de nascimento" url="#"/>
+                            <p:menuitem value="Data de Nascimento" url="/reservado/aluno/aluno_por_nascimento.jsf"/>
+                            <p:menuitem value="Sexo" url="/reservado/aluno/aluno_por_sexo.jsf"/>
                             <p:menuitem value="Listagem Geral" url="/reservado/aluno/aluno_listar.jsf" />
                         </p:submenu>
                     </p:submenu>
@@ -108,9 +109,8 @@
 
                 <p:submenu label="Tabelas" icon="ui-icon-home ">
 
-                    <p:submenu label="Documentos">
+                    <p:submenu label="Emissão de documentos">
                         <p:menuitem value="Locais"  url="/reservado/localemissaodocumento/localemissaodocumento_gestao.jsf" ajax="false" icon="ui-icon-search" />
-                         <p:menuitem icon="ui-icon-search" value="Tipo Documento Identidade" url="/reservado/tipo_documento_identidade/tipo_documento_identidade_listar.jsf" />
                     </p:submenu>
                     <p:submenu label="Ano Levito">
                         <p:menuitem icon="ui-icon-search" value="Ano curricular" url="/reservado/anocurricular/anocurricular_listar.jsf" />
@@ -127,7 +127,12 @@
 
                         <p:menuitem value="Cursos" url="/reservado/curso/curso_listar.jsf" ajax="false" icon="ui-icon-search" />
                     </p:submenu>
-                 
+                    <p:submenu label="Instituição">
+
+                        <p:menuitem  value="Instituição" url="/reservado/instituicao/instituicao_listar.jsf" />
+                        <p:menuitem value="Proprinas.2.3" url="#" />
+                    </p:submenu>
+
 
                     <p:submenu label="Localizacao">
 
@@ -143,14 +148,20 @@
                     </p:submenu>
 
 
-                  
+                    <p:submenu label="Vários">
+
+                        <p:menuitem icon="ui-icon-search" value="Tipo Documento Identidade" url="/reservado/tipo_documento_identidade/tipo_documento_identidade_listar.jsf" />
+
+                    </p:submenu>
+
+
 
                     <p:submenu label="Disciplina">
 
                         <p:menuitem icon="ui-icon-plus" value="Nova Disciplina " url="/reservado/disciplina/disciplina_novo.jsf" />
                         <p:menuitem icon="ui-icon-search" value="Disciplinas" url="/reservado/disciplina/disciplina_listar.jsf" />
                         <p:menuitem icon="ui-icon-search" value="Tipo Disciplina" url="/reservado/tipo_disciplina/tipo_disciplina_listar.jsf" />
-                       
+                        <p:menuitem icon="ui-icon-search" value="Tipo Documento Identidade" url="/reservado/tipo_documento_identidade/tipo_documento_identidade_listar.jsf" />
 
                     </p:submenu>
 
@@ -246,7 +257,7 @@
                     </p:submenu>
                     <p:separator />
                     <p:submenu label="Aisha" icon="ui-icon-contact">
-                        <p:menuitem value="Menu1" url="#"/>
+                        
                         <p:menuitem value="Menu2" url="#" />
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
@@ -255,8 +266,8 @@
                     </p:submenu>
                     <p:separator />
                     <p:submenu label="Paulo" icon="ui-icon-contact">
-                        <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
+                        <p:menuitem value="Aluno" url="/reservado/aluno/aluno_novo.jsf"/>
+                        <p:menuitem value="Aluno2" url="/reservado/aluno/aluno_listar.jsf"/>
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
                         <p:menuitem value="Menu1" url="#"/>
@@ -303,4 +314,3 @@
 
     </h:body>
 </html>
-

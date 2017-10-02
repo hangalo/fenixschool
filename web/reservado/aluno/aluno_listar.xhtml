@@ -112,7 +112,7 @@
                                         <p:inputText value="#{alunoMBean.aluno.sobrenomeAluno}"/>
                                         
                                          <p:outputLabel value="Nascimento"/>
-                                         <p:calendar value="#{alunoMBean.aluno.dataNascimentoAluno}" pattern="dd/MM/yyyy"/>
+                                         <p:calendar value="#{alunoMBean.aluno.dataNascimentoAluno}" pattern="dd/MM/yyyy" locale="pt"/>
                                         
                                         <p:outputLabel value="Sexo:"/>
                                         <p:selectOneRadio value="#{alunoMBean.aluno.sexo}">
@@ -126,7 +126,7 @@
                                                                               
                                          <h:outputLabel value="Foto:" for="foto" />
                         <p:fileUpload fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png|pdf|doc|docx)$/"/>
-                                        
+                                      
                                     </h:panelGrid>
                                      </p:tab>
                             
@@ -169,47 +169,152 @@
                     <!-- Fim  Dialogo Guardar-->
 
                     <!-- Inicio Dialogo Editar-->
-                        <p:dialog header="Alterar dados do Aluno" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="480" width="600">
-                        <h:form id="formEditar" enctype="multipart/form-data">
-                            <p:growl id="growl" showDetail="true" sticky="true"/>
-                            <h:inputHidden value="#{alunoMBean.aluno.idAluno}"/>
-                            <h:panelGrid columns="2" title="Editar aluno">
-                                <p:outputLabel value="Número:"/>
-                                <p:inputText value="#{alunoMBean.aluno.numeroAluno}" size="20"/>
-                                <p:outputLabel value="Nome:"/>
-                                <p:inputText value="#{alunoMBean.aluno.nomeAluno}" />
-                                <p:outputLabel value="Sobrenome:"/>
-                                <p:inputText value="#{alunoMBean.aluno.sobrenomeAluno}" />
-                                <p:outputLabel value="Data de Nascimento:"/>
-                                <p:calendar value="#{alunoMBean.aluno.dataNascimentoAluno}" pattern="dd/MM/yyyy"/>
-                                <p:outputLabel value="Casa:"/>
-                                <p:inputText value="#{alunoMBean.aluno.casaAluno}" />
-                                <p:outputLabel value="Bairro:"/>
-                                <p:inputText value="#{alunoMBean.aluno.bairroAluno}" />
-                                <p:outputLabel value="Distrito:"/>
-                                <p:inputText value="#{alunoMBean.aluno.distritoAluno}" />
-                                <p:outputLabel value="Foto"/>
-                                <h:inputFile  value="#{alunoMBean.aluno.fotoAluno}"/>
-                                <p:outputLabel value="Telefone Fixo:"/>
-                                <p:inputText value="#{alunoMBean.aluno.telefoneFixoAluno}" />
-                                <p:outputLabel value="Telefone Móvel:"/>
-                                <p:inputText value="#{alunoMBean.aluno.telefoneMovelAluno}" />
-                                <p:outputLabel value="Email:"/>
-                                <p:inputText value="#{alunoMBean.aluno.emailAluno}" />
-                                <p:outputLabel value="Sexo:"/>
-                                <p:selectOneRadio>
-                                    <f:selectItems value="#{alunoMBean.opSexos}" />
-                                </p:selectOneRadio >
-                                
-                                <p:outputLabel value="Profissão:"/>
-                                <p:selectOneMenu value="#{alunoMBean.aluno.profissaoAluno}" converter="profissaoConverter">
-                                    <f:selectItem itemLabel="Selecione a Profissão" itemValue="#{null}" noSelectionOption="true"/>
-                                    <f:selectItems value="#{alunoMBean.profissoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
-                                </p:selectOneMenu>
-                               
-                            </h:panelGrid>
-                        <p:commandButton actionListener="#{alunoMBean.edit(event)}" value="Actualizar"  update="growl" ajax="false"/>
+                        
 
+                    <!-- Fim Dialogo Guardar-->
+
+                    <!-- Dialogo Editar-->
+
+                    <p:dialog header="Alterar dados do Aluno" id="editar" widgetVar="dialogoAlterar" showEffect="explode" hideEffect="bounce" height="450" width="900" modal="true"  resizable="false">
+                        <h:form id="formEditar" enctype="multipart/form-data">
+                           <p:tabView>
+                            <p:tab title="Dados Pessoais">
+                                <p:growl id="messages" showDetail="true"/>
+                                <h:messages showSummary="true" showDetail="true"/>
+                                <h:message for="provincias"/>
+
+                                <h:panelGrid columns="2" >
+                                    
+                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Número"/>
+                                            <p:inputText id="numero" value="#{alunoMBean.aluno.numeroAluno}" size="40"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Nome"/>
+                                            <p:inputText id="nome" value="#{alunoMBean.aluno.nomeAluno}" size="40"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Sobrenome:"/>
+                                            <p:inputText id="sobrenome" value="#{alunoMBean.aluno.sobrenomeAluno}" size="40"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Data de nascimento:"/>
+                                            <p:calendar id="dataNascimento" value="#{alunoMBean.aluno.dataNascimentoAluno}" pattern="dd/MM/yyyy" locale="pt" />
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Sexo:"/>
+                                    <p:selectOneRadio id="sexo" value="#{alunoMBean.aluno.sexo}">
+                                        <f:selectItems value="#{alunoMBean.opSexos}" />
+                                    </p:selectOneRadio >
+                                    <p:outputLabel value="Foto:"/>
+                                    <p:fileUpload id="foto" fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1073741824" invalidSizeMessage="o tamanho máximo permitido è de 1GB" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                                </h:panelGrid>
+
+                                <p:fieldset legend="Endereço" style="margin-bottom: 20px">
+
+                                    <h:panelGrid columns="4">
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="N.º Casa"/>
+                                                <p:inputText id="casa" value="#{alunoMBean.aluno.casaAluno}" size="10"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Bairro"/>
+                                                <p:inputText id="bairro" value="#{alunoMBean.aluno.bairroAluno}" size="10"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Distrito:"/>
+                                                <p:inputText id="distrito" value="#{alunoMBean.aluno.distritoAluno}" size="25"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="2">
+                                        
+                                        
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Municipio:" />
+                                                <p:selectOneMenu style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{alunoMBean.aluno.municipioAluno}" required="true" converter="municipioConverter">
+                                                    <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{alunoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>  
+                                        
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Profissão" />
+                                                <p:selectOneMenu style="width:200px" id="profissoes" filter="true" filterMatchMode="startsWith" label="Município:" value="#{alunoMBean.aluno.profissaoAluno}" required="true" converter="profissaoConverter">
+                                                    <f:selectItem itemLabel="-Seleccione a Profissão-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{alunoMBean.profissoes}" var="municipio" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>  
+
+
+
+                                    </h:panelGrid>
+
+
+                                </p:fieldset>
+                                <p:fieldset legend="Contactos">
+                                    <h:panelGrid columns="4">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone Móvel"/>
+                                                <p:inputText id="telefoneMovel" value="#{alunoMBean.aluno.telefoneMovelAluno}" size="15"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone Fixo"/>
+                                                <p:inputText value="#{alunoMBean.aluno.telefoneFixoAluno}" size="15"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Email"/>
+                                                <p:inputText value="#{alunoMBean.aluno.emailAluno}" size="25"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                </p:fieldset>
+
+                            </p:tab>
+                            
+
+                        </p:tabView>
+
+                            <p:commandButton value="Guardar" actionListener="#{alunoMBean.edit(event)}" update="growl" resetValues="true" ajax="false"/>
                         </h:form>
 
                     </p:dialog>
@@ -231,7 +336,7 @@
                                 <p:outputLabel value="#{alunoMBean.aluno.nomeAluno}"/>
                                 <p:outputLabel value="Sobrenome:"/>
                                 <p:outputLabel value="#{alunoMBean.aluno.sobrenomeAluno}"/>
-                                <p:outputLabel value="Data de Nascimento:"/>
+                                <p:outputLabel value="Nascimento:"/>
                                 <p:outputLabel value="#{alunoMBean.aluno.dataNascimentoAluno}">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </p:outputLabel>

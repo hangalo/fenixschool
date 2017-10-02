@@ -11,53 +11,57 @@ import fenixschool.modelo.Profissao;
 import fenixschool.modelo.Sexo;
 import fenixschool.util.Conexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author HACKER
+ * @author kulley
  */
-public class AlunoDAO implements GenericoDAO<Aluno> {
-
-    private static final String INSERT = "INSERT INTO aluno(numero_aluno, nome_aluno, sobrenome_aluno, data_nascimento, casa_aluno, bairro_aluno, distrito_aluno, id_municipio, url_foto_aluno, foto_aluno, telefone_fixo, telefone_movel, email_aluno, id_profissao, sexo )VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE = " UPDATE aluno SET numero_aluno=?,nome_aluno=?,sobrenome_aluno=?,data_nascimento=?,id_sexo=?,casa_aluno=?,bairro_aluno=?,distrito_aluno=?,id_municipio=?, url_foto_aluno=? foto_aluno=?,telefone_fixo=?,telefone_movel=?,email_aluno=?,id_profissao=? WHERE id_aluno=?";
+public class AlunoDAO implements GenericoDAOLogico<Aluno>{
+    
+    private static final String INSERIR = "INSERT INTO aluno (numero_aluno, nome_aluno, sobrenome_aluno, data_nascimento, casa_aluno, bairro_aluno, distrito_aluno, id_municipio, url_foto_aluno, foto_aluno, telefone_fixo, telefone_movel, email_aluno, id_profissao, sexo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String UPDATE = " UPDATE aluno SET numero_aluno=?, nome_aluno=?, sobrenome_aluno=?, data_nascimento=?, casa_aluno=?, bairro_aluno=?, distrito_aluno=?, id_municipio=?, url_foto_aluno=?, foto_aluno=?,telefone_fixo=?,telefone_movel=?,email_aluno=?,id_profissao=?, sexo=? WHERE id_aluno=?";
     private static final String DELETE = "DELETE FROM aluno WHERE id_aluno=?";
-    private static final String SELECT_BY_ID = "SELECT a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.sexo, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao p "
-            + "FROM aluno a "
-            + "INNER JOIN municipio m ON m.id_municipio=a.id_municipio "
-            + "INNER JOIN profissao p ON p.id_profissao=a.id_profissao "
-            + "WHERE id_aluno = ?";
-
+    private static final String SELECT_BY_ID = "SELECT a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.sexo, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao p FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE id_aluno = ?";
     private static final String SELECT_ALL = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao";
-
+    private static final String SELECT_BY_NOME = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE nome_aluno = ?";
+    private static final String SELECT_BY_SOBRENOME = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE sobrenome_aluno = ?";
+    private static final String SELECT_BY_NOME_E_SOBRENOME = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE nome_aluno =? AND sobrenome_aluno=? ORDER BY nome_aluno ASC";
+    private static final String SELECT_BY_NUMERO = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE numero_aluno =? ";
+    private static final String SELECT_BY_SEXO = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE sexo =? ";
+    private static final String SELECT_BY_NASCIMENTO = "select a.id_aluno, a.numero_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE data_nascimento =? ";
+    
+    
+    
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
-
+    
     @Override
-    public void save(Aluno aluno) {
-        if (aluno == null) {
-            System.out.println("O valor passado nao pode ser nulo");
-
+    public boolean save(Aluno aluno) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
+        if(aluno == null){
+            System.err.println("O campo anterior não pode ser nulo!");
         }
-        try {
-            
         
+        try {
             conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERT);
+            ps = conn.prepareStatement(INSERIR);
             ps.setString(1, aluno.getNumeroAluno());
             ps.setString(2, aluno.getNomeAluno());
             ps.setString(3, aluno.getSobrenomeAluno());
             ps.setDate(4, new java.sql.Date(aluno.getDataNascimentoAluno().getTime()));
-            ps.setString(5, aluno.getCasaAluno());
+            ps.setString(5 , aluno.getCasaAluno());
             ps.setString(6, aluno.getBairroAluno());
             ps.setString(7, aluno.getDistritoAluno());
+            //System.out.println("Municipio"+aluno.getMunicipioAluno().getIdMunicipio());
             ps.setInt(8, aluno.getMunicipioAluno().getIdMunicipio());
             ps.setString(9, aluno.getUrlfotoAluno());
             ps.setBytes(10, aluno.getFotoAluno());
@@ -66,21 +70,31 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
             ps.setString(13, aluno.getEmailAluno());
             ps.setInt(14, aluno.getProfissaoAluno().getIdProfissao());
             ps.setString(15, aluno.getSexo().getAbreviatura());
+            //ps.setInt(16, aluno.getProvincia().getIdProvincia());
             
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Erro ao inserir dados: " + ex.getMessage());
-        } finally {
-            Conexao.closeConnection(conn, ps);
-        }
-
+            int retorno = ps.executeUpdate();
+            if(retorno > 0){
+                System.out.println("Dados inseridos com Sucesso: " +ps.getUpdateCount());
+                flagControlo = true;
+            }
+            return flagControlo;
+            
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            return false;
+        } finally{Conexao.closeConnection(conn,ps);}
+        
+        
     }
 
     @Override
-    public void update(Aluno aluno) {
+    public boolean update(Aluno aluno) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
         if (aluno == null) {
-            System.out.println("O valor passado nao pode ser nulo");
 
+            System.err.println("O valor passado nao pode ser nulo");
         }
         try {
             conn = Conexao.getConnection();
@@ -89,49 +103,69 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
             ps.setString(2, aluno.getNomeAluno());
             ps.setString(3, aluno.getSobrenomeAluno());
             ps.setDate(4, new java.sql.Date(aluno.getDataNascimentoAluno().getTime()));
-            ps.setString(5, aluno.getSexo().getAbreviatura());
-            ps.setString(6, aluno.getCasaAluno());
-            ps.setString(7, aluno.getBairroAluno());
-            ps.setString(8, aluno.getDistritoAluno());
-            ps.setInt(9, aluno.getMunicipioAluno().getIdMunicipio());
-            ps.setString(10, aluno.getUrlfotoAluno());
-            ps.setBytes(11, aluno.getFotoAluno());
-            ps.setString(12, aluno.getTelefoneFixoAluno());
-            ps.setString(13, aluno.getTelefoneMovelAluno());
-            ps.setString(14, aluno.getEmailAluno());
-            ps.setInt(15, aluno.getProfissaoAluno().getIdProfissao());
+            ps.setString(5 , aluno.getCasaAluno());
+            ps.setString(6, aluno.getBairroAluno());
+            ps.setString(7, aluno.getDistritoAluno());
+            System.out.println("Municipio"+aluno.getMunicipioAluno().getIdMunicipio());
+            ps.setInt(8, aluno.getMunicipioAluno().getIdMunicipio());
+            ps.setString(9, aluno.getUrlfotoAluno());
+            ps.setBytes(10, aluno.getFotoAluno());
+            ps.setString(11, aluno.getTelefoneFixoAluno());
+            ps.setString(12, aluno.getTelefoneMovelAluno());
+            ps.setString(13, aluno.getEmailAluno());
+            ps.setInt(14, aluno.getProfissaoAluno().getIdProfissao());
+            ps.setString(15, aluno.getSexo().getAbreviatura());
             ps.setInt(16, aluno.getIdAluno());
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar dados: " + ex.getMessage());
 
+            int retorno = ps.executeUpdate();
+
+            if (retorno > 0) {
+                System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+
+            return flagControlo;
+
+         } catch (Exception ex) {
+            System.err.println("Erro ao actualizar dados: " + ex.getLocalizedMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
         }
-
     }
 
     @Override
-    public void delete(Aluno aluno) {
+    public boolean delete(Aluno aluno) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
         if (aluno == null) {
-            System.out.println("O valor passado nao pode ser nulo");
-
+            System.err.println("O valor passado não pode ser nulo");
         }
         try {
-            conn = Conexao.getConnection();
+            conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(DELETE);
             ps.setInt(1, aluno.getIdAluno());
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Erro ao eliminar dados: " + ex.getMessage());
+            int retorno = ps.executeUpdate();
 
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            
+             return flagControlo;
+        } catch (Exception ex) {
+            System.err.println("Erro ao eliminar dados: " + ex.getLocalizedMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
+            {
+            }
         }
-
     }
+    
 
-    @Override
+   @Override
     public Aluno findById(Integer id) {
         Aluno aluno = new Aluno();
         try {
@@ -152,38 +186,176 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
             Conexao.closeConnection(conn, ps, rs);
         }
         return aluno;
+    }
+    
+    public List<Aluno> findByNomeSobrenome(String nome, String sobrenome) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        List<Aluno> alunos = new ArrayList();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_NOME_E_SOBRENOME);
+            ps.setString(1, nome);
+            ps.setString(2, sobrenome);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                Aluno aluno = new Aluno();
+                popularComDados(aluno, rs);
+                alunos.add(aluno);
+            }            
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return alunos;
+    }
+    
+    public List<Aluno> findByNome(String nome) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Aluno> alunos = new ArrayList();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_NOME);
+            ps.setString(1, nome);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Aluno aluno = new Aluno();
+                popularComDados(aluno, rs);
+                alunos.add(aluno);
+            } 
+          
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return alunos;
+    }
+    
+    public List<Aluno> findBySobrenome(String sobrenome) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Aluno> alunos = new ArrayList();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_SOBRENOME);
+            ps.setString(1, sobrenome);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Aluno aluno = new Aluno();
+                popularComDados(aluno, rs);
+                alunos.add(aluno);
+            }  
 
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return alunos;
+    }
+    
+    public Aluno findByNumero(String numero) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Aluno aluno = new Aluno();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_NUMERO);
+            ps.setString(1, numero);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Não foi possivel encontrado nenhum registro com o numero:  " + numero);
+            }
+            popularComDados(aluno, rs);
+
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return aluno;
+    }
+    
+    public List<Aluno> findBySexo(String sexo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Aluno> alunos = new ArrayList();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_SEXO);
+            ps.setString(1, sexo);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Aluno aluno = new Aluno();
+                popularComDados(aluno, rs);
+                alunos.add(aluno);
+            }  
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return alunos;
     }
 
+    public List<Aluno> findByDataDeNascimento(Date data) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Aluno> alunos = new ArrayList();
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_NASCIMENTO);
+            ps.setDate(1, data);
+         
+            rs = ps.executeQuery();
+            while (rs.next()){
+                Aluno aluno = new Aluno();
+                popularComDados(aluno, rs);
+                alunos.add(aluno);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return alunos;
+    }
+    
     @Override
     public List<Aluno> findAll() {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
-        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-
+        List<Aluno> alunos = new ArrayList<>();
         try {
-
-            conn = Conexao.getConnection();
+            conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_ALL);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Aluno aluno = new Aluno();
                 popularComDados(aluno, rs);
                 alunos.add(aluno);
-
             }
-
         } catch (SQLException ex) {
-            System.out.println("Erro ao ler dados: " + ex.getMessage());
+            System.err.println("Erro ao ler os dados: " + ex.getLocalizedMessage());
         } finally {
-            try {
-                ps.close();
-                conn.close();
-            } catch (SQLException ex) {
-                ex.getStackTrace();
-            }
+            Conexao.closeConnection((java.sql.Connection) conn);
         }
+
         return alunos;
     }
+
 
     @Override
     public void popularComDados(Aluno aluno, ResultSet rs) {
@@ -218,5 +390,5 @@ public class AlunoDAO implements GenericoDAO<Aluno> {
         }
 
     }
-
+    
 }
