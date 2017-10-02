@@ -97,8 +97,8 @@
                                                        itemLabel="#{professor.nomeProfessor}, #{professor.sobrenomeProfessor}"  />
                                     </p:selectOneMenu>
 
-                               </h:panelGrid>
-                                
+                                </h:panelGrid>
+
                                 <h:panelGrid columns="1" style="margin-bottom: 13px">
                                     <h:outputLabel value="Departamentos:" for="idDepartamento" />
                                     <p:selectManyCheckbox id="idDepartamento" value="#{professorDepartamentoMBean.departamentos}" converter="departamentoConverter" converterMessage="Departamento - Erro de conversao" layout="grid" columns="2" >
@@ -109,7 +109,7 @@
                                     </p:selectManyCheckbox>
 
                                 </h:panelGrid>
-                                
+
                                 <h:panelGrid columns="2" style="margin-bottom: 13px">
                                     <h:panelGroup>
                                         <h:panelGrid columns="1">
@@ -130,12 +130,12 @@
                                     </h:panelGroup>
                                 </h:panelGrid>
 
-                                
-                                    <p:panelGrid columns="1" style="margin-bottom: 13px">
-                                        <p:outputLabel value="Observações"/>
-                                        <p:inputTextarea value="#{professorDepartamentoMBean.professorDepartamento.observacoes}" cols="60" rows="8"/>
-                                    </p:panelGrid>
-                                
+
+                                <p:panelGrid columns="1" style="margin-bottom: 13px">
+                                    <p:outputLabel value="Observações"/>
+                                    <p:inputTextarea value="#{professorDepartamentoMBean.professorDepartamento.observacoes}" cols="60" rows="8"/>
+                                </p:panelGrid>
+
 
 
 
@@ -232,6 +232,11 @@
                         <h:form id="formVer">
 
                             <h1>Historico do professor</h1>
+
+
+                            
+
+
 
                         </h:form>
 

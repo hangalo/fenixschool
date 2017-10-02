@@ -47,6 +47,12 @@ public class FicheiroUtil {
         return raizAplicacao + pasta;
     }
     
+      public static String getPathPastaRelatoriosAplicacaoJSF() {
+        String separador = System.getProperty("file.separator");
+        String pasta ="WEB-INF"+ separador+"relatorios"+separador;
+        String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+        return raizAplicacao + pasta;
+    }
     
     
 }
