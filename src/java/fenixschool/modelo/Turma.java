@@ -9,32 +9,31 @@ import java.util.Objects;
 
 /**
  *
- * @author HP
+ * @author Aisha Lubadika
  */
 public class Turma {
-    private Integer idTurma;
-    private String nomeTurma;
-    
-    private AnoLectivo anoLetivo;
-    private PeriodoLectivo periodoLetivo;
-    
-    private Integer numeroMaximoInscritos;
-    
-    public Turma(){}
+private int idTurma;
+private String nomeTurma;
+private AnoLectivo anoLectivo;
+private PeriodoLectivo periodoLectivo;
+private int numeroMaximoInscritos;
 
-    public Turma(Integer idTurma, String nomeTurma, AnoLectivo anoLetivo, PeriodoLectivo periodoLetivo, Integer numeroMaximoInscritos) {
+    public Turma() {
+    }
+
+    public Turma(int idTurma, String nomeTurma, AnoLectivo anoLectivo, PeriodoLectivo periodoLectivo, int numeroMaximoInscritos) {
         this.idTurma = idTurma;
         this.nomeTurma = nomeTurma;
-        this.anoLetivo = anoLetivo;
-        this.periodoLetivo = periodoLetivo;
+        this.anoLectivo = anoLectivo;
+        this.periodoLectivo = periodoLectivo;
         this.numeroMaximoInscritos = numeroMaximoInscritos;
     }
 
-    public Integer getIdTurma() {
+    public int getIdTurma() {
         return idTurma;
     }
 
-    public void setIdTurma(Integer idTurma) {
+    public void setIdTurma(int idTurma) {
         this.idTurma = idTurma;
     }
 
@@ -46,34 +45,34 @@ public class Turma {
         this.nomeTurma = nomeTurma;
     }
 
-    public AnoLectivo getAnoLetivo() {
-        return anoLetivo;
+    public AnoLectivo getAnoLectivo() {
+        return anoLectivo;
     }
 
-    public void setAnoLetivo(AnoLectivo anoLetivo) {
-        this.anoLetivo = anoLetivo;
+    public void setAnoLectivo(AnoLectivo anoLectivo) {
+        this.anoLectivo = anoLectivo;
     }
 
-    public PeriodoLectivo getPeriodoLetivo() {
-        return periodoLetivo;
+    public PeriodoLectivo getPeriodoLectivo() {
+        return periodoLectivo;
     }
 
-    public void setPeriodoLetivo(PeriodoLectivo periodoLetivo) {
-        this.periodoLetivo = periodoLetivo;
+    public void setPeriodoLectivo(PeriodoLectivo periodoLectivo) {
+        this.periodoLectivo = periodoLectivo;
     }
 
-    public Integer getNumeroMaximoInscritos() {
+    public int getNumeroMaximoInscritos() {
         return numeroMaximoInscritos;
     }
 
-    public void setNumeroMaximoInscritos(Integer numeroMaximoInscritos) {
+    public void setNumeroMaximoInscritos(int numeroMaximoInscritos) {
         this.numeroMaximoInscritos = numeroMaximoInscritos;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.idTurma);
+        int hash = 7;
+        hash = 83 * hash + this.idTurma;
         return hash;
     }
 
@@ -86,20 +85,21 @@ public class Turma {
             return false;
         }
         final Turma other = (Turma) obj;
-        if (!Objects.equals(this.idTurma, other.idTurma)) {
+        if (this.idTurma != other.idTurma) {
             return false;
         }
         return true;
     }
-    
-    
-   
 
     @Override
-    public String toString(){ 
-        return this.nomeTurma;
+    public String toString() {
+        return "Turma{" + "nomeTurma=" + nomeTurma + '}';
+    }
     
-    }  
+
+    
+
+
    
 }
 

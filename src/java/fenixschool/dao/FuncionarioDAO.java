@@ -23,17 +23,17 @@ import java.util.List;
  */
 public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
 
-    private static final String INSERIR = "INSERT INTO funcionario (nome_funcionario, sobrenome_funcionario, data_nascimento, sexo, casa_funcionario, bairro_funcionario, distrito_funcionario, id_municipio, foto_funcionario, url_foto_funcionario, telefone_fixo, telefone_movel, email_funcionario)VALUES(?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String ACTUALIZAR = "UPDATE funcionario SET  nome_funcionario= ?, sobrenome_funcionario= ?,data_nascimento =?,sexo= ?, casa_funcionario = ?,bairro_funcionario=?,distrito_funcionario = ?,id_municipio = ?,foto_funcionario = ?,url_foto_funcionario=?, telefone_fixo= ?, telefone_movel= ?, email_funcionario= ? WHERE id_funcionario = ?;";
+    private static final String INSERIR = "INSERT INTO funcionario (nome_funcionario, sobrenome_funcionario, data_nascimento, sexo, casa_funcionario, bairro_funcionario, distrito_funcionario, id_municipio, foto_funcionario, url_foto_funcionario, telefone_fixo, telefone_movel, email_funcionario,login_funcionario,password_funcionario )VALUES(?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+    private static final String ACTUALIZAR = "UPDATE funcionario SET  nome_funcionario= ?, sobrenome_funcionario= ?,data_nascimento =?,sexo= ?, casa_funcionario = ?,bairro_funcionario=?,distrito_funcionario = ?,id_municipio = ?,foto_funcionario = ?,url_foto_funcionario=?, telefone_fixo= ?, telefone_movel= ?, email_funcionario= ? , login_funcionario =? ,password_funcionario=? WHERE id_funcionario = ?;";
     private static final String ELIMINAR = "DELETE FROM funcionario WHERE id_funcionario=?";
-    private static final String SELECT_BY_NOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE nome_funcionario = ?";
-    private static final String SELECT_BY_SOBRENOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario, m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE sobrenome_funcionario = ?";
-    private static final String SELECT_BY_NOME_E_SOBRENOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE nome_funcionario = ? AND sobrenome_funcionario= ?";
+    private static final String SELECT_BY_NOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario, f.login_funcionario, f.password_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE nome_funcionario = ?";
+    private static final String SELECT_BY_SOBRENOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario, m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario, f.login_funcionario, f.password_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE sobrenome_funcionario = ?";
+    private static final String SELECT_BY_NOME_E_SOBRENOME = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario,f.login_funcionario, f.password_funcionario FROM funcionario f INNER JOIN municipio m ON (f.id_municipio=m.id_municipio) WHERE nome_funcionario = ? AND sobrenome_funcionario= ?";
 
-    private static final String BUSCAR_POR_CODIGO = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio WHERE f.id_funcionario = ?";
-    private static final String BUSCAR_POR_DATA_NASCIMENTO = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio WHERE f.data_nascimento = ?";
+    private static final String BUSCAR_POR_CODIGO = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario , f.login_funcionario, f.password_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio WHERE f.id_funcionario = ?";
+    private static final String BUSCAR_POR_DATA_NASCIMENTO = "SELECT f.id_funcionario ,f.nome_funcionario ,f.sobrenome_funcionario ,f.data_nascimento , f.sexo ,f.casa_funcionario ,f.bairro_funcionario ,f.distrito_funcionario,m.nome_municipio ,f.foto_funcionario ,f.url_foto_funcionario ,f.telefone_fixo ,f.telefone_movel ,f.email_funcionario, f.login_funcionario, f.password_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio WHERE f.data_nascimento = ?";
 
-    private static final String LISTAR_TUDO = "SELECT f.id_funcionario,f.nome_funcionario,f.sobrenome_funcionario,f.data_nascimento, f.sexo, f.casa_funcionario,f.bairro_funcionario,f.distrito_funcionario,m.nome_municipio,f.foto_funcionario,f.url_foto_funcionario,f.telefone_fixo,f.telefone_movel ,f.email_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio";
+    private static final String LISTAR_TUDO = "SELECT f.id_funcionario,f.nome_funcionario,f.sobrenome_funcionario,f.data_nascimento, f.sexo, f.casa_funcionario,f.bairro_funcionario,f.distrito_funcionario,m.nome_municipio,f.foto_funcionario,f.url_foto_funcionario,f.telefone_fixo,f.telefone_movel ,f.email_funcionario, f.login_funcionario, f.password_funcionario FROM funcionario f INNER JOIN municipio m ON m.id_municipio=f.id_municipio";
 
     /**
      *
@@ -67,6 +67,8 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
             ps.setString(11, funcionario.getTelefoneFixoFuncionario());
             ps.setString(12, funcionario.getTelefoneMovelFuncionario());
             ps.setString(13, funcionario.getEmailFuncionario());
+            ps.setString(14, funcionario.getLoginFuncionario());
+            ps.setString(15, funcionario.getPasswordFuncionario());
             int retorno = ps.executeUpdate();
             if (retorno > 0) {
                 System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
@@ -109,6 +111,8 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
             ps.setString(12, funcionario.getTelefoneMovelFuncionario());
             ps.setString(13, funcionario.getEmailFuncionario());
             ps.setInt(14, funcionario.getIdFuncionario());
+            ps.setString(15, funcionario.getLoginFuncionario());
+            ps.setString(16, funcionario.getPasswordFuncionario());
 
             int retorno = ps.executeUpdate();
 
@@ -326,6 +330,8 @@ public class FuncionarioDAO implements GenericoDAOLogico<Funcionario> {
             funcionario.setTelefoneFixoFuncionario(rs.getString("telefone_fixo"));
             funcionario.setTelefoneMovelFuncionario(rs.getString("telefone_movel"));
             funcionario.setEmailFuncionario(rs.getString("email_funcionario"));
+            funcionario.setLoginFuncionario(rs.getString("login_funcionario"));
+            funcionario.setPasswordFuncionario(rs.getString("password_funcionario"));
 
         } catch (SQLException ex) {
             System.err.println("Erro ao carregar dados do funcionário: " + ex.getLocalizedMessage());

@@ -12,244 +12,360 @@
         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
     <h:body>
-          <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
-                    <b:panel title="Lista - funcionarios" collapsible="false" look="primary">
+                    <b:panel title="Lista - funcionários" collapsible="false" look="primary">
                         <h:form>
-                            <h1>Lista dos funcionários</h1>
-
                             <!--Inicio Data table-->
-                            <p:dataTable  value="#{funcionarioMBean.funcionarios}" var="funcionario" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                                <p:column style="width: 40px; text-align: center">
+
+                            <p:dataTable value="#{funcionarioMBean.funcionarios}"   var="funcionarios" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                                <p:column style="width: 45px; text-align: center">
                                     <f:facet name="header">
-                                        <p:outputLabel value="Código:"/>
+                                        <p:outputLabel value="Código"/>
                                     </f:facet>
                                     <h:outputText value="#{funcionario.idFuncionario}"/>
-                                </p:column>  
+                                </p:column>
+
                                 <p:column>
                                     <f:facet name="header">
-                                        <p:outputLabel value="Nome:"/>
+                                        <p:outputLabel value="Nome"/>
                                     </f:facet>
                                     <h:outputText value="#{funcionario.nomeFuncionario}"/>
-
                                 </p:column>
+
                                 <p:column>
                                     <f:facet name="header">
-                                        <p:outputLabel value="Sobrenome:"/>
+                                        <p:outputLabel value="Sobrenome"/>
                                     </f:facet>
                                     <h:outputText value="#{funcionario.sobrenomeFuncionario}"/>
                                 </p:column>
 
 
-                                <p:column style="width: 20px; text-align: center">
+
+                                <p:column style="width: 60px; text-align: center">
                                     <f:facet name="header">
                                         <h:outputText value="Foto"/>
                                     </f:facet>
-                                    <h:graphicImage value="/funcionarioVisualizarFotoServlet?file=#{funcionario.urlfotoFuncionario}" alt="foto" width="50" height="50"/>
-
+                                    <h:graphicImage value="/funcionarioVisualizarFotoServlet?file=#{funcionario.urlfotoFuncionario}" alt="foto" width="60" height="60"/>
                                 </p:column>
 
-                                <p:column style="width: 100px; text-align: center">
+                                <p:column style="width: 160px; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Operações"/>
                                     </f:facet>
-                                    <p:commandButton  action="#{funcionarioMBean.delete}" icon="ui-icon-trash ">
+                                    <p:commandButton  action="#{funcionarioMBean.delete()}" icon="ui-icon-trash ">
                                         <f:setPropertyActionListener target="#{funcionarioMBean.funcionario}" value="#{funcionario}"/>
                                     </p:commandButton>
+
                                     <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
                                         <f:setPropertyActionListener target="#{funcionarioMBean.funcionario}" value="#{funcionario}"/>
                                     </p:commandButton>
                                     <p:commandButton icon="ui-icon-zoomin"  update=":ver" oncomplete="PF('dlgVer').show();" >
                                         <f:setPropertyActionListener target="#{funcionarioMBean.funcionario}" value="#{funcionario}"/>
                                     </p:commandButton>
-
-
                                 </p:column>
 
                                 <f:facet name="footer">  
                                     N.º Funcionários #{(funcionarioMBean.funcionarios.size())}.  
                                 </f:facet> 
-
                             </p:dataTable>
                         </h:form>
                     </b:panel>
-
                     <!--Fim Data table-->
 
 
                     <!--Inicio Formulario auxiliar-->
                     <h:form id="operacoes">
                         <h:panelGrid columns="2">
-                            <p:commandButton value="Novo Funcionario" actionListener="#{funcionarioMBean.newSave()}" type="button" onclick="PF('dlgNovo').show();"  />
+                            <p:commandButton value="Novo Funcionário" actionListener="#{funcionarioMBean.newSave()}" type="button" onclick="PF('dlgNovo').show();" />
                             <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
                         </h:panelGrid>
                     </h:form>
                     <!--Fim  Formulario auxiliar-->
 
                     <!-- Inicio Dialogo Guardar-->
-                    <p:dialog header="Novo Funcionario" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="400" width="900">
-                        <h:form id="frmNovo"  enctype="multipart/form-data">
+
+                    <p:dialog header="Novo Funciona´rio" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="950" width="1200">
+                        <h:form  id="frmNovo"  enctype="multipart/form-data">
+
                             <p:tabView>
-                                <p:tab title="Dados Pessoais">
-                                    <p:growl id="messages" showDetail="true"/>
-                                    <h:messages  for="dropmunicipio"  showDetail="true"/>
-                                    <h:panelGrid columns="2" >
+
+                                 <p:tab title="Dados Pessoais">
+                                <p:growl id="messages" showDetail="true"/>
+                                <h:messages showSummary="true" showDetail="true"/>
+                                <h:message for="provincias"/>
+                                <h:panelGrid columns="2" >
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Nome:" />
+                                            <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel  value="Sobrenome"/>
+                                            <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Data da Nacimento:"/>
+                                            <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </h:panelGrid>
 
 
-                                        <p:outputLabel value="Nome:" />
-                                        <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
-                                        <p:outputLabel  value="Sobrenome"/>
-                                        <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
-                                        <p:outputLabel value="Data da Nacimento:"/>
-                                        <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
-                                        <p:outputLabel value="Sexo:"/>
-                                        <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
-                                            <f:selectItems value="#{funcionarioMBean.opSexos}" />
-                                        </p:selectOneRadio >
-                                        <p:outputLabel value="Foto:"/>
-                                        <p:fileUpload id="foto" fileUploadListener="#{funcionarioMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Sexo:"/>
+                                    <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
+                                        <f:selectItems value="#{funcionarioMBean.opSexos}" />
+                                    </p:selectOneRadio >
+                                    <p:outputLabel value="Foto:"/>
+                                    <p:fileUpload id="foto" fileUploadListener="#{funcionarioMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1073741824" invalidSizeMessage="o tamanho máximo permitido è de 1GB" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
 
+                                </h:panelGrid>
+                                <p:fieldset legend="Endereço" style="margin-bottom: 20px">
+                                    <h:panelGrid columns="3">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="N.º Casa:"/>
+                                                <p:inputText id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" size="20"/>
 
-                                    </h:panelGrid>
-                                </p:tab>
-
-                                <p:tab title="Endereço:">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="N.º Casa:"/>
-                                        <p:inputText id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" size="20"/>
-
-                                        <p:outputLabel value="Bairro:"/>
-                                        <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
-                                        <p:outputLabel value="Distrito:"/>
-                                        <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
-
-                                        <h:outputLabel value="Provincia:" />
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{funcionarioMBean.provincia}" required="true" converter="provinciaConverter" style="width:200px">
-                                            <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                            <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
-                                        </p:selectOneMenu>
-                                        <h:outputLabel value="Municipio:" />
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{funcionarioMBean.funcionario.municipio}" required="true" converter="municipioConverter" style="width:200px">
-                                            <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
-                                        </p:selectOneMenu>
-
-
-                                    </h:panelGrid>
-                                </p:tab>
-
-                                <p:tab title="Telefone/Email">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Telefone fixo:"/>
-                                        <p:inputText id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" size="30"/>
-                                        <p:outputLabel value="Telefone movél:"/>
-                                        <p:inputText id="telefonemovel" value="#{funcionarioMBean.funcionario.telefoneMovelFuncionario}" size="30"/>
-
-
-                                        <p:outputLabel value="Email:"/>
-                                        <p:inputText value="#{funcionarioMBean.funcionario.emailFuncionario}" size="30"/>
-
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Bairro:"/>
+                                                <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Distrito:"/>
+                                                <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
 
                                     </h:panelGrid>
-                                </p:tab>
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <h:outputLabel value="Provincia:" />
+                                                <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{funcionarioMBean.provincia}" required="true" converter="provinciaConverter" style="width:200px">
+                                                    <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                                    <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <h:outputLabel value="Municipio:" />
+                                                <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{funcionarioMBean.funcionario.municipio}" required="true" converter="municipioConverter" style="width:200px">
+                                                    <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
 
+                                </p:fieldset>
+                                <p:fieldset legend="Contactos">
+                                    <h:panelGrid columns="3">
+                                        <h:panelGroup>
+
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone fixo:"/>
+                                                <p:inputText id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" size="30"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone movél:"/>
+                                                <p:inputText id="telefonemovel" value="#{funcionarioMBean.funcionario.telefoneMovelFuncionario}" size="30"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                          <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Email:"/>
+                                                <p:inputText value="#{funcionarioMBean.funcionario.emailFuncionario}" size="30"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                          
+                                </p:fieldset>
+
+
+                            </p:tab>
+                            <p:tab title="Dados de acesso">
+                                <h:panelGrid columns="1" >
+                                    <p:outputLabel value="Nome de usuário:"/>
+                                    <p:inputText value="#{funcionarioMBean.funcionario.loginFuncionario}"/>
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Password:"/>
+                                    <p:password value="#{funcionarioMBean.funcionario.passwordFuncionario}"/>
+                                </h:panelGrid>
+                            </p:tab>
+
+                            </p:tabView>
+                            <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+                        </h:form>
+
+                    </p:dialog>
+
+                    <p:dialog header="Alterar dados do funcionário" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="950" width="1200">
+                        <h:form id="formEditar" enctype="multipart/form-data">
+                            <h:inputHidden value="#{funcionarioMBean.funcionario.idFuncionario}"/>
+                            <p:tabView>
+
+                                 <p:tab title="Dados Pessoais">
+                                <p:growl id="messages" showDetail="true"/>
+                                <h:messages showSummary="true" showDetail="true"/>
+                                <h:message for="provincias"/>
+                                <h:panelGrid columns="2" >
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Nome:" />
+                                            <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel  value="Sobrenome"/>
+                                            <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Data da Nacimento:"/>
+                                            <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Sexo:"/>
+                                    <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
+                                        <f:selectItems value="#{funcionarioMBean.opSexos}" />
+                                    </p:selectOneRadio >
+                                    <p:outputLabel value="Foto:"/>
+                                    <p:fileUpload id="foto" fileUploadListener="#{funcionarioMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1073741824" invalidSizeMessage="o tamanho máximo permitido è de 1GB" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+
+                                </h:panelGrid>
+                                <p:fieldset legend="Endereço" style="margin-bottom: 20px">
+                                    <h:panelGrid columns="3">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="N.º Casa:"/>
+                                                <p:inputText id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" size="20"/>
+
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Bairro:"/>
+                                                <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Distrito:"/>
+                                                <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <h:outputLabel value="Provincia:" />
+                                                <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{funcionarioMBean.provincia}" required="true" converter="provinciaConverter" style="width:200px">
+                                                    <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                                    <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <h:outputLabel value="Municipio:" />
+                                                <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{funcionarioMBean.funcionario.municipio}" required="true" converter="municipioConverter" style="width:200px">
+                                                    <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+                                </p:fieldset>
+                                <p:fieldset legend="Contactos">
+                                    <h:panelGrid columns="3">
+                                        <h:panelGroup>
+
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone fixo:"/>
+                                                <p:inputText id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" size="30"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone movél:"/>
+                                                <p:inputText id="telefonemovel" value="#{funcionarioMBean.funcionario.telefoneMovelFuncionario}" size="30"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                          <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="E-mail:"/>
+                                                <p:inputText value="#{funcionarioMBean.funcionario.emailFuncionario}" size="30"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                    
+                                      
+
+                                    
+                                </p:fieldset>
+
+
+                            </p:tab>
+                            <p:tab title="Dados de acesso">
+                                <h:panelGrid columns="1" >
+                                    <p:outputLabel value="Nome de usuário:"/>
+                                    <p:inputText value="#{funcionarioMBean.funcionario.loginFuncionario}"/>
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Password:"/>
+                                    <p:password value="#{funcionarioMBean.funcionario.passwordFuncionario}"/>
+                                </h:panelGrid>
+                            </p:tab>
 
                             </p:tabView>
 
+                            <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.edit(event)}" update="growl" resetValues="true" ajax="false"/>
 
-                            <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+
+
 
                         </h:form>
 
                     </p:dialog>
-                    <!-- Fim  Dialogo Guardar-->
 
 
-                    <!-- Dialogo Editar-->
-
-
-                    <p:dialog header="Alterar dados do Funcionário" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                        <h:form id="formEditar"  enctype="multipart/form-data">
-                            <p:tabView>
-                                <p:tab title="Dados Pessoais">
-
-                                    <p:growl id="messages" showDetail="true"/>
-                                    <p:messages  for="dropmunicipio"  showDetail="true"/>
-                                    <h:panelGrid columns="2" >
-
-
-                                        <p:outputLabel value="Nome:" />
-                                        <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
-                                        <p:outputLabel  value="Sobrenome"/>
-                                        <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
-                                        <p:outputLabel value="Data da Nacimento:"/>
-                                        <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
-                                        <p:outputLabel value="Sexo:"/>
-                                        <p:selectOneRadio id="sexo" value="#{funcionarioMBean.funcionario.sexo}">
-                                            <f:selectItems value="#{funcionarioMBean.opSexos}" />
-                                        </p:selectOneRadio >
-                                        <p:outputLabel value="Foto:"/>
-                                        <p:fileUpload id="foto" fileUploadListener="#{funcionarioMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
-
-
-                                    </h:panelGrid>
-                                </p:tab>
-
-                                <p:tab title="Endereço:">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="N.º Casa:"/>
-                                        <p:inputText id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" size="20"/>
-
-                                        <p:outputLabel value="Bairro:"/>
-                                        <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
-                                        <p:outputLabel value="Distrito:"/>
-                                        <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
-                                       <h:outputLabel value="Provincia:" />
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{funcionarioMBean.provincia}" required="true" converter="provinciaConverter" style="width:200px">
-                                            <f:selectItem itemLabel="-Seleccione-" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{funcionarioMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                            <f:ajax listener="#{funcionarioMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
-                                        </p:selectOneMenu>
-                                        <h:outputLabel value="Municipio:" />
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{funcionarioMBean.funcionario.municipio}" required="true" converter="municipioConverter" style="width:200px">
-                                            <f:selectItem itemLabel="-Seleccione -" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{funcionarioMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
-                                        </p:selectOneMenu>
-
-                                    </h:panelGrid>
-                                </p:tab>
-
-                                <p:tab title="Telefone/Email">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Telefone fixo:"/>
-                                        <p:inputText id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" size="30"/>
-                                        <p:outputLabel value="Telefone movél:"/>
-                                        <p:inputText id="telefonemovel" value="#{funcionarioMBean.funcionario.telefoneMovelFuncionario}" size="30"/>
-
-
-                                        <p:outputLabel value="Email:"/>
-                                        <p:inputText value="#{funcionarioMBean.funcionario.emailFuncionario}" size="30"/>
-
-
-                                    </h:panelGrid>
-                                </p:tab>
-
-
-                            </p:tabView>
-                            <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.edit(event)}" update="growl" resetValues="true" ajax="false"/>
-                        </h:form> 
-                    </p:dialog>
                     <!-- Fim Dialogo Editar-->
 
 
                     <!-- Inicio Dialogo Ver detalhes do funcionario-->
-                    <p:dialog header="Dados do Funcionário" id="ver" widgetVar="dlgVer" showEffect="explode" hideEffect="bounce"  height="600">
+                    <p:dialog header="Dados do Funcionário: #{funcionarioMBean.funcionario.nomeFuncionario} #{funcionarioMBean.funcionario.sobrenomeFuncionario}" id="ver" widgetVar="dlgVer" showEffect="explode" hideEffect="bounce"  height="500" width="900">
                         <h:form id="formVer">
-                            <p:tabView>
-                                <p:tab title="Dados Pessoais">
+                            <p:accordionPanel>
+                                <p:tab title="Identificação:">
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Nome"/>
                                         <p:outputLabel id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}"/>
@@ -263,16 +379,19 @@
                                         <p:outputLabel id="sexo" value="#{funcionarioMBean.funcionario.sexo}"/>
 
                                         <p:outputLabel value="Foto:"/>
-                                        <h:graphicImage value="/funcionarioVisualizarFotoServlet?file=#{funcionarioMBean.funcionario.urlfotoFuncionario}" alt="foto" width="100" height="100" style="border: solid #CC0000"/>
+                                        <h:graphicImage value="/funcionarioVisualizarFotoServlet?file=#{funcionario.urlfotoFuncionario}" alt="foto" width="200" height="200" style="border: solid #CCFFDD"/>
                                     </h:panelGrid>
 
 
-                                </p:tab>
-                                <p:tab title="Endereço">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="N.º Casa:"/>
-                                        <p:outputLabel id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" />
 
+                                </p:tab>
+                                
+
+                                <p:tab title="Endereço:">
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="N.º Casa"/>
+                                        <p:outputLabel id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" />
+                                        
                                         <p:outputLabel value="Bairro:"/>
                                         <p:outputLabel id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" />
                                         <p:outputLabel value="Distrito:"/>
@@ -281,9 +400,10 @@
                                         <p:outputLabel id="dropmunicipio" value="#{funcionarioMBean.funcionario.municipio}" />
                                     </h:panelGrid>
                                 </p:tab>
-                                <p:tab title="Telefone/Email">
+
+                                <p:tab title="Telefone/E-mail:">
                                     <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Telefone fixo:"/>
+                                      <p:outputLabel value="Telefone fixo:"/>
                                         <p:outputLabel id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" />
                                         <p:outputLabel value="Telefone Movél:"/>
                                         <p:outputLabel id="telefonemovel" value="#{funcionarioMBean.funcionario.telefoneMovelFuncionario}"/>
@@ -293,24 +413,28 @@
 
 
                                     </h:panelGrid>
+                                </p:tab>        
+                                <p:tab title="Dados de acesso:">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Nome de usuário:"/>
+                                        <p:outputLabel value="#{funcionarioMBean.funcionario.loginFuncionario}" />
+                                        <p:outputLabel value="Password:"/>
+                                        <p:outputLabel value="#{funcionarioMBean.funcionario.passwordFuncionario}" />
+                                    </h:panelGrid>
                                 </p:tab>
+                            </p:accordionPanel>
 
 
-                            </p:tabView>
 
 
                         </h:form>
 
-
-
                     </p:dialog>
 
-
-                    <!-- Fim Dialogo Ver detalhes do funcionario-->
+                    <!-- Fim  Dialogo Ver detalhes do funcionario-->
                 </f:view>
             </ui:define>
         </ui:composition>
-
     </h:body>
 </html>
 

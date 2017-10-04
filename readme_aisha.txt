@@ -1,4 +1,16 @@
+02/10/2017
+Alteracões feitas:
+Funcionario :
+          Interface alterada;
+          Adicionado os campos login e password com o isso o modelo e o DAO funcionario também foram alterados.
+          Na pasta funcionario onde encontra-se as paginas existe uma subpasta denominada antigo, onde localiza-se a pagina antiga, preferi não eliminar caso precise novamente...
 
+Turma :
+ Alterações no modelo;
+ Implementação GenericoDAOLogico com a definicao do metodos que retornam boolean;
+
+--------------------------------------------------------------------------------------------------------------------------------
+      
 Tarefa 3
  ainda não concluida pesquisar por data de nascimento.
 Alterações feitas no DAO do funcionario , e alterações estecticas.

@@ -26,6 +26,8 @@ public class Funcionario {
     private String telefoneFixoFuncionario;
     private String telefoneMovelFuncionario;
     private String emailFuncionario;
+    private String loginFuncionario;
+    private String passwordFuncionario;
     
     public Funcionario() {
     }
@@ -140,6 +142,22 @@ public class Funcionario {
 
     public void setEmailFuncionario(String emailFuncionario) {
         this.emailFuncionario = emailFuncionario;
+    }
+
+    public String getLoginFuncionario() {
+        return loginFuncionario;
+    }
+
+    public void setLoginFuncionario(String loginFuncionario) {
+        this.loginFuncionario = loginFuncionario;
+    }
+
+    public String getPasswordFuncionario() {
+        return passwordFuncionario;
+    }
+
+    public void setPasswordFuncionario(String passwordFuncionario) {
+        this.passwordFuncionario = passwordFuncionario;
     }
 
     @Override

@@ -21,25 +21,25 @@
                                 
                                     <h:panelGrid columns="2">
                                         <p:outputLabel  value="Turma:"/>
-                                        <h:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
+                                        <p:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
                                         <p:outputLabel value="Ano lectivo:"/>
-                                        <p:selectOneMenu label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
-                                        <f:selectItem itemLabel="--Selecione o ano lectivo--" value="#{null}" noSelectionOption="true"/>
+                                        <p:selectOneMenu  style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
+                                        <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.anoLectivos}" var="anoLectivo" itemValue="#{anoLectivo}" itemLabel="#{anoLectivo.anoLectivo}" />
                                     </p:selectOneMenu>
                                         <p:outputLabel value="Periodo lectivo:"/>
-                                        <p:selectOneMenu label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
-                                        <f:selectItem itemLabel="--Selecione o periodo lectivo--" value="#{null}" noSelectionOption="true"/>
+                                        <p:selectOneMenu  style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
+                                        <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.periodoLectivos}" var="periodoLectivo" itemValue="#{periodoLectivo}" itemLabel="#{periodoLectivo.periodoLectivo}" />
                                     </p:selectOneMenu>
                                         <p:outputLabel  value="Número maxímos de inscritos:"/>
-                                        <h:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
+                                        <p:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
                                     </h:panelGrid> 
                                     
                              </p:tab>
                         </p:tabView>
                         <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{turmaMBean.guardar(event)}"/>
-                        <p:commandLink value="Listar turmas" hreflang="turma_listar.jsf"/>
+                       
                     
                      </h:form>
                      
