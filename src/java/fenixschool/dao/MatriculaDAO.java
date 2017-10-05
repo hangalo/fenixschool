@@ -116,7 +116,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             ps.setInt(3, matricula.getFuncionario().getIdFuncionario());
             ps.setString(4, matricula.getCurso().getCodigoCurso());
             ps.setInt(5, matricula.getAnoLetivo().getIdAnoLectivo());
-            ps.setInt(6, matricula.getEstadoMatricula());
+            ps.setBoolean(6, matricula.isEstadoMatricula());
             ps.setInt(7, matricula.getTurma().getIdTurma());
             ps.setInt(8, matricula.getTipoDocumentoIdentidade().getIdTipoDocumentoIdentidade());
             ps.setDate(9, new java.sql.Date(matricula.getDataEmissaoDocumento().getTime()));
@@ -149,7 +149,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             ps.setInt(3, matricula.getFuncionario().getIdFuncionario());
             ps.setString(4, matricula.getCurso().getCodigoCurso());
             ps.setInt(5, matricula.getAnoLetivo().getIdAnoLectivo());
-            ps.setInt(6, matricula.getEstadoMatricula());
+            ps.setBoolean(6, matricula.isEstadoMatricula());
             ps.setInt(7, matricula.getTurma().getIdTurma());
             ps.setInt(8, matricula.getTipoDocumentoIdentidade().getIdTipoDocumentoIdentidade());
             ps.setDate(9, new java.sql.Date(matricula.getDataEmissaoDocumento().getTime()));
@@ -310,7 +310,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
              */
             matricula.setIdMatricula(rs.getInt("id_matricula"));
             matricula.setDataMatricula(rs.getDate("data_matricula"));
-            matricula.setEstadoMatricula(rs.getInt("estado_matricula"));
+            matricula.setEstadoMatricula(rs.getBoolean("estado_matricula"));
             matricula.setDataEmissaoDocumento(rs.getDate("data_emissao_documento"));
             matricula.setNumeroDocumento(rs.getString("numero_documento"));
             matricula.setObservacao(rs.getString("observacao"));

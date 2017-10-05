@@ -5,20 +5,21 @@
  */
 package fenixschool.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author HACKER
  */
-public class Matricula {
+public class Matricula implements Serializable{
     private int idMatricula;
     private Date dataMatricula;
     private Aluno aluno;
     private Funcionario funcionario;
     private Curso curso;
     private AnoLectivo anoLetivo;
-    private int estadoMatricula;
+    private boolean estadoMatricula;
     private Turma turma;
     private TipoDocumentoIdentidade tipoDocumentoIdentidade;
     private Date dataEmissaoDocumento;
@@ -31,7 +32,7 @@ public class Matricula {
     public Matricula() {
     }
 
-    public Matricula(int idMatricula, Date dataMatricula, Aluno aluno, Funcionario funcionario, Curso curso, AnoLectivo anoLetivo, int estadoMatricula, Turma turma, TipoDocumentoIdentidade tipoDocumentoIdentidade, Date dataEmissaoDocumento, LocalEmissaoDocumento localEmissaoDocumento, String numeroDocumento, CicloLectivo cicloLectivo, AnoCurricular anoCurricular, String observacao) {
+    public Matricula(int idMatricula, Date dataMatricula, Aluno aluno, Funcionario funcionario, Curso curso, AnoLectivo anoLetivo, boolean estadoMatricula, Turma turma, TipoDocumentoIdentidade tipoDocumentoIdentidade, Date dataEmissaoDocumento, LocalEmissaoDocumento localEmissaoDocumento, String numeroDocumento, CicloLectivo cicloLectivo, AnoCurricular anoCurricular, String observacao) {
         this.idMatricula = idMatricula;
         this.dataMatricula = dataMatricula;
         this.aluno = aluno;
@@ -48,6 +49,8 @@ public class Matricula {
         this.anoCurricular = anoCurricular;
         this.observacao = observacao;
     }
+
+   
 
     public int getIdMatricula() {
         return idMatricula;
@@ -97,13 +100,15 @@ public class Matricula {
         this.anoLetivo = anoLetivo;
     }
 
-    public int getEstadoMatricula() {
+    public boolean isEstadoMatricula() {
         return estadoMatricula;
     }
 
-    public void setEstadoMatricula(int estadoMatricula) {
+    public void setEstadoMatricula(boolean estadoMatricula) {
         this.estadoMatricula = estadoMatricula;
     }
+
+   
 
     public Turma getTurma() {
         return turma;
