@@ -25,7 +25,6 @@ import fenixschool.modelo.LocalEmissaoDocumento;
 import fenixschool.modelo.Matricula;
 import fenixschool.modelo.TipoDocumentoIdentidade;
 import fenixschool.modelo.Turma;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,15 +34,16 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
  * @author HACKER
  */
 @ManagedBean(name = "matriculaBean")
-@ViewScoped
+@SessionScoped
 public class MatriculaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -387,17 +387,28 @@ public class MatriculaBean implements Serializable {
     }
 
     public void guardar(ActionEvent evt) {
-          FacesContext facesContext = FacesContext.getCurrentInstance();
-        String numeroAlunoParametro= (String) facesContext.getExternalContext().getRequestParameterMap().get("numeroAluno"); // este numero do aluno é o nome do parametro
-        
-        Integer numeroAluno= Integer.parseInt(numeroAlunoParametro); 
-        
-	Aluno alunoNovo = new Aluno();
+        Integer numeroAluno = null;
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+      String numeroAlunoParametro= (String) facesContext.getExternalContext().getRequestParameterMap().get("numeroAluno"); // este numero do aluno é o nome do parametro
+      
+       
+    // String numeroAlunoParametro =(String)evt.getComponent().getAttributes().get("numeroAluno");
+       
+        System.out.println(">>>>>>>>>>>>>Numero" + numeroAlunoParametro);
+        numeroAluno= Integer.parseInt("2"); 
+       
+        if(numeroAluno!=null){
+        Aluno alunoNovo = new Aluno();
         alunoNovo.setIdAluno(numeroAluno);
         matricula.setAluno(aluno);              
         matriculaDAO.save(matricula);
         matricula = new Matricula();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Matricula efectuada com sucesso"));
+        }else{
+        
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao gravar Matricula"));
+        }
+	
     }
     
     

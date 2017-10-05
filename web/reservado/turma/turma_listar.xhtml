@@ -10,105 +10,105 @@
         <title>Lista das turmas</title>
     </h:head>
     <h:body>
-       
+
         <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
-                 <p:growl showDetail="true" autoUpdate="true" showSummary="true"/>
-                 <h:form>
-                      <b:panel title="Lista de turmas" collapsible="false" look="primary">
-                     <p:dataTable paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                  var="turma" value="#{turmaMBean.turmas}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
-                     
-                     <p:column style="width: 20px;">
-                            <f:facet name="header">
-                                <p:outputLabel value="Codigo"/>
+                <p:growl showDetail="true" autoUpdate="true" showSummary="true"/>
+                <h:form>
+                    <b:panel title="Lista de turmas" collapsible="false" look="primary">
+                        <p:dataTable paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     var="turma" value="#{turmaMBean.turmas}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
+
+                            <p:column style="width: 20px;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Codigo"/>
+                                </f:facet>
+                                <p:outputLabel value="#{turma.idTurma}"/>
+                            </p:column>
+                            <p:column style="width: 30px;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Tuma"/>
+                                </f:facet>
+                                <p:outputLabel value="#{turma.nomeTurma}"/>
+                            </p:column>
+                            <p:column style="width: 50px;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton icon="ui-icon-trash" action="#{turmaMBean.delete()}">
+                                    <f:setPropertyActionListener target="#{turmaMBean.turma}" value="#{turma}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-pencil" update=":FrmEditar:editar" oncomplete="PF('dialogoEditar').show();">
+                                    <f:setPropertyActionListener target="#{turmaMBean.turma}" value="#{turma}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin" update=":FrmVer:ver" oncomplete="PF('dialogoVer').show();">
+                                    <f:setPropertyActionListener target="#{turmaMBean.turma}" value="#{turma}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <f:facet name="footer">
+                                Total de registos: #{turmaMBean.turmas.size()}
                             </f:facet>
-                         <p:outputLabel value="#{turma.idTurma}"/>
-                        </p:column>
-                         <p:column style="width: 30px;">
-                            <f:facet name="header">
-                                <p:outputLabel value="Tuma"/>
-                            </f:facet>
-                             <p:outputLabel value="#{turma.nomeTurma}"/>
-                        </p:column>
-                         <p:column style="width: 50px;">
-                            <f:facet name="header">
-                                <p:outputLabel value="Operações"/>
-                            </f:facet>
-                             <p:commandButton icon="ui-icon-trash" action="#{turmaMBean.delete()}">
-                                 <f:setPropertyActionListener target="#{turmaMBean.turma}" value="#{turma}"/>
-                            </p:commandButton>
-                            <p:commandButton icon="ui-icon-pencil" update=":FrmEditar:editar" oncomplete="PF('dialogoEditar').show();">
-                                <f:setPropertyActionListener target="#{turmaMBean.turma}" value="#{turma}"/>
-                            </p:commandButton>
-                            <p:commandButton icon="ui-icon-zoomin" update=":FrmVer:ver" oncomplete="PF('dialogoVer').show();">
-                                <f:setPropertyActionListener target="#{turmaMBean.turma}" value="#{turma}"/>
-                            </p:commandButton>
-                        </p:column>
-                         <f:facet name="footer">
-                             Total de registos: #{turmaMBean.turmas.size()}
-                        </f:facet>
-                     </p:dataTable>
-                          </b:panel>
-                 </h:form>
-                 <!--Inicio do fomulario ver-->
-                      <h:form id="FrmVer">
-                     <p:dialog id="ver" header="Detalhes da turma" widgetVar="dialogoVer"  showEffect="clip" hideEffect="blind">
-                           <p:accordionPanel>
-                               <p:tab title="Dados da turma">
-                         <p:panelGrid columns="2">
-                             <p:outputLabel value="Codigo:"/>
-                             <p:outputLabel value="#{turmaMBean.turma.idTurma}"/>
-                             <p:outputLabel value="Turma:"/>
-                             <p:outputLabel value="#{turmaMBean.turma.nomeTurma}"/>
-                             <p:outputLabel value="Ano Lectivo:"/>
-                             <p:outputLabel value="#{turmaMBean.turma}"/>
-                              <p:outputLabel value="Periodo Lectivo:"/>
-                              <p:outputLabel value="#{turmaMBean.turma.periodoLectivo.periodoLectivo}"/>
-                               <p:outputLabel value="Numero maximo de inscritos:"/>
-                               <p:outputLabel value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
-                         </p:panelGrid>
-                                   </p:tab>
-                                </p:accordionPanel>
-                        
-                     </p:dialog>
-                          </h:form>
-                      
-                
-                  <!--Fim-->
-                                <!--Formulario Guardar-->
+                        </p:dataTable>
+                    </b:panel>
+                </h:form>
+                <!--Inicio do fomulario ver-->
+                <h:form id="FrmVer">
+                    <p:dialog id="ver" header="Detalhes da turma" widgetVar="dialogoVer"  showEffect="clip" hideEffect="blind">
+                        <p:accordionPanel>
+                            <p:tab title="Dados da turma">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Codigo:"/>
+                                    <p:outputLabel value="#{turmaMBean.turma.idTurma}"/>
+                                    <p:outputLabel value="Turma:"/>
+                                    <p:outputLabel value="#{turmaMBean.turma.nomeTurma}"/>
+                                    <p:outputLabel value="Ano Lectivo:"/>
+                                    <p:outputLabel value="#{turmaMBean.turma.anoLectivo}"/>
+                                    <p:outputLabel value="Periodo Lectivo:"/>
+                                    <p:outputLabel value="#{turmaMBean.turma.periodoLectivo.periodoLectivo}"/>
+                                    <p:outputLabel value="Numero maximo de inscritos:"/>
+                                    <p:outputLabel value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
+                                </p:panelGrid>
+                            </p:tab>
+                        </p:accordionPanel>
+
+                    </p:dialog>
+                </h:form>
+
+
+                <!--Fim-->
+                <!--Formulario Guardar-->
                 <h:form id="FrmGuardar">
                     <p:dialog widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind" header="Guardar">
                         <p:tabView>
-                            
-                                <p:tab title="Dados da Turma">
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel  value="Turma:"/>
-                                        <h:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
-                                        <p:outputLabel value="Ano lectivo:"/>
-                                        <p:selectOneMenu style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
+
+                            <p:tab title="Dados da Turma">
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel  value="Turma:"/>
+                                    <h:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
+                                    <p:outputLabel value="Ano lectivo:"/>
+                                    <p:selectOneMenu style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.anoLectivos}" var="anoLectivo" itemValue="#{anoLectivo}" itemLabel="#{anoLectivo.anoLectivo}" />
                                     </p:selectOneMenu>
-                                        <p:outputLabel value="Periodo lectivo:"/>
-                                        <p:selectOneMenu  style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
+                                    <p:outputLabel value="Periodo lectivo:"/>
+                                    <p:selectOneMenu  style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione --" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.periodoLectivos}" var="periodoLectivo" itemValue="#{periodoLectivo}" itemLabel="#{periodoLectivo.periodoLectivo}" />
                                     </p:selectOneMenu>
-                                        <p:outputLabel  value="Número maxímos de inscritos:"/>
-                                        <h:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
-                                    </h:panelGrid> 
-                                    
-                                </p:tab>
+                                    <p:outputLabel  value="Número maxímos de inscritos:"/>
+                                    <h:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
+                                </h:panelGrid> 
+
+                            </p:tab>
                         </p:tabView>
                         <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{turmaMBean.guardar(event)}"/>
                     </p:dialog>
-                    
-                    </h:form>
-                        <h:form id="Operacoes">
+
+                </h:form>
+                <h:form id="Operacoes">
                     <p:commandButton  icon="ui-icon-plus" value="Novo" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
-                   
-                      </h:form>
+
+                </h:form>
 
 
                 <!-- Inicio do Formulario editar-->
@@ -116,37 +116,37 @@
                     <p:dialog  id="editar" widgetVar="dialogoEditar" header="Actualizar" showEffect="clip" hideEffect="blind">
                         <p:tabView>
                             <h:inputHidden value="#{turmaMBean.turma.idTurma}"/>
-                                <p:tab title="Dados da Turma">
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel  value="Turma:"/>
-                                        <p:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
-                                        <p:outputLabel value="Ano lectivo:"/>
-                                        <p:selectOneMenu style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
+                            <p:tab title="Dados da Turma">
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel  value="Turma:"/>
+                                    <p:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
+                                    <p:outputLabel value="Ano lectivo:"/>
+                                    <p:selectOneMenu style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.anoLectivos}" var="anoLectivo" itemValue="#{anoLectivo}" itemLabel="#{anoLectivo.anoLectivo}" />
                                     </p:selectOneMenu>
-                                        <p:outputLabel value="Periodo lectivo:"/>
-                                        <p:selectOneMenu style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
+                                    <p:outputLabel value="Periodo lectivo:"/>
+                                    <p:selectOneMenu style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione --" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.periodoLectivos}" var="periodoLectivo" itemValue="#{periodoLectivo}" itemLabel="#{periodoLectivo.periodoLectivo}" />
                                     </p:selectOneMenu>
-                                        <p:outputLabel  value="Número maxímos de inscritos:"/>
-                                        <p:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
-                                    </h:panelGrid> 
-                                    
-                                </p:tab>
+                                    <p:outputLabel  value="Número maxímos de inscritos:"/>
+                                    <p:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
+                                </h:panelGrid> 
+
+                            </p:tab>
                         </p:tabView>
                         <p:commandButton  icon="ui-icon-pencil" value="Editar" actionListener="#{turmaMBean.edit(event)}"/>
                     </p:dialog>
                 </h:form>
-                     <!--Fim do Fomulario editar-->
+                <!--Fim do Fomulario editar-->
 
                 <!--Formulario Para guardar-->
-               
-                 
+
+
             </ui:define> 
-            
-            
+
+
         </ui:composition>
     </h:body>
 </html>

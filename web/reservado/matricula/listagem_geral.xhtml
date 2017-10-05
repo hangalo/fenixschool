@@ -105,9 +105,9 @@
 
 
                     <!-- Inicio Dialogo Guardar-->
-
+                     <h:form  id="frmNovo" >
                     <p:dialog header="Efetuar Matricula de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno} Aluno N.º #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="800" width="900">
-                        <h:form  id="frmNovo"  enctype="multipart/form-data">
+                       
                             <p:growl id="messages" showDetail="true"/>
                             <b:panel title="Dados do aluno" look="info">
                             <h:panelGrid columns="3">
@@ -296,14 +296,13 @@
                             </h:panelGrid>
 
 
-
-
-                            <p:commandButton value="Guardar" actionListener="#{matriculaBean.guardar(evt)}" update="growl" resetValues="true" ajax="false">
+                            <p:commandButton value="Guardar e Imprimir" actionListener="#{matriculaBean.guardar(evt)}" update="growl" resetValues="true" ajax="false">
                                 <f:param name="numeroAluno" value="#{alunoBean.aluno.idAluno}"/> 
                             </p:commandButton> 
-                        </h:form>
+                       
 
                     </p:dialog>
+                     </h:form>
 
                     <p:dialog header="Alterar dados do professor" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="700">
                         <h:form id="formEditar" enctype="multipart/form-data">

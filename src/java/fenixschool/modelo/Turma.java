@@ -93,7 +93,7 @@ private int numeroMaximoInscritos;
 
     @Override
     public String toString() {
-        return "Turma{" + "nomeTurma=" + nomeTurma + '}';
+        return this.nomeTurma;
     }
     
 

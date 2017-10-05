@@ -108,7 +108,16 @@
 
 
                 <p:submenu label="Tabelas" icon="ui-icon-home ">
-
+                    
+                      <p:submenu label="Turmas:" icon="ui-icon-search">
+                        <p:menuitem value="Criar turma"  url="/reservado/turma/turma_novo.jsf" />
+                        <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                            
+                            <p:menuitem value="Nº de Turma"  url="#"/>
+                           
+                            <p:menuitem value="Listagem Geral" url="/reservado/turma/turma_listar.jsf" />
+                        </p:submenu>
+                    </p:submenu>
                     <p:submenu label="Emissão de documentos">
                         <p:menuitem value="Locais"  url="/reservado/localemissaodocumento/localemissaodocumento_gestao.jsf" ajax="false" icon="ui-icon-search" />
                     </p:submenu>

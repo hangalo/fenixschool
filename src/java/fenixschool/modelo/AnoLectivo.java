@@ -87,7 +87,7 @@ public class AnoLectivo {
 
     @Override
     public String toString() {
-        return "AnoLectivo{" + "anoLectivo=" + anoLectivo + '}';
+        return this.anoLectivo;
     }
     
     
