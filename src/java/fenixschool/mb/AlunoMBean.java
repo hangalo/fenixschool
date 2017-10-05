@@ -54,6 +54,7 @@ public class AlunoMBean implements Serializable{
     private String numeroBi;
     private String sexo;
     private Date dataDeNascimento;
+    private Integer numeroAluno;
     
     private Aluno aluno;
     private Provincia provincia;
@@ -270,6 +271,14 @@ public class AlunoMBean implements Serializable{
     public void setDataDeNascimento(Date dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
+
+    public Integer getNumeroAluno() {
+        return numeroAluno;
+    }
+
+    public void setNumeroAluno(Integer numeroAluno) {
+        this.numeroAluno = numeroAluno;
+    }
     
     
     
@@ -394,6 +403,13 @@ public class AlunoMBean implements Serializable{
         aluno = alunoDAO.findByNumeroBi(numeroBi);
         return aluno;
     }
+    
+    
+    public Aluno getByNumeroAluno() {
+        aluno = alunoDAO.findById(numeroAluno);
+        return aluno;
+    }
+    
     
     public List<Aluno> getBySexo() {
         findBySexo = alunoDAO.findBySexo(sexo);

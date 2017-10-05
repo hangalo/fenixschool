@@ -387,6 +387,14 @@ public class MatriculaBean implements Serializable {
     }
 
     public void guardar(ActionEvent evt) {
+          FacesContext facesContext = FacesContext.getCurrentInstance();
+        String numeroAlunoParametro= (String) facesContext.getExternalContext().getRequestParameterMap().get("numeroAluno"); // este numero do aluno é o nome do parametro
+        
+        Integer numeroAluno= Integer.parseInt(numeroAlunoParametro); 
+        
+	Aluno alunoNovo = new Aluno();
+        alunoNovo.setIdAluno(numeroAluno);
+        matricula.setAluno(aluno);              
         matriculaDAO.save(matricula);
         matricula = new Matricula();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Matricula efectuada com sucesso"));
