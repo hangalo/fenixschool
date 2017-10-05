@@ -28,6 +28,7 @@ public class AlunoDAO implements GenericoDAOLogico<Aluno>{
     private static final String UPDATE = " UPDATE aluno SET nome_aluno=?, sobrenome_aluno=?, data_nascimento=?, numero_BI=?, numero_passaporte=?, casa_aluno=?, bairro_aluno=?, distrito_aluno=?, id_municipio=?, url_foto_aluno=?, foto_aluno=?,telefone_fixo=?,telefone_movel=?,email_aluno=?,id_profissao=?, sexo=?, login_aluno=?, password_aluno=? WHERE id_aluno=?";
     private static final String DELETE = "DELETE FROM aluno WHERE id_aluno=?";
     private static final String SELECT_BY_ID = "SELECT a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.numero_BI, a.numero_passaporte, a.sexo, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, a.login_aluno, a.password_aluno, p.nome_profissao p FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE id_aluno = ?";
+    private static final String SELECT_BY_ID_OR_BI = "SELECT a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.numero_BI, a.numero_passaporte, a.sexo, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, a.login_aluno, a.password_aluno, p.nome_profissao p FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE id_aluno = ? OR numero_BI = ? ";
     private static final String SELECT_ALL = "select a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.numero_BI, a.numero_passaporte, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, a.login_aluno, a.password_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao";
     private static final String SELECT_BY_NOME = "select a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.numero_BI, a.numero_passaporte, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, a.login_aluno, a.password_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE nome_aluno = ?";
     private static final String SELECT_BY_SOBRENOME = "select a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.data_nascimento, a.numero_BI, a.numero_passaporte, a.casa_aluno, a.bairro_aluno, a.distrito_aluno, m.nome_municipio, a.url_foto_aluno, a.foto_aluno, a.telefone_fixo, a.telefone_movel, a.email_aluno, a.login_aluno, a.password_aluno, p.nome_profissao, a.sexo FROM aluno a INNER JOIN municipio m ON m.id_municipio=a.id_municipio INNER JOIN profissao p ON p.id_profissao=a.id_profissao WHERE sobrenome_aluno = ?";
@@ -193,6 +194,31 @@ public class AlunoDAO implements GenericoDAOLogico<Aluno>{
         return aluno;
     }
     
+     public Aluno findByIdOrBI(Integer id) {
+        Aluno aluno = new Aluno();
+        try {
+
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_ID_OR_BI);
+            ps.setInt(1, id);
+            ps.setString(2, String.valueOf(id));
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("Nao existe nenhum registo com esse ID: " + id);
+
+            }
+            popularComDados(aluno, rs);
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao ler dados: " + ex.getMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return aluno;
+    }
+    
+    
+    
     public List<Aluno> findByNomeSobrenome(String nome, String sobrenome) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -217,6 +243,10 @@ public class AlunoDAO implements GenericoDAOLogico<Aluno>{
         }
         return alunos;
     }
+    
+   
+    
+
     
     public List<Aluno> findByNome(String nome) {
         Connection conn = null;
@@ -385,9 +415,9 @@ public class AlunoDAO implements GenericoDAOLogico<Aluno>{
             aluno.setTelefoneMovelAluno(rs.getString("telefone_movel"));
             aluno.setEmailAluno(rs.getString("email_aluno"));
 
-            Profissao profissao = new Profissao();
-            profissao.setNomeProfissao(rs.getString("nome_profissao"));
-            aluno.setProfissaoAluno(profissao);
+            //Profissao profissao = new Profissao();
+           // profissao.setNomeProfissao(rs.getString("p.nome_profissao"));
+         //   aluno.setProfissaoAluno(profissao);
             aluno.setSexo(Sexo.getAbreviatura(rs.getString("sexo")));
             aluno.setLoginAluno(rs.getString("login_aluno"));
             aluno.setPasswordAluno(rs.getString("password_aluno"));

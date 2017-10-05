@@ -41,21 +41,20 @@ import org.primefaces.model.UploadedFile;
  *
  * @author kulley
  */
-
 @ManagedBean(name = "alunoMBean")
 @SessionScoped
 
-public class AlunoMBean implements Serializable{
-    
+public class AlunoMBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private String nome;
     private String sobrenome;
     private String numeroBi;
     private String sexo;
     private Date dataDeNascimento;
     private Integer numeroAluno;
-    
+
     private Aluno aluno;
     private Provincia provincia;
     private Municipio municipio;
@@ -67,22 +66,21 @@ public class AlunoMBean implements Serializable{
     private List<Provincia> provincias;
     private List<Municipio> municipios;
     private List<Profissao> profissoes;
-    
-    
-    private List <Aluno> findByNomeSobrenome;
-    private List <Aluno> findByNome;
-    private List <Aluno> findBySobrenome;
-    private List <Aluno> findBySexo;
-    private List <Aluno> findByDataNascimento;
+
+    private List<Aluno> findByNomeSobrenome;
+    private List<Aluno> findByNome;
+    private List<Aluno> findBySobrenome;
+    private List<Aluno> findBySexo;
+    private List<Aluno> findByDataNascimento;
 
     public AlunoMBean() {
     }
-    
+
     @PostConstruct
     public void inicializar() {
         aluno = new Aluno();
         alunoDAO = new AlunoDAO();
-        
+
         profissaoDAO = new ProfissaoDAO();
         municipioDAO = new MunicipioDAO();
         provinciaDAO = new ProvinciaDAO();
@@ -102,7 +100,6 @@ public class AlunoMBean implements Serializable{
     public Aluno getAluno() {
         return aluno;
     }
-
 
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
@@ -254,8 +251,6 @@ public class AlunoMBean implements Serializable{
         this.numeroBi = numeroBi;
     }
 
-    
-
     public String getSexo() {
         return sexo;
     }
@@ -279,17 +274,13 @@ public class AlunoMBean implements Serializable{
     public void setNumeroAluno(Integer numeroAluno) {
         this.numeroAluno = numeroAluno;
     }
-    
-    
-    
-    
-    
+
     // carrega municipios em função da provincia
     public void carregaMunicipiosDaProvincia() {
         System.out.println("Provncia >>>>>" + provincia);
         municipios = municipioDAO.findByIdProvincia2(provincia);
     }
-    
+
     public List<SelectItem> getOpSexos() {
         List<SelectItem> list = new ArrayList<>();
         for (Sexo sexo : Sexo.values()) {
@@ -298,8 +289,6 @@ public class AlunoMBean implements Serializable{
         return list;
     }
 
-    
-    
     public void fileUpload(FileUploadEvent event) {
         try {
 
@@ -330,58 +319,59 @@ public class AlunoMBean implements Serializable{
             e.printStackTrace(System.out);
         }
     }
-    
-    public String newSave(){
+
+    public String newSave() {
         aluno = new Aluno();
         return "aluno_listar?faces-redirect=true";
     }
-    
-    public void guardar (javafx.event.ActionEvent evt){
-        if(alunoDAO.save(aluno)){
+
+    public void guardar(javafx.event.ActionEvent evt) {
+        if (alunoDAO.save(aluno)) {
             aluno = new Aluno();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
         }
     }
-    
+
     public String startEdit() {
         return "aluno_listar?faces-redirect=true";
     }
-    
-    public void edit (ActionEvent event){
-        if(alunoDAO.update(aluno)){
+
+    public void edit(ActionEvent event) {
+        if (alunoDAO.update(aluno)) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
             alunos = null;
-            
+
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("aluno_listar.jsf");
             } catch (IOException ex) {
                 Logger.getLogger(CandidatoMBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
         }
     }
-    
-    public String delete(){
-        if (alunoDAO.delete(aluno)){
+
+    public String delete() {
+        if (alunoDAO.delete(aluno)) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
             alunos = null;
             return "aluno_listar?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
+            return null;
         }
-        else {FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
-            return null;}
     }
-    
+
     public static String getPathPastaAplicacaoJSF() {
         String separador = System.getProperty("file.separator");
         String pasta = "fotos" + separador;
         String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
         return raizAplicacao + pasta;
     }
-    
-    public List<Aluno> getByNomeSobrenome(){
+
+    public List<Aluno> getByNomeSobrenome() {
 
         if ((getNome() == null || getNome().isEmpty()) && (getSobrenome() == null)) {
             return null;
@@ -403,23 +393,27 @@ public class AlunoMBean implements Serializable{
         aluno = alunoDAO.findByNumeroBi(numeroBi);
         return aluno;
     }
-    
-    
+
     public Aluno getByNumeroAluno() {
-        aluno = alunoDAO.findById(numeroAluno);
-        return aluno;
+         
+        if (numeroAluno != null) {
+            aluno = alunoDAO.findByIdOrBI(numeroAluno);
+            return aluno;
+        } else {
+
+            return null;
+        }
+
     }
-    
-    
+
     public List<Aluno> getBySexo() {
         findBySexo = alunoDAO.findBySexo(sexo);
         return findBySexo;
     }
-    
+
     public List<Aluno> getByDataNascimento() {
         findByDataNascimento = alunoDAO.findByDataDeNascimento((java.sql.Date) dataDeNascimento);
         return findByDataNascimento;
     }
-    
-    
+
 }

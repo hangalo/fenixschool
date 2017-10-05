@@ -17,48 +17,52 @@
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
                     <b:panel title="Nova Matricula" look="info">
-                        <p:menubar>
-                            <f:facet name="options" >
-                                <h:panelGrid columns="2">
-                                    <h:form>
-                                        <p:inputText size="50" value="#{alunoMBean.numeroAluno}" placeholder="N.º do aluno"/>
-                                        <p:commandButton type="button" value="Pesquisar" />
-                                    </h:form>
+                        <h:form>
+                            <p:menubar>
+                                <f:facet name="options" >
+                                    <h:panelGrid columns="2">
 
-                                    
-                                      
-                                    
-                                </h:panelGrid>
-                            </f:facet>
-                        </p:menubar>
+                                        <p:inputText size="50" value="#{alunoMBean.numeroAluno}" placeholder="Nº do aluno ou Nº do Bilhete de Identidade"/>
+                                        <p:commandButton  value="Pesquisar"  ajax="false"/>
+
+
+
+
+
+                                    </h:panelGrid>
+                                </f:facet>
+                            </p:menubar>
+
+                        </h:form>
+
                         <h:form>
 
                             <!--Inicio Data table-->
                             <p:dataTable value="#{alunoMBean.byNumeroAluno}"   var="item" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
 
 
-                                <p:column style="width: 20px; text-align: center">
+                                <p:column style="width: 3%; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Código"/>
                                     </f:facet>
                                     <h:outputText value="#{item.idAluno}"/>
                                 </p:column>
 
-                                <p:column style="width: 40px; text-align: center">
+                                <p:column style="width: 20%; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Nome"/>
                                     </f:facet>
                                     <h:outputText value="#{item.nomeAluno}"/>
                                 </p:column>
 
-                                <p:column style="width: 40px; text-align: center">
+                                <p:column style="width: 20%; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Sobrenome"/>
                                     </f:facet>
                                     <h:outputText value="#{item.sobrenomeAluno}"/>
                                 </p:column>
 
-                                <p:column style="width: 40px; text-align: center">
+                                <p:column style="width:10%; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Bilhete de Identidade "/>
                                     </f:facet>
@@ -67,7 +71,7 @@
 
 
 
-                                <p:column style="width: 20px; text-align: center">
+                                <p:column style="width: 10%; text-align: center">
                                     <f:facet name="header">
                                         <h:outputText value="Foto"/>
                                     </f:facet>
@@ -85,8 +89,8 @@
                                     <p:commandButton icon="ui-icon-pencil" value="Matricular" oncomplete="PF('dlgNovo').show();" >
                                         <f:setPropertyActionListener target="#{alunoMBean.aluno}" value="#{item}"/>
                                     </p:commandButton>
-                                    
-                                 
+
+
                                 </p:column>
 
                             </p:dataTable>
@@ -98,41 +102,45 @@
                     <!--Fim Data table-->
 
 
-                  
+
 
                     <!-- Inicio Dialogo Guardar-->
 
-                    <p:dialog header="Efetuar Matricula" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="400" width="900">
+                    <p:dialog header="Efetuar Matricula de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno} Aluno N.º #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="400" width="900">
                         <h:form  id="frmNovo"  enctype="multipart/form-data">
 
-                            
-                                <h:panelGrid columns="3">
-                                <h:panelGroup>
+                            <h:panelGrid columns="3">
+                                 <h:panelGroup style="margin-right: 20px;">
                                     <h:panelGrid columns="1">
                                         <p:outputLabel value="Nº:"/>
                                         <p:outputLabel value="#{alunoMBean.aluno.idAluno}"/>
                                     </h:panelGrid>
                                 </h:panelGroup>
+                                <h:panelGroup/>
                                 
-                                  <h:panelGroup>
+                                   <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{alunoMBean.aluno.urlfotoAluno}" alt="foto" width="50" height="50"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                                
+                            </h:panelGrid>
+                           
+                               
+
+                                <h:panelGroup>
                                     <h:panelGrid columns="1">
                                         <p:outputLabel value="Nome e Sobrenome:"/>
                                         <p:outputLabel value="#{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}"/>
                                     </h:panelGrid>
                                 </h:panelGroup>
-                                
-                                   
-                                  <h:panelGroup>
-                                    <h:panelGrid columns="1">
-                                        <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{alunoMBean.aluno.urlfotoAluno}" alt="foto" width="50" height="50"/>
-                                        
-                                        
-                                    </h:panelGrid>
-                                </h:panelGroup>
-                                
-                            </h:panelGrid>
+
+
+                             
+
                             
-                            
+
+
                             <p:tabView>
                                 <p:tab title="Dados da Matricula">
                                     <p:growl id="messages" showDetail="true"/>
@@ -238,7 +246,7 @@
 
 
                             </p:tabView>
-                           <p:commandButton value="Guardar" actionListener="#{matriculaBean.guardar(evt)}" update="growl" resetValues="true" ajax="false">
+                            <p:commandButton value="Guardar" actionListener="#{matriculaBean.guardar(evt)}" update="growl" resetValues="true" ajax="false">
 
                                 <f:param name="numeroAluno" value="#{alunoBean.aluno.idAluno}"/> 
                             </p:commandButton> 
