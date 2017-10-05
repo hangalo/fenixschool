@@ -51,7 +51,7 @@ public class AlunoMBean implements Serializable{
     
     private String nome;
     private String sobrenome;
-    private String numero;
+    private String numeroBi;
     private String sexo;
     private Date dataDeNascimento;
     
@@ -173,7 +173,6 @@ public class AlunoMBean implements Serializable{
     }
 
     public List<Municipio> getMunicipios() {
-        municipios = municipioDAO.findAll();
         return municipios;
     }
 
@@ -246,13 +245,15 @@ public class AlunoMBean implements Serializable{
         this.sobrenome = sobrenome;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getNumeroBi() {
+        return numeroBi;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNumeroBi(String numeroBi) {
+        this.numeroBi = numeroBi;
     }
+
+    
 
     public String getSexo() {
         return sexo;
@@ -283,7 +284,7 @@ public class AlunoMBean implements Serializable{
     public List<SelectItem> getOpSexos() {
         List<SelectItem> list = new ArrayList<>();
         for (Sexo sexo : Sexo.values()) {
-            list.add(new SelectItem(sexo, sexo.getAbreviatura()));
+            list.add(new SelectItem(sexo, sexo.getExtensao()));
         }
         return list;
     }
@@ -389,8 +390,8 @@ public class AlunoMBean implements Serializable{
         return null;
     }
 
-    public Aluno getByNumero() {
-        aluno = alunoDAO.findByNumero(numero);
+    public Aluno getByNumeroBi() {
+        aluno = alunoDAO.findByNumeroBi(numeroBi);
         return aluno;
     }
     
@@ -403,5 +404,6 @@ public class AlunoMBean implements Serializable{
         findByDataNascimento = alunoDAO.findByDataDeNascimento((java.sql.Date) dataDeNascimento);
         return findByDataNascimento;
     }
+    
     
 }

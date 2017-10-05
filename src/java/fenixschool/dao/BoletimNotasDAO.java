@@ -148,7 +148,7 @@ public class BoletimNotasDAO implements GenericoDAO<BoletimNotas> {
             
             Aluno aluno = new Aluno();
             
-            aluno.setNumeroAluno(rs.getString("numero_aluno"));
+            
             aluno.setNomeAluno(rs.getString("nome_aluno"));
             boletimNotas.setAluno(aluno);
             

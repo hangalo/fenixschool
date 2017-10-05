@@ -443,7 +443,7 @@ public class MensalidadeDAO implements GenericoDAOLogico<Mensalidade> {
 
             Aluno aluno = new Aluno();
             aluno.setIdAluno(rs.getInt("id_aluno"));
-            aluno.setNumeroAluno(rs.getString("numero_aluno"));
+            ;
             aluno.setNomeAluno(rs.getString("nome_aluno"));
             aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
             aluno.setDataNascimentoAluno(rs.getDate("data_nascimento"));

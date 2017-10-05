@@ -195,7 +195,7 @@ public class NotaDAO implements GenericoDAO<Nota> {
             nota.setIdNota(rs.getInt("id_nota"));
             periodoLectivo.setPeriodoLectivo(rs.getString("periodo_letivo"));
             nota.setPeriodoLectivo(periodoLectivo);
-            aluno.setNumeroAluno(rs.getString("numero_aluno"));
+            
             aluno.setNomeAluno(rs.getString("nome_aluno"));
             nota.setAluno(aluno);
             curso.setNomeCurso(rs.getString("nome_curso"));

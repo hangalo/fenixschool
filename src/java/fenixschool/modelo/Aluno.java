@@ -14,10 +14,11 @@ import java.util.Objects;
  */
 public class Aluno{
     private int idAluno;
-    private String numeroAluno;
     private String nomeAluno;
     private String sobrenomeAluno;
     private Date dataNascimentoAluno;
+    private String biAluno;
+    private String passaportAluno;
     private Sexo sexo;
     private String casaAluno;
     private String bairroAluno;
@@ -29,27 +30,10 @@ public class Aluno{
     private String telefoneMovelAluno;
     private String emailAluno;
     private Profissao profissaoAluno;
+    private String loginAluno;
+    private String passwordAluno;
 
     public Aluno() {
-    }
-
-    public Aluno(int idAluno, String numeroAluno, String nomeAluno, String sobrenomeAluno, Date dataNascimentoAluno, Sexo sexo, String casaAluno, String bairroAluno, String distritoAluno, Municipio municipioAluno, byte[] fotoAluno, String urlfotoAluno, String telefoneFixoAluno, String telefoneMovelAluno, String emailAluno, Profissao profissaoAluno) {
-        this.idAluno = idAluno;
-        this.numeroAluno = numeroAluno;
-        this.nomeAluno = nomeAluno;
-        this.sobrenomeAluno = sobrenomeAluno;
-        this.dataNascimentoAluno = dataNascimentoAluno;
-        this.sexo = sexo;
-        this.casaAluno = casaAluno;
-        this.bairroAluno = bairroAluno;
-        this.distritoAluno = distritoAluno;
-        this.municipioAluno = municipioAluno;
-        this.fotoAluno = fotoAluno;
-        this.urlfotoAluno = urlfotoAluno;
-        this.telefoneFixoAluno = telefoneFixoAluno;
-        this.telefoneMovelAluno = telefoneMovelAluno;
-        this.emailAluno = emailAluno;
-        this.profissaoAluno = profissaoAluno;
     }
 
     public int getIdAluno() {
@@ -58,14 +42,6 @@ public class Aluno{
 
     public void setIdAluno(int idAluno) {
         this.idAluno = idAluno;
-    }
-
-    public String getNumeroAluno() {
-        return numeroAluno;
-    }
-
-    public void setNumeroAluno(String numeroAluno) {
-        this.numeroAluno = numeroAluno;
     }
 
     public String getNomeAluno() {
@@ -90,6 +66,22 @@ public class Aluno{
 
     public void setDataNascimentoAluno(Date dataNascimentoAluno) {
         this.dataNascimentoAluno = dataNascimentoAluno;
+    }
+
+    public String getBiAluno() {
+        return biAluno;
+    }
+
+    public void setBiAluno(String biAluno) {
+        this.biAluno = biAluno;
+    }
+
+    public String getPassaportAluno() {
+        return passaportAluno;
+    }
+
+    public void setPassaportAluno(String passaportAluno) {
+        this.passaportAluno = passaportAluno;
     }
 
     public Sexo getSexo() {
@@ -179,13 +171,28 @@ public class Aluno{
     public void setProfissaoAluno(Profissao profissaoAluno) {
         this.profissaoAluno = profissaoAluno;
     }
-    
+
+    public String getLoginAluno() {
+        return loginAluno;
+    }
+
+    public void setLoginAluno(String loginAluno) {
+        this.loginAluno = loginAluno;
+    }
+
+    public String getPasswordAluno() {
+        return passwordAluno;
+    }
+
+    public void setPasswordAluno(String passwordAluno) {
+        this.passwordAluno = passwordAluno;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + this.idAluno;
-        hash = 41 * hash + Objects.hashCode(this.numeroAluno);
+        int hash = 5;
+        hash = 37 * hash + this.idAluno;
+        hash = 37 * hash + Objects.hashCode(this.biAluno);
         return hash;
     }
 
@@ -204,7 +211,7 @@ public class Aluno{
         if (this.idAluno != other.idAluno) {
             return false;
         }
-        if (!Objects.equals(this.numeroAluno, other.numeroAluno)) {
+        if (!Objects.equals(this.biAluno, other.biAluno)) {
             return false;
         }
         return true;
@@ -212,10 +219,6 @@ public class Aluno{
 
     @Override
     public String toString() {
-        return "Aluno{" + "numeroAluno=" + numeroAluno + ", nomeAluno=" + nomeAluno + '}';
+        return "Aluno{" + "nomeAluno=" + nomeAluno + ", sobrenomeAluno=" + sobrenomeAluno + '}';
     }
-    
-    
-    
-    
 }
