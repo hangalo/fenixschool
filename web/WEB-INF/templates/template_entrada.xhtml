@@ -12,64 +12,88 @@
         <h:outputStylesheet library="css" name="default.css"/>
         <h:outputStylesheet library="css" name="cssLayout.css"/>
         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
-        
-        
-         <title>Fénix School - Sistema de Gestão Escolar para o Ensino Médio</title>
+        <title>Fenix School EM</title>
 
-        <style rel="stylesheet">
-            body {
+
+        <title>Fénix School Sistema de Gestão Escolar para o Ensino Médio</title>
+
+
+        <style rel="stylesheet" type="text/css">
+            contentor{
                 background-image: url("../../resources/imagens/background.jpg");
                 background-repeat: repeat;
+                height: 12px;
+                width: 12px;
             }
+
+            body{
+                background: #ece3a5;   
+            }
+            .imagem{text-align: center;}
         </style>
-       
+
+
     </h:head>
 
-    <h:body>
+    <h:body >
+        <div id="contentor">
+            <div id="top">
+                <ui:insert name="top">
+                    <b:jumbotron style="text-align: center; color:#000fef; background-color: #ece3a5;">
+                        <center>
+                            <h:graphicImage library="imagens" name="beca.png" width="100" height="100"/>
+                        </center>
+                        <h2 style="font-size: 2.2em;"> Fénix School <br/> Sistema de Gestão Escolar para o Ensino Médio</h2>
+                    </b:jumbotron>
 
-        <div id="top">
-            <ui:insert name="top">
-                
-                
-        <b:jumbotron style="text-align: center; color:#000fef; background-color: #ece3a5;">
-            <center>
-                <h:graphicImage library="imagens" name="beca.png" width="100" height="100"/>
-            </center>
-            <h2 style="font-size: 2.2em;"> Fénix School - Sistema de Gestão Escolar para o Ensino Médio</h2>
-        </b:jumbotron>
-                
-                <ui:include src="../menus/opac_menu_final.xhtml"/>
-            </ui:insert>
-        </div>
-        <div>
+                    <ui:include src="../menus/opac_menu_final.xhtml"/>
 
+                </ui:insert>
+            </div>
             <div>
 
-                <div id="content"  style="height: 600px">
-                    <ui:insert name="content">
-                        <center>
-                            <br/><br/><br/> <br/><br/><br/> <br/><br/><br/>
-                           <h:graphicImage library="imagens" name="fundofenxschool_1.jpg"/>
-                        </center>
+                <div>
+
+                    <div id="content" >
+                        <ui:insert name="content" >
+                            <center>
+                                <h:panelGrid columns="4">
+                                    <b:spinner name="cog" size="3x" style="color: #CCff00;"/>
+                                    <b:spinner name="cog" size="3x"/>
+                                    <b:spinner name="cog" size="3x" style="color: #CC99AA;"/>
+                                    <b:spinner name="cog" size="3x"/>
+                                </h:panelGrid>
+                                <h:graphicImage library="imagens" name="fundofenxschool_1.jpg"/>
+                                <h:panelGrid columns="4">
+                                    <b:spinner name="cog" size="3x"/>
+                                    <b:spinner name="cog" size="3x" style="color: #CCff00;"/>
+                                    <b:spinner name="cog" size="3x"/>
+                                    <b:spinner name="cog" size="3x" style="color: #CC99AA;"/>
+
+                                </h:panelGrid>
+                            </center>
+
+
+
                         </ui:insert>
+                    </div>
                 </div>
-                
             </div>
-             
-                
-               
-        </div>
-       
-        <div id="bottom">
-          
-           <b:row>
-               
-            <b:label severity="primary" text="Powered by  Fénix Innovation 2017" large-screen="full-width" style="font-size: 1.2em;" />
 
-        </b:row>
-        <b:progressBar value="100" animated="true" renderCaption="false"  />
-        </div>
 
+            <div id="bottom">
+
+                <b:row>
+
+                  
+
+                </b:row>
+                <b:progressBar value="100" animated="true" renderCaption="false"  />
+            </div>
+        </div>
+        <b:jumbotron style="text-align: center; border: solid #22AAFF; border-radius: 106px">
+            <p><a class="btn btn-primary btn-lg" href="www.fenixinnovation.com" style="border-radius: 20px;">Sistemas de gestão<br/>Fénix Innovation &copy; 2017<br/> Comprometidos com a inovação</a></p>
+        </b:jumbotron>
     </h:body>
 
 </html>

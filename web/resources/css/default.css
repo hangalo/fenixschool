@@ -2,31 +2,12 @@
 
 
 
-.myFieldset .ui-fieldset, .ui-fieldset .ui-fieldset-legend{
-    background-color: transparent;
-    border-color: transparent;
-}
+
 
 .ui-widget, .ui-widget .ui-widget {
     font-size: 90% !important;
 }
 
-.ui-widget input,
-.ui-widget select,
-.ui-widget textarea,
-.ui-widget button {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 0.8em;
-    
-    
-}
-
-    .ui-button.ui-widget.ui-state-default.ui-button-text-only.ui-corner-right{
-            margin-left:10px !important;
-            }
-            .ui-button.ui-widget.ui-state-default.ui-button-text-only{
-            margin-left:10px !important;
-            } 
 
 
 /*
