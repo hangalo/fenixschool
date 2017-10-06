@@ -1,3 +1,19 @@
+
+
+
+06/10/2017
+Entidade Matricula completamente funcional
+O Deu deverá apenas concluir o formulario de visualização dos dados da matricula e do aluno quando se clica no botao para ver.
+
+O processo de matricula segue a sequinte sequencia:
+1) Localizar o aluno pelo numero de aluno, ou pelo numero do BI ou do Passaporte
+2) Depois de localizado fazer clique no botao Matricular
+3) Escolhem-se os paramentros da matricula e se faz clique no botao guardar e  imprimir.
+
+Para gerir as matriculas feitas é necessario ir ao menu de gestao de matriculas
+
+
+
 >>>>>25/09/2017
 
 Alteração da arrumação dos componentes da pagina Professor passado de formulario horizontais simples para Stacked forms 
