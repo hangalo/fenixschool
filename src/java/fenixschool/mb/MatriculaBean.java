@@ -87,8 +87,8 @@ public class MatriculaBean implements Serializable {
     private AnoCurricular anoCurricular;
     private AnoCurricularDAO anoCurricularDAO;
     private List<AnoCurricular> anoCurriculars;
-    
-      private String byTurma;
+
+    private String byTurma;
 
     public MatriculaBean() {
     }
@@ -145,10 +145,9 @@ public class MatriculaBean implements Serializable {
         this.matricula = matricula;
     }
 
-   
     public List<Matricula> getMatriculas() {
-        
-        matriculas=matriculaDAO.findAll();
+
+        matriculas = matriculaDAO.findAll();
         return matriculas;
     }
 
@@ -173,7 +172,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<Aluno> getAlunos() {
-        alunos=alunoDAO.findAll();
+        alunos = alunoDAO.findAll();
         return alunos;
     }
 
@@ -198,7 +197,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<Funcionario> getFuncionarios() {
-        funcionarios=funcionarioDAO.findAll();
+        funcionarios = funcionarioDAO.findAll();
         return funcionarios;
     }
 
@@ -223,7 +222,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<Curso> getCursos() {
-        cursos=cursoDAO.findAll();
+        cursos = cursoDAO.findAll();
         return cursos;
     }
 
@@ -248,7 +247,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<AnoLectivo> getAnoLectivos() {
-        anoLectivos=anoLectivoDAO.findAll();
+        anoLectivos = anoLectivoDAO.findAll();
         return anoLectivos;
     }
 
@@ -273,7 +272,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<Turma> getTurmas() {
-        turmas=turmaDAO.findAll();
+        turmas = turmaDAO.findAll();
         return turmas;
     }
 
@@ -298,7 +297,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<TipoDocumentoIdentidade> getTipoDocumentoIdentidades() {
-        tipoDocumentoIdentidades=tipoDocumentoIdentidadeDAO.findAll();
+        tipoDocumentoIdentidades = tipoDocumentoIdentidadeDAO.findAll();
         return tipoDocumentoIdentidades;
     }
 
@@ -323,7 +322,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<LocalEmissaoDocumento> getLocalEmissaoDocumentos() {
-        localEmissaoDocumentos=localEmissaoDocumentoDAO.findAll();
+        localEmissaoDocumentos = localEmissaoDocumentoDAO.findAll();
         return localEmissaoDocumentos;
     }
 
@@ -348,7 +347,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<CicloLectivo> getCicloLectivos() {
-        cicloLectivos=cicloLectivoDAO.findAll();
+        cicloLectivos = cicloLectivoDAO.findAll();
         return cicloLectivos;
     }
 
@@ -373,76 +372,83 @@ public class MatriculaBean implements Serializable {
     }
 
     public List<AnoCurricular> getAnoCurriculars() {
-        anoCurriculars=anoCurricularDAO.findAll();
+        anoCurriculars = anoCurricularDAO.findAll();
         return anoCurriculars;
     }
 
     public void setAnoCurriculars(List<AnoCurricular> anoCurriculars) {
         this.anoCurriculars = anoCurriculars;
     }
-    
-       public void newSave(ActionEvent evt) {
+
+    public void newSave(ActionEvent evt) {
         matricula = new Matricula();
         //return "professor_listar?faces-redirect=true";
     }
 
     public void guardar(ActionEvent evt) {
-     Aluno alunoNovo = new Aluno();
-       FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        Aluno alunoNovo = new Aluno();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         String numeroAlunoParametro = (String) facesContext.getExternalContext().getRequestParameterMap().get("numeroAluno");
-      
-         
-       
-        if(numeroAlunoParametro!=null){
-            
-         System.out.println(">>>>>>>>>>>>>Numero Armazenado:\t" + numeroAlunoParametro);
-         
-        alunoNovo.setIdAluno(Integer.parseInt(numeroAlunoParametro));
-        
-        matricula.setAluno(alunoNovo); 
-        
-        matriculaDAO.save(matricula);
-        matricula = new Matricula();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Matricula efectuada com sucesso"));
-        }else{
-        
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao gravar Matricula"));
+
+        if (numeroAlunoParametro != null) {
+
+            System.out.println(">>>>>>>>>>>>>Numero Armazenado:\t" + numeroAlunoParametro);
+
+            alunoNovo.setIdAluno(Integer.parseInt(numeroAlunoParametro));
+
+            matricula.setAluno(alunoNovo);
+
+            matriculaDAO.save(matricula);
+            matricula = new Matricula();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Matricula efectuada com sucesso"));
+        } else {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao gravar Matricula"));
         }
-	
+
     }
-    
-    
-    
-    
-    
-    
-     public String delete() {
+
+    public String delete() {
         matriculaDAO.delete(matricula);
         matriculas = null;
         return "matricula_gestao?faces-redirect=true";
     }
-    
-    
-     
-      public String startEdit() {
+
+    public String startEdit() {
         return "matricula_gestao?faces-redirect=true";
     }
 
     public void edit(ActionEvent event) {
-        matriculaDAO.update(matricula);
-        matriculas = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("matricula_gestao.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(MatriculaBean.class.getName()).log(Level.SEVERE, null, ex);
+
+        Aluno alunoNovo = new Aluno();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String numeroAlunoParametro = (String) facesContext.getExternalContext().getRequestParameterMap().get("numeroAluno");
+
+        if (numeroAlunoParametro != null) {
+
+            System.out.println(">>>>>>>>>>>>>Numero Armazenado:\t" + numeroAlunoParametro);
+
+            alunoNovo.setIdAluno(Integer.parseInt(numeroAlunoParametro));
+
+            matricula.setAluno(alunoNovo);
+            matriculaDAO.update(matricula);
+            matriculas = null;
+
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("matricula_gestao.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(MatriculaBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Editar", "Erro ao gravar Matricula"));
+        
         }
 
     }
-    
-    
-    
-     public List<Matricula> getMatriculaByTurma() {
-        
+
+    public List<Matricula> getMatriculaByTurma() {
+
         matriculas = matriculaDAO.findByTurma(byTurma);
         return matriculas;
     }
@@ -454,8 +460,5 @@ public class MatriculaBean implements Serializable {
     public void setByTurma(String byTurma) {
         this.byTurma = byTurma;
     }
-     
-     
-     
-     
+
 }
