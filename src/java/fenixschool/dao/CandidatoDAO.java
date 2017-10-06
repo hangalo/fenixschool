@@ -20,8 +20,8 @@ import java.sql.Date;
 
 public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
 
-    private static final String INSERIR = "INSERT INTO candidato (numero_candidato, nome_candidato, sobrenome_candidato, data_nascimento, sexo, casa_candidato, bairro_candidato, distrito_candidato, id_municipio, url_foto_candidato, foto_candidato, telefone_fixo, telefone_movel, email_candidato, id_profissao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String ACTUALIZAR = "UPDATE candidato SET numero_candidato =?, nome_candidato=?, sobrenome_candidato=?, data_nascimento=?, sexo=?, casa_candidato=?, bairro_candidato=?, distrito_candidato=?,id_municipio=?, url_foto_candidato=?, foto_candidato=?, telefone_fixo=?, telefone_movel=?, email_candidato=?, id_profissao=? WHERE id_candidato=? ";
+    private static final String INSERIR = "INSERT INTO candidato (numero_candidato, nome_candidato, sobrenome_candidato, data_nascimento, sexo, casa_candidato, bairro_candidato, distrito_candidato, id_municipio, url_foto_candidato, foto_candidato, telefone_fixo, telefone_movel, email_candidato, id_profissao, login_candidato, password_candidato) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String ACTUALIZAR = "UPDATE candidato SET numero_candidato =?, nome_candidato=?, sobrenome_candidato=?, data_nascimento=?, sexo=?, casa_candidato=?, bairro_candidato=?, distrito_candidato=?,id_municipio=?, url_foto_candidato=?, foto_candidato=?, telefone_fixo=?, telefone_movel=?, email_candidato=?, id_profissao=?, login_candidato=?, password_candidato=? WHERE id_candidato=? ";
     private static final String ELIMINAR = "DELETE FROM candidato WHERE id_candidato = ? ";
     private static final String LISTAR_POR_CODIGO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE id_candidato =? ORDER BY nome_candidato ASC";
@@ -29,6 +29,7 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
     private static final String LISTAR_TUDO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio ORDER BY nome_candidato ASC";
 
+    
     private static final String LISTAR_POR_NOME_E_SOBRENOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE nome_candidato =? AND sobrenome_candidato=? ORDER BY nome_candidato ASC";
 
@@ -48,7 +49,7 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE sobrenome_candidato=? ORDER BY nome_candidato ASC ";
 
     @Override
-    public boolean save(Candidato candidato) {
+    public boolean save(Candidato candidato){
         Connection conn = null;
         PreparedStatement ps = null;
         boolean flagControlo = false;
@@ -76,6 +77,8 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
             ps.setString(13, candidato.getTelefoneMovel());
             ps.setString(14, candidato.getEmailCandidato());
             ps.setInt(15, candidato.getProfissao().getIdProfissao());
+            ps.setString(16, candidato.getLoginCandidato());
+            ps.setString(17, candidato.getPasswordCandidato());
 
             int retorno = ps.executeUpdate();
             if (retorno > 0) {
@@ -122,7 +125,9 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
             ps.setString(14, candidato.getEmailCandidato());
             ps.setInt(15, candidato.getProfissao().getIdProfissao());
             ps.setInt(16, candidato.getIdCandidato());
-
+            ps.setString(16, candidato.getLoginCandidato());
+            ps.setString(17, candidato.getPasswordCandidato());
+            
             int retorno = ps.executeUpdate();
 
             if (retorno > 0) {
@@ -376,11 +381,14 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
             candidato.setCasaCandidato(rs.getString("casa_candidato"));
             candidato.setBairroCandidato(rs.getString("bairro_candidato"));
             candidato.setDistritoCandidato(rs.getString("distrito_candidato"));
+            candidato.setLoginCandidato(rs.getString("login_candidato"));
+            candidato.setPasswordCandidato(rs.getString("password_candidato"));
 
             candidato.setTelefoneFixo(rs.getString("telefone_fixo"));
             candidato.setTelefoneMovel(rs.getString("telefone_movel"));
             candidato.setEmailCandidato(rs.getString("email_candidato"));
 
+            
             Municipio municipio = new Municipio();
             municipio.setIdMunicipio(rs.getInt("id_municipio"));
             municipio.setNomeMunicipio(rs.getString("nome_municipio"));

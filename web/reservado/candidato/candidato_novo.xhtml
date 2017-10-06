@@ -14,7 +14,7 @@
     <h:body>
         <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
-                <b:panel title="Novo Candidato" collapsible="false" look="primary">
+                <b:panel title="Novo Candidato" collapsible="false" look ="info">
                     <h:form  id="frmNovo"  enctype="multipart/form-data">
                         <p:tabView>
                             <p:tab title="Dados Pessoais">
@@ -156,12 +156,12 @@
                             <p:tab title="Dados de acesso">
                                  <h:panelGrid columns="1" >
                                      <p:outputLabel value="Nome de usuário:"/>
-                                     <p:inputText value=""/>
+                                     <p:inputText value="#{candidatoMBean.candidato.loginCandidato}"/>
  
                                  </h:panelGrid>
                                  <h:panelGrid columns="1">
                                      <p:outputLabel value="Password:"/>
-                                     <p:password value=""/>
+                                     <p:password value="#{candidatoMBean.candidato.passwordCandidato}"/>
                                  </h:panelGrid>
                              </p:tab> 
 

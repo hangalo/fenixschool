@@ -30,11 +30,13 @@ public class Candidato {
     private String telefoneMovel;
     private String emailCandidato;
     private Profissao profissao;
+    private String loginCandidato;
+    private String passwordCandidato;
 
     public Candidato() {
     }
 
-    public Candidato(Integer idCandidato, String numeroCandidato, String nomeCandidato, String sobrenomeCandidato, Date dataNascimento, Sexo sexo, String casaCandidato, String bairroCandidato, String distritoCandidato, Municipio municipio, String urlFotoCandidato, byte[] fotoCandidato, String telefoneFixo, String telefoneMovel, String emailCandidato, Profissao profissao) {
+    public Candidato(Integer idCandidato, String numeroCandidato, String nomeCandidato, String sobrenomeCandidato, Date dataNascimento, Sexo sexo, String casaCandidato, String bairroCandidato, String distritoCandidato, Municipio municipio, String urlFotoCandidato, byte[] fotoCandidato, String telefoneFixo, String telefoneMovel, String emailCandidato, Profissao profissao, String loginCandidato, String passwordCandidato) {
         this.idCandidato = idCandidato;
         this.numeroCandidato = numeroCandidato;
         this.nomeCandidato = nomeCandidato;
@@ -51,6 +53,8 @@ public class Candidato {
         this.telefoneMovel = telefoneMovel;
         this.emailCandidato = emailCandidato;
         this.profissao = profissao;
+        this.loginCandidato = loginCandidato;
+        this.passwordCandidato = passwordCandidato;
     }
 
     public Integer getIdCandidato() {
@@ -181,10 +185,31 @@ public class Candidato {
         this.profissao = profissao;
     }
 
+    public String getLoginCandidato() {
+        return loginCandidato;
+    }
+
+    public void setLoginCandidato(String loginCandidato) {
+        this.loginCandidato = loginCandidato;
+    }
+
+    public String getPasswordCandidato() {
+        return passwordCandidato;
+    }
+
+    public void setPasswordCandidato(String passwordCandidato) {
+        this.passwordCandidato = passwordCandidato;
+    }
+
+    @Override
+    public String toString() {
+        return "Candidato{" + "idCandidato=" + idCandidato + ", numeroCandidato=" + numeroCandidato + ", nomeCandidato=" + nomeCandidato + ", sobrenomeCandidato=" + sobrenomeCandidato + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", casaCandidato=" + casaCandidato + ", bairroCandidato=" + bairroCandidato + ", distritoCandidato=" + distritoCandidato + ", municipio=" + municipio + ", urlFotoCandidato=" + urlFotoCandidato + ", fotoCandidato=" + fotoCandidato + ", telefoneFixo=" + telefoneFixo + ", telefoneMovel=" + telefoneMovel + ", emailCandidato=" + emailCandidato + ", profissao=" + profissao + ", loginCandidato=" + loginCandidato + ", passwordCandidato=" + passwordCandidato + '}';
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.idCandidato);
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.idCandidato);
         return hash;
     }
 
@@ -206,10 +231,4 @@ public class Candidato {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Candidato{" + "idCandidato=" + idCandidato + ", numeroCandidato=" + numeroCandidato + ", nomeCandidato=" + nomeCandidato + ", sobrenomeCandidato=" + sobrenomeCandidato + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", casaCandidato=" + casaCandidato + ", bairroCandidato=" + bairroCandidato + ", distritoCandidato=" + distritoCandidato + ", municipio=" + municipio + ", urlFotoCandidato=" + urlFotoCandidato + ", fotoCandidato=" + fotoCandidato + ", telefoneFixo=" + telefoneFixo + ", telefoneMovel=" + telefoneMovel + ", emailCandidato=" + emailCandidato + ", profissao=" + profissao + '}';
-    }
-
-    
 }

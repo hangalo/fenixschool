@@ -78,7 +78,7 @@
                     <!-- Fim Formulario auxiliar-->
 
                     <!-- Dialogo Guardar-->
-                    <p:dialog id="guardar" header="Novo Candidato" widgetVar="dlgNovoCandidato" showEffect="explode" hideEffect="bounce" height="750" width="900">
+                    <p:dialog id="guardar" header="Novo Candidato" widgetVar="dlgNovoCandidato" showEffect="explode" hideEffect="bounce" height="300" width="900">
                         <h:form enctype="multipart/form-data">
                             <p:tabView>
                             <p:tab title="Dados Pessoais">
@@ -214,17 +214,18 @@
                                 </p:fieldset>
 
                             </p:tab>
-                            <!-- <p:tab title="Dados de acesso">
+                           <p:tab title="Dados de acesso">
                                  <h:panelGrid columns="1" >
                                      <p:outputLabel value="Nome de usuário:"/>
-                                     <p:inputText value=""/>
+                                     <p:inputText value="#{candidatoMBean.candidato.loginCandidato}"/>
  
                                  </h:panelGrid>
                                  <h:panelGrid columns="1">
                                      <p:outputLabel value="Password:"/>
-                                     <p:password value=""/>
+                                     <p:password value="#{candidatoMBean.candidato.passwordCandidato}"/>
                                  </h:panelGrid>
-                             </p:tab> -->
+                             </p:tab> 
+
 
                         </p:tabView>
 
@@ -237,7 +238,7 @@
 
                     <!-- Dialogo Editar-->
 
-                    <p:dialog header="Alterar dados do candidato" id="editar" widgetVar="dialogoAlterar" showEffect="explode" hideEffect="bounce" height="750" width="900" modal="true"  resizable="false">
+                    <p:dialog header="Alterar dados do candidato" id="editar" widgetVar="dialogoAlterar" showEffect="explode" hideEffect="bounce" height="300" width="900" modal="true"  resizable="false">
                         <h:form id="formEditar" enctype="multipart/form-data">
                            <p:tabView>
                             <p:tab title="Dados Pessoais">
@@ -373,17 +374,18 @@
                                 </p:fieldset>
 
                             </p:tab>
-                            <!-- <p:tab title="Dados de acesso">
+                            <p:tab title="Dados de acesso">
                                  <h:panelGrid columns="1" >
                                      <p:outputLabel value="Nome de usuário:"/>
-                                     <p:inputText value=""/>
+                                     <p:inputText value="#{candidatoMBean.candidato.loginCandidato}"/>
  
                                  </h:panelGrid>
                                  <h:panelGrid columns="1">
                                      <p:outputLabel value="Password:"/>
-                                     <p:password value=""/>
+                                     <p:password value="#{candidatoMBean.candidato.passwordCandidato}"/>
                                  </h:panelGrid>
-                             </p:tab> -->
+                             </p:tab> 
+
 
                         </p:tabView>
 
@@ -444,6 +446,14 @@
                                         <p:outputLabel value="Email:"/>
                                         <p:outputLabel id="email" value="#{candidatoMBean.candidato.emailCandidato}"/>
                                     </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Dados de acesso:">
+                                     <h:panelGrid columns="2">
+                                     <p:outputLabel value="Nome de usuário:"/>
+                                     <p:outputLabel value="#{candidatoMBean.candidato.loginCandidato}" />
+                                        <p:outputLabel value="Password"/>
+                                        <p:outputLabel value="#{candidatoMBean.candidato.passwordCandidato}" />
+                                        </h:panelGrid>
                                 </p:tab>
 
                           </p:accordionPanel>
