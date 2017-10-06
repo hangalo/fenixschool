@@ -1,3 +1,36 @@
+06/10/2017
+
+Implementação das funcionalidades usando os novos campos adicionados a bd.
+----------> login_candidato e password_candidato;
+
+Alterações feitas em:
+	------> Candidato(modelo);
+	------> CandidatoDAO
+	------> pagina candidato_novo, candidato_listar;
+
+OBS.:  1- Havia feito clone porque estava com erros enquanto tentava fazer pull.
+            2- O dialog novo_candidato e a pagina candidato_novo, esteticamente não me                convenceram. Preciso de sugestões. O mesmo acontece com as paginas das outras             entidades. Sinto que algo não está bm.
+
+
+
+-------------------------------------------------------- Fim ---------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 27/29/2017
 
 Arruação dos componentes da página candidatos, de horizontais para Stacked forms.
