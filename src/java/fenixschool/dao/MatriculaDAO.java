@@ -109,15 +109,22 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
 
         }
         try {
+            
+         
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
+            
             ps.setDate(1, new java.sql.Date(matricula.getDataMatricula().getTime()));
+            
+            System.out.println("Dado Recebido Aluno: \t"+matricula.getAluno().getIdAluno());
             ps.setInt(2, matricula.getAluno().getIdAluno());
             ps.setInt(3, matricula.getFuncionario().getIdFuncionario());
             ps.setString(4, matricula.getCurso().getCodigoCurso());
             ps.setInt(5, matricula.getAnoLetivo().getIdAnoLectivo());
             ps.setBoolean(6, matricula.isEstadoMatricula());
             ps.setInt(7, matricula.getTurma().getIdTurma());
+            
+            System.out.println("Dado Recebido Turma: \t"+matricula.getTurma().getIdTurma());
             ps.setInt(8, matricula.getTipoDocumentoIdentidade().getIdTipoDocumentoIdentidade());
             ps.setDate(9, new java.sql.Date(matricula.getDataEmissaoDocumento().getTime()));
             ps.setInt(10, matricula.getLocalEmissaoDocumento().getIdLocalEmissaoDocumento());
@@ -125,7 +132,6 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             ps.setInt(12, matricula.getCicloLectivo().getIdCicloLectivo());
             ps.setInt(13, matricula.getAnoCurricular().getIdAnoCurricular());
             ps.setString(14, matricula.getObservacao());
-         //   ps.setString(15, matricula.getObservacao());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao guardar dados" + ex.getMessage());
