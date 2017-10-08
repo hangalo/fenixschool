@@ -68,7 +68,7 @@ public class InstituicaoDAO implements GenericoDAO<Instituicao> {
     }
 
     @Override
-    public void update(Instituicao instituicao){
+    public void update(Instituicao instituicao) {
 
         PreparedStatement ps = null;
         Connection conn = null;
@@ -78,7 +78,7 @@ public class InstituicaoDAO implements GenericoDAO<Instituicao> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(UPDATE);
-           ps.setString(1, instituicao.getNomeInstituicao());
+            ps.setString(1, instituicao.getNomeInstituicao());
             ps.setString(2, instituicao.getCasaInstituicao());
             ps.setString(3, instituicao.getRuaInstituicao());
             ps.setString(4, instituicao.getBairroInstituicao());
@@ -126,42 +126,63 @@ public class InstituicaoDAO implements GenericoDAO<Instituicao> {
     @Override
     public Instituicao findById(Integer id) {
         Instituicao instituicao = new Instituicao();
-            
+
         try {
-            
+
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_ID);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
                 System.out.println("Nao existe nenhum registo com este ID: " + id);
-                
+
             }
             popularComDados(instituicao, rs);
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(InstituicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-return instituicao;
+        return instituicao;
     }
+    
+    
+      
+    public Instituicao findDados() {
+        Instituicao instituicao = new Instituicao();
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_ALL);
+           
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("Nao existe nenhum registo");
+
+            }
+            popularComDados(instituicao, rs);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(InstituicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return instituicao;
+    }
+    
+    
 
     @Override
     public List<Instituicao> findAll() {
         List<Instituicao> itens = new ArrayList<Instituicao>();
-              
-        
-         try {
+
+        try {
 
             conn = Conexao.getConnection();
-        ps = conn.prepareStatement(SELECT_ALL);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            Instituicao instituicao = new Instituicao();
-            popularComDados(instituicao, rs);
-            itens.add(instituicao);
+            ps = conn.prepareStatement(SELECT_ALL);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Instituicao instituicao = new Instituicao();
+                popularComDados(instituicao, rs);
+                itens.add(instituicao);
 
-        }
+            }
 
         } catch (SQLException ex) {
             System.out.println("Erro ao ler dados: " + ex.getMessage());
@@ -169,7 +190,7 @@ return instituicao;
             Conexao.closeConnection(conn, ps, rs);
         }
         return itens;
-        
+
     }
 
     @Override
@@ -181,7 +202,7 @@ return instituicao;
             instituicao.setRuaInstituicao(rs.getString("rua_insituicao"));
             instituicao.setBairroInstituicao(rs.getString("bairro_insituicao"));
             Municipio municipio = new Municipio();
-            municipio.setNomeMunicipio("nome_municipio");
+            municipio.setNomeMunicipio(rs.getString("nome_municipio"));
             instituicao.setMunicipio(municipio);
             instituicao.setTelefoneFixoInstituicao(rs.getString("telefone_fixo_insituicao"));
             instituicao.setTelefoneUnitelInstituicao(rs.getString("telefone_unitel_insituicao"));

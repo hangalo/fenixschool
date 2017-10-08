@@ -26,6 +26,7 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
     private static final String UPDATE = "UPDATE Professor SET nome_professor = ?, sobrenome_professor = ?,data_nascimento_professor = ?,sexo_professor = ?,nif_professor = ?,foto_professor = ?,url_foto_professor = ?, casa_professor = ?,rua_professor = ?,bairro_professor = ?,distrito_urbano_professor = ?,telemovel_principal_professor = ?, telemovel_alternativo_professor = ?,telefone_principal_professor = ?,telefone_alternativo_professor = ?, email_principal_professor = ?,email_aternativo_professor = ?,numero_bi_professor = ?,iban_professor = ?,numero_passaporte_professor = ?, id_municipio = ? login_professor =?, password_professor=? WHERE id_professor = ?";
     private static final String DELETE = "DELETE FROM Professor WHERE id_professor = ?";
     private static final String SELECT_BY_ID = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio, login_professor, password_professor FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE id_professor = ?";
+     
     private static final String SELECT_ALL = "SELECT id_professor,nome_professor,sobrenome_professor,data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio, login_professor, password_professor FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio);";
     private static final String SELECT_BY_NOME = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio, login_professor, password_professor FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE nome_professor = ?";
     private static final String SELECT_BY_SOBRENOME = "SELECT id_professor,nome_professor,sobrenome_professor, data_nascimento_professor, sexo_professor,nif_professor,foto_professor,url_foto_professor,casa_professor,rua_professor, bairro_professor, distrito_urbano_professor,telemovel_principal_professor,telemovel_alternativo_professor,telefone_principal_professor, telefone_alternativo_professor, email_principal_professor, email_aternativo_professor,numero_bi_professor, iban_professor, numero_passaporte_professor, nome_municipio, login_professor, password_professor FROM professor p INNER JOIN municipio m ON (p.id_municipio=m.id_municipio) WHERE sobrenome_professor = ?";
@@ -194,6 +195,10 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
         return professor;
     }
 
+    
+    
+    
+    
     public Professor findByNome(String nome) {
         PreparedStatement ps = null;
         Connection conn = null;

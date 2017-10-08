@@ -5,14 +5,17 @@
  */
 package fenixschool.mb;
 
+import fenixschool.dao.InstituicaoDAO;
 import fenixschool.dao.MunicipioDAO;
 import fenixschool.dao.ProfessorDAO;
 import fenixschool.dao.ProvinciaDAO;
+import fenixschool.modelo.Instituicao;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Professor;
 import fenixschool.modelo.Provincia;
 import fenixschool.modelo.Sexo;
 import fenixschool.util.FicheiroUtil;
+import fenixschool.util.GestorImpressao;
 import java.awt.event.ActionEvent;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -21,12 +24,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -46,9 +51,11 @@ public class ProfessorMBean implements Serializable {
 
     private Professor professor;
     private ProfessorDAO professorDAO;
-    private List<Professor> professores;
     private MunicipioDAO municipioDAO;
     private ProvinciaDAO provinciaDAO;
+    private InstituicaoDAO instituicaoDAO;
+    private List<Professor> professores;
+
     private List<Municipio> municipios;
     private List<Provincia> provincias;
     private Municipio municipio;
@@ -62,12 +69,16 @@ public class ProfessorMBean implements Serializable {
     public ProfessorMBean() {
     }
 
+    @ManagedProperty(value = "#{gestorImpressao}")
+    private GestorImpressao gestorImpressao;
+
     @PostConstruct
     public void inicializar() {
         professor = new Professor();
         professorDAO = new ProfessorDAO();
         provinciaDAO = new ProvinciaDAO();
         municipioDAO = new MunicipioDAO();
+        instituicaoDAO = new InstituicaoDAO();
         professores = new ArrayList<>();
         municipios = new ArrayList<>();
         provincias = new ArrayList<>();
@@ -78,6 +89,14 @@ public class ProfessorMBean implements Serializable {
 
     public Professor getProfessor() {
         return professor;
+    }
+
+    public GestorImpressao getGestorImpressao() {
+        return gestorImpressao;
+    }
+
+    public void setGestorImpressao(GestorImpressao gestorImpressao) {
+        this.gestorImpressao = gestorImpressao;
     }
 
     public void setProfessor(Professor professor) {
@@ -198,6 +217,7 @@ public class ProfessorMBean implements Serializable {
     }
 
     public void guardar(ActionEvent evt) {
+
         if (professorDAO.save(professor)) {
             professor = new Professor();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar\t", "\tSucesso ao guardar os dados"));
@@ -261,6 +281,22 @@ public class ProfessorMBean implements Serializable {
     public Professor getByNumeroBI() {
         professor = professorDAO.findByNumeroBI(numeroBI);
         return professor;
+    }
+
+    public String imprimirCartaoProfessor() {
+
+        String relatorio = "cartao_professor.jasper";
+        Instituicao instituicao = instituicaoDAO.findDados();
+        HashMap paramentros = new HashMap();
+        paramentros.put("nomeEscola", instituicao.getNomeInstituicao());
+        paramentros.put("ruaEscola", instituicao.getRuaInstituicao());
+        paramentros.put("bairroEscola", instituicao.getBairroInstituicao());
+        paramentros.put("municipioEscola", instituicao.getMunicipio().getNomeMunicipio());
+       // paramentros.put("logoEscola", instituicao.getLogoTipoInstituicao());
+        gestorImpressao.imprimirPDF(relatorio, paramentros);
+
+        return null;
+
     }
 
 }

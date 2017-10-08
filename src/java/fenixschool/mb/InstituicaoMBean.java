@@ -11,6 +11,7 @@ import fenixschool.dao.ProvinciaDAO;
 import fenixschool.modelo.Instituicao;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Provincia;
+import fenixschool.util.FicheiroUtil;
 import java.awt.event.ActionEvent;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -142,6 +143,9 @@ public class InstituicaoMBean implements Serializable {
     }
 
     public void edit(ActionEvent event) {
+        
+        
+        
         instituicaoDAO.update(instituicao);
         instituicoes = null;
         try {
@@ -169,7 +173,8 @@ public class InstituicaoMBean implements Serializable {
 
             InputStream in = new BufferedInputStream(arquivo.getInputstream());
 
-            File file = new File("C://fotos//" + arquivo.getFileName());
+         //   File file = new File("C://fotos//" + arquivo.getFileName());
+            File file = new File(FicheiroUtil.getPathPastaAplicacaoJSF() + arquivo.getFileName());
 
             //Guarda num disco de rede
             //   File file = new File("\\\\192.168.0.18\\photo\\fratiofmcap\\" + arq.getFileName());
