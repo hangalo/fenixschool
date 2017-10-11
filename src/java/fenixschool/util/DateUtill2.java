@@ -20,7 +20,8 @@ public class DateUtill2 {
         }
         Date dataF = null;
         try {
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+         //  DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             long timestemp = dateFormat.parse(data).getTime();
             dataF = new Date(timestemp);
         } catch (ParseException pe) {
@@ -31,7 +32,8 @@ public class DateUtill2 {
     
     public static String formataData(Date data){
         Calendar calendar = new GregorianCalendar();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+       //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         calendar.setTime(data);
         
         return sdf.format(calendar.getTime());
