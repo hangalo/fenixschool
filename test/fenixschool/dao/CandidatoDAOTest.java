@@ -6,7 +6,7 @@
 package fenixschool.dao;
 
 import fenixschool.modelo.Candidato;
-import fenixschool.util.DateUtill2;
+import fenixschool.util.DateUtill;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;

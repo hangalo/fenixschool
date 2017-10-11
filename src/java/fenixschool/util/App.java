@@ -38,9 +38,9 @@ public class App {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.err.println("Datas\t" + DateUtill2.formataData(fimIntervalo));
+        System.err.println("Datas\t" + DateUtill.formataData(fimIntervalo));
 
-        List<ProfessorDepartamento> lista = pdao.findProfessorPorDepartamento(departamento, DateUtill2.formataData(inicioIntervalo), DateUtill2.formataData(fimIntervalo));
+        List<ProfessorDepartamento> lista = pdao.findProfessorPorDepartamento(departamento, DateUtill.formataData(inicioIntervalo), DateUtill.formataData(fimIntervalo));
 
         for (ProfessorDepartamento professorDepartamento : lista) {
             System.err.println("Algum dado" + professorDepartamento.getProfessor());

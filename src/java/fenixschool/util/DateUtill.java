@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-public class DateUtill2 {
+public class DateUtill {
     public static Date strToDate(String data){
         if (data == null) {
             return null;
