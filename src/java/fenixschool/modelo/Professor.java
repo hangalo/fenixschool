@@ -5,6 +5,7 @@
  */
 package fenixschool.modelo;
 
+import fenixschool.util.DateUtil;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -39,6 +40,7 @@ public class Professor implements Serializable{
     private Municipio municipio; 
     private String loginProfessor;
     private String passwordProfessor;
+    private int idade;
        
     
  
@@ -267,6 +269,15 @@ public class Professor implements Serializable{
 
     public void setPasswordProfessor(String passwordProfessor) {
         this.passwordProfessor = passwordProfessor;
+    }
+
+    public int getIdade() {
+      
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
     

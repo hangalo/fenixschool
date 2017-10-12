@@ -16,7 +16,7 @@ import fenixschool.modelo.Professor;
 import fenixschool.modelo.ProfessorDepartamento;
 import fenixschool.modelo.Provincia;
 import fenixschool.modelo.Sexo;
-import fenixschool.util.DateUtill;
+import fenixschool.util.DateUtil;
 import fenixschool.util.FicheiroUtil;
 import fenixschool.util.GestorImpressao;
 import java.awt.event.ActionEvent;
@@ -73,6 +73,7 @@ public class ProfessorMBean implements Serializable {
     private String nome;
     private String sobrenome;
     private String numeroBI;
+    private int anosServico;
 
     private Date inicioIntervalo;
     private Date fimIntervalo;
@@ -219,6 +220,14 @@ public class ProfessorMBean implements Serializable {
         this.professorDepartamentos = professorDepartamentos;
     }
 
+    public int getAnosServico() {
+        return anosServico;
+    }
+
+    public void setAnosServico(int anosServico) {
+        this.anosServico = anosServico;
+    }
+
     /*Metodos*/
     //carregar provincias
     public List<Provincia> getProvincias() {
@@ -344,7 +353,10 @@ public class ProfessorMBean implements Serializable {
     public String pesquisaPorDepartamento() {
         
         Departamento depParamentro = professorDepartamento.getDepartamento();
-        professorDepartamentos = professorDAO.findProfessorPorDepartamento(depParamentro, DateUtill.formataData(inicioIntervalo), DateUtill.formataData(fimIntervalo));
+        
+        professorDepartamentos = professorDAO.findProfessorPorDepartamento(depParamentro, DateUtil.formataData(inicioIntervalo), DateUtil.formataData(fimIntervalo));
+            
+        
         return null;
     }
 

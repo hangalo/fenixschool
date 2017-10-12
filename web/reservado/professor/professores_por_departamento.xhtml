@@ -55,6 +55,25 @@
                             </f:facet>
                             <h:outputText value="#{item.professor.sobrenomeProfessor}"/>
                         </p:column>
+                        
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Início"/>
+                            </f:facet>
+                             <h:outputText value="#{item.dataInicio}">
+                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
+                             </h:outputText>
+                        </p:column>
+                        
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Anos de Serviço"/>
+                            </f:facet>
+                            <h:outputText value="#{item.anosDeServico}"/>
+                        </p:column>
+                        
+                        
                     </p:dataTable>
 
                 </h:form>

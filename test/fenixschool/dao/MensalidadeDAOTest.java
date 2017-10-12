@@ -13,7 +13,7 @@ import fenixschool.modelo.Departamento;
 import fenixschool.modelo.Mensalidade;
 import fenixschool.modelo.Mes;
 import fenixschool.modelo.Turma;
-import fenixschool.util.DateUtill;
+import fenixschool.util.DateUtil;
 import java.util.Date;
 import java.util.List;
 import org.junit.Before;
@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
  */
 public class MensalidadeDAOTest {
     String data = "01/09/2017";
-    Date dataFormatada = DateUtill.strToDate(data);
+    Date dataFormatada = DateUtil.strToDate(data);
     
     public MensalidadeDAOTest() {
     }

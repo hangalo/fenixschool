@@ -5,6 +5,7 @@
  */
 package fenixschool.modelo;
 
+import fenixschool.util.DateUtil;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,15 +13,16 @@ import java.util.Date;
  *
  * @author informatica
  */
-public class ProfessorDepartamento implements Serializable{
-    
+public class ProfessorDepartamento implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private int idProfessorDepartamento;
     private Professor professor;
     private Departamento departamento;
     private Date dataInicio;
     private Date dataFim;
+    private int anosDeServico;
     private String observacoes;
 
     public ProfessorDepartamento() {
@@ -83,6 +85,15 @@ public class ProfessorDepartamento implements Serializable{
         this.observacoes = observacoes;
     }
 
+    public int getAnosDeServico() {
+        anosDeServico = DateUtil.calculaIdade(dataInicio);
+        return anosDeServico;
+    }
+
+    public void setAnosDeServico(int anosDeServico) {
+        this.anosDeServico = anosDeServico;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -113,8 +124,4 @@ public class ProfessorDepartamento implements Serializable{
         return "professor=" + professor + ", departamento=" + departamento;
     }
 
-    
-    
-    
-    
 }

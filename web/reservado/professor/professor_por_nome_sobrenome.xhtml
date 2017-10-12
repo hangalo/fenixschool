@@ -73,6 +73,21 @@
                                 </f:facet>
                                 <h:outputText value="#{professor.emailPrincipalProfessor}"/>
                             </p:column>
+                             <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Nascimento"/>
+                                </f:facet>
+                                <h:outputText value="#{professor.dataNascimentoProfessor}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                             <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Idade"/>
+                                </f:facet>
+                                <h:outputText value="#{professor.idade}"/>
+                            </p:column>
 
                             <p:column style="width: 60px; text-align: center">
                                 <f:facet name="header">
