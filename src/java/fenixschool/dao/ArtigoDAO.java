@@ -51,7 +51,7 @@ public class ArtigoDAO {
     }
     public void update(Artigo artigo){
         if (artigo!=null) {
-            System.out.println("Valor passado nao pode ser nulo");
+            System.out.println("O Valor passado nao pode ser nulo");
          }
         try {
             ps=conn.prepareCall(UPDATE);
@@ -78,7 +78,7 @@ public class ArtigoDAO {
                 ps.setInt(1, artigo.getIdArtigo());
                 ps.executeUpdate();
             } catch (SQLException e) {
-                System.out.println("Erro ao eliminar ");
+                System.out.println("Erro ao eliminar registo"+e.getLocalizedMessage());
             }finally{
                 Conexao.closeConnection(conn, ps);
             }
