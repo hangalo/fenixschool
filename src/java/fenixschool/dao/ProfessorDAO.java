@@ -11,6 +11,7 @@ import fenixschool.modelo.Professor;
 import fenixschool.modelo.ProfessorDepartamento;
 import fenixschool.modelo.Sexo;
 import fenixschool.util.Conexao;
+import fenixschool.util.DateUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -385,6 +386,7 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
             professor.setNumeroBIProfessor(rs.getString("numero_bi_professor"));
             professor.setIBAMProfessor(rs.getString("iban_professor"));
             professor.setNumeroPassaporteProfessor(rs.getString("numero_passaporte_professor"));
+//            professor.setIdade(DateUtil.calculaIdade(rs.getDate("data_nascimento_professor")));
             Municipio municipio = new Municipio();
             municipio.setNomeMunicipio(rs.getString("nome_municipio"));
             professor.setMunicipio(municipio);
