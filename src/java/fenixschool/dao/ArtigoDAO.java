@@ -18,22 +18,24 @@ import java.util.List;
  *
  * @author Rei Santo Hangalo
  */
-public class ArtigoDAO {
+public class ArtigoDAO implements GenericoDAO<Artigo>{
     private static final String INSERIR="INSERT INTO artigo(codigo_artigo, codigo_barra_artigo, nome_artigo, preco_artigo, id_categoria_artigo)VALUES(?,?,?,?,?)";
     private static final String UPDATE="UPDATE artigo SET codigo_artigo=?, codigo_barra_artigo=?, nome_artigo=?, id_categoria_artigo=? WHERE id_artigo=?";
     private static final String DELETE="DELETE FROM artigo WHERE id_artigo=?";
     private static final String BUSCAR_POR_CODIGO="SELECT id_artigo, codigo_artigo, codigo_barra_artigo, nome_artigo, preco_artigo, id_categoria_artigo FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo WHERE id_artigo=?";
     private static final String LISTAR_TUDO="SELECT id_artigo, codigo_artigo, codigo_barra_artigo, nome_artigo, preco_artigo, id_categoria_artigo FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo";
     
-    Connection conn=Conexao.getConnection();
+    Connection conn;
     PreparedStatement ps=null;
     ResultSet rs=null;
     
-    public void sava(Artigo artigo){
+    @Override
+    public void save(Artigo artigo){
         if (artigo!=null) {
             System.out.println("Valor passado nao pode ser nulo");           
         }
         try {
+            conn=Conexao.getConnection();
             ps=conn.prepareStatement(INSERIR);
             ps.setString(1, artigo.getCodigoArgito());
             ps.setString(2, artigo.getCodigoBarraArtigo());
@@ -49,11 +51,13 @@ public class ArtigoDAO {
         }
     
     }
+    @Override
     public void update(Artigo artigo){
         if (artigo!=null) {
             System.out.println("O Valor passado nao pode ser nulo");
          }
         try {
+            conn=Conexao.getConnection();
             ps=conn.prepareCall(UPDATE);
             ps.setInt(1, artigo.getIdArtigo());
             ps.setString(2, artigo.getCodigoArgito());
@@ -68,12 +72,14 @@ public class ArtigoDAO {
         Conexao.closeConnection(conn, ps);
         }
     }
+    @Override
     public void delete(Artigo artigo){
         if (artigo!=null) {
             
             System.out.println("Valor passado nao pode ser nulo");
             
             try {
+                conn=Conexao.getConnection();
                 ps=conn.prepareStatement(DELETE);
                 ps.setInt(1, artigo.getIdArtigo());
                 ps.executeUpdate();
@@ -85,9 +91,11 @@ public class ArtigoDAO {
             
         }
     }
+    @Override
     public Artigo findById(Integer id){
         Artigo artigo=null;
         try {
+            conn=Conexao.getConnection();
             ps=conn.prepareCall(BUSCAR_POR_CODIGO);
             ps.setInt(1, id);
             ps.executeQuery();
@@ -95,7 +103,7 @@ public class ArtigoDAO {
                 System.out.println("Nao foi Encontrado nenhum registo com ID"+id);
             }
             artigo= new Artigo();
-            popularComDado(artigo, rs);
+            popularComDados(artigo, rs);
         } catch (SQLException ex) {
             System.out.println("Erro ao ler dados"+ex.getLocalizedMessage());
         }finally{
@@ -103,14 +111,16 @@ public class ArtigoDAO {
         }
         return artigo;
     }
+    @Override
     public List<Artigo> findAll(){
     List<Artigo> artigos= new ArrayList<>();
         try {
+            conn=Conexao.getConnection();
             ps=conn.prepareStatement(LISTAR_TUDO);
             rs=ps.executeQuery();
             while (rs.next()) {
             Artigo artigo= new Artigo();
-            popularComDado(artigo, rs);
+            popularComDados(artigo, rs);
             artigos.add(artigo);               
             }
         } catch (SQLException ex) {
@@ -120,7 +130,8 @@ public class ArtigoDAO {
         }
         return artigos;
     }
-    public void popularComDado(Artigo artigo, ResultSet rs){
+    @Override
+    public void popularComDados(Artigo artigo, ResultSet rs){
         try {
             artigo.setIdArtigo(rs.getInt("id_artigo"));
             artigo.setCodigoArgito(rs.getString("codigo_artigo"));

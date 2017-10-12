@@ -18,65 +18,73 @@ import java.util.List;
  *
  * @author Rei Santo Hangalo
  */
-public class CategoriaArtigoDAO {
+public class CategoriaArtigoDAO implements GenericoDAO<CategoriaArtigo>{
     private static final String INSERIR="INSERT INTO categoria_artigo (categoria_artigo)VALUES(?)";
     private static final String ACTUALIZAR="UPDATE categoria_artigo SET categoria_artigo=? WHERE id_categoria_artigo=?";
     private static final String ELIMINAR="DELETE FROM categoria_artigo WHERE id_categoria_artigo=?";
     private static final String BUSCAR_POR_CODIGO="SELECT *FROM categoria_artigo WHERE id_categori_artigo=?";
     private static final String LISTAR_TUDO="SELECT *FROM categoria-artigo";
     
-    Connection con=Conexao.getConnection();
+    Connection conn;
     PreparedStatement ps=null;
     ResultSet rs= null;
     
+    @Override
     public void save(CategoriaArtigo categoriaArtigo){
         if (categoriaArtigo!=null) {
             System.out.println("Valor passdo nao ser nulo");
             
             try {
-                ps=con.prepareStatement(INSERIR);
+                conn=Conexao.getConnection();
+                ps=conn.prepareStatement(INSERIR);
                 ps.setString(1, categoriaArtigo.getCategoriaArtigo());
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.err.println("Erro ao Inserir dados"+e.getMessage());
             }finally{
-            Conexao.closeConnection(con, ps);
+            Conexao.closeConnection(conn, ps);
             }
             
         }
     }
+    @Override
     public void update(CategoriaArtigo categoriaArtigo){
         if (categoriaArtigo!=null) {
             System.out.println("Valor nao pode ser nulo");
             try {
-                ps=con.prepareStatement(ACTUALIZAR);
+                conn=Conexao.getConnection();
+                ps=conn.prepareStatement(ACTUALIZAR);
                 ps.setInt(1, categoriaArtigo.getIdCategoriaArtigo());
                 ps.setString(2, categoriaArtigo.getCategoriaArtigo());
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.out.println("Erro ao actualizar"+e.getMessage());
             }finally{
-            Conexao.closeConnection(con, ps);
+            Conexao.closeConnection(conn, ps);
             }
             
         }
     }
+    @Override
     public void delete(CategoriaArtigo categoriaArtigo){
         if (categoriaArtigo!=null) {
             System.out.println("valor nao pode ser nulo");            
         }
         try {
-            ps=con.prepareStatement(ELIMINAR);
+            conn=Conexao.getConnection();
+            ps=conn.prepareStatement(ELIMINAR);
             ps.setInt(1, categoriaArtigo.getIdCategoriaArtigo());
         } catch (SQLException e) {
             System.out.println("Erro ao eliminar"+e.getLocalizedMessage());
         }
     
     }
+    @Override
     public CategoriaArtigo findById(Integer id){
     CategoriaArtigo categoriaArtigo=null;
         try {
-            ps=con.prepareStatement(BUSCAR_POR_CODIGO);
+            conn=Conexao.getConnection();
+            ps=conn.prepareStatement(BUSCAR_POR_CODIGO);
             ps.setInt(1, id);
             rs=ps.executeQuery();
             if(!rs.next()){
@@ -88,14 +96,16 @@ public class CategoriaArtigoDAO {
         } catch (SQLException ex) {
             System.out.println("Erro ao ler dados"+ex.getLocalizedMessage());
           }finally{
-        Conexao.closeConnection(con, ps, rs);
+        Conexao.closeConnection(conn, ps, rs);
         }
         return categoriaArtigo;
     }
+    @Override
     public List<CategoriaArtigo> findAll(){
         List<CategoriaArtigo> categoriaArtigos= new ArrayList<>();
         try {
-            ps=con.prepareStatement(LISTAR_TUDO);
+            conn=Conexao.getConnection();
+            ps=conn.prepareStatement(LISTAR_TUDO);
             rs=ps.executeQuery();
             while (rs.next()) {
             CategoriaArtigo categoriaArtigo= new CategoriaArtigo();
@@ -108,6 +118,7 @@ public class CategoriaArtigoDAO {
         }
     return categoriaArtigos;
     }
+    @Override
     public void popularComDados(CategoriaArtigo categoriaArtigo, ResultSet rs){
         
         try {
