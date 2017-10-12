@@ -9,11 +9,14 @@ import fenixschool.dao.InstituicaoDAO;
 import fenixschool.dao.MunicipioDAO;
 import fenixschool.dao.ProfessorDAO;
 import fenixschool.dao.ProvinciaDAO;
+import fenixschool.modelo.Departamento;
 import fenixschool.modelo.Instituicao;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Professor;
+import fenixschool.modelo.ProfessorDepartamento;
 import fenixschool.modelo.Provincia;
 import fenixschool.modelo.Sexo;
+import fenixschool.util.DateUtill;
 import fenixschool.util.FicheiroUtil;
 import fenixschool.util.GestorImpressao;
 import java.awt.event.ActionEvent;
@@ -24,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -49,22 +53,29 @@ public class ProfessorMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Professor professor;
     private ProfessorDAO professorDAO;
     private MunicipioDAO municipioDAO;
     private ProvinciaDAO provinciaDAO;
     private InstituicaoDAO instituicaoDAO;
-    private List<Professor> professores;
 
+    private List<Professor> professores;
     private List<Municipio> municipios;
     private List<Provincia> provincias;
+    List<ProfessorDepartamento> professorDepartamentos;
+
+    private Professor professor;
+    private Provincia provincia;
     private Municipio municipio;
+    private Departamento departamento;
+    private ProfessorDepartamento professorDepartamento;
 
     // Variaveis para as consultas
     private String nome;
     private String sobrenome;
     private String numeroBI;
-    private Provincia provincia;
+
+    private Date inicioIntervalo;
+    private Date fimIntervalo;
 
     public ProfessorMBean() {
     }
@@ -74,15 +85,22 @@ public class ProfessorMBean implements Serializable {
 
     @PostConstruct
     public void inicializar() {
-        professor = new Professor();
+
         professorDAO = new ProfessorDAO();
         provinciaDAO = new ProvinciaDAO();
         municipioDAO = new MunicipioDAO();
         instituicaoDAO = new InstituicaoDAO();
+
         professores = new ArrayList<>();
         municipios = new ArrayList<>();
         provincias = new ArrayList<>();
+        professorDepartamentos = new ArrayList<>();
+
+        professor = new Professor();
         municipio = new Municipio();
+        departamento = new Departamento();
+        professorDepartamento = new ProfessorDepartamento();
+
         provincias = provinciaDAO.findAll();
 
     }
@@ -159,6 +177,46 @@ public class ProfessorMBean implements Serializable {
 
     public List<Municipio> getMunicipios() {
         return municipios;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    public Date getInicioIntervalo() {
+        return inicioIntervalo;
+    }
+
+    public void setInicioIntervalo(Date inicioIntervalo) {
+        this.inicioIntervalo = inicioIntervalo;
+    }
+
+    public Date getFimIntervalo() {
+        return fimIntervalo;
+    }
+
+    public void setFimIntervalo(Date fimIntervalo) {
+        this.fimIntervalo = fimIntervalo;
+    }
+
+    public ProfessorDepartamento getProfessorDepartamento() {
+        return professorDepartamento;
+    }
+
+    public void setProfessorDepartamento(ProfessorDepartamento professorDepartamento) {
+        this.professorDepartamento = professorDepartamento;
+    }
+
+    public List<ProfessorDepartamento> getProfessorDepartamentos() {
+        return professorDepartamentos;
+    }
+
+    public void setProfessorDepartamentos(List<ProfessorDepartamento> professorDepartamentos) {
+        this.professorDepartamentos = professorDepartamentos;
     }
 
     /*Metodos*/
@@ -283,6 +341,15 @@ public class ProfessorMBean implements Serializable {
         return professor;
     }
 
+    public String pesquisaPorDepartamento() {
+        
+        Departamento depParamentro = professorDepartamento.getDepartamento();
+        professorDepartamentos = professorDAO.findProfessorPorDepartamento(depParamentro, DateUtill.formataData(inicioIntervalo), DateUtill.formataData(fimIntervalo));
+        return null;
+    }
+
+    
+
     public String imprimirCartaoProfessor() {
 
         String relatorio = "cartao_professor.jasper";
@@ -292,7 +359,7 @@ public class ProfessorMBean implements Serializable {
         parametros.put("ruaEscola", instituicao.getRuaInstituicao());
         parametros.put("bairroEscola", instituicao.getBairroInstituicao());
         parametros.put("municipioEscola", instituicao.getMunicipio().getNomeMunicipio());
-       // paramentros.put("logoEscola", instituicao.getLogoTipoInstituicao());
+        // paramentros.put("logoEscola", instituicao.getLogoTipoInstituicao());
         gestorImpressao.imprimirPDF(relatorio, parametros);
 
         return null;

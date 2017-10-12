@@ -27,7 +27,7 @@ public class App {
         departamento.setIdDepartamento(5);
         Date inicioIntervalo = null;
         Date fimIntervalo = null;
-        String ini = null;
+        
         //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-ddd");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
