@@ -39,7 +39,7 @@ public class InstituicaoDAO implements GenericoDAO<Instituicao> {
         PreparedStatement ps = null;
         Connection conn = null;
         if (instituicao == null) {
-            System.err.println("O valor oassado não pode ser nulo!");
+            System.err.println("O valor passado não pode ser nulo!");
         }
         try {
             conn = Conexao.getConnection();
