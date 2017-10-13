@@ -17,7 +17,7 @@ public class Professor implements Serializable{
 
     private static final long serialVersionUID = 1L;
     private int IdProfessor;
-    private String nomeProfessor;
+    private String nomeProfessor; 
     private String sobrenomeProfessor;
     private Date dataNascimentoProfessor;
     private Sexo sexo;
