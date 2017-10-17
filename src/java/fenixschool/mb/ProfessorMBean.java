@@ -367,11 +367,6 @@ public class ProfessorMBean implements Serializable {
         String relatorio = "cartao_professor.jasper";
         Instituicao instituicao = instituicaoDAO.findDados();
         HashMap parametros = new HashMap();
-        parametros.put("nomeEscola", instituicao.getNomeInstituicao());
-        parametros.put("ruaEscola", instituicao.getRuaInstituicao());
-        parametros.put("bairroEscola", instituicao.getBairroInstituicao());
-        parametros.put("municipioEscola", instituicao.getMunicipio().getNomeMunicipio());
-        // paramentros.put("logoEscola", instituicao.getLogoTipoInstituicao());
         gestorImpressao.imprimirPDF(relatorio, parametros);
 
         return null;

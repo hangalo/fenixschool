@@ -24,11 +24,11 @@ import java.util.logging.Logger;
  */
 public class InstituicaoDAO implements GenericoDAO<Instituicao> {
 
-    private static final String INSERT = "INSERT INTO insituicao(id_insituicao, nome_insituicao, casa_insituicao, rua_insituicao, bairro_insituicao, id_municipio, telefone_fixo_insituicao, telefone_unitel_insituicao, telefone_movicel_insituicao, email_insituicao, home_insituicao, logotipo_insituicao, urllogotipo_insituicao)VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE = "UPDATE insituicao SET nome_insituicao = ?, casa_insituicao = ?, rua_insituicao = ?, bairro_insituicao = ?,id_municipio = ?, telefone_fixo_insituicao = ?, telefone_unitel_insituicao = ?,telefone_movicel_insituicao = ?,email_insituicao = ?,home_insituicao = ?,logotipo_insituicao = ?,urllogotipo_insituicao = ? WHERE id_insituicao = ?";
-    private static final String DELETE = "DELETE FROM insituicao WHERE id_insituicao=?";
-    private static final String SELECT_BY_ID = "SELECT id_insituicao, nome_insituicao, casa_insituicao, rua_insituicao, bairro_insituicao, nome_municipio, telefone_fixo_insituicao, telefone_unitel_insituicao, telefone_movicel_insituicao, email_insituicao, home_insituicao, logotipo_insituicao, urllogotipo_insituicao FROM insituicao i INNER JOIN municipio m ON i.id_municipio = m.id_municipio WHERE id_insituicao=?";
-    private static final String SELECT_ALL = "SELECT id_insituicao, nome_insituicao, casa_insituicao, rua_insituicao, bairro_insituicao, nome_municipio, telefone_fixo_insituicao, telefone_unitel_insituicao, telefone_movicel_insituicao, email_insituicao, home_insituicao, logotipo_insituicao, urllogotipo_insituicao FROM insituicao i INNER JOIN municipio m ON i.id_municipio = m.id_municipio";
+    private static final String INSERT = "INSERT INTO instituicao(id_instituicao, nome_instituicao, casa_instituicao, rua_instituicao, bairro_instituicao, id_municipio, telefone_fixo_instituicao, telefone_unitel_instituicao, telefone_movicel_instituicao, email_instituicao, home_instituicao, logotipo_instituicao, urllogotipo_instituicao)VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE = "UPDATE instituicao SET nome_instituicao = ?, casa_instituicao = ?, rua_instituicao = ?, bairro_instituicao = ?,id_municipio = ?, telefone_fixo_instituicao = ?, telefone_unitel_instituicao = ?,telefone_movicel_instituicao = ?,email_instituicao = ?,home_instituicao = ?,logotipo_instituicao = ?,urllogotipo_instituicao = ? WHERE id_instituicao = ?";
+    private static final String DELETE = "DELETE FROM instituicao WHERE id_instituicao=?";
+    private static final String SELECT_BY_ID = "SELECT id_instituicao, nome_instituicao, casa_instituicao, rua_instituicao, bairro_instituicao, nome_municipio, telefone_fixo_instituicao, telefone_unitel_instituicao, telefone_movicel_instituicao, email_instituicao, home_instituicao, logotipo_instituicao, urllogotipo_instituicao FROM instituicao i INNER JOIN municipio m ON i.id_municipio = m.id_municipio WHERE id_instituicao=?";
+    private static final String SELECT_ALL = "SELECT id_instituicao, nome_instituicao, casa_instituicao, rua_instituicao, bairro_instituicao, nome_municipio, telefone_fixo_instituicao, telefone_unitel_instituicao, telefone_movicel_instituicao, email_instituicao, home_instituicao, logotipo_instituicao, urllogotipo_instituicao FROM instituicao i INNER JOIN municipio m ON i.id_municipio = m.id_municipio";
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
@@ -196,21 +196,21 @@ public class InstituicaoDAO implements GenericoDAO<Instituicao> {
     @Override
     public void popularComDados(Instituicao instituicao, ResultSet rs) {
         try {
-            instituicao.setIdIsntituicao(rs.getInt("id_insituicao"));
-            instituicao.setNomeInstituicao(rs.getString("nome_insituicao"));
-            instituicao.setCasaInstituicao(rs.getString("casa_insituicao"));
-            instituicao.setRuaInstituicao(rs.getString("rua_insituicao"));
-            instituicao.setBairroInstituicao(rs.getString("bairro_insituicao"));
+            instituicao.setIdIsntituicao(rs.getInt("id_instituicao"));
+            instituicao.setNomeInstituicao(rs.getString("nome_instituicao"));
+            instituicao.setCasaInstituicao(rs.getString("casa_instituicao"));
+            instituicao.setRuaInstituicao(rs.getString("rua_instituicao"));
+            instituicao.setBairroInstituicao(rs.getString("bairro_instituicao"));
             Municipio municipio = new Municipio();
             municipio.setNomeMunicipio(rs.getString("nome_municipio"));
             instituicao.setMunicipio(municipio);
-            instituicao.setTelefoneFixoInstituicao(rs.getString("telefone_fixo_insituicao"));
-            instituicao.setTelefoneUnitelInstituicao(rs.getString("telefone_unitel_insituicao"));
-            instituicao.setTelefoneMovicelInstituicao(rs.getString("telefone_movicel_insituicao"));
-            instituicao.setEmailInstituicao(rs.getString("email_insituicao"));
-            instituicao.setHomeInstituicao(rs.getString("home_insituicao"));
-            instituicao.setLogoTipoInstituicao(rs.getBytes("logotipo_insituicao"));
-            instituicao.setUrlLogoInstituicao(rs.getString("urllogotipo_insituicao"));
+            instituicao.setTelefoneFixoInstituicao(rs.getString("telefone_fixo_instituicao"));
+            instituicao.setTelefoneUnitelInstituicao(rs.getString("telefone_unitel_instituicao"));
+            instituicao.setTelefoneMovicelInstituicao(rs.getString("telefone_movicel_instituicao"));
+            instituicao.setEmailInstituicao(rs.getString("email_instituicao"));
+            instituicao.setHomeInstituicao(rs.getString("home_instituicao"));
+            instituicao.setLogoTipoInstituicao(rs.getBytes("logotipo_instituicao"));
+            instituicao.setUrlLogoInstituicao(rs.getString("urllogotipo_instituicao"));
         } catch (SQLException ex) {
             Logger.getLogger(InstituicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
