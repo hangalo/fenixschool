@@ -1,4 +1,26 @@
 
+17/10/2017
+
+Criadas novas classes
+CategoriaCargo
+ProfessorCategoriaCargo
+
+Criada nova constante na classe professorDAO:
+SELECT_BY_DATE_DEPARTAMENTO_CATEGORIA
+
+com uma query que selecciona dados do professor, do municipio, departamento e categoria
+
+para popular foi criado o metodo popularComTodosDadosProfessorDepartamentoCategoria();
+
+
+Criado Relatorio para listar todos os Professores por departamento e categoria/cargo
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
 
 
 06/10/2017
