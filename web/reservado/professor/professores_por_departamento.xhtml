@@ -55,7 +55,19 @@
                             </f:facet>
                             <h:outputText value="#{item.professor.sobrenomeProfessor}"/>
                         </p:column>
+                           <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Categoria"/>
+                            </f:facet>
+                               <h:outputText value="#{item.professorCategoriaCargo.categoriaCargo.categoriaCargo}"/>
+                        </p:column>
                         
+                           <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Departamento"/>
+                            </f:facet>
+                               <h:outputText value="#{item.departamento.nomeDepartamento}"/>
+                        </p:column>
                          <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Início"/>
@@ -77,6 +89,16 @@
                     </p:dataTable>
 
                 </h:form>
+                
+                   <!--Inicio Formulario auxiliar-->
+                    <h:form id="operacoes">
+                        <h:panelGrid columns="3">
+                            <p:commandButton value="Imprimir Cartões" action="#{professorMBean.imprimirCartaoProfessor()}" ajax="false"/>
+                            <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                        </h:panelGrid>
+                    </h:form>
+                    <!--Fim  Formulario auxiliar-->
+
 
             </ui:define>
 

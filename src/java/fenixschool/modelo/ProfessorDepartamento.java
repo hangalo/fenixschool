@@ -24,18 +24,23 @@ public class ProfessorDepartamento implements Serializable {
     private Date dataFim;
     private int anosDeServico;
     private String observacoes;
+    private ProfessorCategoriaCargo professorCategoriaCargo;
 
     public ProfessorDepartamento() {
     }
 
-    public ProfessorDepartamento(int idProfessorDepartamento, Professor professor, Departamento departamento, Date dataInicio, Date dataFim, String observacoes) {
+    public ProfessorDepartamento(int idProfessorDepartamento, Professor professor, Departamento departamento, Date dataInicio, Date dataFim, int anosDeServico, String observacoes, ProfessorCategoriaCargo professorCategoriaCargo) {
         this.idProfessorDepartamento = idProfessorDepartamento;
         this.professor = professor;
         this.departamento = departamento;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
+        this.anosDeServico = anosDeServico;
         this.observacoes = observacoes;
+        this.professorCategoriaCargo = professorCategoriaCargo;
     }
+
+ 
 
     public int getIdProfessorDepartamento() {
         return idProfessorDepartamento;
@@ -93,6 +98,16 @@ public class ProfessorDepartamento implements Serializable {
     public void setAnosDeServico(int anosDeServico) {
         this.anosDeServico = anosDeServico;
     }
+
+    public ProfessorCategoriaCargo getProfessorCategoriaCargo() {
+        return professorCategoriaCargo;
+    }
+
+    public void setProfessorCategoriaCargo(ProfessorCategoriaCargo professorCategoriaCargo) {
+        this.professorCategoriaCargo = professorCategoriaCargo;
+    }
+    
+    
 
     @Override
     public int hashCode() {
