@@ -382,5 +382,20 @@ public class ProfessorMBean implements Serializable {
         return null;
 
     }
+     
+     
+      
+     public String imprimirProfessoresPorDepartamento() {
+         Departamento dep = professorDepartamento.getDepartamento();
+        String relatorio = "professores_por_departamento.jasper";
+         HashMap parametros = new HashMap();
+         parametros.put("departamento", dep.getNomeDepartamento());
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+
+        return null;
+
+    }
+
+     
 
 }
