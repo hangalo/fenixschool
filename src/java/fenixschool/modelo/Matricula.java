@@ -27,12 +27,14 @@ public class Matricula implements Serializable{
     private String numeroDocumento;
     private CicloLectivo cicloLectivo;
     private AnoCurricular anoCurricular;
+    private Lingua lingua;
+    private SituacaoAlunoMatricula situacaoAlunoMatricula;
     private String observacao;
 
     public Matricula() {
     }
 
-    public Matricula(int idMatricula, Date dataMatricula, Aluno aluno, Funcionario funcionario, Curso curso, AnoLectivo anoLetivo, boolean estadoMatricula, Turma turma, TipoDocumentoIdentidade tipoDocumentoIdentidade, Date dataEmissaoDocumento, LocalEmissaoDocumento localEmissaoDocumento, String numeroDocumento, CicloLectivo cicloLectivo, AnoCurricular anoCurricular, String observacao) {
+    public Matricula(int idMatricula, Date dataMatricula, Aluno aluno, Funcionario funcionario, Curso curso, AnoLectivo anoLetivo, boolean estadoMatricula, Turma turma, TipoDocumentoIdentidade tipoDocumentoIdentidade, Date dataEmissaoDocumento, LocalEmissaoDocumento localEmissaoDocumento, String numeroDocumento, CicloLectivo cicloLectivo, AnoCurricular anoCurricular, Lingua lingua, SituacaoAlunoMatricula situacaoAlunoMatricula, String observacao) {
         this.idMatricula = idMatricula;
         this.dataMatricula = dataMatricula;
         this.aluno = aluno;
@@ -47,8 +49,12 @@ public class Matricula implements Serializable{
         this.numeroDocumento = numeroDocumento;
         this.cicloLectivo = cicloLectivo;
         this.anoCurricular = anoCurricular;
+        this.lingua = lingua;
+        this.situacaoAlunoMatricula = situacaoAlunoMatricula;
         this.observacao = observacao;
     }
+
+   
 
    
 
@@ -174,6 +180,24 @@ public class Matricula implements Serializable{
         this.observacao = observacao;
     }
 
+    public Lingua getLingua() {
+        return lingua;
+    }
+
+    public void setLingua(Lingua lingua) {
+        this.lingua = lingua;
+    }
+
+    public SituacaoAlunoMatricula getSituacaoAlunoMatricula() {
+        return situacaoAlunoMatricula;
+    }
+
+    public void setSituacaoAlunoMatricula(SituacaoAlunoMatricula situacaoAlunoMatricula) {
+        this.situacaoAlunoMatricula = situacaoAlunoMatricula;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Matricula{" + "aluno=" + aluno + '}';

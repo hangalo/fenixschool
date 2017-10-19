@@ -1,4 +1,30 @@
 
+19/10/2017
+
+1 - Alterações na base de dados
+a) adicionados campos na tabela aluno
+nome_pai
+nome_mae
+comuna_aluno
+
+Ficou pendente a questao do endereco ja que alem dos dados do local de nascimento sao necessarios os do endereco
+
+b) criada a tabela aluno_encerragado_educacao que permite ligar o aluno a um encarregado de educacao
+
+c) adicionados campos na tabela matricula
+ lingua_opcao
+ situacao-aluno
+
+
+2 - Adicionados novos campos no formulario de Matricula (lingua estrangeira e situacao matricula)
+Formulario completamente funcional
+
+Ficou pendente a situação do encarregado de edução. Para não sobrecarregar o sistema a ideia é criar uma area de gestão dos encarregados de educação.
+Ao se fazer a busca do aluno busca-se tambem os dados do encarregado de educação que ainda tem responsabilidade sobre o aluno (sem data de fim de responsabilidade, na tabela aluno_encarregado-educação)
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 17/10/2017
 
 Criadas novas classes

@@ -21,8 +21,11 @@ import fenixschool.modelo.AnoLectivo;
 import fenixschool.modelo.CicloLectivo;
 import fenixschool.modelo.Curso;
 import fenixschool.modelo.Funcionario;
+import fenixschool.modelo.Lingua;
 import fenixschool.modelo.LocalEmissaoDocumento;
 import fenixschool.modelo.Matricula;
+import fenixschool.modelo.Sexo;
+import fenixschool.modelo.SituacaoAlunoMatricula;
 import fenixschool.modelo.TipoDocumentoIdentidade;
 import fenixschool.modelo.Turma;
 import java.io.IOException;
@@ -37,6 +40,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -380,6 +384,24 @@ public class MatriculaBean implements Serializable {
         this.anoCurriculars = anoCurriculars;
     }
 
+    
+    public List<SelectItem> getOpcaoLingua() {
+        List<SelectItem> list = new ArrayList<>();
+        for (Lingua lingua : Lingua.values()) {
+            list.add(new SelectItem(lingua, lingua.getExtensao()));
+        }
+        return list;
+    }
+    
+     public List<SelectItem> getOpcaoSituacaoAlunoMatricula() {
+        List<SelectItem> list = new ArrayList<>();
+        for (SituacaoAlunoMatricula situacao : SituacaoAlunoMatricula.values()) {
+            list.add(new SelectItem(situacao, situacao.getExtensao()));
+        }
+        return list;
+    }
+    
+    
     public void newSave(ActionEvent evt) {
         matricula = new Matricula();
         //return "professor_listar?faces-redirect=true";

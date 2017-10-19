@@ -108,7 +108,7 @@
 
                     <!-- Inicio Dialogo Guardar-->
                     <h:form  id="frmNovo" >
-                        <p:dialog header="Efetuar Matricula de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno} Aluno N.º #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="800" width="900">
+                        <p:dialog header="Efetuar Matricula de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno} Aluno N.º #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="900" width="900">
 
                             <p:growl id="messages" showDetail="true"/>
                             <b:panel title="Dados do aluno" look="info">
@@ -202,15 +202,38 @@
                                     </h:panelGroup>
 
                                     <h:panelGroup>
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel value="Estado Matricula:"/>
-                                            <p:selectBooleanCheckbox id="estadoMatricula" value="#{matriculaBean.matricula.estadoMatricula}"/>
-
-                                        </h:panelGrid>
-                                    </h:panelGroup>
+                                    
+                                      <h:panelGrid columns="1">
+                                        <p:outputLabel value="Língua Estrangeira:"/>
+                                        <p:selectOneRadio id="lingua" value="#{matriculaBean.matricula.lingua}">
+                                            <f:selectItems value="#{matriculaBean.opcaoLingua}" />
+                                    </p:selectOneRadio >
+                                    </h:panelGrid>
+                                    
+                                    
+                                </h:panelGroup>
 
                                 </h:panelGrid>
                             </p:fieldset>
+                            <h:panelGrid columns="1">
+                               
+                                
+                                
+                               
+                                
+                                
+                                 <h:panelGroup>
+                                    
+                                      <h:panelGrid columns="1">
+                                        <p:outputLabel value="Situação do aluno:"/>
+                                        <p:selectOneRadio id="situacao" value="#{matriculaBean.matricula.situacaoAlunoMatricula}">
+                                            <f:selectItems value="#{matriculaBean.opcaoSituacaoAlunoMatricula}" />
+                                    </p:selectOneRadio >
+                                    </h:panelGrid>
+                                    
+                                    
+                                </h:panelGroup>
+                            </h:panelGrid>
 
 
                             <p:fieldset legend="Documentos" style="margin-top: 12px">
@@ -271,20 +294,29 @@
                             <h:panelGroup/>
 
 
-                            <h:panelGrid columns="2" style="margin-top: 12px" >
+                            <h:panelGrid columns="1" style="margin-top: 12px" >
 
+                                  <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Matricula Ok:"/>
+                                            <p:selectBooleanCheckbox id="estadoMatricula" value="#{matriculaBean.matricula.estadoMatricula}"/>
 
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
                                 <p:outputLabel value="Funcionário:"/>
                                 <p:selectOneMenu value="#{matriculaBean.matricula.funcionario}" converter="funcionarioConverter" >
                                     <f:selectItem itemLabel="==Selecione==" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{matriculaBean.funcionarios}" var="funcionario" itemValue="#{funcionario}" itemLabel="#{funcionario.nomeFuncionario}" />
                                 </p:selectOneMenu>
+                                </h:panelGrid>
 
-
+                                </h:panelGroup>
 
                             </h:panelGrid>
 
-
+                                
 
 
 
