@@ -12,6 +12,7 @@ package fenixschool.modelo;
 public class AnoCurricular {
     private int idAnoCurricular;
     private String anoCurricular;
+    private CicloLectivo cicloLectivo;
 
     public AnoCurricular() {
     }
@@ -37,6 +38,16 @@ public class AnoCurricular {
         this.anoCurricular = anoCurricular;
     }
 
+    public CicloLectivo getCicloLectivo() {
+        return cicloLectivo;
+    }
+
+    public void setCicloLectivo(CicloLectivo cicloLectivo) {
+        this.cicloLectivo = cicloLectivo;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -64,7 +75,7 @@ public class AnoCurricular {
 
     @Override
     public String toString() {
-        return "AnoCurricular{" + "anoCurricular=" + anoCurricular + '}';
+        return this.anoCurricular ;
     }
     
     

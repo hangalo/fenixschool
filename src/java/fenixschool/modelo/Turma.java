@@ -16,18 +16,22 @@ private int idTurma;
 private String nomeTurma;
 private AnoLectivo anoLectivo;
 private PeriodoLectivo periodoLectivo;
+private Sala sala;
 private int numeroMaximoInscritos;
 
     public Turma() {
     }
 
-    public Turma(int idTurma, String nomeTurma, AnoLectivo anoLectivo, PeriodoLectivo periodoLectivo, int numeroMaximoInscritos) {
+    public Turma(int idTurma, String nomeTurma, AnoLectivo anoLectivo, PeriodoLectivo periodoLectivo, Sala sala, int numeroMaximoInscritos) {
         this.idTurma = idTurma;
         this.nomeTurma = nomeTurma;
         this.anoLectivo = anoLectivo;
         this.periodoLectivo = periodoLectivo;
+        this.sala = sala;
         this.numeroMaximoInscritos = numeroMaximoInscritos;
     }
+
+  
 
     public int getIdTurma() {
         return idTurma;
@@ -68,6 +72,17 @@ private int numeroMaximoInscritos;
     public void setNumeroMaximoInscritos(int numeroMaximoInscritos) {
         this.numeroMaximoInscritos = numeroMaximoInscritos;
     }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {
