@@ -40,6 +40,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 /**
@@ -93,6 +94,8 @@ public class MatriculaBean implements Serializable {
     private List<AnoCurricular> anoCurriculars;
 
     private String byTurma;
+    
+    private String vagasNaTurma;
 
     public MatriculaBean() {
     }
@@ -384,6 +387,17 @@ public class MatriculaBean implements Serializable {
         this.anoCurriculars = anoCurriculars;
     }
 
+    public String getVagasNaTurma() {
+        return vagasNaTurma;
+    }
+
+    public void setVagasNaTurma(String vagasNaTurma) {
+        this.vagasNaTurma = vagasNaTurma;
+    }
+
+    
+    
+    
     
     public List<SelectItem> getOpcaoLingua() {
         List<SelectItem> list = new ArrayList<>();
@@ -407,6 +421,12 @@ public class MatriculaBean implements Serializable {
         //return "professor_listar?faces-redirect=true";
     }
 
+    
+       public void carregaVagasDaTurma() {
+        Turma turmaCarregada = matricula.getTurma();
+        setVagasNaTurma(turmaCarregada.getNumeroMaximoInscritos().toString());
+    }
+    
     public void guardar(ActionEvent evt) {
 
         Aluno alunoNovo = new Aluno();

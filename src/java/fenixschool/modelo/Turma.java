@@ -17,12 +17,12 @@ private String nomeTurma;
 private AnoLectivo anoLectivo;
 private PeriodoLectivo periodoLectivo;
 private Sala sala;
-private int numeroMaximoInscritos;
+private Integer numeroMaximoInscritos;
 
     public Turma() {
     }
 
-    public Turma(int idTurma, String nomeTurma, AnoLectivo anoLectivo, PeriodoLectivo periodoLectivo, Sala sala, int numeroMaximoInscritos) {
+    public Turma(int idTurma, String nomeTurma, AnoLectivo anoLectivo, PeriodoLectivo periodoLectivo, Sala sala, Integer numeroMaximoInscritos) {
         this.idTurma = idTurma;
         this.nomeTurma = nomeTurma;
         this.anoLectivo = anoLectivo;
@@ -65,11 +65,11 @@ private int numeroMaximoInscritos;
         this.periodoLectivo = periodoLectivo;
     }
 
-    public int getNumeroMaximoInscritos() {
+    public Integer getNumeroMaximoInscritos() {
         return numeroMaximoInscritos;
     }
 
-    public void setNumeroMaximoInscritos(int numeroMaximoInscritos) {
+    public void setNumeroMaximoInscritos(Integer numeroMaximoInscritos) {
         this.numeroMaximoInscritos = numeroMaximoInscritos;
     }
 

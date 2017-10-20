@@ -143,13 +143,17 @@
                             <p:fieldset legend="Dados da Matricula" style="margin-top: 12px">
                                 <h:panelGrid columns="4">
                                     <h:panelGroup>
+                                        <h:form id="frmTurma">
                                         <h:panelGrid columns="1">
                                             <p:outputLabel value="Turma: "/>
-                                            <p:selectOneMenu value="#{matriculaBean.matricula.turma}" converter="turmaConverter">
+                                            <p:selectOneMenu value="#{matriculaBean.matricula.turma}"  converter="turmaConverter" >
                                                 <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
                                                 <f:selectItems value="#{matriculaBean.turmas}" var="turma" itemValue="#{turma}" itemLabel="#{turma.nomeTurma}" />
+                                                <f:ajax listener="#{matriculaBean.carregaVagasDaTurma()}" render="vagas" />
                                             </p:selectOneMenu>
+                                            <h:outputLabel id="vagas" value="Vagas disponivels:#{matriculaBean.vagasNaTurma}" style="color: blue;"/>
                                         </h:panelGrid>
+                                        </h:form>
                                     </h:panelGroup>
 
                                     <h:panelGroup>
@@ -329,7 +333,7 @@
 
                             </h:panelGrid>
 
-                            <p:commandButton actionListener="#{matriculaBean.guardar}" value="Guardar e Imprimir"  update="growl" ajax="false">
+                            <p:commandButton id="guardar" actionListener="#{matriculaBean.guardar}" value="Guardar e Imprimir"  update="growl" ajax="false" rendered="#{matriculaBean.vagasNaTurma>=1}">
                                 <f:param name="numeroAluno" value="#{alunoMBean.aluno.idAluno}"/>
                             </p:commandButton>
 
