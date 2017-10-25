@@ -101,7 +101,7 @@
                         <h:form id="FormVer">
                             <p:dialog id="ver" widgetVar="dialogVer" showEffect="clip" header="Dados do Encarregado: #{encarregadoEducacaoMBean.encarregadoEducacao.nomeEncarregado} #{encarregadoEducacaoMBean.encarregadoEducacao.sobrenomeEncarregado}" hideEffect="blind">
                                 <p:accordionPanel>
-                                    
+
                                     <p:tab title="Dados do Encarregado">
                                         <h:panelGrid columns="2" cellspacing="10%">
                                             <p:outputLabel value="Nome: "/>
@@ -146,7 +146,14 @@
                                             <p:outputLabel value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailAlternativoEncarregado}" />
                                         </h:panelGrid>
                                     </p:tab>
-
+                                    <p:tab title="Acesso ao sistema">
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="Login:"/>
+                                            <p:outputLabel value="#{encarregadoEducacaoMBean.encarregadoEducacao.loginEncarregado}"/>
+                                            <p:outputLabel value="Password:"/>
+                                            <p:outputLabel value="#{encarregadoEducacaoMBean.encarregadoEducacao.passwordEncarregado}"/>
+                                        </h:panelGrid>
+                                    </p:tab>
                                 </p:accordionPanel>
                             </p:dialog>
                         </h:form>
@@ -282,6 +289,22 @@
                                                 </h:panelGroup>
                                             </h:panelGrid>
                                         </p:fieldset>
+                                    </p:tab>
+                                    <p:tab title="Acesso ao sistema">
+                                        <h:panelGrid columns="2">
+                                            <h:panelGroup>
+                                                <h:panelGrid columns="1">
+                                                    <p:outputLabel value="Login"/>
+                                                    <p:inputText size="40" value="#{encarregadoEducacaoMBean.encarregadoEducacao.loginEncarregado}" placeholder="Login"/>
+                                                </h:panelGrid>
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <h:panelGrid columns="1">
+                                                    <p:outputLabel value="Password"/>
+                                                    <p:inputText type="password" size="40" placeholder="Password" value="#{encarregadoEducacaoMBean.encarregadoEducacao.passwordEncarregado}"/>
+                                                </h:panelGrid>
+                                            </h:panelGroup>
+                                        </h:panelGrid>
                                     </p:tab>
                                 </p:tabView>
                                 <p:commandButton value="Guardar" icon="ui-icon-disk" actionListener="#{encarregadoEducacaoMBean.guardar(evt)}" ajax="false"/><br/>
@@ -421,6 +444,22 @@
                                                 </h:panelGroup>
                                             </h:panelGrid>
                                         </p:fieldset>
+                                    </p:tab>
+                                    <p:tab title="Acesso ao sistema">
+                                        <h:panelGrid columns="2">
+                                            <h:panelGroup>
+                                                <h:panelGrid columns="1">
+                                                    <p:outputLabel value="Login"/>
+                                                    <p:inputText size="40" value="#{encarregadoEducacaoMBean.encarregadoEducacao.loginEncarregado}" placeholder="Login"/>
+                                                </h:panelGrid>
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <h:panelGrid columns="1">
+                                                    <p:outputLabel value="Password"/>
+                                                    <p:inputText type="password" size="40" placeholder="Password" value="#{encarregadoEducacaoMBean.encarregadoEducacao.passwordEncarregado}"/>
+                                                </h:panelGrid>
+                                            </h:panelGroup>
+                                        </h:panelGrid>
                                     </p:tab>
                                 </p:tabView>
                                 <p:commandButton value="Alterar" icon="ui-icon-pencil" actionListener="#{encarregadoEducacaoMBean.edit(event)}" update="growl" ajax="false"/>

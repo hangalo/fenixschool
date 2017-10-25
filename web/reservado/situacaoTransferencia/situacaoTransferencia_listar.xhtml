@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <head>
+        <title>Situação de transferência</title>
+    </head>
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">>
+
+            <ui:define name="content">
+                <p:growl showDetail="true" showSummary="true" autoUpdate="true"/>
+                <b:panel title="Situações de transferência" collapsible="false" look="primary">
+                    <h:form id="lista">
+                        <p:dataTable  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                      var="situacaoTransferencia" value="#{situacaoTransferenciaMBean.situacaoTransferencias}" paginatorPosition="bottom" rows="10" cellSeparator="true" paginator="true" emptyMessage="Nenhum registro encontrado">
+                            <p:column style="text-align: center; width: 100px;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código"/>
+                                </f:facet>
+                                <p:outputLabel value="#{situacaoTransferencia.idSituacaoTransferencia}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Situação da transferência"/>
+                                </f:facet>
+                                <p:outputLabel value="#{situacaoTransferencia.situacaoTransferencia}"/>
+                            </p:column>
+
+                            <p:column style=" width: 100px; text-align: center;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton icon="ui-icon-trash" action="#{situacaoTransferenciaMBean.delete()}">
+                                    <f:setPropertyActionListener target="#{situacaoTransferenciaMBean.situacaoTransferencia}" value="#{situacaoTransferencia}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-pencil" update=":frmEditar:editar" oncomplete="PF('dialogoEditar').show();">
+                                    <f:setPropertyActionListener target="#{situacaoTransferenciaMBean.situacaoTransferencia}" value="#{situacaoTransferencia}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <f:facet name="footer">
+                                Total de registros: (#{situacaoTransferenciaMBean.situacaoTransferencias.size()})
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <h:form id="frmEditar"> 
+                        <p:dialog style="width: 700px; height: 400px;" id="editar" header="Actualizar informações" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                            <p:tabView>
+                                <p:tab title="Actualização das informações">
+                                    <p:messages showDetail="true" autoUpdate="true" showSummary="true"/>
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:inputHidden value="#{situacaoTransferenciaMBean.situacaoTransferencia.idSituacaoTransferencia}"/>
+                                            <h:panelGrid columns="2">
+                                                <p:outputLabel value="Situação da transferência: "/>
+                                                <p:inputText size="35" value="#{situacaoTransferenciaMBean.situacaoTransferencia.situacaoTransferencia}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                            <p:commandButton  icon="ui-icon-pencil" value="Actualizar" actionListener="#{situacaoTransferenciaMBean.edit(event)}"/> 
+                        </p:dialog>
+                    </h:form>
+
+                    <!--Fim do formulario editar-->
+
+                    <h:form id="Operacoes">
+                        <p:commandButton  icon="ui-icon-plus" value="Novo registro" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
+                        <p:commandButton value="Fechar" action="/index" icon="ui-icon-close" immediate="true" ajax="false"/>
+                    </h:form>
+
+                    <h:form id="guardar"> 
+                        <p:dialog style="width: 700px; height: 400px;" id="guardar" header="Guardar informações" widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind">
+                            <p:tabView>
+                                <p:tab title="Informações gerais">
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:inputHidden value="#{situacaoTransferenciaMBean.situacaoTransferencia.idSituacaoTransferencia}"/>
+                                            <h:panelGrid columns="2">
+                                                <p:outputLabel value="Situação da transferência: "/>
+                                                <p:inputText  size="35" value="#{situacaoTransferenciaMBean.situacaoTransferencia.situacaoTransferencia}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+                                </p:tab>
+                            </p:tabView>
+                            <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{situacaoTransferenciaMBean.guardar(event)}"/> 
+                        </p:dialog>
+                    </h:form>
+
+                </b:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

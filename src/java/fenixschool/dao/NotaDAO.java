@@ -30,23 +30,17 @@ import java.util.List;
  */
 public class NotaDAO implements GenericoDAO<Nota> {
 
-    private static final String INSERIR = "INSERT INTO nota(id_periodo_letivo,id_aluno,codigo_curso,id_disciplina,descricao,data_lancamento,nota,peso,id_ano_letivo,id_ciclo_letivo,id_classificacao_nota,id_departamento,id_turma,id_ano_curricular,observacao)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERIR = "INSERT INTO nota(id_periodo_letivo,id_aluno,codigo_curso,id_disciplina,descricao,data_lancamento,nota,peso,id_ano_letivo,id_ciclo_letivo,id_classificacao_nota,id_departamento,id_turma,id_ano_curricular,observacao)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String ACTUALIZAR = "UPDATE nota SET id_periodo_letivo = ?,id_aluno = ?,codigo_curso = ?,id_disciplina = ?,descricao = ?,data_lancamento = ?,nota = ?,peso = ?,id_ano_letivo = ?,id_ciclo_letivo = ?,id_classificacao_nota = ?,id_departamento = ?,id_turma = ?,id_ano_curricular = ?,observacao = ? WHERE id_nota = ?";
     private static final String ELIMINAR = "DELETE FROM nota WHERE id_nota=?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT n.id_nota, p.periodo_letivo, a.numero_aluno, a.nome_aluno, c.nome_curso, d.nome_disciplina, n.descricao, n.data_lancamento, n.nota, n.peso, an.ano_letivo, ci.ciclo_letivo, cl.classificacao_nota, dp.nome_departamento, t.nome_turma, n.observacao, ac.ano_curricular FROM nota n INNER JOIN periodo_letivo p ON n.id_periodo_letivo=p.id_periodo_letivo INNER JOIN aluno a ON n.id_aluno=a.id_aluno INNER JOIN curso c ON n.codigo_curso=c.codigo_curso INNER JOIN disciplina d ON n.id_disciplina=d.id_disciplina INNER JOIN ano_letivo an ON n.id_ano_letivo = an.id_ano_letivo INNER JOIN ciclo_letivo ci ON n.id_ciclo_letivo = ci.id_ciclo_letivo INNER JOIN classificacao_nota cl ON n.id_classificacao_nota=cl.id_classificacao_nota INNER JOIN departamento dp ON n.id_departamento = dp.id_departamento INNER JOIN turma t ON n.id_turma = t.id_turma INNER JOIN ano_curricular ac ON n.id_ano_curricular = ac.id_ano_curricular WHERE n.id_nota =?";
-    private static final String LISTAR_TUDO = "SELECT n.id_nota, p.periodo_letivo, a.numero_aluno, a.nome_aluno, c.nome_curso, d.nome_disciplina, n.descricao, n.data_lancamento, n.nota, n.peso, an.ano_letivo, ci.ciclo_letivo, cl.classificacao_nota, dp.nome_departamento, t.nome_turma, n.observacao, ac.ano_curricular FROM nota n INNER JOIN periodo_letivo p ON n.id_periodo_letivo=p.id_periodo_letivo INNER JOIN aluno a ON n.id_aluno=a.id_aluno INNER JOIN curso c ON n.codigo_curso=c.codigo_curso INNER JOIN disciplina d ON n.id_disciplina=d.id_disciplina INNER JOIN ano_letivo an ON n.id_ano_letivo = an.id_ano_letivo INNER JOIN ciclo_letivo ci ON n.id_ciclo_letivo = ci.id_ciclo_letivo INNER JOIN classificacao_nota cl ON n.id_classificacao_nota=cl.id_classificacao_nota INNER JOIN departamento dp ON n.id_departamento = dp.id_departamento INNER JOIN turma t ON n.id_turma = t.id_turma INNER JOIN ano_curricular ac ON n.id_ano_curricular = ac.id_ano_curricular";
+    private static final String BUSCAR_POR_CODIGO = "SELECT n.id_nota, p.periodo_letivo, a.sobrenome_aluno, a.nome_aluno, c.nome_curso, d.nome_disciplina, n.descricao, n.data_lancamento, n.nota, n.peso, an.ano_letivo, ci.ciclo_letivo, cl.classificacao_nota, dp.nome_departamento, t.nome_turma, n.observacao, ac.ano_curricular FROM nota n INNER JOIN periodo_letivo p ON n.id_periodo_letivo=p.id_periodo_letivo INNER JOIN aluno a ON n.id_aluno=a.id_aluno INNER JOIN curso c ON n.codigo_curso=c.codigo_curso INNER JOIN disciplina d ON n.id_disciplina=d.id_disciplina INNER JOIN ano_letivo an ON n.id_ano_letivo = an.id_ano_letivo INNER JOIN ciclo_letivo ci ON n.id_ciclo_letivo = ci.id_ciclo_letivo INNER JOIN classificacao_nota cl ON n.id_classificacao_nota=cl.id_classificacao_nota INNER JOIN departamento dp ON n.id_departamento = dp.id_departamento INNER JOIN turma t ON n.id_turma = t.id_turma INNER JOIN ano_curricular ac ON n.id_ano_curricular = ac.id_ano_curricular WHERE n.id_nota =?";
+    private static final String LISTAR_TUDO = "SELECT n.id_nota, p.periodo_letivo, a.sobrenome_aluno, a.nome_aluno, c.nome_curso, d.nome_disciplina, n.descricao, n.data_lancamento, n.nota, n.peso, an.ano_letivo, ci.ciclo_letivo, cl.classificacao_nota, dp.nome_departamento, t.nome_turma, n.observacao, ac.ano_curricular FROM nota n INNER JOIN periodo_letivo p ON n.id_periodo_letivo=p.id_periodo_letivo INNER JOIN aluno a ON n.id_aluno=a.id_aluno INNER JOIN curso c ON n.codigo_curso=c.codigo_curso INNER JOIN disciplina d ON n.id_disciplina=d.id_disciplina INNER JOIN ano_letivo an ON n.id_ano_letivo = an.id_ano_letivo INNER JOIN ciclo_letivo ci ON n.id_ciclo_letivo = ci.id_ciclo_letivo INNER JOIN classificacao_nota cl ON n.id_classificacao_nota=cl.id_classificacao_nota INNER JOIN departamento dp ON n.id_departamento = dp.id_departamento INNER JOIN turma t ON n.id_turma = t.id_turma INNER JOIN ano_curricular ac ON n.id_ano_curricular = ac.id_ano_curricular";
 
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
 
     public NotaDAO() {
-    }
-
-    public NotaDAO(Connection conn, PreparedStatement ps, ResultSet rs) {
-        this.conn = conn;
-        this.ps = ps;
-        this.rs = rs;
     }
 
     @Override
@@ -58,16 +52,16 @@ public class NotaDAO implements GenericoDAO<Nota> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
-            ps.setInt(1, nota.getPeriodoLectivo().getIdPeriodoLectivo());
+            ps.setInt(1, nota.getPeriodoLetivo().getIdPeriodoLectivo());
             ps.setInt(2, nota.getAluno().getIdAluno());
             ps.setString(3, nota.getCurso().getCodigoCurso());
-            ps.setInt(4, nota.getDisciplina().getIdDisciplina());
+            ps.setString(4, nota.getDisciplina().getIdDisciplina());
             ps.setString(5, nota.getDescricao());
             ps.setDate(6, new java.sql.Date(nota.getDataLancamento().getTime()));
             ps.setDouble(7, nota.getNota());
             ps.setDouble(8, nota.getPeso());
-            ps.setInt(9, nota.getAnoLectivo().getIdAnoLectivo());
-            ps.setInt(10, nota.getCicloLectivo().getIdCicloLectivo());
+            ps.setInt(9, nota.getAnoLetivo().getIdAnoLectivo());
+            ps.setInt(10, nota.getCicloLetivo().getIdCicloLectivo());
             ps.setInt(11, nota.getClassificacaoNota().getIdClassificacaoNota());
             ps.setInt(12, nota.getDepartamento().getIdDepartamento());
             ps.setInt(13, nota.getTurma().getIdTurma());
@@ -90,22 +84,22 @@ public class NotaDAO implements GenericoDAO<Nota> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(ACTUALIZAR);
-            ps.setInt(1, nota.getPeriodoLectivo().getIdPeriodoLectivo());
+            ps.setInt(1, nota.getPeriodoLetivo().getIdPeriodoLectivo());
             ps.setInt(2, nota.getAluno().getIdAluno());
             ps.setString(3, nota.getCurso().getCodigoCurso());
-            ps.setInt(4, nota.getDisciplina().getIdDisciplina());
+            ps.setString(4, nota.getDisciplina().getIdDisciplina());
             ps.setString(5, nota.getDescricao());
             ps.setDate(6, new java.sql.Date(nota.getDataLancamento().getTime()));
             ps.setDouble(7, nota.getNota());
             ps.setDouble(8, nota.getPeso());
-            ps.setInt(9, nota.getAnoLectivo().getIdAnoLectivo());
-            ps.setInt(10, nota.getCicloLectivo().getIdCicloLectivo());
+            ps.setInt(9, nota.getAnoLetivo().getIdAnoLectivo());
+            ps.setInt(10, nota.getCicloLetivo().getIdCicloLectivo());
             ps.setInt(11, nota.getClassificacaoNota().getIdClassificacaoNota());
             ps.setInt(12, nota.getDepartamento().getIdDepartamento());
             ps.setInt(13, nota.getTurma().getIdTurma());
             ps.setInt(14, nota.getAnoCurricular().getIdAnoCurricular());
             ps.setString(15, nota.getObservacao());
-            ps.setInt(16, nota.getIdNota());
+            ps.setInt(16, nota.getIdnota());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao atualizar registo" + ex.getMessage());
@@ -123,7 +117,7 @@ public class NotaDAO implements GenericoDAO<Nota> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
-            ps.setInt(1, nota.getIdNota());
+            ps.setInt(1, nota.getIdnota());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao eliminar registo" + ex.getMessage());
@@ -192,10 +186,10 @@ public class NotaDAO implements GenericoDAO<Nota> {
             Turma turma = new Turma();
             AnoCurricular anoCurricular = new AnoCurricular();
 
-            nota.setIdNota(rs.getInt("id_nota"));
+            nota.setIdnota(rs.getInt("id_nota"));
             periodoLectivo.setPeriodoLectivo(rs.getString("periodo_letivo"));
-            nota.setPeriodoLectivo(periodoLectivo);
-            
+            nota.setPeriodoLetivo(periodoLectivo);
+            aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
             aluno.setNomeAluno(rs.getString("nome_aluno"));
             nota.setAluno(aluno);
             curso.setNomeCurso(rs.getString("nome_curso"));
@@ -209,7 +203,7 @@ public class NotaDAO implements GenericoDAO<Nota> {
             anoLectivo.setAnoLectivo(rs.getString("ano_letivo"));
             nota.setAluno(aluno);
             cicloLectivo.setCicloLectivo(rs.getString("ciclo_letivo"));
-            nota.setCicloLectivo(cicloLectivo);
+            nota.setCicloLetivo(cicloLectivo);
             classificacaoNota.setClassificacaoNota(rs.getString("classificacao_nota"));
             nota.setClassificacaoNota(classificacaoNota);
             departamento.setNomeDepartamento(rs.getString("nome_departamento"));

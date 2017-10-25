@@ -5,21 +5,16 @@
  */
 package fenixschool.mb;
 
-import fenixschool.dao.AnoLectivoDAO;
 import fenixschool.dao.CicloLectivoDAO;
-import fenixschool.dao.CursoDAO;
 import fenixschool.dao.DisciplinaDAO;
-import fenixschool.dao.PeriodoLectivoDAO;
 import fenixschool.dao.TipoDisciplinaDAO;
-import fenixschool.modelo.AnoLectivo;
 import fenixschool.modelo.CicloLectivo;
-import fenixschool.modelo.Curso;
 import fenixschool.modelo.Disciplina;
-import fenixschool.modelo.PeriodoLectivo;
 import fenixschool.modelo.TipoDisciplina;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
@@ -42,15 +37,6 @@ public class DisciplinaMBean implements Serializable {
     private DisciplinaDAO disciplinaDAO;
     private List<Disciplina> disciplinas;
 
-    private CursoDAO cursoDAO;
-    private List<Curso> cursos;
-
-    private AnoLectivoDAO anoLectivoDAO;
-    private List<AnoLectivo> anoLectivos;
-
-    private PeriodoLectivoDAO periodoLectivoDAO;
-    private List<PeriodoLectivo> periodoLectivos;
-
     private CicloLectivoDAO cicloLectivoDAO;
     private List<CicloLectivo> cicloLectivos;
 
@@ -66,15 +52,6 @@ public class DisciplinaMBean implements Serializable {
         disciplina = new Disciplina();
         disciplinaDAO = new DisciplinaDAO();
         disciplinas = new ArrayList<>();
-
-        cursoDAO = new CursoDAO();
-        cursos = new ArrayList<>();
-
-        anoLectivoDAO = new AnoLectivoDAO();
-        anoLectivos = new ArrayList<>();
-
-        periodoLectivoDAO = new PeriodoLectivoDAO();
-        periodoLectivos = new ArrayList<>();
 
         cicloLectivoDAO = new CicloLectivoDAO();
         cicloLectivos = new ArrayList<>();
@@ -100,33 +77,6 @@ public class DisciplinaMBean implements Serializable {
         this.disciplinas = disciplinas;
     }
 
-    public List<Curso> getCursos() {
-        cursos = cursoDAO.findAll();
-        return cursos;
-    }
-
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
-    }
-
-    public List<AnoLectivo> getAnoLectivos() {
-        anoLectivos = anoLectivoDAO.findAll();
-        return anoLectivos;
-    }
-
-    public void setAnoLectivos(List<AnoLectivo> anoLectivos) {
-        this.anoLectivos = anoLectivos;
-    }
-
-    public List<PeriodoLectivo> getPeriodoLectivos() {
-        periodoLectivos = periodoLectivoDAO.findAll();
-        return periodoLectivos;
-    }
-
-    public void setPeriodoLectivos(List<PeriodoLectivo> periodoLectivos) {
-        this.periodoLectivos = periodoLectivos;
-    }
-
     public List<CicloLectivo> getCicloLectivos() {
         cicloLectivos = cicloLectivoDAO.findAll();
         return cicloLectivos;
@@ -146,26 +96,26 @@ public class DisciplinaMBean implements Serializable {
     }
 
     public void guardar(ActionEvent event) {
-        for (PeriodoLectivo periodoLectivoLido : periodoLectivos) {
-            PeriodoLectivo periodoLectivo = periodoLectivoDAO.findById(periodoLectivoLido.getIdPeriodoLectivo());
-            disciplina.setPeriodoLetivo(periodoLectivo);
+        for (CicloLectivo cicloLectivoLido : cicloLectivos) {
+            CicloLectivo cicloLectivo = cicloLectivoDAO.findById(cicloLectivoLido.getIdCicloLectivo());
+            disciplina.setCicloLectivo(cicloLectivo);
             disciplinaDAO.save(disciplina);
             disciplina = new Disciplina();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Guardado com sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+
     }
 
     public void edit(ActionEvent event) {
-
-        for (PeriodoLectivo periodoLectivoLido : periodoLectivos) {
-            PeriodoLectivo periodoLectivo = periodoLectivoDAO.findById(periodoLectivoLido.getIdPeriodoLectivo());
-            disciplina.setPeriodoLetivo(periodoLectivo);
+        for (CicloLectivo cicloLectivoLido : cicloLectivos) {
+            CicloLectivo cicloLectivo = cicloLectivoDAO.findById(cicloLectivoLido.getIdCicloLectivo());
+            disciplina.setCicloLectivo(cicloLectivo);
             disciplinaDAO.update(disciplina);
             disciplina = null;
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("disciplina_listar.jsf");
         } catch (IOException e) {

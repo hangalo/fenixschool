@@ -1,7 +1,6 @@
 package fenixschool.modelo;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class EncarregadoEducacao implements Serializable{
@@ -22,11 +21,13 @@ public class EncarregadoEducacao implements Serializable{
     private byte[] fotoEncarregado;
     private String urlFotoEncarregado;
     private Municipio municipio;
-
+    private String loginEncarregado;
+    private String passwordEncarregado;
+    
     public EncarregadoEducacao() {
     }
 
-    public EncarregadoEducacao(Integer idEncarregadoEducacao, String nomeEncarregado, String sobrenomeEncarregado, Profissao profissao, Sexo sexo, String casaEncarregado, String ruaEncarregado, String bairroEncarregado, String distritoUrbanoEncarregado, String telemovelPrincipalEncarregado, String telemovelAlternativoEncarregado, String emailPrincipalEncarregado, String emailAlternativoEncarregado, byte[] fotoEncarregado, String urlFotoEncarregado, Municipio municipio) {
+    public EncarregadoEducacao(Integer idEncarregadoEducacao, String nomeEncarregado, String sobrenomeEncarregado, Profissao profissao, Sexo sexo, String casaEncarregado, String ruaEncarregado, String bairroEncarregado, String distritoUrbanoEncarregado, String telemovelPrincipalEncarregado, String telemovelAlternativoEncarregado, String emailPrincipalEncarregado, String emailAlternativoEncarregado, byte[] fotoEncarregado, String urlFotoEncarregado, Municipio municipio, String loginEncarregado, String passwordEncarregado) {
         this.idEncarregadoEducacao = idEncarregadoEducacao;
         this.nomeEncarregado = nomeEncarregado;
         this.sobrenomeEncarregado = sobrenomeEncarregado;
@@ -43,9 +44,9 @@ public class EncarregadoEducacao implements Serializable{
         this.fotoEncarregado = fotoEncarregado;
         this.urlFotoEncarregado = urlFotoEncarregado;
         this.municipio = municipio;
+        this.loginEncarregado = loginEncarregado;
+        this.passwordEncarregado = passwordEncarregado;
     }
-
-   
 
     public Integer getIdEncarregadoEducacao() {
         return idEncarregadoEducacao;
@@ -175,25 +176,26 @@ public class EncarregadoEducacao implements Serializable{
         this.municipio = municipio;
     }
 
+    public String getLoginEncarregado() {
+        return loginEncarregado;
+    }
+
+    public void setLoginEncarregado(String loginEncarregado) {
+        this.loginEncarregado = loginEncarregado;
+    }
+
+    public String getPasswordEncarregado() {
+        return passwordEncarregado;
+    }
+
+    public void setPasswordEncarregado(String passwordEncarregado) {
+        this.passwordEncarregado = passwordEncarregado;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
         hash = 97 * hash + Objects.hashCode(this.idEncarregadoEducacao);
-        hash = 97 * hash + Objects.hashCode(this.nomeEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.sobrenomeEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.profissao);
-        hash = 97 * hash + Objects.hashCode(this.sexo);
-        hash = 97 * hash + Objects.hashCode(this.casaEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.ruaEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.bairroEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.distritoUrbanoEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.telemovelPrincipalEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.telemovelAlternativoEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.emailPrincipalEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.emailAlternativoEncarregado);
-        hash = 97 * hash + Arrays.hashCode(this.fotoEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.urlFotoEncarregado);
-        hash = 97 * hash + Objects.hashCode(this.municipio);
         return hash;
     }
 
@@ -209,52 +211,7 @@ public class EncarregadoEducacao implements Serializable{
             return false;
         }
         final EncarregadoEducacao other = (EncarregadoEducacao) obj;
-        if (!Objects.equals(this.nomeEncarregado, other.nomeEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.sobrenomeEncarregado, other.sobrenomeEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.casaEncarregado, other.casaEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.ruaEncarregado, other.ruaEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.bairroEncarregado, other.bairroEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.distritoUrbanoEncarregado, other.distritoUrbanoEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.telemovelPrincipalEncarregado, other.telemovelPrincipalEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.telemovelAlternativoEncarregado, other.telemovelAlternativoEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.emailPrincipalEncarregado, other.emailPrincipalEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.emailAlternativoEncarregado, other.emailAlternativoEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.urlFotoEncarregado, other.urlFotoEncarregado)) {
-            return false;
-        }
         if (!Objects.equals(this.idEncarregadoEducacao, other.idEncarregadoEducacao)) {
-            return false;
-        }
-        if (!Objects.equals(this.profissao, other.profissao)) {
-            return false;
-        }
-        if (this.sexo != other.sexo) {
-            return false;
-        }
-        if (!Arrays.equals(this.fotoEncarregado, other.fotoEncarregado)) {
-            return false;
-        }
-        if (!Objects.equals(this.municipio, other.municipio)) {
             return false;
         }
         return true;
@@ -262,8 +219,6 @@ public class EncarregadoEducacao implements Serializable{
 
     @Override
     public String toString() {
-        return  this.nomeEncarregado;
+        return "EncarregadoEducacao{" + "nomeEncarregado=" + nomeEncarregado + '}';
     }
-
-    
 }

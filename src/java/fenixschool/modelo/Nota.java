@@ -12,9 +12,9 @@ import java.util.Date;
  * @author PENA
  */
 public class Nota {
-    
-    private int idNota;
-    private PeriodoLectivo periodoLectivo;
+
+    private int idnota;
+    private PeriodoLectivo periodoLetivo;
     private Aluno aluno;
     private Curso curso;
     private Disciplina disciplina;
@@ -22,8 +22,8 @@ public class Nota {
     private Date dataLancamento;
     private double nota;
     private double peso;
-    private AnoLectivo anoLectivo;
-    private CicloLectivo cicloLectivo;
+    private AnoLectivo anoLetivo;
+    private CicloLectivo cicloLetivo;
     private ClassificacaoNota classificacaoNota;
     private Departamento departamento;
     private Turma turma;
@@ -33,9 +33,9 @@ public class Nota {
     public Nota() {
     }
 
-    public Nota(int idNota, PeriodoLectivo periodoLectivo, Aluno aluno, Curso curso, Disciplina disciplina, String descricao, Date dataLancamento, double nota, double peso, AnoLectivo anoLectivo, CicloLectivo cicloLectivo, ClassificacaoNota classificacaoNota, Departamento departamento, Turma turma, AnoCurricular anoCurricular, String observacao) {
-        this.idNota = idNota;
-        this.periodoLectivo = periodoLectivo;
+    public Nota(int idnota, PeriodoLectivo periodoLetivo, Aluno aluno, Curso curso, Disciplina disciplina, String descricao, Date dataLancamento, double nota, double peso, AnoLectivo anoLetivo, CicloLectivo cicloLetivo, ClassificacaoNota classificacaoNota, Departamento departamento, Turma turma, AnoCurricular anoCurricular, String observacao) {
+        this.idnota = idnota;
+        this.periodoLetivo = periodoLetivo;
         this.aluno = aluno;
         this.curso = curso;
         this.disciplina = disciplina;
@@ -43,8 +43,8 @@ public class Nota {
         this.dataLancamento = dataLancamento;
         this.nota = nota;
         this.peso = peso;
-        this.anoLectivo = anoLectivo;
-        this.cicloLectivo = cicloLectivo;
+        this.anoLetivo = anoLetivo;
+        this.cicloLetivo = cicloLetivo;
         this.classificacaoNota = classificacaoNota;
         this.departamento = departamento;
         this.turma = turma;
@@ -52,20 +52,20 @@ public class Nota {
         this.observacao = observacao;
     }
 
-    public int getIdNota() {
-        return idNota;
+    public int getIdnota() {
+        return idnota;
     }
 
-    public void setIdNota(int idNota) {
-        this.idNota = idNota;
+    public void setIdnota(int idnota) {
+        this.idnota = idnota;
     }
 
-    public PeriodoLectivo getPeriodoLectivo() {
-        return periodoLectivo;
+    public PeriodoLectivo getPeriodoLetivo() {
+        return periodoLetivo;
     }
 
-    public void setPeriodoLectivo(PeriodoLectivo periodoLectivo) {
-        this.periodoLectivo = periodoLectivo;
+    public void setPeriodoLetivo(PeriodoLectivo periodoLetivo) {
+        this.periodoLetivo = periodoLetivo;
     }
 
     public Aluno getAluno() {
@@ -124,20 +124,20 @@ public class Nota {
         this.peso = peso;
     }
 
-    public AnoLectivo getAnoLectivo() {
-        return anoLectivo;
+    public AnoLectivo getAnoLetivo() {
+        return anoLetivo;
     }
 
-    public void setAnoLectivo(AnoLectivo anoLectivo) {
-        this.anoLectivo = anoLectivo;
+    public void setAnoLetivo(AnoLectivo anoLetivo) {
+        this.anoLetivo = anoLetivo;
     }
 
-    public CicloLectivo getCicloLectivo() {
-        return cicloLectivo;
+    public CicloLectivo getCicloLetivo() {
+        return cicloLetivo;
     }
 
-    public void setCicloLectivo(CicloLectivo cicloLectivo) {
-        this.cicloLectivo = cicloLectivo;
+    public void setCicloLetivo(CicloLectivo cicloLetivo) {
+        this.cicloLetivo = cicloLetivo;
     }
 
     public ClassificacaoNota getClassificacaoNota() {
@@ -183,7 +183,7 @@ public class Nota {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + this.idNota;
+        hash = 97 * hash + this.idnota;
         return hash;
     }
 
@@ -199,7 +199,7 @@ public class Nota {
             return false;
         }
         final Nota other = (Nota) obj;
-        if (this.idNota != other.idNota) {
+        if (this.idnota != other.idnota) {
             return false;
         }
         return true;
@@ -207,8 +207,7 @@ public class Nota {
 
     @Override
     public String toString() {
-        return "Nota{" + "descricao=" + descricao + '}';
+        return "Nota{" + "nota=" + nota + '}';
     }
-    
-    
+
 }

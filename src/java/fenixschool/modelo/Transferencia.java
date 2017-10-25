@@ -13,16 +13,16 @@ import java.util.Objects;
  *
  * @author informatica
  */
-public class Transferencia implements Serializable{
+public class Transferencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
-   private Integer idTransferencia;
-   private Date dataTransferencia;
-   private String textoTransferencia;
-   private Aluno aluno;
-   private Funcionario funcionario;
-   private SituacaoTransferencia situacaoTransferencia;
-   private String observacoes;
+    private Integer idTransferencia;
+    private Date dataTransferencia;
+    private String textoTransferencia;
+    private Aluno aluno;
+    private Funcionario funcionario;
+    private SituacaoTransferencia situacaoTransferencia;
+    private String observacoes;
 
     public Transferencia() {
     }
@@ -122,10 +122,5 @@ public class Transferencia implements Serializable{
     public String toString() {
         return "Transferencia{" + "idTransferencia=" + idTransferencia + ", aluno=" + aluno + '}';
     }
-    
-   
-    
 
-    
-    
 }

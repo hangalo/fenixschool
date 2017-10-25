@@ -41,7 +41,7 @@ public class DocenciaDAO implements GenericoDAOLogico<Docencia> {
 
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERT);
-            ps.setInt(1, docencia.getDisciplina().getIdDisciplina());
+            ps.setString(1, docencia.getDisciplina().getIdDisciplina());
             ps.setInt(2, docencia.getProfessor().getIdProfessor());
             ps.setDate(3, new java.sql.Date(docencia.getDataIncio().getTime()));
             ps.setDate(4, new java.sql.Date(docencia.getDataFim().getTime()));
@@ -77,7 +77,7 @@ public class DocenciaDAO implements GenericoDAOLogico<Docencia> {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(UPDATE);
 
-            ps.setInt(1, docencia.getDisciplina().getIdDisciplina());
+            ps.setString(1, docencia.getDisciplina().getIdDisciplina());
             ps.setInt(2, docencia.getProfessor().getIdProfessor());
             ps.setDate(3, new java.sql.Date(docencia.getDataIncio().getTime()));
             ps.setDate(4, new java.sql.Date(docencia.getDataFim().getTime()));

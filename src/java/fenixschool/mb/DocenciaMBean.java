@@ -86,7 +86,7 @@ public class DocenciaMBean implements Serializable {
     public void guardar(ActionEvent evt) {
          boolean controlo = false;
         for (Disciplina disciplinaLida : disciplinas) {
-            Disciplina disciplina = disciplinaDAO.findById(disciplinaLida.getIdDisciplina());
+            Disciplina disciplina = disciplinaDAO.findByCodigo(disciplinaLida.getIdDisciplina());
             docencia.setDisciplina(disciplina);
             controlo = docenciaDAO.save(docencia);
         }
@@ -108,7 +108,7 @@ public class DocenciaMBean implements Serializable {
     public void edit(ActionEvent event) {
            boolean controlo = false;
         for (Disciplina disciplinaLida : disciplinas) {
-            Disciplina disciplina = disciplinaDAO.findById(disciplinaLida.getIdDisciplina());
+            Disciplina disciplina = disciplinaDAO.findByCodigo(disciplinaLida.getIdDisciplina());
             docencia.setDisciplina(disciplina);
             controlo = docenciaDAO.update(docencia);
         }

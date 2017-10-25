@@ -14,40 +14,34 @@ import java.util.Objects;
  */
 public class Disciplina {
 
-    private int idDisciplina;
+    private String idDisciplina;
     private String nomeDisciplina;
     private String abreviatura;
     private String descricaoDisplina;
     private String sumarioDisciplina;
     private Date dataCriacao;
-    private Curso codigoCurso;
-    private AnoLectivo anoLetivo;
-    private PeriodoLectivo periodoLetivo;
-    private CicloLectivo cicloLetivo;
+    private CicloLectivo cicloLectivo;
     private TipoDisciplina tipoDisciplina;
 
     public Disciplina() {
     }
 
-    public Disciplina(int idDisciplina, String nomeDisciplina, String abreviatura, String descricaoDisplina, String sumarioDisciplina, Date dataCriacao, Curso codigoCurso, AnoLectivo anoLetivo, PeriodoLectivo periodoLetivo, CicloLectivo cicloLetivo, TipoDisciplina tipoDisciplina) {
+    public Disciplina(String idDisciplina, String nomeDisciplina, String abreviatura, String descricaoDisplina, String sumarioDisciplina, Date dataCriacao, CicloLectivo cicloLectivo, TipoDisciplina tipoDisciplina) {
         this.idDisciplina = idDisciplina;
         this.nomeDisciplina = nomeDisciplina;
         this.abreviatura = abreviatura;
         this.descricaoDisplina = descricaoDisplina;
         this.sumarioDisciplina = sumarioDisciplina;
         this.dataCriacao = dataCriacao;
-        this.codigoCurso = codigoCurso;
-        this.anoLetivo = anoLetivo;
-        this.periodoLetivo = periodoLetivo;
-        this.cicloLetivo = cicloLetivo;
+        this.cicloLectivo = cicloLectivo;
         this.tipoDisciplina = tipoDisciplina;
     }
 
-    public int getIdDisciplina() {
+    public String getIdDisciplina() {
         return idDisciplina;
     }
 
-    public void setIdDisciplina(int idDisciplina) {
+    public void setIdDisciplina(String idDisciplina) {
         this.idDisciplina = idDisciplina;
     }
 
@@ -91,36 +85,12 @@ public class Disciplina {
         this.dataCriacao = dataCriacao;
     }
 
-    public Curso getCodigoCurso() {
-        return codigoCurso;
+    public CicloLectivo getCicloLectivo() {
+        return cicloLectivo;
     }
 
-    public void setCodigoCurso(Curso codigoCurso) {
-        this.codigoCurso = codigoCurso;
-    }
-
-    public AnoLectivo getAnoLetivo() {
-        return anoLetivo;
-    }
-
-    public void setAnoLetivo(AnoLectivo anoLetivo) {
-        this.anoLetivo = anoLetivo;
-    }
-
-    public PeriodoLectivo getPeriodoLetivo() {
-        return periodoLetivo;
-    }
-
-    public void setPeriodoLetivo(PeriodoLectivo periodoLetivo) {
-        this.periodoLetivo = periodoLetivo;
-    }
-
-    public CicloLectivo getCicloLetivo() {
-        return cicloLetivo;
-    }
-
-    public void setCicloLetivo(CicloLectivo cicloLetivo) {
-        this.cicloLetivo = cicloLetivo;
+    public void setCicloLectivo(CicloLectivo cicloLectivo) {
+        this.cicloLectivo = cicloLectivo;
     }
 
     public TipoDisciplina getTipoDisciplina() {
@@ -133,18 +103,8 @@ public class Disciplina {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 83 * hash + this.idDisciplina;
-        hash = 83 * hash + Objects.hashCode(this.nomeDisciplina);
-        hash = 83 * hash + Objects.hashCode(this.abreviatura);
-        hash = 83 * hash + Objects.hashCode(this.descricaoDisplina);
-        hash = 83 * hash + Objects.hashCode(this.sumarioDisciplina);
-        hash = 83 * hash + Objects.hashCode(this.dataCriacao);
-        hash = 83 * hash + Objects.hashCode(this.codigoCurso);
-        hash = 83 * hash + Objects.hashCode(this.anoLetivo);
-        hash = 83 * hash + Objects.hashCode(this.periodoLetivo);
-        hash = 83 * hash + Objects.hashCode(this.cicloLetivo);
-        hash = 83 * hash + Objects.hashCode(this.tipoDisciplina);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.idDisciplina);
         return hash;
     }
 
@@ -160,37 +120,7 @@ public class Disciplina {
             return false;
         }
         final Disciplina other = (Disciplina) obj;
-        if (this.idDisciplina != other.idDisciplina) {
-            return false;
-        }
-        if (!Objects.equals(this.nomeDisciplina, other.nomeDisciplina)) {
-            return false;
-        }
-        if (!Objects.equals(this.abreviatura, other.abreviatura)) {
-            return false;
-        }
-        if (!Objects.equals(this.descricaoDisplina, other.descricaoDisplina)) {
-            return false;
-        }
-        if (!Objects.equals(this.sumarioDisciplina, other.sumarioDisciplina)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
-            return false;
-        }
-        if (!Objects.equals(this.codigoCurso, other.codigoCurso)) {
-            return false;
-        }
-        if (!Objects.equals(this.anoLetivo, other.anoLetivo)) {
-            return false;
-        }
-        if (!Objects.equals(this.periodoLetivo, other.periodoLetivo)) {
-            return false;
-        }
-        if (!Objects.equals(this.cicloLetivo, other.cicloLetivo)) {
-            return false;
-        }
-        if (!Objects.equals(this.tipoDisciplina, other.tipoDisciplina)) {
+        if (!Objects.equals(this.idDisciplina, other.idDisciplina)) {
             return false;
         }
         return true;
