@@ -1,12 +1,13 @@
 27/10/2017
 
 Alteração na entidade aluno
- adicionados mais campos 
+
 Em função da necessidade de ter dados direferentes sobre o local de nascimento e residencia...
 Pensando que os dados do local de nascimento sim fazem parte das propriedades identificativas do aluno...
 e para nao misturar dados relativos ao endereço com os dados pessoais e pensando que ao longo do tempo o aluno pode mudar de endereço
 Então decidiu-se por criar uma entidade endereço onde poderão ser armazenados todos os endereços e uma tabela de ligação (relacionamento muito para muitos)
 com as entidades envolvidas... neste caso com a tabela aluno (tabela endereco_aluno)
+
 
 
 
