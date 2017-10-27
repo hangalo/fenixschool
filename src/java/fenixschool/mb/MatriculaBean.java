@@ -28,15 +28,18 @@ import fenixschool.modelo.Sexo;
 import fenixschool.modelo.SituacaoAlunoMatricula;
 import fenixschool.modelo.TipoDocumentoIdentidade;
 import fenixschool.modelo.Turma;
+import fenixschool.util.GestorImpressao;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -96,6 +99,9 @@ public class MatriculaBean implements Serializable {
     private String byTurma;
     
     private String vagasNaTurma;
+    
+     @ManagedProperty(value = "#{gestorImpressao}")
+     private GestorImpressao gestorImpressao;
 
     public MatriculaBean() {
     }
@@ -395,6 +401,14 @@ public class MatriculaBean implements Serializable {
         this.vagasNaTurma = vagasNaTurma;
     }
 
+    public GestorImpressao getGestorImpressao() {
+        return gestorImpressao;
+    }
+
+    public void setGestorImpressao(GestorImpressao gestorImpressao) {
+        this.gestorImpressao = gestorImpressao;
+    }
+
     
     
     
@@ -448,6 +462,8 @@ public class MatriculaBean implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao gravar Matricula"));
         }
+        
+        imprimirFichaMatricula();
 
     }
 
@@ -503,4 +519,18 @@ public class MatriculaBean implements Serializable {
         this.byTurma = byTurma;
     }
 
+       public String imprimirFichaMatricula() {
+           
+           Integer ultimaMatricula = matriculaDAO.buscaUltimaMatriculaFeita();
+           
+           System.out.println(">>>>>>>>imprimirFichaMatricula()"+ultimaMatricula);
+        String relatorio = "matricula_ficha.jasper";
+         HashMap parametros = new HashMap();
+         parametros.put("numeroMatricula", ultimaMatricula);
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+
+        return null;
+
+    }
+    
 }

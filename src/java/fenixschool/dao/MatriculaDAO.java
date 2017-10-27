@@ -34,8 +34,8 @@ import java.util.List;
  */
 public class MatriculaDAO implements GenericoDAO<Matricula> {
 
-    private static final String INSERIR = "INSERT INTO matricula(data_matricula,id_aluno,id_funcionario,codigo_curso,id_ano_letivo,estado_matricula,id_turma,id_tipo_documento_identidade,data_emissao_documento,id_local_emissao_documento,numero_documento,id_ciclo_letivo,id_ano_curricular,lingua_opcao, situacao_aluno, observacao)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String ATUALIZAR = "UPDATE matricula SET data_matricula = ?,id_aluno = ?,id_funcionario = ?,codigo_curso = ?,id_ano_letivo = ?,estado_matricula = ?,id_turma = ?,id_tipo_documento_identidade = ?,data_emissao_documento = ?,id_local_emissao_documento = ?,numero_documento = ?,id_ciclo_letivo = ?,id_ano_curricular = ?,lingua_opcao=?, situacao_aluno=?, observacao = ? WHERE id_matricula=?";
+    private static final String INSERIR = "INSERT INTO matricula(data_matricula,id_aluno,id_funcionario,codigo_curso,id_ano_letivo,estado_matricula,id_turma,id_tipo_documento_identidade,data_emissao_documento,id_local_emissao_documento,numero_documento,id_ciclo_letivo,id_ano_curricular,lingua_opcao, lingua_estudada ,situacao_aluno, observacao)VALUES(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String ATUALIZAR = "UPDATE matricula SET data_matricula = ?,id_aluno = ?,id_funcionario = ?,codigo_curso = ?,id_ano_letivo = ?,estado_matricula = ?,id_turma = ?,id_tipo_documento_identidade = ?,data_emissao_documento = ?,id_local_emissao_documento = ?,numero_documento = ?,id_ciclo_letivo = ?,id_ano_curricular = ?,lingua_opcao=?,lingua_estudada=?, situacao_aluno=?, observacao = ? WHERE id_matricula=?";
     private static final String ELIMINAR = "DELETE FROM matricula WHERE id_matricula=?";
 
     private static final String BUSCAT_POR_ID = "SELECT c.codigo_ministerio_educacao,	a.data_nascimento, a.sexo, m.estado_matricula,"
@@ -44,7 +44,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             + "m.data_matricula, a.nome_aluno,	a.telefone_fixo, c.descricao_curso, a.casa_aluno, m.numero_documento, m.observacao, mu.nome_municipio,"
             + "a.email_aluno, a.numero_aluno, a.sobrenome_aluno, a.id_aluno, m.data_emissao_documento, m.id_matricula, a.distrito_aluno, a.telefone_movel, c.conteudo_programatico,	al.ano_letivo, "
             + "f.nome_funcionario, f.sobrenome_funcionario,"
-            + " td.tipo_documento_identidade, le.local_emissao_documento, m.lingua_opcao, m.situacao_aluno "
+            + " td.tipo_documento_identidade, le.local_emissao_documento, m.lingua_opcao,m.lingua_estudada, m.situacao_aluno "
             + "FROM matricula m "
             + "INNER JOIN aluno a ON  m.id_aluno = a.id_aluno "
             + "INNER JOIN turma t ON m.id_turma =t.id_turma "
@@ -103,6 +103,9 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
     private static final String SELECT_BY_TURMA_ANOLECTIVO ="SELECT a.id_aluno, a.nome_aluno,a.sobrenome_aluno, a.data_nascimento, a.sexo, c.nome_curso, ac.ano_curricular, t.nome_turma, pl.periodo_letivo, cl.ciclo_letivo, mu.nome_municipio, pr.nome_provincia, al.ano_letivo,  m.lingua_opcao, m.situacao_aluno FROM matricula m INNER JOIN aluno a ON  m.id_aluno = a.id_aluno INNER JOIN turma t ON m.id_turma =t.id_turma INNER JOIN curso c ON m.codigo_curso =c.codigo_curso INNER JOIN ano_letivo al ON m.id_ano_letivo =al.id_ano_letivo INNER JOIN ciclo_letivo cl ON m.id_ciclo_letivo = cl.id_ciclo_letivo INNER JOIN ano_curricular ac ON m.id_ano_curricular = ac.id_ano_curricular INNER JOIN municipio mu ON a.id_municipio = mu.id_municipio INNER JOIN provincia pr ON pr.id_provincia =mu.id_provincia  INNER JOIN periodo_letivo pl ON t.id_periodo_letivo = pl.id_periodo_letivo INNER JOIN funcionario f ON m.id_funcionario=f.id_funcionario INNER JOIN tipo_documento_identidade td ON m.id_tipo_documento_identidade=td.id_tipo_documento_identidade INNER JOIN local_emissao_documento le ON m.id_local_emissao_documento=le.id_local_emissao_documento WHERE t.nome_turma=? AND ano_letivo = ?";
     private static final String SELECT_BY_TURMA_ANOLECTIVO_SEXO ="SELECT a.id_aluno, a.nome_aluno,a.sobrenome_aluno, a.data_nascimento, a.sexo, c.nome_curso, ac.ano_curricular, t.nome_turma, pl.periodo_letivo, cl.ciclo_letivo, mu.nome_municipio, pr.nome_provincia, al.ano_letivo,  m.lingua_opcao, m.situacao_aluno FROM matricula m INNER JOIN aluno a ON  m.id_aluno = a.id_aluno INNER JOIN turma t ON m.id_turma =t.id_turma INNER JOIN curso c ON m.codigo_curso =c.codigo_curso INNER JOIN ano_letivo al ON m.id_ano_letivo =al.id_ano_letivo INNER JOIN ciclo_letivo cl ON m.id_ciclo_letivo = cl.id_ciclo_letivo INNER JOIN ano_curricular ac ON m.id_ano_curricular = ac.id_ano_curricular INNER JOIN municipio mu ON a.id_municipio = mu.id_municipio INNER JOIN provincia pr ON pr.id_provincia =mu.id_provincia  INNER JOIN periodo_letivo pl ON t.id_periodo_letivo = pl.id_periodo_letivo INNER JOIN funcionario f ON m.id_funcionario=f.id_funcionario INNER JOIN tipo_documento_identidade td ON m.id_tipo_documento_identidade=td.id_tipo_documento_identidade INNER JOIN local_emissao_documento le ON m.id_local_emissao_documento=le.id_local_emissao_documento WHERE t.nome_turma=? AND ano_letivo = ? AND sexo ?";
 
+    private static final String SELECT_MAX_ID="SELECT MAX(id_matricula) FROM matricula";
+    private static final String SELECT_LAST_INSERT="SELECT LAST_INSERT_ID()";
+    
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
@@ -135,9 +138,10 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             ps.setString(11, matricula.getNumeroDocumento());
             ps.setInt(12, matricula.getCicloLectivo().getIdCicloLectivo());
             ps.setInt(13, matricula.getAnoCurricular().getIdAnoCurricular());
-            ps.setString(14, matricula.getLingua().getAbreviatura());
-            ps.setString(15, matricula.getSituacaoAlunoMatricula().getAbreviatura());
-            ps.setString(16, matricula.getObservacao());
+            ps.setString(14, matricula.getLinguaOpcao().getAbreviatura());
+            ps.setString(15, matricula.getLinguaEstudada().getAbreviatura());
+            ps.setString(16, matricula.getSituacaoAlunoMatricula().getAbreviatura());
+            ps.setString(17, matricula.getObservacao());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao guardar dados" + ex.getMessage());
@@ -169,11 +173,12 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             ps.setString(11, matricula.getNumeroDocumento());
             ps.setInt(12, matricula.getCicloLectivo().getIdCicloLectivo());
             ps.setInt(13, matricula.getAnoCurricular().getIdAnoCurricular());
-            ps.setString(14, matricula.getLingua().getAbreviatura());
-            ps.setString(15, matricula.getSituacaoAlunoMatricula().getAbreviatura());
-            ps.setString(16, matricula.getObservacao());
+            ps.setString(14, matricula.getLinguaOpcao().getAbreviatura());
+            ps.setString(15, matricula.getLinguaEstudada().getAbreviatura());
+            ps.setString(16, matricula.getSituacaoAlunoMatricula().getAbreviatura());
+            ps.setString(17, matricula.getObservacao());
 
-            ps.setInt(17, matricula.getIdMatricula());
+            ps.setInt(18, matricula.getIdMatricula());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao atualizar dados" + ex.getMessage());
@@ -276,6 +281,30 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
         return itens;
     }
 
+    
+    public Integer buscaUltimaMatriculaFeita() {
+        Matricula matricula = new Matricula();
+        Integer ultimo=null;
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_MAX_ID);
+             rs = ps.executeQuery();
+            if (rs.next()) {
+               
+                ultimo = rs.getInt(1);
+            }
+            
+            
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao carregar dados" + ex.getMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return ultimo;
+
+    }
+    
     @Override
     public void popularComDados(Matricula matricula, ResultSet rs) {
         try {/*
@@ -398,7 +427,8 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             Funcionario funcionario = new Funcionario();
             funcionario.setNomeFuncionario(rs.getString("nome_funcionario"));
             funcionario.setSobrenomeFuncionario(rs.getString("sobrenome_funcionario"));
-            matricula.setLingua(Lingua.getAbreviatura(rs.getString("lingua_opcao")));
+            matricula.setLinguaOpcao(Lingua.getAbreviatura(rs.getString("lingua_opcao")));
+            matricula.setLinguaEstudada(Lingua.getAbreviatura(rs.getString("lingua_estudada")));
             matricula.setSituacaoAlunoMatricula(SituacaoAlunoMatricula.getAbreviatura("situacao_aluno"));
             
             matricula.setFuncionario(funcionario);

@@ -27,7 +27,8 @@ public class Matricula implements Serializable{
     private String numeroDocumento;
     private CicloLectivo cicloLectivo;
     private AnoCurricular anoCurricular;
-    private Lingua lingua;
+    private Lingua linguaOpcao;
+    private Lingua linguaEstudada;
     private SituacaoAlunoMatricula situacaoAlunoMatricula;
     private String observacao;
 
@@ -49,7 +50,7 @@ public class Matricula implements Serializable{
         this.numeroDocumento = numeroDocumento;
         this.cicloLectivo = cicloLectivo;
         this.anoCurricular = anoCurricular;
-        this.lingua = lingua;
+        this.linguaOpcao = lingua;
         this.situacaoAlunoMatricula = situacaoAlunoMatricula;
         this.observacao = observacao;
     }
@@ -180,20 +181,29 @@ public class Matricula implements Serializable{
         this.observacao = observacao;
     }
 
-    public Lingua getLingua() {
-        return lingua;
+    public Lingua getLinguaOpcao() {
+        return linguaOpcao;
     }
 
-    public void setLingua(Lingua lingua) {
-        this.lingua = lingua;
+    public void setLinguaOpcao(Lingua linguaOpcao) {
+        this.linguaOpcao = linguaOpcao;
     }
 
+   
     public SituacaoAlunoMatricula getSituacaoAlunoMatricula() {
         return situacaoAlunoMatricula;
     }
 
     public void setSituacaoAlunoMatricula(SituacaoAlunoMatricula situacaoAlunoMatricula) {
         this.situacaoAlunoMatricula = situacaoAlunoMatricula;
+    }
+
+    public Lingua getLinguaEstudada() {
+        return linguaEstudada;
+    }
+
+    public void setLinguaEstudada(Lingua linguaEstudada) {
+        this.linguaEstudada = linguaEstudada;
     }
 
     

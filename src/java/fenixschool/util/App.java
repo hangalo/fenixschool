@@ -5,6 +5,7 @@
  */
 package fenixschool.util;
 
+import fenixschool.dao.MatriculaDAO;
 import fenixschool.dao.ProfessorDAO;
 import fenixschool.modelo.Departamento;
 import fenixschool.modelo.ProfessorDepartamento;
@@ -22,6 +23,11 @@ import java.util.logging.Logger;
 public class App {
 
     public static void main(String[] args) {
+       MatriculaDAO dao = new MatriculaDAO();
+       
+        System.out.println(">>>>>> Valor achao- Ultima matricula"+dao.buscaUltimaMatriculaFeita());
+        
+        /*
         ProfessorDAO pdao = new ProfessorDAO();
         Departamento departamento = new Departamento();
         departamento.setIdDepartamento(5);
@@ -45,7 +51,7 @@ public class App {
         for (ProfessorDepartamento professorDepartamento : lista) {
             System.err.println("Algum dado" + professorDepartamento.getProfessor());
         }
-
+        */
     }
 
 }

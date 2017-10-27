@@ -108,7 +108,7 @@
 
                     <!-- Inicio Dialogo Guardar-->
                     <h:form  id="frmNovo" >
-                        <p:dialog header="Efetuar Matricula de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno} Aluno N.º #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="900" width="900">
+                        <p:dialog header="Efetuar Matricula de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno} Aluno N.º #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="1000" width="1100">
 
                             <p:growl id="messages" showDetail="true"/>
                             <b:panel title="Dados do aluno" look="info">
@@ -141,7 +141,7 @@
                                 </h:panelGroup>
                             </b:panel>
                             <p:fieldset legend="Dados da Matricula" style="margin-top: 12px">
-                                <h:panelGrid columns="4">
+                                <h:panelGrid columns="5">
                                     <h:panelGroup>
                                         <h:form id="frmTurma">
                                         <h:panelGrid columns="1">
@@ -208,11 +208,23 @@
                                     <h:panelGroup>
                                     
                                       <h:panelGrid columns="1">
-                                        <p:outputLabel value="Língua Estrangeira:"/>
-                                        <p:selectOneRadio id="lingua" value="#{matriculaBean.matricula.lingua}">
+                                        <p:outputLabel value="Língua Estrangeira Estudada:"/>
+                                        <p:selectOneRadio id="linguaEstudada" value="#{matriculaBean.matricula.linguaEstudada}">
                                             <f:selectItems value="#{matriculaBean.opcaoLingua}" />
                                     </p:selectOneRadio >
-                                    </h:panelGrid>
+                                    </h:panelGrid>                
+                                    
+                                    
+                                </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                    
+                                      <h:panelGrid columns="1">
+                                        <p:outputLabel value="Língua Estrangeira de opção"/>
+                                        <p:selectOneRadio id="linguaOpcao" value="#{matriculaBean.matricula.linguaOpcao}">
+                                            <f:selectItems value="#{matriculaBean.opcaoLingua}" />
+                                    </p:selectOneRadio >
+                                    </h:panelGrid>                
                                     
                                     
                                 </h:panelGroup>
@@ -333,7 +345,7 @@
 
                             </h:panelGrid>
 
-                            <p:commandButton id="guardar" actionListener="#{matriculaBean.guardar}" value="Guardar e Imprimir"  update="growl" ajax="false" rendered="#{matriculaBean.vagasNaTurma>=1}">
+                            <p:commandButton id="guardar" actionListener="#{matriculaBean.guardar}" value="Guardar e Imprimir"  update="growl" ajax="false">
                                 <f:param name="numeroAluno" value="#{alunoMBean.aluno.idAluno}"/>
                             </p:commandButton>
 
