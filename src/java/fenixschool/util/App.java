@@ -24,8 +24,9 @@ public class App {
 
     public static void main(String[] args) {
        MatriculaDAO dao = new MatriculaDAO();
-       
-        System.out.println(">>>>>> Valor achao- Ultima matricula"+dao.buscaUltimaMatriculaFeita());
+       dao.decrementaVagas(1);
+        System.out.println("Ok");
+       // System.out.println(">>>>>> Valor achao- Ultima matricula"+dao.buscaUltimaMatriculaFeita());
         
         /*
         ProfessorDAO pdao = new ProfessorDAO();

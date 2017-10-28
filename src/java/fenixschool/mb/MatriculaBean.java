@@ -24,7 +24,6 @@ import fenixschool.modelo.Funcionario;
 import fenixschool.modelo.Lingua;
 import fenixschool.modelo.LocalEmissaoDocumento;
 import fenixschool.modelo.Matricula;
-import fenixschool.modelo.Sexo;
 import fenixschool.modelo.SituacaoAlunoMatricula;
 import fenixschool.modelo.TipoDocumentoIdentidade;
 import fenixschool.modelo.Turma;
@@ -43,7 +42,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 /**
@@ -446,16 +444,22 @@ public class MatriculaBean implements Serializable {
         Aluno alunoNovo = new Aluno();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String numeroAlunoParametro = (String) facesContext.getExternalContext().getRequestParameterMap().get("numeroAluno");
-
+        
+        Turma turmaActual = matricula.getTurma();
+            
         if (numeroAlunoParametro != null) {
 
-            System.out.println(">>>>>>>>>>>>>Numero Armazenado:\t" + numeroAlunoParametro);
+            System.out.println(">>>>>>>>>>>>>Id Truma recuperada:\t" + turmaActual.getIdTurma());
 
             alunoNovo.setIdAluno(Integer.parseInt(numeroAlunoParametro));
 
             matricula.setAluno(alunoNovo);
 
             matriculaDAO.save(matricula);
+            
+            // decrementa o numero de vagas na turma
+            matriculaDAO.decrementaVagas(turmaActual.getIdTurma());
+            
             matricula = new Matricula();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Matricula efectuada com sucesso"));
         } else {
@@ -463,6 +467,7 @@ public class MatriculaBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao gravar Matricula"));
         }
         
+        // Depois de guardar a matricula - imprime o boletim de matricula
         imprimirFichaMatricula();
 
     }

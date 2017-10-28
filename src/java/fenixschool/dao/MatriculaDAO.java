@@ -105,6 +105,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
 
     private static final String SELECT_MAX_ID="SELECT MAX(id_matricula) FROM matricula";
     private static final String SELECT_LAST_INSERT="SELECT LAST_INSERT_ID()";
+    private static final String UPDATE_VAGAS_TURMA_DECREMENTO="UPDATE turma SET numero_maximo_inscristos = numero_maximo_inscristos -1 WHERE id_turma = ?";
     
     Connection conn;
     PreparedStatement ps;
@@ -188,6 +189,25 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
 
     }
 
+    
+     
+    public void decrementaVagas(Integer id) {
+        if (id == null) {
+            System.out.println("O parametro passado nao pode nulo");
+        }
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(UPDATE_VAGAS_TURMA_DECREMENTO);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao atualizar dados" + ex.getMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+
+    }
+    
     @Override
     public void delete(Matricula matricula) {
         if (matricula == null) {
