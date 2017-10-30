@@ -1,3 +1,18 @@
+29/10/2017
+--Tarefas:--
+Trabalhou-se nas entidades disciplina, transferencia, situação da transferencia...
+tarefas concluidades com sucesso.
+Emissão de relatorios disciplina por curso e por ciclo ainda em andamento.
+
+Fiz o converter da situação da transferência...
+
+dificuldades:
+Não consegui fazer comq que o SelectMenyCheckBox logo na visualização
+não trouxesse todas as caixinhas selecionadas...
+Estudai acerca do assunto mais o que encontrei foi o que implementei
+mais infelizmente tras todas as caixinhas selecionadas.
+-----------------------------fim-------------------------------
+
 
 Observacoes - Hangalo --- 28/09/2017
 Elimiar os tabs no formulario do encarregado...

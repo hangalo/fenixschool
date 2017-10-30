@@ -62,13 +62,14 @@
                                     <h:panelGroup>
                                         <h:panelGrid columns="1">
                                             <p:outputLabel style="margin-left: 3px;" value="Ciclo lectivo:"/>
-                                            <p:selectManyCheckbox  style="margin-left: 3px;" id="idCicloLectivo" value="#{disciplinaMBean.cicloLectivos}" 
-                                                                   converter="cicloLectivoConverter" converterMessage="Ciclo lectivo - Erro na conversão" 
-                                                                   layout="grid" columns="3">
-                                                <f:selectItems  var="cicloLectivo" itemValue="#{cicloLectivo}" 
-                                                                value="#{cicloLectivoMBean.cicloLectivos}" 
-                                                                itemLabel="#{cicloLectivo.cicloLectivo}"/>
+
+                                            <p:selectManyCheckbox  id="idCicloLectivo" value="#{disciplinaMBean.cicloLectivos}" converter="cicloLectivoConverter" converterMessage="Ciclo lectivo - Erro na conversão">
+                                                <f:selectItems value="#{cicloLectivoMBean.cicloLectivos}"
+                                                               var="cicloLectivo"
+                                                               itemValue="#{cicloLectivo}"
+                                                               itemLabel="#{cicloLectivo.cicloLectivo}"/>
                                             </p:selectManyCheckbox>
+                                            
                                         </h:panelGrid>
                                     </h:panelGroup>
 

@@ -26,8 +26,8 @@ public class TransferenciaDAO implements GenericoDAO<Transferencia> {
     private static final String INSERT = "INSERT INTO transferencia (data_transferencia, texto_transferencia, id_aluno, id_funcionario, id_situacao_transferencia, observacoes) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE = "UPDATE transferencia SET data_transferencia = ?, texto_transferencia = ?, id_aluno = ?, id_funcionario = ?, id_situacao_transferencia = ?, observacoes = ? WHERE id_transferencia = ?";
     private static final String DELETE = "DELETE FROM transferencia WHERE id_transferencia=?";
-    private static final String FIND_BY_ID = "SELECT t.id_transferencia, t.data_transferencia, a.nome_aluno, f.nome_funcionario, t.texto_transferencia, s.situacao_transferencia, t.observacoes FROM transferencia t INNER JOIN aluno a ON t.id_aluno = a.id_aluno INNER JOIN funcionario f ON t.id_funcionario=f.id_funcionario INNER JOIN situacao_transferencia s ON t.id_situacao_transferencia = s.id_situacao_transferencia WHERE t.id_transferencia =?";
-    private static final String FIND_ALL = "SELECT t.id_transferencia, t.data_transferencia, a.nome_aluno, f.nome_funcionario, t.texto_transferencia, s.situacao_transferencia, t.observacoes FROM transferencia t INNER JOIN aluno a ON t.id_aluno = a.id_aluno INNER JOIN funcionario f ON t.id_funcionario=f.id_funcionario INNER JOIN situacao_transferencia s ON t.id_situacao_transferencia = s.id_situacao_transferencia ORDER BY t.id_transferencia";
+    private static final String FIND_BY_ID = "SELECT t.id_transferencia, t.data_transferencia, a.url_foto_aluno, a.sobrenome_aluno, a.id_aluno,a.nome_aluno, f.nome_funcionario, t.texto_transferencia, s.situacao_transferencia, t.observacoes FROM transferencia t INNER JOIN aluno a ON t.id_aluno = a.id_aluno INNER JOIN funcionario f ON t.id_funcionario=f.id_funcionario INNER JOIN situacao_transferencia s ON t.id_situacao_transferencia = s.id_situacao_transferencia WHERE t.id_transferencia =?";
+    private static final String FIND_ALL = "SELECT t.id_transferencia, t.data_transferencia, a.url_foto_aluno, a.sobrenome_aluno, a.id_aluno, a.nome_aluno, f.nome_funcionario, t.texto_transferencia, s.situacao_transferencia, t.observacoes FROM transferencia t INNER JOIN aluno a ON t.id_aluno = a.id_aluno INNER JOIN funcionario f ON t.id_funcionario=f.id_funcionario INNER JOIN situacao_transferencia s ON t.id_situacao_transferencia = s.id_situacao_transferencia ORDER BY t.id_transferencia";
 
     Connection conn;
     PreparedStatement ps;
@@ -163,6 +163,9 @@ public class TransferenciaDAO implements GenericoDAO<Transferencia> {
             
             Aluno aluno = new Aluno();
             aluno.setNomeAluno(rs.getString("nome_aluno"));
+            aluno.setIdAluno(rs.getInt("id_aluno"));
+            aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
+            aluno.setUrlfotoAluno(rs.getString("url_foto_aluno"));
             transferencia.setAluno(aluno);
             
             Funcionario funcionario = new Funcionario();

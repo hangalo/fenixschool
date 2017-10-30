@@ -7,45 +7,44 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <head>
-        <title>Situação de transferência</title>
-    </head>
+    <head><title>Parentesco</title></head>
     <body>
 
-        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">>
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+
 
             <ui:define name="content">
                 <p:growl showDetail="true" showSummary="true" autoUpdate="true"/>
-                <b:panel title="Situações de transferência" collapsible="false" look="primary">
+                <b:panel title="Lista de graus parentescos" collapsible="false" look="primary">
                     <h:form id="lista">
                         <p:dataTable  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                      var="situacaoTransferencia" value="#{situacaoTransferenciaMBean.situacaoTransferencias}" paginatorPosition="bottom" rows="10" cellSeparator="true" paginator="true" emptyMessage="Nenhum registro encontrado">
+                                      var="parentesco" value="#{parentescoMBean.parentescos}" paginatorPosition="bottom" rows="10" cellSeparator="true" paginator="true" emptyMessage="Nenhum registro encontrado">
                             <p:column style="text-align: center; width: 100px;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
                                 </f:facet>
-                                <p:outputLabel value="#{situacaoTransferencia.idSituacaoTransferencia}"/>
+                                <p:outputLabel value="#{parentesco.idParentesco}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <p:outputLabel value="Situação da transferência"/>
+                                    <p:outputLabel value="Parentesco"/>
                                 </f:facet>
-                                <p:outputLabel value="#{situacaoTransferencia.situacaoTransferencia}"/>
+                                <p:outputLabel value="#{parentesco.parentesco}"/>
                             </p:column>
 
                             <p:column style=" width: 100px; text-align: center;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Operações"/>
                                 </f:facet>
-                                <p:commandButton icon="ui-icon-trash" action="#{situacaoTransferenciaMBean.delete()}">
-                                    <f:setPropertyActionListener target="#{situacaoTransferenciaMBean.situacaoTransferencia}" value="#{situacaoTransferencia}"/>
+                                <p:commandButton icon="ui-icon-trash" action="#{parentescoMBean.delete()}">
+                                    <f:setPropertyActionListener target="#{parentescoMBean.parentesco}" value="#{parentesco}"/>
                                 </p:commandButton>
                                 <p:commandButton icon="ui-icon-pencil" update=":frmEditar:editar" oncomplete="PF('dialogoEditar').show();">
-                                    <f:setPropertyActionListener target="#{situacaoTransferenciaMBean.situacaoTransferencia}" value="#{situacaoTransferencia}"/>
+                                    <f:setPropertyActionListener target="#{parentescoMBean.parentesco}" value="#{parentesco}"/>
                                 </p:commandButton>
                             </p:column>
                             <f:facet name="footer">
-                                Total de registros: (#{situacaoTransferenciaMBean.situacaoTransferencias.size()})
+                                Total de registros: (#{parentescoMBean.parentescos.size()})
                             </f:facet>
                         </p:dataTable>
                     </h:form>
@@ -57,16 +56,16 @@
                                     <p:messages showDetail="true" autoUpdate="true" showSummary="true"/>
                                     <h:panelGrid columns="2">
                                         <h:panelGroup>
-                                            <h:inputHidden value="#{situacaoTransferenciaMBean.situacaoTransferencia.idSituacaoTransferencia}"/>
+                                            <h:inputHidden value="#{parentescoMBean.parentesco.idParentesco}"/>
                                             <h:panelGrid columns="2">
-                                                <p:outputLabel value="Situação da transferência: "/>
-                                                <p:inputText size="35" value="#{situacaoTransferenciaMBean.situacaoTransferencia.situacaoTransferencia}"/>
+                                                <p:outputLabel value="Parentesco "/>
+                                                <p:inputText size="35" value="#{parentescoMBean.parentesco.parentesco}"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
                                     </h:panelGrid>
                                 </p:tab>
                             </p:tabView>
-                            <p:commandButton  icon="ui-icon-pencil" value="Actualizar" actionListener="#{situacaoTransferenciaMBean.edit(event)}"/> 
+                            <p:commandButton  icon="ui-icon-pencil" value="Actualizar" actionListener="#{parentescoMBean.edit(event)}"/> 
                         </p:dialog>
                     </h:form>
 
@@ -83,23 +82,21 @@
                                 <p:tab title="Informações gerais">
                                     <h:panelGrid columns="2">
                                         <h:panelGroup>
-                                            <h:inputHidden value="#{situacaoTransferenciaMBean.situacaoTransferencia.idSituacaoTransferencia}"/>
                                             <h:panelGrid columns="2">
-                                                <p:outputLabel value="Situação da transferência: "/>
-                                                <p:inputText  size="35" value="#{situacaoTransferenciaMBean.situacaoTransferencia.situacaoTransferencia}"/>
+                                                <p:outputLabel value="Parentesco: "/>
+                                                <p:inputText  size="35" value="#{parentescoMBean.parentesco.parentesco}"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
                                     </h:panelGrid>
 
                                 </p:tab>
                             </p:tabView>
-                            <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{situacaoTransferenciaMBean.guardar(event)}" resetValues="true"/> 
+                            <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{parentescoMBean.guardar(event)}" resetValues="true"/> 
                         </p:dialog>
                     </h:form>
 
                 </b:panel>
-            </ui:define>
-
+            </ui:define>            
         </ui:composition>
 
     </body>

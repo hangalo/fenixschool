@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <head>
+        <title>Nova transferência</title>
+    </head>
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+            <ui:define name="content">
+                <b:panel title="Nova transferência" look="info">
+                    <h:form>
+                        <p:menubar>
+                            <f:facet name="options" >
+                                <h:panelGrid columns="2">
+
+                                    <p:inputText size="50" value="#{alunoMBean.numeroAluno}" placeholder="Nº do aluno ou Nº do B.I"/>
+                                    <p:commandButton  value="Pesquisar"  ajax="false"/>
+                                </h:panelGrid>
+                            </f:facet>
+                        </p:menubar>
+
+                    </h:form>
+
+                    <h:form>
+
+                        <!--Inicio Data table-->
+                        <p:dataTable value="#{alunoMBean.byNumeroAluno}" emptyMessage="Nenhum resgistro encontrado"  var="item" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+
+
+                            <p:column style="width: 5%; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idAluno}"/>
+                            </p:column>
+
+                            <p:column style="width: 20%; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Nome"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomeAluno}"/>
+                            </p:column>
+
+                            <p:column style="width: 20%; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Sobrenome"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sobrenomeAluno}"/>
+                            </p:column>
+
+                            <p:column style="width:25%; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Bilhete de Identidade "/>
+                                </f:facet>
+                                <h:outputText value="#{item.biAluno}"/>
+                            </p:column>   
+
+                            <p:column style="width: 10%; text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="Foto"/>
+                                </f:facet>
+                                <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{item.urlfotoAluno}" alt="foto" width="50" height="50"/>
+
+                            </p:column>
+
+
+                            <p:column style="width: 160px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+
+                                <p:commandButton icon="ui-icon-pencil" value="Realizar a transferência" oncomplete="PF('dlgNovo').show();" >
+                                    <f:setPropertyActionListener target="#{alunoMBean.aluno}" value="#{item}"/>
+                                </p:commandButton>
+
+
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                </b:panel>    
+
+                <h:form>
+                    <p:commandButton value="Fechar" action="/index" ajax="false"/> 
+                </h:form>
+
+                <h:form  id="frmNovo" >
+                    <p:dialog header="Efetuar transferência de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}, Aluno N.º: #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="clip" hideEffect="blind" height="550" width="550">
+
+                        <b:panel title="Informações sobre o aluno" look="primary" collapsible="false">
+                            <h:panelGrid columns="3" >
+                                <h:panelGroup style="margin-right: 20px;">
+                                    <h:panelGrid columns="2"> 
+                                        <p:outputLabel value="Nº: "/>
+                                        <p:outputLabel style="margin-left: 3px;" value=" #{alunoMBean.aluno.idAluno}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                                <h:panelGroup/>
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="2">
+                                        <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{alunoMBean.aluno.urlfotoAluno}" alt="foto" width="70" height="70"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                            </h:panelGrid>
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel style="color: red;" value="#{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}"/>
+                                </h:panelGrid>
+
+                            </h:panelGroup>
+                        </b:panel>
+
+
+                        <b:panel title="Informações gerais sobre a transferência" look="primary" collapsible="false" display="inline">
+                               
+                                <h:panelGrid columns="2">
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel  value="Situação da transferência"/>
+                                            <p:selectOneMenu style="width: 300px;" value="#{transferenciaMBean.transferencia.situacaoTransferencia}" converter="situacaoTransferenciaConverter" filter="true" filterMatchMode="startsWith">
+                                                <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems var="situacao" itemValue="#{situacao}" value="#{transferenciaMBean.situacaoTransferencias}" itemLabel="#{situacao.situacaoTransferencia}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 4px;" value="Data de transferência"/>
+                                            <p:calendar style="margin-left: 4px;" value="#{transferenciaMBean.transferencia.dataTransferencia}" locale="pt" pattern="dd/MM/yyyy"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2">
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Texto de transferência"/>
+                                            <p:inputTextarea cols="50" rows="5" value="#{transferenciaMBean.transferencia.textoTransferencia}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 4px;" value="Observações"/>
+                                            <p:inputTextarea cols="25" rows="5" style="margin-left: 4px;" value="#{transferenciaMBean.transferencia.observacoes}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                             <h:panelGrid columns="1">
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel  value="Funcionário"/>
+                                            <p:selectOneMenu style="width: 300px;" filter="true" filterMatchMode="startsWith" value="#{transferenciaMBean.transferencia.funcionario}" converter="funcionarioConverter" >
+                                                <f:selectItem itemLabel="--Selecione o Funcionário--" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{transferenciaMBean.funcionarios}" var="funcionario" itemValue="#{funcionario}" itemLabel="#{funcionario.nomeFuncionario}" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                            </b:panel>
+                        <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{transferenciaMBean.guardar(event)}" update="@form">
+                            <f:param name="numeroAluno" value="#{alunoMBean.aluno.idAluno}"/>
+                        </p:commandButton> 
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

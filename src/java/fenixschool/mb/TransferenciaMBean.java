@@ -114,22 +114,46 @@ public class TransferenciaMBean implements Serializable {
 
     public void guardar(ActionEvent event) {
 
-        transferenciaDAO.save(transferencia);
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Guardado com sucesso!");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        transferencia = new Transferencia();
+        Aluno aluno = new Aluno();
+        FacesContext facesConte = FacesContext.getCurrentInstance();
+        String numeroDoALuno = (String) facesConte.getExternalContext().getRequestParameterMap().get("numeroAluno");
+        if (numeroDoALuno != null) {
+
+            System.out.println(">>>>>>>>>>>>>Numero Armazenado:\t" + numeroDoALuno);
+            aluno.setIdAluno(Integer.parseInt(numeroDoALuno));
+            transferencia.setAluno(aluno);
+            transferenciaDAO.save(transferencia);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", transferencia.getAluno().getNomeAluno() + " Guardado com sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            transferencia = new Transferencia();
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao guardar " + transferencia.getAluno().getNomeAluno() + "!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
 
     }
 
     public void edit(ActionEvent event) {
-        transferenciaDAO.update(transferencia);
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        transferencia = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("transferencia_listar.jsf");
-        } catch (IOException e) {
-            java.util.logging.Logger.getLogger(TransferenciaMBean.class.getName()).log(Level.SEVERE, null, e);
+        Aluno aluno = new Aluno();
+        FacesContext facesConte = FacesContext.getCurrentInstance();
+        String numeroDoALuno = (String) facesConte.getExternalContext().getRequestParameterMap().get("numeroAluno");
+        if (numeroDoALuno != null) {
+
+            System.out.println(">>>>>>>>>>>>>Numero Armazenado:\t" + numeroDoALuno);
+            aluno.setIdAluno(Integer.parseInt(numeroDoALuno));
+            transferencia.setAluno(aluno);
+            transferenciaDAO.update(transferencia);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", transferencia.getAluno().getNomeAluno() + " Actualizado  com sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            transferencia = null;
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("transferencia_listar.jsf");
+            } catch (IOException e) {
+                java.util.logging.Logger.getLogger(TransferenciaMBean.class.getName()).log(Level.SEVERE, null, e);
+            }
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Actualizar", "Erro ao actualizar " + transferencia.getAluno().getNomeAluno() + "!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
