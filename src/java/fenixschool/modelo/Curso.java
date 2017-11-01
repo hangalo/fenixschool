@@ -138,7 +138,7 @@ public class Curso {
 
     @Override
     public String toString() {
-        return "Curso{" + "nomeCurso=" + nomeCurso + '}';
+        return this.nomeCurso ;
     }
 
     

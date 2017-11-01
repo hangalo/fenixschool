@@ -114,7 +114,7 @@ public class GestorImpressao {
         System.out.println(">>>>>>> Relatio>>>>>"+getPathPastaAplicacaoJSF() + relatorio);
         
         try {
-            facesContext = FacesContext.getCurrentInstance();
+          facesContext = FacesContext.getCurrentInstance();
             facesContext.responseComplete();
             jasperPrint = JasperFillManager.fillReport(getPathPastaAplicacaoJSF() + relatorio, hashMap, conn);
         } catch (JRException jRException) {

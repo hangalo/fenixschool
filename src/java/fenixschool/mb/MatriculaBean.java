@@ -93,6 +93,8 @@ public class MatriculaBean implements Serializable {
     private AnoCurricular anoCurricular;
     private AnoCurricularDAO anoCurricularDAO;
     private List<AnoCurricular> anoCurriculars;
+    
+    private List<Matricula> listaTurmasAnoLectivo;
 
     private String byTurma;
     
@@ -145,7 +147,7 @@ public class MatriculaBean implements Serializable {
         anoCurricular = new AnoCurricular();
         anoCurricularDAO = new AnoCurricularDAO();
         anoCurriculars = new ArrayList<>();
-
+        listaTurmasAnoLectivo = new ArrayList<>();
     }
 
     public Matricula getMatricula() {
@@ -407,6 +409,14 @@ public class MatriculaBean implements Serializable {
         this.gestorImpressao = gestorImpressao;
     }
 
+    public List<Matricula> getListaTurmasAnoLectivo() {
+        return listaTurmasAnoLectivo;
+    }
+
+    public void setListaTurmasAnoLectivo(List<Matricula> listaTurmasAnoLectivo) {
+        this.listaTurmasAnoLectivo = listaTurmasAnoLectivo;
+    }
+
     
     
     
@@ -510,6 +520,13 @@ public class MatriculaBean implements Serializable {
 
     }
 
+     public List<Matricula> getMatriculaByTurmaAnoLectivo() {
+        Turma turmaPesquisa = matricula.getTurma();
+        AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
+        
+        listaTurmasAnoLectivo = matriculaDAO.findByTurmaAnoLectivo(turmaPesquisa.getNomeTurma(), anoLectivoPesquisa.getAnoLectivo());
+        return listaTurmasAnoLectivo;
+    }
     public List<Matricula> getMatriculaByTurma() {
 
         matriculas = matriculaDAO.findByTurma(byTurma);
@@ -526,9 +543,8 @@ public class MatriculaBean implements Serializable {
 
        public String imprimirFichaMatricula() {
            
-           Integer ultimaMatricula = matriculaDAO.buscaUltimaMatriculaFeita();
-           
-           System.out.println(">>>>>>>>imprimirFichaMatricula()"+ultimaMatricula);
+       Integer ultimaMatricula = matriculaDAO.buscaUltimaMatriculaFeita();
+        System.out.println(">>>>>>>>imprimirFichaMatricula()"+ultimaMatricula);
         String relatorio = "matricula_ficha.jasper";
          HashMap parametros = new HashMap();
          parametros.put("numeroMatricula", ultimaMatricula);
@@ -537,5 +553,26 @@ public class MatriculaBean implements Serializable {
         return null;
 
     }
+  
+  
+    public String imprimirListaTurma() {
+           
+       Turma turmaPesquisa = matricula.getTurma();
+        AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
+        
+        System.out.println(">>>>>>>>Ano Lectivo()"+anoLectivoPesquisa.getAnoLectivo());
+        
+         System.out.println(">>>>>>>>Ano Lectivo()"+turmaPesquisa.getNomeTurma());
+        String relatorio = "alunos_por_turma.jasper";
+         HashMap parametros = new HashMap();
+         parametros.put("anoLectivo", anoLectivoPesquisa.getAnoLectivo());
+          parametros.put("turma", turmaPesquisa.getNomeTurma());
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+
+        return null;
+
+    }
+       
+       
     
 }

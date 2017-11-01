@@ -100,7 +100,8 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             + "INNER JOIN local_emissao_documento le ON m.id_local_emissao_documento=le.id_local_emissao_documento "
             + "WHERE t.nome_turma=?";
     
-    private static final String SELECT_BY_TURMA_ANOLECTIVO ="SELECT a.id_aluno, a.nome_aluno,a.sobrenome_aluno, a.data_nascimento, a.sexo, c.nome_curso, ac.ano_curricular, t.nome_turma, pl.periodo_letivo, cl.ciclo_letivo, mu.nome_municipio, pr.nome_provincia, al.ano_letivo,  m.lingua_opcao, m.situacao_aluno FROM matricula m INNER JOIN aluno a ON  m.id_aluno = a.id_aluno INNER JOIN turma t ON m.id_turma =t.id_turma INNER JOIN curso c ON m.codigo_curso =c.codigo_curso INNER JOIN ano_letivo al ON m.id_ano_letivo =al.id_ano_letivo INNER JOIN ciclo_letivo cl ON m.id_ciclo_letivo = cl.id_ciclo_letivo INNER JOIN ano_curricular ac ON m.id_ano_curricular = ac.id_ano_curricular INNER JOIN municipio mu ON a.id_municipio = mu.id_municipio INNER JOIN provincia pr ON pr.id_provincia =mu.id_provincia  INNER JOIN periodo_letivo pl ON t.id_periodo_letivo = pl.id_periodo_letivo INNER JOIN funcionario f ON m.id_funcionario=f.id_funcionario INNER JOIN tipo_documento_identidade td ON m.id_tipo_documento_identidade=td.id_tipo_documento_identidade INNER JOIN local_emissao_documento le ON m.id_local_emissao_documento=le.id_local_emissao_documento WHERE t.nome_turma=? AND ano_letivo = ?";
+    private static final String SELECT_BY_TURMA_ANOLECTIVO ="SELECT c.nome_curso, ac.ano_curricular, t.nome_turma, pl.periodo_letivo, cl.ciclo_letivo, al.ano_letivo FROM matricula m INNER JOIN aluno a ON  m.id_aluno = a.id_aluno INNER JOIN turma t ON m.id_turma =t.id_turma INNER JOIN curso c ON m.codigo_curso =c.codigo_curso INNER JOIN ano_letivo al ON m.id_ano_letivo =al.id_ano_letivo INNER JOIN ciclo_letivo cl ON m.id_ciclo_letivo = cl.id_ciclo_letivo INNER JOIN ano_curricular ac ON m.id_ano_curricular = ac.id_ano_curricular INNER JOIN municipio mu ON a.id_municipio = mu.id_municipio INNER JOIN provincia pr ON pr.id_provincia =mu.id_provincia  INNER JOIN periodo_letivo pl ON t.id_periodo_letivo = pl.id_periodo_letivo INNER JOIN funcionario f ON m.id_funcionario=f.id_funcionario INNER JOIN tipo_documento_identidade td ON m.id_tipo_documento_identidade=td.id_tipo_documento_identidade INNER JOIN local_emissao_documento le ON m.id_local_emissao_documento=le.id_local_emissao_documento WHERE t.nome_turma=? AND ano_letivo = ?";
+    
     private static final String SELECT_BY_TURMA_ANOLECTIVO_SEXO ="SELECT a.id_aluno, a.nome_aluno,a.sobrenome_aluno, a.data_nascimento, a.sexo, c.nome_curso, ac.ano_curricular, t.nome_turma, pl.periodo_letivo, cl.ciclo_letivo, mu.nome_municipio, pr.nome_provincia, al.ano_letivo,  m.lingua_opcao, m.situacao_aluno FROM matricula m INNER JOIN aluno a ON  m.id_aluno = a.id_aluno INNER JOIN turma t ON m.id_turma =t.id_turma INNER JOIN curso c ON m.codigo_curso =c.codigo_curso INNER JOIN ano_letivo al ON m.id_ano_letivo =al.id_ano_letivo INNER JOIN ciclo_letivo cl ON m.id_ciclo_letivo = cl.id_ciclo_letivo INNER JOIN ano_curricular ac ON m.id_ano_curricular = ac.id_ano_curricular INNER JOIN municipio mu ON a.id_municipio = mu.id_municipio INNER JOIN provincia pr ON pr.id_provincia =mu.id_provincia  INNER JOIN periodo_letivo pl ON t.id_periodo_letivo = pl.id_periodo_letivo INNER JOIN funcionario f ON m.id_funcionario=f.id_funcionario INNER JOIN tipo_documento_identidade td ON m.id_tipo_documento_identidade=td.id_tipo_documento_identidade INNER JOIN local_emissao_documento le ON m.id_local_emissao_documento=le.id_local_emissao_documento WHERE t.nome_turma=? AND ano_letivo = ? AND sexo ?";
 
     private static final String SELECT_MAX_ID="SELECT MAX(id_matricula) FROM matricula";
@@ -275,6 +276,34 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
         return itens;
     }
 
+    /*SELECT_BY_TURMA_ANOLECTIVO*/
+    
+      public List<Matricula> findByTurmaAnoLectivo(String turma, String anoLectivo) {
+        ArrayList<Matricula> itens = new ArrayList<Matricula>();
+        
+        try {
+
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_TURMA_ANOLECTIVO);
+            ps.setString(1, turma);
+            ps.setString(2, anoLectivo);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Matricula matricula = new Matricula();
+                popularComDadosTurma(matricula, rs);
+                itens.add(matricula);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao carregar dados da turma\t" + ex.getMessage());
+        } finally {
+            Conexao.closeConnection(conn);
+        }
+        return itens;
+    }
+
+    
     /*Consultas parametrizadas, metodo buscar alunos por turma*/
     public List<Matricula> findByTurma(String turma) {
         ArrayList<Matricula> itens = new ArrayList<Matricula>();
@@ -457,6 +486,36 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
         }
 
     }
+    
+    
+    
+    /*
+    SELECT c.nome_curso, ac.ano_curricular, t.nome_turma, pl.periodo_letivo, cl.ciclo_letivo, al.ano_letivo FROM matricula m INNER JOIN aluno a ON  m.id_aluno = a.id_aluno INNER JOIN turma t ON m.id_turma =t.id_turma INNER JOIN curso c ON m.codigo_curso =c.codigo_curso INNER JOIN ano_letivo al ON m.id_ano_letivo =al.id_ano_letivo INNER JOIN ciclo_letivo cl ON m.id_ciclo_letivo = cl.id_ciclo_letivo INNER JOIN ano_curricular ac ON m.id_ano_curricular = ac.id_ano_curricular INNER JOIN municipio mu ON a.id_municipio = mu.id_municipio INNER JOIN provincia pr ON pr.id_provincia =mu.id_provincia  INNER JOIN periodo_letivo pl ON t.id_periodo_letivo = pl.id_periodo_letivo INNER JOIN funcionario f ON m.id_funcionario=f.id_funcionario INNER JOIN tipo_documento_identidade td ON m.id_tipo_documento_identidade=td.id_tipo_documento_identidade INNER JOIN local_emissao_documento le ON m.id_local_emissao_documento=le.id_local_emissao_documento WHERE t.nome_turma="A" AND ano_letivo = "2017"
+    
+    */
+    
+     public void popularComDadosTurma(Matricula matricula, ResultSet rs) {
+        try {
+        Curso curso = new Curso();
+        CicloLectivo cicloLectivo = new CicloLectivo();
+        PeriodoLectivo periodoLectivo = new PeriodoLectivo();
+        periodoLectivo.setPeriodoLectivo(rs.getString("periodo_letivo"));
+        Turma turma = new Turma();
+        turma.setNomeTurma(rs.getString("nome_turma"));
+        turma.setPeriodoLectivo(periodoLectivo);
+        curso.setNomeCurso(rs.getString("c.nome_curso"));
+        cicloLectivo.setCicloLectivo(rs.getString("ciclo_letivo"));
+        matricula.setTurma(turma);
+        matricula.setCurso(curso);
+        matricula.setCicloLectivo(cicloLectivo);
+        
+        }catch(SQLException ex){
+        System.out.println("Erro ao ler dados da Turna por ano lectivo" + ex.getMessage());
+        
+        }
+     
+     
+     }
 
     public static void main(String[] args) {
         MatriculaDAO matriculaDAO = new MatriculaDAO();
