@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author PENA
  */
-public class DisciplinaDAO implements GenericoDAO<Disciplina> {
+public class DisciplinaDAO implements GenericoDAOLogico<Disciplina> {
 
     private static final String INSERIR = "INSERT INTO disciplina (id_disciplina, nome_disciplina, abreviatura, descricao_displina, sumario_disciplina, data_criacao, id_ciclo_letivo, id_tipo_disciplina) VALUES (?,?,?,?,?,?,?,?)";
     private static final String ACTUALIZAR = "UPDATE disciplina  SET id_disciplina = ?, nome_disciplina = ?, abreviatura = ?, descricao_displina = ?, sumario_disciplina = ?, data_criacao = ?, id_ciclo_letivo = ?, id_tipo_disciplina = ? WHERE id_disciplina = ?";
@@ -48,9 +48,10 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
     }
 
     @Override
-    public void save(Disciplina disciplina) {
+    public boolean save(Disciplina disciplina) {
+        boolean controlo = false;
         if (disciplina == null) {
-            System.out.println("O campo passado nao pode ser nulo");
+            System.out.println("O paramentro passado nao pode ser nulo");
         }
 
         try {
@@ -64,16 +65,24 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
             ps.setDate(6, new java.sql.Date(disciplina.getDataCriacao().getTime()));
             ps.setInt(7, disciplina.getCicloLectivo().getIdCicloLectivo());
             ps.setInt(8, disciplina.getTipoDisciplina().getIdTipoDisciplina());
-            ps.executeUpdate();
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso! " + ps.getUpdateCount());
+                controlo = true;
+            }
+            return controlo;
         } catch (SQLException ex) {
-            System.out.println("Erro ao guardar registro: " + ex.getMessage());
+            System.out.println("Erro ao eliminar registro: " + ex.getMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
 
     @Override
-    public void update(Disciplina disciplina) {
+    public boolean update(Disciplina disciplina) {
+        boolean controlo = false;
         if (disciplina == null) {
             System.out.println("O campo passado nao pode ser nulo");
         }
@@ -89,16 +98,23 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
             ps.setInt(7, disciplina.getCicloLectivo().getIdCicloLectivo());
             ps.setInt(8, disciplina.getTipoDisciplina().getIdTipoDisciplina());
             ps.setString(9, disciplina.getIdDisciplina());
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso! " + ps.getUpdateCount());
+                controlo = true;
+            }
+            return controlo;
         } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar registro: " + ex.getMessage());
+            System.out.println("Erro ao eliminar registro: " + ex.getMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
         }
     }
 
     @Override
-    public void delete(Disciplina disciplina) {
+    public boolean delete(Disciplina disciplina) {
+        boolean controlo = false;
         if (disciplina == null) {
             System.out.println("O campo passado nao pode ser nulo");
         }
@@ -106,9 +122,16 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
             ps.setString(1, disciplina.getIdDisciplina());
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
+
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso! " + ps.getUpdateCount());
+                controlo = true;
+            }
+            return controlo;
         } catch (SQLException ex) {
             System.out.println("Erro ao eliminar registro: " + ex.getMessage());
+            return false;
         } finally {
             Conexao.closeConnection(conn, ps);
         }
@@ -138,8 +161,8 @@ public class DisciplinaDAO implements GenericoDAO<Disciplina> {
         }
         return disciplina;
     }
-    
-     public Disciplina findByCodigo(String id) {
+
+    public Disciplina findByCodigo(String id) {
 
         Disciplina disciplina = new Disciplina();
 

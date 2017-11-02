@@ -78,7 +78,7 @@ public class DisciplinaMBean implements Serializable {
     }
 
     public List<CicloLectivo> getCicloLectivos() {
-        cicloLectivos = cicloLectivoDAO.findAll();
+        //cicloLectivos = cicloLectivoDAO.findAll();
         return cicloLectivos;
     }
 
@@ -96,31 +96,44 @@ public class DisciplinaMBean implements Serializable {
     }
 
     public void guardar(ActionEvent event) {
+        boolean controlo = false;
         for (CicloLectivo cicloLectivoLido : cicloLectivos) {
             CicloLectivo cicloLectivo = cicloLectivoDAO.findById(cicloLectivoLido.getIdCicloLectivo());
             disciplina.setCicloLectivo(cicloLectivo);
-            disciplinaDAO.save(disciplina);
-            disciplina = new Disciplina();
+            controlo = disciplinaDAO.save(disciplina);
+        }
+        if (controlo) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Guardado com sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            disciplina = new Disciplina();
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar", "Erro ao guardar com sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
     }
 
     public void edit(ActionEvent event) {
+        boolean controlo = false;
         for (CicloLectivo cicloLectivoLido : cicloLectivos) {
             CicloLectivo cicloLectivo = cicloLectivoDAO.findById(cicloLectivoLido.getIdCicloLectivo());
             disciplina.setCicloLectivo(cicloLectivo);
-            disciplinaDAO.update(disciplina);
+            controlo = disciplinaDAO.update(disciplina);
             disciplina = null;
         }
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("disciplina_listar.jsf");
-        } catch (IOException e) {
-            java.util.logging.Logger.getLogger(DisciplinaMBean.class.getName()).log(Level.SEVERE, null, e);
+        if (controlo) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("disciplina_listar.jsf");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            } catch (IOException e) {
+                java.util.logging.Logger.getLogger(DisciplinaMBean.class.getName()).log(Level.SEVERE, null, e);
+            }
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Erro ao actualizar.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+
     }
 
     public String delete() {
