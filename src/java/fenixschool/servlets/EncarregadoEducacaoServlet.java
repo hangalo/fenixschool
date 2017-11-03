@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "EncarregadoEducacaoServlet", urlPatterns = {"/encarregadoEducacaoServlet"})
 public class EncarregadoEducacaoServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -37,7 +39,7 @@ public class EncarregadoEducacaoServlet extends HttpServlet {
             BufferedInputStream in = new BufferedInputStream(new FileInputStream(FicheiroUtil.getPathPastaAplicacaoServlet(request) + ficheiro));
 
             //Obtem o conteudo da imagem
-            if (in.available() > 0){
+            if (in.available() > 0) {
                 byte[] bytes = new byte[in.available()];
                 in.read(bytes);
                 in.close();

@@ -241,6 +241,10 @@ public class EncarregadoEducacaoMBean implements Serializable {
 
     }
 
+    public String getRealPath() {
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+    }
+
     public void edit(java.awt.Event event) {
         encarregadoEducacaoDAO.update(encarregadoEducacao);
         encarregadoEducacao = null;

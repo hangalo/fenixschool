@@ -17,8 +17,11 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
     private static final String INSERIR = "INSERT INTO encarregado_educacao (nome_encarregado,sobrenome_encarregado,id_profissao_encarregado,sexo_encarregado,casa_encarregado,rua_encarregado,bairro_encarregado,distrito_urbano_encarregado,telemovel_principal_encarregado,telemovel_alternativo_encarregado,email_principal_encarregado,email_alternativo_encarregado,foto_encarregado,url_foto_encarregado,id_municipio,login_encarregado_educacao,password_encarregado_educacao)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String ACTUALIZAR = "UPDATE encarregado_educacao SET nome_encarregado = ?,sobrenome_encarregado= ?,id_profissao_encarregado= ?,sexo_encarregado = ?,casa_encarregado = ?,rua_encarregado = ?,bairro_encarregado =?,distrito_urbano_encarregado =?,telemovel_principal_encarregado =?,telemovel_alternativo_encarregado = ?,email_principal_encarregado = ?,email_alternativo_encarregado =?,foto_encarregado =?,url_foto_encarregado =?,id_municipio =?,login_encarregado_educacao=?, password_encarregado_educacao=? WHERE id_encarregado = ?";
     private static final String ELIMINAR = "DELETE FROM encarregado_educacao WHERE id_encarregado = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao,e.login_encarregado_educacao,e.password_encarregado_educacao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE id_encarregado=?";
-    private static final String LISTAR_TUDO = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao,e.login_encarregado_educacao,e.password_encarregado_educacao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado";
+    private static final String BUSCAR_POR_CODIGO = "SELECT e.id_encarregado, e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao,e.login_encarregado_educacao,e.password_encarregado_educacao FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE id_encarregado=?";
+    private static final String LISTAR_TUDO = "SELECT en.id_encarregado,en.nome_encarregado, en.sobrenome_encarregado, en.sexo_encarregado, en.casa_encarregado, en.rua_encarregado, en.bairro_encarregado, "
+            + "	en.distrito_urbano_encarregado, en.telemovel_principal_encarregado, en.telemovel_alternativo_encarregado, en.email_principal_encarregado, en.email_alternativo_encarregado, "
+            + "	en.foto_encarregado, en.url_foto_encarregado, en.login_encarregado_educacao, en.password_encarregado_educacao, m.nome_municipio, p.nome_profissao "
+            + " FROM encarregado_educacao en INNER JOIN profissao p ON  en.id_profissao_encarregado = p.id_profissao INNER JOIN municipio m ON en.id_municipio = m.id_municipio";
     private static final String FIND_BY_NOME_SOBRENOME = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao,e.login_encarregado_educacao,e.password_encarregado_educacao  FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.nome_encarregado LIKE ?  AND e.sobrenome_encarregado LIKE ? ";
     private static final String FIND_BY_SEXO = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao, e.login_encarregado_educacao,e.password_encarregado_educacao  FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.sexo_encarregado = ? ";
     private static final String FIND_BY_NOME = "SELECT e.id_encarregado,e.nome_encarregado,e.sobrenome_encarregado,e.sexo_encarregado,e.casa_encarregado,e.rua_encarregado,e.bairro_encarregado,e.distrito_urbano_encarregado,e.telemovel_principal_encarregado,e.telemovel_alternativo_encarregado,e.email_principal_encarregado,e.email_alternativo_encarregado,e.foto_encarregado,e.url_foto_encarregado,e.id_municipio,m.nome_municipio,p.nome_profissao,p.id_profissao, e.login_encarregado_educacao,e.password_encarregado_educacao  FROM encarregado_educacao e INNER JOIN municipio m ON e.id_municipio=m.id_municipio INNER JOIN profissao p ON p.id_profissao = e.id_profissao_encarregado WHERE e.nome_encarregado LIKE ? ";
@@ -29,7 +32,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         PreparedStatement ps = null;
         Connection conn = null;
         if (encarregadoEducacao == null) {
-            System.err.println("O valor oassado nÃ£o pode ser nulo!");
+            System.err.println("O valor oassado não pode ser nulo!");
         }
         try {
             conn = Conexao.getConnection();
@@ -189,7 +192,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
         }
         return educacaos;
     }
-    
+
     public List<EncarregadoEducacao> findBySexo(String sexo) {
         PreparedStatement ps = null;
         Connection conn = null;
@@ -266,7 +269,7 @@ public class EncarregadoEducacaoDAO implements GenericoDAO<EncarregadoEducacao> 
             encarregadoEducacao.setMunicipio(municipio);
 
         } catch (SQLException ex) {
-            System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
+            System.err.println("Erro ao carregar dados no encarregado: " + ex.getLocalizedMessage());
         }
     }
 

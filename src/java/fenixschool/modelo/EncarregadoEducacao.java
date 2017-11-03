@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class EncarregadoEducacao implements Serializable{
 
-    private Integer idEncarregadoEducacao;
+    private int idEncarregadoEducacao;
     private String nomeEncarregado;
     private String sobrenomeEncarregado;
     private Profissao profissao;
@@ -23,11 +23,11 @@ public class EncarregadoEducacao implements Serializable{
     private Municipio municipio;
     private String loginEncarregado;
     private String passwordEncarregado;
-    
+
     public EncarregadoEducacao() {
     }
 
-    public EncarregadoEducacao(Integer idEncarregadoEducacao, String nomeEncarregado, String sobrenomeEncarregado, Profissao profissao, Sexo sexo, String casaEncarregado, String ruaEncarregado, String bairroEncarregado, String distritoUrbanoEncarregado, String telemovelPrincipalEncarregado, String telemovelAlternativoEncarregado, String emailPrincipalEncarregado, String emailAlternativoEncarregado, byte[] fotoEncarregado, String urlFotoEncarregado, Municipio municipio, String loginEncarregado, String passwordEncarregado) {
+    public EncarregadoEducacao(int idEncarregadoEducacao, String nomeEncarregado, String sobrenomeEncarregado, Profissao profissao, Sexo sexo, String casaEncarregado, String ruaEncarregado, String bairroEncarregado, String distritoUrbanoEncarregado, String telemovelPrincipalEncarregado, String telemovelAlternativoEncarregado, String emailPrincipalEncarregado, String emailAlternativoEncarregado, byte[] fotoEncarregado, String urlFotoEncarregado, Municipio municipio, String loginEncarregado, String passwordEncarregado) {
         this.idEncarregadoEducacao = idEncarregadoEducacao;
         this.nomeEncarregado = nomeEncarregado;
         this.sobrenomeEncarregado = sobrenomeEncarregado;
@@ -48,11 +48,11 @@ public class EncarregadoEducacao implements Serializable{
         this.passwordEncarregado = passwordEncarregado;
     }
 
-    public Integer getIdEncarregadoEducacao() {
+    public int getIdEncarregadoEducacao() {
         return idEncarregadoEducacao;
     }
 
-    public void setIdEncarregadoEducacao(Integer idEncarregadoEducacao) {
+    public void setIdEncarregadoEducacao(int idEncarregadoEducacao) {
         this.idEncarregadoEducacao = idEncarregadoEducacao;
     }
 
@@ -194,8 +194,8 @@ public class EncarregadoEducacao implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.idEncarregadoEducacao);
+        int hash = 7;
+        hash = 67 * hash + this.idEncarregadoEducacao;
         return hash;
     }
 
@@ -211,7 +211,7 @@ public class EncarregadoEducacao implements Serializable{
             return false;
         }
         final EncarregadoEducacao other = (EncarregadoEducacao) obj;
-        if (!Objects.equals(this.idEncarregadoEducacao, other.idEncarregadoEducacao)) {
+        if (this.idEncarregadoEducacao != other.idEncarregadoEducacao) {
             return false;
         }
         return true;
@@ -219,6 +219,8 @@ public class EncarregadoEducacao implements Serializable{
 
     @Override
     public String toString() {
-        return "EncarregadoEducacao{" + "nomeEncarregado=" + nomeEncarregado + '}';
+        return "EncarregadoEducacao{" + "nomeEncarregado=" + nomeEncarregado + ", sobrenomeEncarregado=" + sobrenomeEncarregado + '}';
     }
+    
+  
 }

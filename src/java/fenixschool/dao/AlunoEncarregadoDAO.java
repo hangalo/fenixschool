@@ -23,11 +23,11 @@ import java.util.List;
  */
 public class AlunoEncarregadoDAO implements GenericoDAO<AlunoEncarregadoEducacao> {
 
-    private static final String INSERT = "INSERT INTO aluno_encarregado_educacao (id_encarregado,id_aluno,id_parentesco,inicio_responsabilidade,fim_responsabilidade,observacoe) VALUES (?,?,?,?,?,?)";
+    private static final String INSERT = "INSERT INTO aluno_encarregado_educacao (id_encarregado,id_aluno,id_parentesco,inicio_responsabilidade,fim_responsabilidade,observacoes) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE = "UPDATE aluno_encarregado_educacao SET id_encarregado = ?,id_aluno = ?,id_parentesco = ?,inicio_responsabilidade = ?,fim_responsabilidade = ?,observacoes = ? WHERE id_aluno_encarregado_educacao = ?";
     private static final String DELETE = "DELETE FROM aluno_encarregado_educacao WHERE id_aluno_encarregado_educacao = ? ";
-    private static final String SELECT_BY_ID = "SELECT alen.id_aluno_encarregado_educacao, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco WHERE alen.id_aluno_encarregado_educacao =?";
-    private static final String SELECT_ALL = "SELECT alen.id_aluno_encarregado_educacao, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco";
+    private static final String SELECT_BY_ID = "SELECT alen.id_aluno_encarregado_educacao, a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco WHERE alen.id_aluno_encarregado_educacao =?";
+    private static final String SELECT_ALL = "SELECT alen.id_aluno_encarregado_educacao,a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco ORDER BY alen.id_aluno_encarregado_educacao";
 
     Connection conn;
     PreparedStatement ps;
@@ -162,12 +162,14 @@ public class AlunoEncarregadoDAO implements GenericoDAO<AlunoEncarregadoEducacao
         EncarregadoEducacao encarregado = new EncarregadoEducacao();
 
         try {
+            alunoEncarregado.setIdAlunoEncarregado(rs.getInt("id_aluno_encarregado_educacao"));
             encarregado.setNomeEncarregado(rs.getString("nome_encarregado"));
             encarregado.setSobrenomeEncarregado(rs.getString("sobrenome_encarregado"));
             encarregado.setUrlFotoEncarregado(rs.getString("url_foto_encarregado"));
             alunoEncarregado.setEncarregado(encarregado);
             
-            aluno.setNomeAluno(rs.getString("aluno_nome"));
+            aluno.setNomeAluno(rs.getString("nome_aluno"));
+            aluno.setIdAluno(rs.getInt("id_aluno"));
             aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
             aluno.setUrlfotoAluno(rs.getString("url_foto_aluno"));
             alunoEncarregado.setAluno(aluno);

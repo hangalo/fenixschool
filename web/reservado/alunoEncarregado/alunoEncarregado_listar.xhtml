@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+
+            <ui:define name="content">
+                <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>
+                <p:growl showDetail="true" showSummary="true" autoUpdate="true"/>
+                <b:panel title="Lista de alunos e seus encarregados" collapsible="false" look="info">
+                    <h:form id="lista">
+                        <p:dataTable emptyMessage="Nenhum registo encontrado" paginator="true" paginatorPosition="bottom" var="alunoEncarregado" value="#{alunoEncarregadoMBean.alunoEncarregadoEducacaos}"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rows="10" cellSeparator="true">
+
+                            <p:column style="width: 75px; text-align: center;" headerText="Código">
+                                <p:outputLabel value="#{alunoEncarregado.idAlunoEncarregado}"/>
+                            </p:column>
+
+                            <p:column style="text-align: left; width: 350px;" headerText="Aluno">
+                                <p:outputLabel value="#{alunoEncarregado.aluno.nomeAluno} #{alunoEncarregado.aluno.sobrenomeAluno}"/>
+                            </p:column>
+
+                            <p:column style="text-align: left; width: 350px;" headerText="Encarregado">
+                                <p:outputLabel value="#{alunoEncarregado.encarregado.nomeEncarregado} #{alunoEncarregado.encarregado.sobrenomeEncarregado}"/>
+                            </p:column>
+
+                            <p:column style="text-align: left; width: 200px;" headerText="Grau parentesco">
+                                <p:outputLabel value="#{alunoEncarregado.parentesco.parentesco}"/>
+                            </p:column>
+                            <p:column headerText="Início de responsabilidade">
+                                <p:outputLabel value="#{alunoEncarregado.inicioResponsabilidade}"/>
+                            </p:column>
+                            <p:column headerText="Operações" style="text-align: center; width: 120px;">
+                                <p:commandButton icon="ui-icon-trash" action="#{alunoEncarregadoMBean.delete()}">
+                                    <f:setPropertyActionListener value="#{alunoEncarregado}" target="#{alunoEncarregadoMBean.alunoEncarregado}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-pencil" update=":frmEdit:edit" oncomplete="PF('dlgEdit').show();">
+                                    <f:setPropertyActionListener value="#{alunoEncarregado}" target="#{alunoEncarregadoMBean.alunoEncarregado}"/>
+                                    <f:setPropertyActionListener target="#{alunoMBean.aluno}" value="#{aluno}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin" update=":frmVer:ver" oncomplete="PF('dlgVer').show();">
+                                    <f:setPropertyActionListener target="#{alunoEncarregadoMBean.alunoEncarregado}" value="#{alunoEncarregado}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <f:facet name="footer">
+                                Total de registros: (#{alunoEncarregadoMBean.alunoEncarregadoEducacaos.size()})
+                            </f:facet>
+                        </p:dataTable>
+
+                    </h:form>
+
+                    <h:form id="Operacoes">
+                        <p:commandButton value="Adicionar novo registro" icon="ui-icon-plus" action="/reservado/alunoEncarregado/alunoEncarregado_novo" immediate="true" ajax="false"/>
+                        <p:commandButton value="Fechar" icon="ui-icon-close" action="/index" immediate="true" ajax="false"/>
+                    </h:form>
+
+
+                    <!--Dialogo ver-->
+                    <h:form id="frmVer">
+                        <p:dialog id="ver" header="Aluno : #{alunoEncarregadoMBean.alunoEncarregado.aluno.nomeAluno} #{alunoEncarregadoMBean.alunoEncarregado.aluno.sobrenomeAluno}, N.º: #{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}"  widgetVar="dlgVer" showEffect="clip" hideEffect="blind" height="550" width="600">
+
+                            <b:panel title="Informações sobre o aluno" look="primary" collapsible="false">
+                                <h:panelGrid columns="3" >
+                                    <h:panelGroup style="margin-right: 20px;">
+                                        <h:panelGrid columns="2"> 
+                                            <p:outputLabel value="Nº: "/>
+                                            <p:outputLabel style="margin-left: 3px;" value=" #{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup/>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="2">
+                                            <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{alunoEncarregadoMBean.alunoEncarregado.aluno.urlfotoAluno}" alt="foto" width="70" height="70"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                </h:panelGrid>
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel style="color: red;" value="#{alunoEncarregadoMBean.alunoEncarregado.aluno.nomeAluno} #{alunoEncarregadoMBean.alunoEncarregado.aluno.sobrenomeAluno}"/>
+                                    </h:panelGrid>
+
+                                </h:panelGroup>
+                            </b:panel>
+
+                            <b:panel title="Informações gerais" look="primary" collapsible="false" display="inline">
+
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Código: "/>
+                                    <p:outputLabel style="margin-left: 10px;" value="#{alunoEncarregadoMBean.alunoEncarregado.idAlunoEncarregado}"/>
+
+                                    <p:outputLabel  value="Parentesco:"/>
+                                    <p:outputLabel style="margin-left: 10px;" value="#{alunoEncarregadoMBean.alunoEncarregado.parentesco.parentesco}"/>
+
+                                    <p:outputLabel  value="Início de responsabilidade:"/>
+                                    <p:outputLabel style="margin-left: 10px;" value="#{alunoEncarregadoMBean.alunoEncarregado.inicioResponsabilidade}"/>
+
+                                    <p:outputLabel  value="Fim de responsabilidade: "/>
+                                    <p:outputLabel style="margin-left: 10px;" value="#{alunoEncarregadoMBean.alunoEncarregado.fimResponsabilidade}"/>
+                                    <p:outputLabel value="Observações: "/>
+                                    <p:outputLabel style="margin-left: 10px;" value="#{alunoEncarregadoMBean.alunoEncarregado.observacoes}"/>
+                                </h:panelGrid>
+                            </b:panel>
+
+                            <b:panel look="info" collapsible="false" title="Encarregado: #{alunoEncarregadoMBean.alunoEncarregado.encarregado.nomeEncarregado} #{alunoEncarregadoMBean.alunoEncarregado.encarregado.sobrenomeEncarregado}">
+                                <h:panelGroup>
+                                    <h:panelGrid columns="2">
+                                        <h:graphicImage value="/encarregadoEducacaoServlet?file=#{alunoEncarregadoMBean.alunoEncarregado.encarregado.urlFotoEncarregado}" alt="foto" width="70" height="70"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                            </b:panel>
+
+                        </p:dialog>
+                    </h:form>
+
+                    <!--Dialogo edit-->
+                    <h:form id="frmEdit">
+                        <p:dialog id="edit" header="Aluno : #{alunoEncarregadoMBean.alunoEncarregado.aluno.nomeAluno} #{alunoEncarregadoMBean.alunoEncarregado.aluno.sobrenomeAluno}, N.º: #{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}"  widgetVar="dlgEdit" showEffect="clip" hideEffect="blind" height="550" width="800">
+
+                            <b:panel title="Informações sobre o aluno" look="primary" collapsible="false">
+                                <h:inputHidden value="#{alunoEncarregadoMBean.alunoEncarregado.idAlunoEncarregado}"/>
+                                <h:panelGrid columns="3" >
+                                    <h:panelGroup style="margin-right: 20px;">
+                                        <h:panelGrid columns="2"> 
+                                            <p:outputLabel value="Nº: "/>
+                                            <p:outputLabel style="margin-left: 3px;" value=" #{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup/>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="2">
+                                            <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{alunoEncarregadoMBean.alunoEncarregado.aluno.urlfotoAluno}" alt="foto" width="70" height="70"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                </h:panelGrid>
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel style="color: red;" value="#{alunoEncarregadoMBean.alunoEncarregado.aluno.nomeAluno} #{alunoEncarregadoMBean.alunoEncarregado.aluno.sobrenomeAluno}"/>
+                                    </h:panelGrid>
+
+                                </h:panelGroup>
+                            </b:panel>
+
+                            <b:panel title="Informações gerais" look="primary" collapsible="false" display="inline">
+
+                                <h:panelGrid columns="3">
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel  value="Parentesco"/>
+                                            <p:selectOneMenu style="width: 300px;" value="#{alunoEncarregadoMBean.alunoEncarregado.parentesco}" converter="parentescoConverter" filter="true" filterMatchMode="startsWith">
+                                                <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems var="parentesco" itemValue="#{parentesco}" value="#{alunoEncarregadoMBean.parentescos}" itemLabel="#{parentesco.parentesco}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 7px;" value="Início de responsabilidade"/>
+                                            <p:calendar style="margin-left: 7px;" size="25" value="#{alunoEncarregadoMBean.alunoEncarregado.inicioResponsabilidade}" locale="pt" pattern="dd/MM/yyyy"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 7px;" value="Fim de responsabilidade"/>
+                                            <p:calendar style="margin-left: 7px;" size="25" value="#{alunoEncarregadoMBean.alunoEncarregado.fimResponsabilidade}" locale="pt" pattern="dd/MM/yyyy"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2">
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Observações"/>
+                                            <p:inputTextarea cols="82" rows="5" value="#{alunoEncarregadoMBean.alunoEncarregado.observacoes}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                </h:panelGrid>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel  value="Encarregado"/>
+                                        <p:selectOneMenu style="width: 300px;" value="#{alunoEncarregadoMBean.alunoEncarregado.encarregado}" converter="encarregadoConverter" filter="true" filterMatchMode="startsWith">
+                                            <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems var="encarregado" itemValue="#{encarregado}" value="#{alunoEncarregadoMBean.encarregadoEducacaos}" itemLabel="#{encarregado.nomeEncarregado}"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                            </b:panel>
+                            <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{alunoEncarregadoMBean.edit(event)}">
+                                <f:ajax resetValues="true"/>
+                                <f:param name="numeroAluno" value="#{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}"/>
+                            </p:commandButton> 
+                        </p:dialog>
+                    </h:form>
+                </b:panel>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
