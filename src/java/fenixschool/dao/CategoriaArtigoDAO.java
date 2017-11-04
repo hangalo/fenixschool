@@ -5,6 +5,7 @@
  */
 package fenixschool.dao;
 
+import fenixschool.modelo.Candidato;
 import fenixschool.modelo.CategoriaArtigo;
 import java.sql.Connection;
 import fenixschool.util.Conexao;
@@ -18,109 +19,159 @@ import java.util.List;
  *
  * @author Rei Santo Hangalo
  */
-public class CategoriaArtigoDAO implements GenericoDAO<CategoriaArtigo>{
-    private static final String INSERIR="INSERT INTO categoria_artigo (categoria_artigo)VALUES(?)";
-    private static final String ACTUALIZAR="UPDATE categoria_artigo SET categoria_artigo=? WHERE id_categoria_artigo=?";
-    private static final String ELIMINAR="DELETE FROM categoria_artigo WHERE id_categoria_artigo=?";
-    private static final String BUSCAR_POR_CODIGO="SELECT *FROM categoria_artigo WHERE id_categori_artigo=?";
-    private static final String LISTAR_TUDO="SELECT *FROM categoria-artigo";
-    
+public class CategoriaArtigoDAO implements GenericoDAOLogico<CategoriaArtigo> {
+
+    private static final String INSERIR = "INSERT INTO categoria_artigo (categoria_artigo)VALUES(?)";
+    private static final String ACTUALIZAR = "UPDATE categoria_artigo SET categoria_artigo=? WHERE id_categoria_artigo=?";
+    private static final String ELIMINAR = "DELETE FROM categoria_artigo WHERE id_categoria_artigo=?";
+    private static final String BUSCAR_POR_CODIGO = "SELECT *FROM categoria_artigo WHERE id_categoria_artigo=?";
+    private static final String LISTAR_TUDO = "SELECT * FROM categoria_artigo";
+
     Connection conn;
-    PreparedStatement ps=null;
-    ResultSet rs= null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     
     @Override
-    public void save(CategoriaArtigo categoriaArtigo){
-        if (categoriaArtigo!=null) {
-            System.out.println("Valor passdo nao ser nulo");
-            
-            try {
-                conn=Conexao.getConnection();
-                ps=conn.prepareStatement(INSERIR);
-                ps.setString(1, categoriaArtigo.getCategoriaArtigo());
-                ps.executeUpdate();
-            } catch (SQLException e) {
-                System.err.println("Erro ao Inserir dados"+e.getMessage());
-            }finally{
-            Conexao.closeConnection(conn, ps);
-            }
-            
+    public boolean save(CategoriaArtigo categoriaArtigo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
+        if (categoriaArtigo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
         }
-    }
-    @Override
-    public void update(CategoriaArtigo categoriaArtigo){
-        if (categoriaArtigo!=null) {
-            System.out.println("Valor nao pode ser nulo");
-            try {
-                conn=Conexao.getConnection();
-                ps=conn.prepareStatement(ACTUALIZAR);
-                ps.setInt(1, categoriaArtigo.getIdCategoriaArtigo());
-                ps.setString(2, categoriaArtigo.getCategoriaArtigo());
-                ps.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println("Erro ao actualizar"+e.getMessage());
-            }finally{
-            Conexao.closeConnection(conn, ps);
-            }
-            
-        }
-    }
-    @Override
-    public void delete(CategoriaArtigo categoriaArtigo){
-        if (categoriaArtigo!=null) {
-            System.out.println("valor nao pode ser nulo");            
-        }
+
         try {
-            conn=Conexao.getConnection();
-            ps=conn.prepareStatement(ELIMINAR);
-            ps.setInt(1, categoriaArtigo.getIdCategoriaArtigo());
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(INSERIR);
+            ps.setString(1, categoriaArtigo.getCategoriaArtigo());
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            return flagControlo;
+
         } catch (SQLException e) {
-            System.out.println("Erro ao eliminar"+e.getLocalizedMessage());
+            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
         }
-    
     }
+
     @Override
-    public CategoriaArtigo findById(Integer id){
-    CategoriaArtigo categoriaArtigo=null;
+    public boolean update(CategoriaArtigo categoriaArtigo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
+        if (categoriaArtigo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
+        }
+
         try {
-            conn=Conexao.getConnection();
-            ps=conn.prepareStatement(BUSCAR_POR_CODIGO);
-            ps.setInt(1, id);
-            rs=ps.executeQuery();
-            if(!rs.next()){
-                System.out.println("nao foi possivel encontrar nenhum registo com ID"+id);
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(ACTUALIZAR);
+            ps.setString(1, categoriaArtigo.getCategoriaArtigo());
+            ps.setInt(2, categoriaArtigo.getIdCategoriaArtigo());
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
             }
-            categoriaArtigo= new CategoriaArtigo();
+            return flagControlo;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao actualizar dados: " + e.getMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+    }
+
+    @Override
+    public boolean delete(CategoriaArtigo categoriaArtigo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
+        if (categoriaArtigo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
+        }
+
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(ELIMINAR);
+            ps.setInt(1, categoriaArtigo.getIdCategoriaArtigo());
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            return flagControlo;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao eliminar dados: " + e.getMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+    }
+
+    @Override
+    public CategoriaArtigo findById(Integer id) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        CategoriaArtigo categoriaArtigo = new CategoriaArtigo();
+
+        try {
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(BUSCAR_POR_CODIGO);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.err.println("Não foi possivel encontrado nenhum registro com o id:  " + id);
+            }
             popularComDados(categoriaArtigo, rs);
-                      
+
         } catch (SQLException ex) {
-            System.out.println("Erro ao ler dados"+ex.getLocalizedMessage());
-          }finally{
-        Conexao.closeConnection(conn, ps, rs);
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
         }
         return categoriaArtigo;
+
     }
+
     @Override
-    public List<CategoriaArtigo> findAll(){
-        List<CategoriaArtigo> categoriaArtigos= new ArrayList<>();
+    public List<CategoriaArtigo> findAll() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<CategoriaArtigo> categorias = new ArrayList<>();
         try {
-            conn=Conexao.getConnection();
-            ps=conn.prepareStatement(LISTAR_TUDO);
-            rs=ps.executeQuery();
+            conn = (Connection) Conexao.getConnection();
+            ps = conn.prepareStatement(LISTAR_TUDO);
+            rs = ps.executeQuery();
             while (rs.next()) {
-            CategoriaArtigo categoriaArtigo= new CategoriaArtigo();
-            popularComDados(categoriaArtigo, rs);
-            categoriaArtigos.add(categoriaArtigo);
-               
+                CategoriaArtigo categoriaArtigo = new CategoriaArtigo();
+                popularComDados(categoriaArtigo, rs);
+                categorias.add(categoriaArtigo);
             }
         } catch (SQLException ex) {
-            System.out.println("Erro ao Listar"+ex.getLocalizedMessage());
+            System.err.println("Erro ao ler os dados: " + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection((java.sql.Connection) conn);
         }
-    return categoriaArtigos;
+
+        return categorias;
     }
+
     @Override
-    public void popularComDados(CategoriaArtigo categoriaArtigo, ResultSet rs){
-        
+    public void popularComDados(CategoriaArtigo categoriaArtigo, ResultSet rs) {
         try {
             categoriaArtigo.setIdCategoriaArtigo(rs.getInt("id_categoria_artigo"));
             categoriaArtigo.setCategoriaArtigo(rs.getString("categoria_artigo"));

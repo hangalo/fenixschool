@@ -1,3 +1,41 @@
+04/11/2017
+Coisas feitas:
+	---> Entidades: Artigo, CategoriaArtigo;
+	---> Converters: CategoriaArtigoConverter;
+	---> MBeans: Artigo, CategoriaArtigo;
+
+
+Coisas por fazer: 
+	---> Páginas
+		---> artigo_gestão(CRUD), pesquisas por (codigo, codigo_barras, nome, preco, categoria);
+		---> categoria_artigo_gestão(CRUD), pesquisas por(categoria).
+
+
+
+	---> Relatórios com Jasper...
+
+
+O.B.S1.: Foi executado o novo script da bd;
+O.B.S2.: Foi feito pull antes do push;
+O.B.S3.: Procedimentos feitos antes do push (add, comit, remot/push)
+------------------------------------------------------------ Fim -----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 06/10/2017
 
 Implementação das funcionalidades usando os novos campos adicionados a bd.

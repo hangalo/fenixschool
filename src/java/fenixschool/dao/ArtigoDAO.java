@@ -14,22 +14,24 @@ import fenixschool.util.Conexao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author Rei Santo Hangalo
  */
-public class ArtigoDAO implements GenericoDAO<Artigo>{
-    private static final String INSERIR="INSERT INTO artigo(codigo_artigo, codigo_barra_artigo, nome_artigo, preco_artigo, id_categoria_artigo)VALUES(?,?,?,?,?)";
-    private static final String UPDATE="UPDATE artigo SET codigo_artigo=?, codigo_barra_artigo=?, nome_artigo=?, id_categoria_artigo=? WHERE id_artigo=?";
-    private static final String DELETE="DELETE FROM artigo WHERE id_artigo=?";
-    private static final String BUSCAR_POR_CODIGO="SELECT id_artigo, codigo_artigo, codigo_barra_artigo, nome_artigo, preco_artigo, id_categoria_artigo FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo WHERE id_artigo=?";
-    private static final String LISTAR_TUDO="SELECT id_artigo, codigo_artigo, codigo_barra_artigo, nome_artigo, preco_artigo, id_categoria_artigo FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo";
-    
+public class ArtigoDAO implements GenericoDAOLogico<Artigo> {
+
+    private static final String INSERIR = "INSERT INTO artigo(codigo_artigo, codigo_barras_artigo, nome_artigo, preco_artigo, id_categoria_artigo)VALUES(?,?,?,?,?)";
+    private static final String ACTUALIZAR = "UPDATE artigo SET codigo_artigo=?, codigo_barras_artigo=?, nome_artigo=?, preco_artigo=?, id_categoria_artigo=? WHERE id_artigo=?";
+    private static final String ELIMINAR = "DELETE FROM artigo WHERE id_artigo=?";
+    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo WHERE id_artigo=? ORDER BY nome_artigo";
+    private static final String LISTAR_TUDO = "SELECT * FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo ORDER BY nome_artigo";
+
     Connection conn;
-    PreparedStatement ps=null;
-    ResultSet rs=null;
-    
-    @Override
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    /* @Override
     public void save(Artigo artigo){
         if (artigo!=null) {
             System.out.println("Valor passado nao pode ser nulo");           
@@ -90,60 +92,168 @@ public class ArtigoDAO implements GenericoDAO<Artigo>{
             }
             
         }
-    }
+    }*/
     @Override
-    public Artigo findById(Integer id){
-        Artigo artigo=null;
+    public boolean save(Artigo artigo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
+        if (artigo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
+        }
+
         try {
-            conn=Conexao.getConnection();
-            ps=conn.prepareCall(BUSCAR_POR_CODIGO);
-            ps.setInt(1, id);
-            ps.executeQuery();
-            if (!rs.next()) {
-                System.out.println("Nao foi Encontrado nenhum registo com ID"+id);
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(INSERIR);
+            ps.setString(1, artigo.getCodigoArgito());
+            ps.setString(2, artigo.getCodigoBarraArtigo());
+            ps.setString(3, artigo.getNomeArtigo());
+            ps.setDouble(4, artigo.getPrecoArtigo());
+            ps.setInt(5, artigo.getCategoriaArtigo().getIdCategoriaArtigo());
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
             }
-            artigo= new Artigo();
+            return flagControlo;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+    }
+
+    @Override
+    public boolean update(Artigo artigo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
+        if (artigo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
+        }
+
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(ACTUALIZAR);
+            ps.setString(1, artigo.getCodigoArgito());
+            ps.setString(2, artigo.getCodigoBarraArtigo());
+            ps.setString(3, artigo.getNomeArtigo());
+            ps.setDouble(4, artigo.getPrecoArtigo());
+            ps.setInt(5, artigo.getCategoriaArtigo().getIdCategoriaArtigo());
+            ps.setInt(6, artigo.getIdArtigo());
+
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            return flagControlo;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao actualizar dados: " + e.getMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+    }
+
+    @Override
+    public boolean delete(Artigo artigo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean flagControlo = false;
+        if (artigo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
+        }
+
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(ELIMINAR);
+            ps.setInt(1, artigo.getIdArtigo());
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            return flagControlo;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao eliminar dados: " + e.getMessage());
+            return false;
+        } finally {
+            Conexao.closeConnection(conn, ps);
+        }
+
+    }
+
+    @Override
+    public Artigo findById(Integer id) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Artigo artigo = new Artigo();
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareCall(BUSCAR_POR_CODIGO);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                System.out.println("Nao foi Encontrado nenhum registo com id" + id);
+            }
             popularComDados(artigo, rs);
         } catch (SQLException ex) {
-            System.out.println("Erro ao ler dados"+ex.getLocalizedMessage());
-        }finally{
-        Conexao.closeConnection(conn, ps, rs);
+            System.out.println("Erro ao ler dados" + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
         }
         return artigo;
     }
+
     @Override
-    public List<Artigo> findAll(){
-    List<Artigo> artigos= new ArrayList<>();
+    public List<Artigo> findAll() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Artigo> artigos = new ArrayList<>();
         try {
-            conn=Conexao.getConnection();
-            ps=conn.prepareStatement(LISTAR_TUDO);
-            rs=ps.executeQuery();
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(LISTAR_TUDO);
+            rs = ps.executeQuery();
             while (rs.next()) {
-            Artigo artigo= new Artigo();
-            popularComDados(artigo, rs);
-            artigos.add(artigo);               
+                Artigo artigo = new Artigo();
+                popularComDados(artigo, rs);
+                artigos.add(artigo);
             }
         } catch (SQLException ex) {
-            System.out.println("Erro ao listar dados"+ex.getLocalizedMessage());
-        }finally{
-        Conexao.closeConnection(conn, ps, rs);
+            System.out.println("Erro ao listar dados" + ex.getLocalizedMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
         }
         return artigos;
     }
+
     @Override
-    public void popularComDados(Artigo artigo, ResultSet rs){
+    public void popularComDados(Artigo artigo, ResultSet rs) {
         try {
             artigo.setIdArtigo(rs.getInt("id_artigo"));
             artigo.setCodigoArgito(rs.getString("codigo_artigo"));
-            artigo.setCodigoBarraArtigo(rs.getString("codigo_barra_artigo"));
+            artigo.setCodigoBarraArtigo(rs.getString("codigo_barras_artigo"));
             artigo.setNomeArtigo(rs.getString("nome_artigo"));
             artigo.setPrecoArtigo(rs.getDouble("preco_artigo"));
-            CategoriaArtigo ca= new CategoriaArtigo();
-            ca.setCategoriaArtigo(rs.getString("categoria_artigo"));
-            artigo.setCategoriaArtigo(ca);
-            } catch (SQLException ex) {
-                System.out.println("Erro ao carrgar dados"+ex.getLocalizedMessage());
+            
+            CategoriaArtigo categoriaArtigo = new CategoriaArtigo();
+            categoriaArtigo.setIdCategoriaArtigo(rs.getInt("id_categoria_artigo"));
+            categoriaArtigo.setCategoriaArtigo(rs.getString("categoria_artigo"));
+            artigo.setCategoriaArtigo(categoriaArtigo);
+        
+        } catch (SQLException ex) {
+            System.out.println("Erro ao carrgar dados" + ex.getLocalizedMessage());
         }
-    
+
     }
+
 }
