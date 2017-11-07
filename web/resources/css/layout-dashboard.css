@@ -1,0 +1,190 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6-nov-2017, 22.45.58
+    Author     : praveen
+*/
+
+body{
+    font-size: 80%;
+    background-color: #f3f3f3;
+}
+
+#contenttor{
+    margin-top: 35px;
+    border:  activeborder solid;
+    height: 800px;
+}
+
+/*
+#cabecalho{
+    border: #000 solid;
+    width: 99%;
+    height: 30px;
+
+}*/
+
+#cabecalho{
+    margin: 0 auto;
+    margin-bottom: 12px;
+    max-width: 1000px;
+    height: 150px;
+    background-color: #f3f3f3;
+    text-align: center;
+    padding: 4px;  
+    border-radius: 3px;
+
+}
+
+#painel-esquerdo{
+    border: #0099FF solid;
+    width: 14%;
+    margin-top: 3px;
+    float: left;
+    height: 700px;
+
+}
+
+#painel-central{
+   /* border: #0099FF solid;*/
+    width: 84%;
+    margin-top: 3px;
+    margin-left: 75px;
+    margin-bottom: 3px;
+    float: left;
+    height: 700px;
+}
+
+
+
+
+#rodape{
+    clear: both;
+
+    width: 99%;
+    height: 15px;
+    border: #9900FF solid;
+}
+
+
+.contentor_caixas
+{
+    padding: 30px;
+    text-align: center;
+    background-color: #f3f3f3;
+}
+
+.caixas{
+
+    margin: 0 auto;
+    width: 150px;
+    height: 110px;
+    margin-left:  12px;
+    margin-top:  12px;
+    background-color: #ccc;
+    border-radius: 3px;
+    float: left;
+    text-align: center;
+    border-radius: 15px;
+
+
+}
+
+
+
+
+
+.container
+{
+    text-align: center;
+    padding: 15px;  
+    border: #f3f3f3 solid;
+}
+.left-div
+{
+    display: inline-block;
+    max-width: 300px;
+    text-align: left;
+    padding: 30px;
+    background-color: #ddd;
+    border-radius: 6px;
+    margin: 8px;
+    vertical-align: top;
+}
+.right-div
+{
+    display: inline-block;
+    max-width: 150px;
+    text-align: left;
+    padding: 30px;
+    background-color: #ddd;
+    border-radius: 8px;
+    margin: 2px;
+}
+.left-text, .right-text
+{
+   /* font: 16px 'Courier New', monospace;*/
+   font-family: arial, helvetica, sans-serif;
+    color: #000;
+}
+@media screen and (max-width: 600px) 
+{
+    .left-div, .right-div
+    {
+        max-width: 100%;
+    }
+}
+
+
+
+
+/*
+
+original
+
+
+.container
+{
+    text-align: center;
+    padding: 15px;  
+}
+.left-div
+{
+    display: inline-block;
+    max-width: 300px;
+    text-align: left;
+    padding: 30px;
+    background-color: #ddd;
+    border-radius: 15px;
+    margin: 15px;
+    vertical-align: top;
+}
+.right-div
+{
+    display: inline-block;
+    max-width: 150px;
+    text-align: left;
+    padding: 30px;
+    background-color: #ddd;
+    border-radius: 15px;
+    margin: 15px;
+}
+.left-text, .right-text
+{
+   
+   font-family: arial, helvetica, sans-serif;
+    color: #000;
+}
+@media screen and (max-width: 600px) 
+{
+    .left-div, .right-div
+    {
+        max-width: 100%;
+    }
+}
+
+
+*/

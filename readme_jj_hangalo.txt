@@ -1,4 +1,21 @@
 
+07/11/2017
+Dashboard
+
+criados os ficheiros 
+1) layout_dashboard.css na pasta css
+2) index (com o dashaboard
+
+Nota importante => o ficheiro index da fase do desenvolvimento tem actualmente o nome index_dev. Portanto quando alguem tem que trabalhar basta mudar o nome ao do dashboard chamar index_dashboard e deixar o anterior como simplesmente index
+
+Todas as images e mais outras seleccionadas estao disponiveis na pasta imagens. as imagens usadas foram redimensionadas para o tamanho 60 X 60 px.
+
+Nenhuma alteração foi feita no menu da fase de desenvolvimento e o mesmo continuará a ser usado passada a fase de demostração.
+O menu do dashboard (ainda a melhor ou a ser alterado em função dos outros) será usado apenas em questoes de demostração.
+
+
+
+
 19/10/2017
 
 1 - Alterações na base de dados
