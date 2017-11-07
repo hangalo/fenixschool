@@ -42,7 +42,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             + "a.url_foto_aluno, a.foto_aluno, c.data_criacao, c.nome_curso, c.abreviatura, ac.ano_curricular, t.nome_turma, pl.periodo_letivo,"
             + "al.inicio_ano_letivo, al.fim_ano_letivo,	t.numero_maximo_inscristos, a.bairro_aluno, cl.ciclo_letivo,"
             + "m.data_matricula, a.nome_aluno,	a.telefone_fixo, c.descricao_curso, a.casa_aluno, m.numero_documento, m.observacao, mu.nome_municipio,"
-            + "a.email_aluno, a.numero_aluno, a.sobrenome_aluno, a.id_aluno, m.data_emissao_documento, m.id_matricula, a.distrito_aluno, a.telefone_movel, c.conteudo_programatico,	al.ano_letivo, "
+            + "a.email_aluno, a.sobrenome_aluno, a.id_aluno, m.data_emissao_documento, m.id_matricula, a.distrito_aluno, a.telefone_movel, c.conteudo_programatico,	al.ano_letivo, "
             + "f.nome_funcionario, f.sobrenome_funcionario,"
             + " td.tipo_documento_identidade, le.local_emissao_documento, m.lingua_opcao,m.lingua_estudada, m.situacao_aluno "
             + "FROM matricula m "
@@ -63,7 +63,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             + "a.url_foto_aluno, a.foto_aluno, c.data_criacao, c.nome_curso, c.abreviatura, ac.ano_curricular, t.nome_turma, pl.periodo_letivo,"
             + "al.inicio_ano_letivo, al.fim_ano_letivo,	t.numero_maximo_inscristos, a.bairro_aluno, cl.ciclo_letivo,"
             + "m.data_matricula, a.nome_aluno,	a.telefone_fixo, c.descricao_curso, a.casa_aluno, m.numero_documento, m.observacao, mu.nome_municipio,"
-            + "a.email_aluno, a.numero_aluno, a.sobrenome_aluno, a.id_aluno, m.data_emissao_documento, m.id_matricula, a.distrito_aluno, a.telefone_movel, c.conteudo_programatico,	al.ano_letivo, "
+            + "a.email_aluno, a.sobrenome_aluno, a.id_aluno, m.data_emissao_documento, m.id_matricula, a.distrito_aluno, a.telefone_movel, c.conteudo_programatico,	al.ano_letivo, "
             + "f.nome_funcionario, f.sobrenome_funcionario,"
             + " td.tipo_documento_identidade, le.local_emissao_documento, m.lingua_opcao, m.situacao_aluno "
             + "FROM matricula m "
@@ -83,7 +83,7 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             + "a.url_foto_aluno, a.foto_aluno, c.data_criacao, c.nome_curso, c.abreviatura, ac.ano_curricular, t.nome_turma, pl.periodo_letivo,"
             + "al.inicio_ano_letivo, al.fim_ano_letivo,	t.numero_maximo_inscristos, a.bairro_aluno, cl.ciclo_letivo,"
             + "m.data_matricula, a.nome_aluno,	a.telefone_fixo, c.descricao_curso, a.casa_aluno, m.numero_documento, m.observacao, mu.nome_municipio,"
-            + "a.email_aluno, a.numero_aluno, a.sobrenome_aluno, a.id_aluno, m.data_emissao_documento, m.id_matricula, a.distrito_aluno, a.telefone_movel, c.conteudo_programatico,	al.ano_letivo, "
+            + "a.email_aluno,  a.sobrenome_aluno, a.id_aluno, m.data_emissao_documento, m.id_matricula, a.distrito_aluno, a.telefone_movel, c.conteudo_programatico,	al.ano_letivo, "
             + "f.nome_funcionario, f.sobrenome_funcionario,"
             + " td.tipo_documento_identidade, le.local_emissao_documento, m.lingua_opcao, m.situacao_aluno"
             + "FROM matricula m "
@@ -410,7 +410,6 @@ public class MatriculaDAO implements GenericoDAO<Matricula> {
             Aluno aluno = new Aluno();
 
             aluno.setIdAluno(rs.getInt("id_aluno"));
-//            aluno.setNumeroAluno(rs.getString("numero_aluno"));
             aluno.setNomeAluno(rs.getString("nome_aluno"));
             aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
             aluno.setDataNascimentoAluno(rs.getDate("data_nascimento"));

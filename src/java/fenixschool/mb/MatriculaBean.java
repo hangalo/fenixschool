@@ -572,6 +572,27 @@ public class MatriculaBean implements Serializable {
         return null;
 
     }
+    
+    
+    
+    
+     public String imprimirCartoesTurma() {
+           
+       Turma turmaPesquisa = matricula.getTurma();
+        AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
+        
+        System.out.println(">>>>>>>>Ano Lectivo()"+anoLectivoPesquisa.getAnoLectivo());
+        
+         System.out.println(">>>>>>>>Ano Lectivo()"+turmaPesquisa.getNomeTurma());
+        String relatorio = "cartao_aluno.jasper";
+         HashMap parametros = new HashMap();
+         parametros.put("anoLectivo", anoLectivoPesquisa.getAnoLectivo());
+          parametros.put("turma", turmaPesquisa.getNomeTurma());
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+
+        return null;
+
+    }
        
        
     
