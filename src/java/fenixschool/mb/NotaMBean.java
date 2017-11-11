@@ -81,6 +81,8 @@ public class NotaMBean implements Serializable {
 
     private AnoCurricularDAO anoCurricularDAO;
     private List<AnoCurricular> anoCurriculares;
+    
+    
 
     public NotaMBean() {
     }

@@ -12,6 +12,9 @@ import java.util.Date;
  * @author PENA
  */
 public class Nota {
+    
+    
+    
 
     private int idnota;
     private PeriodoLectivo periodoLetivo;
@@ -20,7 +23,15 @@ public class Nota {
     private Disciplina disciplina;
     private String descricao;
     private Date dataLancamento;
-    private double nota;
+    
+    /*variaveis acrescentada a entidade notas*/
+    private double notaPrimeiraProva;
+     private double notaSegundaProva;
+      private double notaTerceiraProva;
+       private double notaExameRecurso; 
+        private double notaExameFinal; 
+    
+    
     private double peso;
     private AnoLectivo anoLetivo;
     private CicloLectivo cicloLetivo;
@@ -33,7 +44,7 @@ public class Nota {
     public Nota() {
     }
 
-    public Nota(int idnota, PeriodoLectivo periodoLetivo, Aluno aluno, Curso curso, Disciplina disciplina, String descricao, Date dataLancamento, double nota, double peso, AnoLectivo anoLetivo, CicloLectivo cicloLetivo, ClassificacaoNota classificacaoNota, Departamento departamento, Turma turma, AnoCurricular anoCurricular, String observacao) {
+    public Nota(int idnota, PeriodoLectivo periodoLetivo, Aluno aluno, Curso curso, Disciplina disciplina, String descricao, Date dataLancamento, double notaPrimeiraProva, double notaSegundaProva, double notaTerceiraProva, double notaExameRecurso, double notaExameFinal, double peso, AnoLectivo anoLetivo, CicloLectivo cicloLetivo, ClassificacaoNota classificacaoNota, Departamento departamento, Turma turma, AnoCurricular anoCurricular, String observacao) {
         this.idnota = idnota;
         this.periodoLetivo = periodoLetivo;
         this.aluno = aluno;
@@ -41,7 +52,11 @@ public class Nota {
         this.disciplina = disciplina;
         this.descricao = descricao;
         this.dataLancamento = dataLancamento;
-        this.nota = nota;
+        this.notaPrimeiraProva = notaPrimeiraProva;
+        this.notaSegundaProva = notaSegundaProva;
+        this.notaTerceiraProva = notaTerceiraProva;
+        this.notaExameRecurso = notaExameRecurso;
+        this.notaExameFinal = notaExameFinal;
         this.peso = peso;
         this.anoLetivo = anoLetivo;
         this.cicloLetivo = cicloLetivo;
@@ -51,6 +66,8 @@ public class Nota {
         this.anoCurricular = anoCurricular;
         this.observacao = observacao;
     }
+
+  
 
     public int getIdnota() {
         return idnota;
@@ -108,13 +125,47 @@ public class Nota {
         this.dataLancamento = dataLancamento;
     }
 
-    public double getNota() {
-        return nota;
+    public double getNotaPrimeiraProva() {
+        return notaPrimeiraProva;
     }
 
-    public void setNota(double nota) {
-        this.nota = nota;
+    public void setNotaPrimeiraProva(double notaPrimeiraProva) {
+        this.notaPrimeiraProva = notaPrimeiraProva;
     }
+
+    public double getNotaSegundaProva() {
+        return notaSegundaProva;
+    }
+
+    public void setNotaSegundaProva(double notaSegundaProva) {
+        this.notaSegundaProva = notaSegundaProva;
+    }
+
+    public double getNotaTerceiraProva() {
+        return notaTerceiraProva;
+    }
+
+    public void setNotaTerceiraProva(double notaTerceiraProva) {
+        this.notaTerceiraProva = notaTerceiraProva;
+    }
+
+    public double getNotaExameRecurso() {
+        return notaExameRecurso;
+    }
+
+    public void setNotaExameRecurso(double notaExameRecurso) {
+        this.notaExameRecurso = notaExameRecurso;
+    }
+
+    public double getNotaExameFinal() {
+        return notaExameFinal;
+    }
+
+    public void setNotaExameFinal(double notaExameFinal) {
+        this.notaExameFinal = notaExameFinal;
+    }
+
+    
 
     public double getPeso() {
         return peso;
@@ -207,7 +258,7 @@ public class Nota {
 
     @Override
     public String toString() {
-        return "Nota{" + "nota=" + nota + '}';
+        return "Nota{" + "nota=" + notaPrimeiraProva + '}';
     }
 
 }
