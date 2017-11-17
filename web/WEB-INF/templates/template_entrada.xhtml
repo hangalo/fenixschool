@@ -27,7 +27,8 @@
             }
 
             body{
-                background: #ece3a5;   
+                /*background: #ece3a5;   */
+                background: #E7E9DF; 
             }
             .imagem{text-align: center;}
         </style>
@@ -39,11 +40,11 @@
         <div id="contentor">
             <div id="top">
                 <ui:insert name="top">
-                    <b:jumbotron style="text-align: center; color:#000fef; background-color: #ece3a5;">
+                    <b:jumbotron style="text-align: center; color:#000fef; background-color: #E7E9DF;">
                         <center>
                             <h:graphicImage library="imagens" name="beca.png" width="100" height="100"/>
                         </center>
-                        <h2 style="font-size: 2.2em;"> Fénix School <br/> Sistema de Gestão Escolar para o Ensino Médio</h2>
+                        <h2 style="font-size: 2.2em; color: #604134"> Fénix School <br/> Sistema de Gestão Escolar para o Ensino Médio</h2>
                     </b:jumbotron>
 
                     <ui:include src="../menus/opac_menu_final.xhtml"/>
@@ -85,14 +86,26 @@
 
                 <b:row>
 
-                  
+
 
                 </b:row>
                 <b:progressBar value="100" animated="true" renderCaption="false"  />
             </div>
         </div>
-        <b:jumbotron style="text-align: center; border: solid #22AAFF; border-radius: 106px; background-color: #22AAFF; " >
-            <p><a class="btn  btn-lg"  href="http://www.fenixinnovation.com/" style="border-radius: 20px; ">Sistemas de gestão<br/>Fénix Innovation &copy; 2017<br/> Comprometidos com a inovação</a></p>
+        <b:jumbotron style="text-align: center; border: solid #e7e9df; border-radius: 106px; background-color: #e7e9df; " >
+            <p>
+              
+                <a class="btn  btn-lg"  href="http://www.fenixinnovation.com/" style="border-radius: 20px; ">
+
+                      <hr/>
+                    Sistemas de gestão<br/>Fénix Innovation &copy; 2017<br/>
+
+                    Comprometidos com a inovação
+                    <hr />
+                </a>
+              
+
+            </p>
         </b:jumbotron>
     </h:body>
 

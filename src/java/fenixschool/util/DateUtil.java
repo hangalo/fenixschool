@@ -5,6 +5,7 @@
  */
 package fenixschool.util;
 
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,8 +33,8 @@ public class DateUtil {
 
     public static String formataData(Date data) {
         Calendar calendar = new GregorianCalendar();
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         calendar.setTime(data);
 
         return sdf.format(calendar.getTime());
@@ -64,4 +65,70 @@ public class DateUtil {
 
     }
 
+    
+      public static java.sql.Date converterDate(java.util.Date data) {
+
+        try {
+            long dataRegista = data.getTime();
+            java.sql.Date dataConvertida = new java.sql.Date(dataRegista);
+            return dataConvertida;
+
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
+        return null;
+    }
+
+    public static java.util.Date getDataActual() {
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        java.sql.Date data = new java.sql.Date(calendar.getTimeInMillis());
+        return new java.sql.Date(data.getTime());
+
+    }
+
+    public static Integer getMesActual() {
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        java.sql.Date data = new java.sql.Date(calendar.getTimeInMillis());
+        return calendar.get(Calendar.MONTH);
+
+    }
+
+    public static Integer getMesDeUmaData(Date data) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(data);
+
+        int ano = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        return mes;
+
+    }
+
+    public static Integer getAnoDeUmaData(Date data) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(data);
+
+        int ano = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        return ano;
+
+    }
+
+    public static Integer getDiaDeUmaData(Date data) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(data);
+
+        int ano = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        return dia;
+
+    }
+
+    public static Integer getDiaActual() {
+        java.util.Calendar calendar = Calendar.getInstance();
+        java.sql.Date data = new java.sql.Date(calendar.getTimeInMillis());
+        return calendar.get(Calendar.DATE);
+    }
 }

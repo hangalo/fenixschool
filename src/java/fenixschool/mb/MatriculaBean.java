@@ -27,6 +27,7 @@ import fenixschool.modelo.Matricula;
 import fenixschool.modelo.SituacaoAlunoMatricula;
 import fenixschool.modelo.TipoDocumentoIdentidade;
 import fenixschool.modelo.Turma;
+import fenixschool.util.DateUtil;
 import fenixschool.util.GestorImpressao;
 import java.io.IOException;
 import java.io.Serializable;
@@ -104,6 +105,7 @@ public class MatriculaBean implements Serializable {
      private GestorImpressao gestorImpressao;
 
     public MatriculaBean() {
+       
     }
 
     @PostConstruct
@@ -148,6 +150,7 @@ public class MatriculaBean implements Serializable {
         anoCurricularDAO = new AnoCurricularDAO();
         anoCurriculars = new ArrayList<>();
         listaTurmasAnoLectivo = new ArrayList<>();
+         matricula.setDataMatricula(DateUtil.getDataActual());
     }
 
     public Matricula getMatricula() {

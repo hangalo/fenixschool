@@ -1,0 +1,9 @@
+
+
+Rodape do template_entrada.xhtml
+
+
+18/11/2017
+  <b:jumbotron style="text-align: center; border: solid #22AAFF; border-radius: 106px; background-color: #22AAFF; " >
+            <p><a class="btn  btn-lg"  href="http://www.fenixinnovation.com/" style="border-radius: 20px; ">Sistemas de gestão<br/>Fénix Innovation &copy; 2017<br/> Comprometidos com a inovação</a></p>
+        </b:jumbotron>
