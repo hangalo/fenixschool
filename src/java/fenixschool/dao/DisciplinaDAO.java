@@ -33,6 +33,7 @@ public class DisciplinaDAO implements GenericoDAOLogico<Disciplina> {
             + " d.data_criacao, ci.ciclo_letivo, ti.tipo_disciplina  "
             + " FROM disciplina d INNER JOIN ciclo_letivo ci ON "
             + " d.id_ciclo_letivo=ci.id_ciclo_letivo INNER JOIN tipo_disciplina ti ON d.id_tipo_disciplina = ti.id_tipo_disciplina ";
+    private static final String LISTAR_POR_CICLO = "SELECT d.id_disciplina, d.nome_disciplina,d.abreviatura,d.descricao_displina,d.sumario_disciplina,d.data_criacao,c.ciclo_letivo,t.tipo_disciplina FROM disciplina d INNER JOIN ciclo_letivo c ON d.id_ciclo_letivo=c.id_ciclo_letivo INNER JOIN  tipo_disciplina t ON d.id_tipo_disciplina=t.id_tipo_disciplina WHERE c.ciclo_letivo = ?";
 
     Connection conn;
     PreparedStatement ps;
@@ -193,6 +194,30 @@ public class DisciplinaDAO implements GenericoDAOLogico<Disciplina> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_TUDO);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Disciplina disciplina = new Disciplina();
+                popularComDados(disciplina, rs);
+                disciplinas.add(disciplina);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao carregar dados: " + ex.getMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return disciplinas;
+    }
+
+    //listar por ciclo
+    public List<Disciplina> findByCiclo(Integer ciclo) {
+        List<Disciplina> disciplinas = new ArrayList<>();
+
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(LISTAR_POR_CICLO);
+            ps.setInt(1, ciclo);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Disciplina disciplina = new Disciplina();

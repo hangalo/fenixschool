@@ -43,6 +43,10 @@ public class DisciplinaMBean implements Serializable {
     private TipoDisciplinaDAO tipoDisciplinaDAO;
     private List<TipoDisciplina> tipoDisciplinas;
 
+    //Variaveis auxiliares
+    private List<Disciplina> findByCilclo;
+    private Integer ciclo;
+
     public DisciplinaMBean() {
     }
 
@@ -58,6 +62,7 @@ public class DisciplinaMBean implements Serializable {
 
         tipoDisciplinaDAO = new TipoDisciplinaDAO();
         tipoDisciplinas = new ArrayList<>();
+        findByCilclo = new ArrayList<>();
     }
 
     public Disciplina getDisciplina() {
@@ -93,6 +98,27 @@ public class DisciplinaMBean implements Serializable {
 
     public void setTipoDisciplinas(List<TipoDisciplina> tipoDisciplinas) {
         this.tipoDisciplinas = tipoDisciplinas;
+    }
+
+    public Integer getCiclo() {
+        return ciclo;
+    }
+
+    public void setCiclo(Integer ciclo) {
+        this.ciclo = ciclo;
+    }
+
+    public List<Disciplina> getFindByCilclo() {
+        if (ciclo != null) {
+            findByCilclo = disciplinaDAO.findByCiclo(ciclo);
+            return findByCilclo;
+        }
+        return null;
+
+    }
+
+    public void setFindByCilclo(List<Disciplina> findByCilclo) {
+        this.findByCilclo = findByCilclo;
     }
 
     public void guardar(ActionEvent event) {
@@ -141,4 +167,5 @@ public class DisciplinaMBean implements Serializable {
         disciplina = null;
         return "disciplina_listar?faces-redirect=true";
     }
+
 }
