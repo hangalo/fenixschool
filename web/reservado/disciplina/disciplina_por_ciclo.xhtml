@@ -19,12 +19,11 @@
 
                 <h:form id="formBuscar">
                     <h:messages/>
-                    <b:panel title="Localizar disciplinas por curso" look="primary" collapsible="false">
+                    <b:panel title="Localizar disciplinas por ciclo" look="primary" collapsible="false">
                         <h:panelGrid columns="5">
-                            <p:outputLabel value="Código do ciclo: "/>
-                            <p:inputText id="ciclo" size="50" style="margin-left: 5px;" value="#{disciplinaMBean.ciclo}" placeholder="Digite somente numero. exemplo (1º cliclo = 1)"/>
-                            <h:message for="ciclo"/>
-                            <b:commandButton icon="search"  immediate="true" value="Pesquisar..." style="margin-left: 5px; " look="primary"/>
+                            <p:outputLabel value="Pesquisar disciplinas por cisclo:"/>
+                            <p:inputText style="margin-left: 8px;"  placeholder="Pesquisar por código" value="#{disciplinaMBean.ciclo}"/>
+                            <b:commandButton icon="search" immediate="true" value="Pesquisar..." style="margin-left: 5px; " look="primary"/>
                         </h:panelGrid>
                     </b:panel>
                 </h:form>
@@ -33,7 +32,7 @@
                 <b:panel collapsible="false" look="primary">
                     <h:form>
                         <p:dataTable emptyMessage="Nenhum registo encontrado"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                      var="disciplina" value="#{disciplinaMBean.findByCilclo}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
+                                     var="disciplina" value="#{disciplinaMBean.findByCilclo}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
                             <p:column style="width: 73px; text-align: center;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código"/>
@@ -78,6 +77,19 @@
                         </p:dataTable>
                     </h:form>
 
+                    
+                      <!--Formulario Para guardar-->
+                    <h:form id="Operacoes">
+                        <p:commandButton  icon="ui-icon-plus" value="Novo" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
+                        <p:commandButton value="Fechar" action="/index" icon="ui-icon-close" immediate="true" ajax="false"/>
+                        <p:commandButton value="imprimir" action="#{disciplinaMBean.imprimirPorCiclo()}" ajax="false" >
+                            <f:param value="#{disciplinaMBean.ciclo}"/>
+                        </p:commandButton>
+                    </h:form>
+                    <!--Formulario Guardar-->
+                    
+                    
+                    
                     <!--Inicio do fomulario ver-->
 
 
@@ -194,13 +206,6 @@
                         </p:dialog>
                     </h:form>
                     <!--Fim do Fomulario editar-->
-
-                    <!--Formulario Para guardar-->
-                    <h:form id="Operacoes">
-                        <p:commandButton  icon="ui-icon-plus" value="Novo" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
-                        <p:commandButton value="Fechar" action="/index" icon="ui-icon-close" immediate="true" ajax="false"/>
-                    </h:form>
-                    <!--Formulario Guardar-->
 
                     <!--Inicio do formulario guardar-->
                     <h:form id="FrmGuardar">
