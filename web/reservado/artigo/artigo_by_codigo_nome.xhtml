@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+
+                    <h:form id="formBusca" >
+                        <h:messages/>
+                        <p:panel header="Pesquisar Artigo por Nome.">
+
+                            <h:panelGrid columns="6"  cellspacing="10%">
+                                <h:outputLabel value="Nome: " style="margin-right: 10px"/>
+                                <p:inputText id="cognumero" value="#{artigoBean.nome}" required="true" requiredMessage="#{msg.msg_cognumero}" immediate="true"/>
+                                <b:commandButton value="Pesquisar..." look="primary"/>
+                            </h:panelGrid>
+
+                        </p:panel>
+                    </h:form>
+
+
+                    <h:form>
+                        <b:panel title="Lista de artigos" collapsible="false" look="primary">
+                            <p:dataTable value="#{artigoBean.findByNome}" var="artigo" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom" scrollable="true">
+
+                                <p:column style="width: 100px;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Artigo"/>
+                                </f:facet>
+                                <p:outputLabel value="#{artigo.nomeArtigo}"/>
+                            </p:column>
+                            <p:column style="width: 100px;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código"/>
+                                </f:facet>
+                                <p:outputLabel value="#{artigo.codigoArgito}"/>
+                            </p:column>
+
+                            <p:column style="width: 100px;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código de Barras"/>
+                                </f:facet>
+                                <p:outputLabel value="#{artigo.codigoBarraArtigo}"/>
+                            </p:column> 
+                                <p:column style="width: 45px;">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Operações"/>
+                                    </f:facet>
+                                    <p:commandButton icon="ui-icon-trash" action="#{artigoBean.delete()}">
+                                        <f:setPropertyActionListener target="#{artigoBean.artigo}" value="#{artigo}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-pencil" update=":FrmEditar:editar" oncomplete="PF('dialogoEditar').show();">
+                                        <f:setPropertyActionListener target="#{artigoBean.artigo}" value="#{artigo}"/>
+                                    </p:commandButton>
+                                    <p:commandButton icon="ui-icon-zoomin" update=":FrmVer:ver" oncomplete="PF('dialogoVer').show();">
+                                        <f:setPropertyActionListener target="#{artigoBean.artigo}" value="#{artigo}"/>
+                                    </p:commandButton>
+                                </p:column>
+                                <f:facet name="footer">
+                                    Total de registos: #{artigoBean.findByCodigo.size()}
+                                </f:facet>
+                            </p:dataTable>
+                        </b:panel>
+                    </h:form>
+
+                    <!-- Formulário auxiliar -->
+                    <h:form id="Operacoes">
+                        <p:commandButton  icon="ui-icon-plus" value="Novo Artigo" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
+
+                    </h:form>
+                    <!-- Formulário auxiliar -->
+
+                    <!-- Inicio do Formulario Guardar-->
+                    <h:form id="FrmGuardar">
+                        <p:dialog widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind" header="Guardar">
+                            <p:tabView>
+                                <p:tab title="Dados de artigo">
+                                    <p:growl id="messages" showDetail="true"/>
+
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel  value="Artigo"/>
+                                        <p:inputText  size="30" value="#{artigoBean.artigo.nomeArtigo}"/>
+                                        <p:outputLabel  value="Código"/>
+                                        <p:inputText  size="30" value="#{artigoBean.artigo.codigoArgito}"/>
+                                        <p:outputLabel  value="Codigo de Barras"/>
+                                        <p:inputText  size="30" value="#{artigoBean.artigo.codigoBarraArtigo}"/>
+                                        <p:outputLabel  value="Preço"/>
+                                        <p:inputText  size="30" value="#{artigoBean.artigo.precoArtigo}"/>
+
+
+                                        <p:outputLabel value="Categoria"/>
+                                        <p:selectOneMenu  style="width:200px" label="Categoria" value="#{artigoBean.artigo.categoriaArtigo}" required="true" converter="categoriaArtigoConverter">
+                                            <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{artigoBean.categorias}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.categoriaArtigo}" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+                                </p:tab>
+
+
+                            </p:tabView>
+                            <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{artigoBean.guardar(event)}"/>
+                        </p:dialog>
+
+                    </h:form>
+
+                    <!-- Fim do Formulario Guardar-->
+
+                    <!-- Inicio do Formulario editar-->
+                    <h:form id="FrmEditar">
+                        <p:dialog  id="editar" widgetVar="dialogoEditar" header="Actualizar" showEffect="clip" hideEffect="blind">
+                            <p:tabView>
+                                <h:inputHidden value="#{turmaMBean.turma.idTurma}"/>
+                                <p:tab title="Dados de artigo">
+                                    <p:growl id="messages" showDetail="true"/>
+
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel  value="Artigo"/>
+                                        <p:inputText  size="30" value="#{artigoBean.artigo.nomeArtigo}"/>
+                                        <p:outputLabel  value="Código"/>
+                                        <p:inputText  size="30" value="#{artigoBean.artigo.codigoArgito}"/>
+                                        <p:outputLabel  value="Codigo de Barras"/>
+                                        <p:inputText  size="30" value="#{artigoBean.artigo.codigoBarraArtigo}"/>
+                                        <p:outputLabel  value="Preço"/>
+                                        <p:inputText  size="30" value="#{artigoBean.artigo.precoArtigo}"/>
+
+
+                                        <p:outputLabel value="Categoria"/>
+                                        <p:selectOneMenu  style="width:200px" label="Categoria" value="#{artigoBean.artigo.categoriaArtigo}" required="true" converter="categoriaArtigoConverter">
+                                            <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{artigoBean.categorias}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.categoriaArtigo}" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+                                </p:tab>
+
+                            </p:tabView>
+                            <p:commandButton  icon="ui-icon-pencil" value="Editar" actionListener="#{artigoBean.edit(event)}"/>
+                        </p:dialog>
+                    </h:form>
+                    <!--Fim do Fomulario editar-->
+
+
+                    <!--Inicio do fomulario ver-->
+                    <h:form id="FrmVer">
+                        <p:dialog id="ver" header="Detalhes da turma" widgetVar="dialogoVer"  showEffect="clip" hideEffect="blind">
+                            <p:accordionPanel>
+                                <p:tab title="Dados do Artigo">
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel value="Código"/>
+                                        <p:outputLabel value="#{artigoBean.artigo.idArtigo}"/>
+                                        <p:outputLabel value="Código de Barras"/>
+                                        <p:outputLabel value="#{artigoBean.artigo.codigoBarraArtigo}"/>
+                                        <p:outputLabel value="Artigo"/>
+                                        <p:outputLabel value="#{artigoBean.artigo.nomeArtigo}"/>
+                                        <p:outputLabel value="Preço"/>
+                                        <p:outputLabel value="#{artigoBean.artigo.precoArtigo}"/>
+                                        <p:outputLabel value="Categoria"/>
+                                        <p:outputLabel value="#{artigoBean.artigo.categoriaArtigo.categoriaArtigo}"/>
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:accordionPanel>
+
+                        </p:dialog>
+                    </h:form>
+
+                    <!--Fim do fomulario ver-->
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

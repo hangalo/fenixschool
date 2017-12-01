@@ -242,7 +242,7 @@
 
                 <p:submenu label="Tarefas actuias" icon="ui-icon-document">
                     <p:submenu label="Elisio" icon="ui-icon-contact">
-                        <p:menuitem value="Novo Candidato" url="/reservado/candidato/candidato_novo.jsf" ajax="false" icon="ui-icon-search" />
+                        <p:menuitem value="+ Novo Candidato" url="/reservado/candidato/candidato_novo.jsf" ajax="false" />
 
                         <p:submenu label="Pesquisa por:" icon="ui-icon-search">
                             <p:menuitem value="N.º de Aluno" url="/reservado/candidato/candidato_por_numero.jsf"/>
@@ -251,6 +251,20 @@
                             <p:menuitem value="data de nascimento"  url="/reservado/candidato/candidato_por_data_nascimento.jsf"/>
                             <p:menuitem value="Listagem Geral"  url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
                         </p:submenu>
+                        
+                        <p:menuitem value="Categorias de Artigo" url="/reservado/categoria_artigo/categoria_artigo_listar.jsf" ajax="false" icon="ui-icon-search" />
+                        
+                        <p:menuitem value="+ Novo Artigo" url="/reservado/artigo/artigo_novo.jsf" ajax="false" />
+                        <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                            <p:menuitem value="Nome" url="/reservado/artigo/artigo_by_codigo_nome.jsf"/>
+                            <p:menuitem value="Código" url="/reservado/artigo/artigo_by_codigo.jsf"/>
+                            <p:menuitem value="Código de barras" url="/reservado/artigo/artigo_by_codigo_barras.jsf"/>
+                            <p:menuitem value="Preço" url="/reservado/artigo/artigo_by_codigo_preco.jsf"/>
+                            <!-- <p:menuitem value="Categoria" url="/reservado/artigo/artigo_by_codigo_categoria.jsf"/>-->
+                            <p:menuitem value="Listagem Geral"  url="/reservado/artigo/artigo_listar.jsf" ajax="false" icon="ui-icon-search" />
+                        </p:submenu>
+                        
+                        
                     </p:submenu>
 
                     <p:separator />

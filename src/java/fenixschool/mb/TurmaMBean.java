@@ -41,8 +41,10 @@ public class TurmaMBean implements Serializable  {
      private List<Turma> turmas;
      private List<AnoLectivo> anoLectivos;
      private List<PeriodoLectivo> periodoLectivos;
-    public TurmaMBean() {
+   
+     public TurmaMBean() {
     }
+     
      @PostConstruct
     public void inicializar() {
     turmaDAO = new TurmaDAO();

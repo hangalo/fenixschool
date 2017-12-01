@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Novo Artigo</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <p:panel header="Adicionar novo cadastro de artigos" footer="Cadastro de artigos">
+                    <h:form id="frmGuardar">
+
+                        <p:tabView>
+                            <p:tab title="Dados de artigo">
+                                <p:growl id="messages" showDetail="true"/>
+
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel  value="Artigo"/>
+                                    <p:inputText  size="30" value="#{artigoBean.artigo.nomeArtigo}"/>
+                                    <p:outputLabel  value="Código"/>
+                                    <p:inputText  size="30" value="#{artigoBean.artigo.codigoArgito}"/>
+                                    <p:outputLabel  value="Codigo de Barras"/>
+                                    <p:inputText  size="30" value="#{artigoBean.artigo.codigoBarraArtigo}"/>
+                                    <p:outputLabel  value="Preço"/>
+                                    <p:inputText  size="30" value="#{artigoBean.artigo.precoArtigo}"/>
+
+
+                                    <p:outputLabel value="Categoria"/>
+                                    <p:selectOneMenu  style="width:200px" label="Categoria" value="#{artigoBean.artigo.categoriaArtigo}" required="true" converter="categoriaArtigoConverter">
+                                        <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{artigoBean.categorias}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.categoriaArtigo}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                            </p:tab>
+                        </p:tabView>
+                        <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{artigoBean.guardar(event)}"/>
+
+
+                    </h:form>
+
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

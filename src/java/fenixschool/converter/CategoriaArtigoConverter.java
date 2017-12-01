@@ -7,6 +7,7 @@ package fenixschool.converter;
 
 import fenixschool.dao.CategoriaArtigoDAO;
 import fenixschool.modelo.CategoriaArtigo;
+import fenixschool.modelo.CicloLectivo;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -19,11 +20,12 @@ import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "categoriaArtigoConverter", forClass = CategoriaArtigo.class)
 public class CategoriaArtigoConverter implements Converter{
-    CategoriaArtigoDAO categoriaArtigoDAO = new CategoriaArtigoDAO();
     
+    CategoriaArtigoDAO categoriaArtigoDAO = new CategoriaArtigoDAO();
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        
         Integer id = Integer.parseInt(value);
         try {
             return categoriaArtigoDAO.findById(id);
@@ -31,7 +33,6 @@ public class CategoriaArtigoConverter implements Converter{
             System.err.println("Erro na conversão: " + ex.getMessage());
         }
         return null;
-       
     }
 
     @Override
@@ -42,5 +43,8 @@ public class CategoriaArtigoConverter implements Converter{
         }
         return null;
     }
+    
+
+    
     
 }

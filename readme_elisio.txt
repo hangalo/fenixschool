@@ -1,3 +1,27 @@
+01/12/2017
+CRUD nas seguintes áreas:
+	---> CategoriaArtigo
+	---> Artigo
+	
+Consultas parametrizadas de Artigo, por:
+	---> nome, codigo, codigoBarras, preço.
+
+O.B.S.: Funcionalidades, no menu Tarefas actuais
+
+--------------------------------------------------------------------------------------------------
+	
+
+
+
+
+
+
+
+
+
+
+
+
 04/11/2017
 Coisas feitas:
 	---> Entidades: Artigo, CategoriaArtigo;

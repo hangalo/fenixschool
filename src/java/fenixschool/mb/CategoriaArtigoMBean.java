@@ -63,7 +63,7 @@ public class CategoriaArtigoMBean implements Serializable {
     public void edit(java.awt.event.ActionEvent event) {
         if (categoriaArtigoDAO.update(categoriaArtigo)) {
             categorias = null;
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar:\t", "\tDado alterado com sucesso"));
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Editar:\t", "\tDado alterado com sucesso"));
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("categoria_artigo_listar.jsf");
             } catch (IOException ex) {

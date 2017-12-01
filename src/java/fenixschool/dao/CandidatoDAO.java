@@ -127,6 +127,7 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
             ps.setInt(16, candidato.getIdCandidato());
             ps.setString(16, candidato.getLoginCandidato());
             ps.setString(17, candidato.getPasswordCandidato());
+            ps.setInt(18, candidato.getIdCandidato());
             
             int retorno = ps.executeUpdate();
 

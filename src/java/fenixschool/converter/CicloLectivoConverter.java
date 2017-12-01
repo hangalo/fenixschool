@@ -16,13 +16,14 @@ import javax.faces.convert.FacesConverter;
  *
  * @author Aisha Lubadika
  */
-
 @FacesConverter(value = "cicloLectivoConverter", forClass = CicloLectivo.class)
-public class CicloLectivoConverter implements Converter{
-     CicloLectivoDAO cicloLectivoDAO = new CicloLectivoDAO();
+public class CicloLectivoConverter implements Converter {
+
+    CicloLectivoDAO cicloLectivoDAO = new CicloLectivoDAO();
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-          Integer id = Integer.parseInt(value);
+        Integer id = Integer.parseInt(value);
         try {
             return cicloLectivoDAO.findById(id);
         } catch (Exception ex) {
@@ -33,11 +34,11 @@ public class CicloLectivoConverter implements Converter{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-       if (value != null) {
-            CicloLectivo cicloLectivo=(CicloLectivo)value;
+        if (value != null) {
+            CicloLectivo cicloLectivo = (CicloLectivo) value;
             return String.valueOf(cicloLectivo.getIdCicloLectivo());
         }
         return null;
     }
-    
+
 }
