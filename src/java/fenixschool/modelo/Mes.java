@@ -4,18 +4,17 @@
  * and open the template in the editor.
  */
 package fenixschool.modelo;
-
 import java.util.Objects;
 
 /**
  *
  * @author HP
  */
-public class Mes {
+public class Mes{
     private Integer idMes;
     private String nomeMes;
-    
-    public Mes(){
+
+    public Mes() {
     }
 
     public Mes(Integer idMes, String nomeMes) {
@@ -23,32 +22,11 @@ public class Mes {
         this.nomeMes = nomeMes;
     }
 
-    public Integer getIdMes() {
-        return idMes;
-    }
-
-    public void setIdMes(Integer idMes) {
-        this.idMes = idMes;
-    }
-
-    public String getNomeMes() {
-        return nomeMes;
-    }
-
-    public void setNomeMes(String nomeMes) {
-        this.nomeMes = nomeMes;
-    }
-
-    @Override
-    public String toString() {
-        return "Mes{" + "idMes=" + idMes + ", nomeMes=" + nomeMes + '}';
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.idMes);
-        hash = 53 * hash + Objects.hashCode(this.nomeMes);
+        hash = 67 * hash + Objects.hashCode(this.idMes);
+        hash = 67 * hash + Objects.hashCode(this.nomeMes);
         return hash;
     }
 
@@ -73,6 +51,26 @@ public class Mes {
         return true;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Mes{" + "idMes=" + idMes + ", nomeMes=" + nomeMes + '}';
+    }
 
+    public Integer getIdMes() {
+        return idMes;
+    }
+
+    public void setIdMes(Integer idMes) {
+        this.idMes = idMes;
+    }
+
+    public String getNomeMes() {
+        return nomeMes;
+    }
+
+    public void setNomeMes(String nomeMes) {
+        this.nomeMes = nomeMes;
+    }
+    
+    
 }

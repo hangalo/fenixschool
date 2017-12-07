@@ -17,8 +17,9 @@ public class Mensalidade {
     private String descricaoMensalidade;
     private Date dataPagamento;
     private double valorPago;
-    private double valorJuro;
+    private double valorMulta;
     private String observacaoMensalidade;
+    private Double descontoMensalidade;
     private AnoLectivo anoLetivo;
     private Departamento departamento;
     private Turma turma;
@@ -30,13 +31,14 @@ public class Mensalidade {
     public Mensalidade() {
     }
 
-    public Mensalidade(Integer idMensalidade, String descricaoMensalidade, Date dataPagamento, double valorPago, double valorJuro, String observacaoMensalidade, AnoLectivo anoLetivo, Departamento departamento, Turma turma, CicloLectivo cicloLectivo, Mes mes, Aluno aluno, Curso curso) {
+    public Mensalidade(Integer idMensalidade, String descricaoMensalidade, Date dataPagamento, double valorPago, double valorMulta, String observacaoMensalidade, Double descontoMensalidade, AnoLectivo anoLetivo, Departamento departamento, Turma turma, CicloLectivo cicloLectivo, Mes mes, Aluno aluno, Curso curso) {
         this.idMensalidade = idMensalidade;
         this.descricaoMensalidade = descricaoMensalidade;
         this.dataPagamento = dataPagamento;
         this.valorPago = valorPago;
-        this.valorJuro = valorJuro;
+        this.valorMulta = valorMulta;
         this.observacaoMensalidade = observacaoMensalidade;
+        this.descontoMensalidade = descontoMensalidade;
         this.anoLetivo = anoLetivo;
         this.departamento = departamento;
         this.turma = turma;
@@ -78,12 +80,12 @@ public class Mensalidade {
         this.valorPago = valorPago;
     }
 
-    public double getValorJuro() {
-        return valorJuro;
+    public double getValorMulta() {
+        return valorMulta;
     }
 
-    public void setValorJuro(double valorJuro) {
-        this.valorJuro = valorJuro;
+    public void setValorMulta(double valorMulta) {
+        this.valorMulta = valorMulta;
     }
 
     public String getObservacaoMensalidade() {
@@ -92,6 +94,14 @@ public class Mensalidade {
 
     public void setObservacaoMensalidade(String observacaoMensalidade) {
         this.observacaoMensalidade = observacaoMensalidade;
+    }
+
+    public Double getDescontoMensalidade() {
+        return descontoMensalidade;
+    }
+
+    public void setDescontoMensalidade(Double descontoMensalidade) {
+        this.descontoMensalidade = descontoMensalidade;
     }
 
     public AnoLectivo getAnoLetivo() {
@@ -151,14 +161,9 @@ public class Mensalidade {
     }
 
     @Override
-    public String toString() {
-        return "Mensalidade{" + "idMensalidade=" + idMensalidade + ", descricaoMensalidade=" + descricaoMensalidade + ", dataPagamento=" + dataPagamento + ", valorPago=" + valorPago + ", valorJuro=" + valorJuro + ", observacaoMensalidade=" + observacaoMensalidade + ", anoLetivo=" + anoLetivo + ", departamento=" + departamento + ", turma=" + turma + ", cicloLectivo=" + cicloLectivo + ", mes=" + mes + ", aluno=" + aluno + ", curso=" + curso + '}';
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.idMensalidade);
+        hash = 37 * hash + Objects.hashCode(this.idMensalidade);
         return hash;
     }
 
@@ -180,8 +185,12 @@ public class Mensalidade {
         return true;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Mensalidade{" + "idMensalidade=" + idMensalidade + ", descricaoMensalidade=" + descricaoMensalidade + ", dataPagamento=" + dataPagamento + ", valorPago=" + valorPago + ", valorMulta=" + valorMulta + ", observacaoMensalidade=" + observacaoMensalidade + ", descontoMensalidade=" + descontoMensalidade + ", anoLetivo=" + anoLetivo + ", departamento=" + departamento + ", turma=" + turma + ", cicloLectivo=" + cicloLectivo + ", mes=" + mes + ", aluno=" + aluno + ", curso=" + curso + '}';
+    }
 
+    
     
     
            

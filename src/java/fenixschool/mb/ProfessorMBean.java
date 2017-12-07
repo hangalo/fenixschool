@@ -10,7 +10,6 @@ import fenixschool.dao.MunicipioDAO;
 import fenixschool.dao.ProfessorDAO;
 import fenixschool.dao.ProvinciaDAO;
 import fenixschool.modelo.Departamento;
-import fenixschool.modelo.Instituicao;
 import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Professor;
 import fenixschool.modelo.ProfessorDepartamento;
@@ -351,51 +350,43 @@ public class ProfessorMBean implements Serializable {
     }
 
     public String pesquisaPorDepartamento() {
-        
+
         Departamento depParamentro = professorDepartamento.getDepartamento();
-        
+
         professorDepartamentos = professorDAO.findProfessorPorDepartamento(depParamentro, DateUtil.formataData(inicioIntervalo), DateUtil.formataData(fimIntervalo));
-            
-        
+
         return null;
     }
-
-    
 
     public String imprimirCartaoProfessor() {
 
         String relatorio = "cartao_professor.jasper";
-         HashMap parametros = new HashMap();
+        HashMap parametros = new HashMap();
         gestorImpressao.imprimirPDF(relatorio, parametros);
 
         return null;
 
     }
-    
-    
-     public String imprimirListaProfessores() {
+
+    public String imprimirListaProfessores() {
 
         String relatorio = "professores_lista_todos.jasper";
-         HashMap parametros = new HashMap();
+        HashMap parametros = new HashMap();
         gestorImpressao.imprimirPDF(relatorio, parametros);
 
         return null;
 
     }
-     
-     
-      
-     public String imprimirProfessoresPorDepartamento() {
-         Departamento dep = professorDepartamento.getDepartamento();
+
+    public String imprimirProfessoresPorDepartamento() {
+        Departamento dep = professorDepartamento.getDepartamento();
         String relatorio = "professores_por_departamento.jasper";
-         HashMap parametros = new HashMap();
-         parametros.put("departamento", dep.getNomeDepartamento());
+        HashMap parametros = new HashMap();
+        parametros.put("departamento", dep.getNomeDepartamento());
         gestorImpressao.imprimirPDF(relatorio, parametros);
 
         return null;
 
     }
-
-     
 
 }

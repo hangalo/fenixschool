@@ -1,3 +1,24 @@
+07/12/2017   00h:51m
+--> Alteração em DisciplinasDoCursoMBean
+	Não implementava a interface Serializable, o que causava o erro ao fazer deploy.
+	OBS.: Verifiquem os vossos MBeans, se tiver algum que ainda não implementa 	           essa interface, é possivel que futuramente teremos o mesmo erro.
+
+--> Alteração em MensalidadeDAO
+	Os métodos não estavão bem implementados e testados.
+
+
+--> Melhorei a estética, deixando os dialogos com o mesmo tamanho. O link encontra-se no menu tarefas actais no submeno Elisio.
+
+--> Nota Importante: 
+Testei as funcionalidades de impressão de relatórios, isto em professores. Notei algo que supostamente está a causar um NullPointerException. Deixei um comentario relacionado ao assunto, em GestãoImpressao, da linha 80 até a linha 91. 
+Para ver que funciona, basta retirar o comentario e deixar simplesmente o seguinte código: 
+	
+	jasperPrint = new JasperPrint(); 
+
+
+				Fim
+------------------------------------------------------------------------------------------------------------
+
 01/12/2017
 CRUD nas seguintes áreas:
 	---> CategoriaArtigo
@@ -10,17 +31,6 @@ O.B.S.: Funcionalidades, no menu Tarefas actuais
 
 --------------------------------------------------------------------------------------------------
 	
-
-
-
-
-
-
-
-
-
-
-
 
 04/11/2017
 Coisas feitas:

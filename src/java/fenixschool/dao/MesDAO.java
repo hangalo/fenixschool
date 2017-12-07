@@ -22,7 +22,7 @@ public class MesDAO implements GenericoDAO<Mes>{
     private static final String INSERIR = "INSERT into Mes (nome_mes) VALUES (?)";
     private static final String ACTUALIZAR = "UPDATE Mes set nome_mes = ? WHERE id_mes = ?";
     private static final String ELIMINAR = "DELETE FROM Mes WHERE id_mes = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM Mes WHRER id_mes = ?";
+    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM Mes WHERE id_mes = ? ORDER BY nome_mes ASC;";
     private static final String LISTAR_TUDO = "SELECT * FROM Mes ORDER BY nome_mes ASC;";
     
     
@@ -36,7 +36,7 @@ public class MesDAO implements GenericoDAO<Mes>{
         try {
             conn=Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
-            ps.setString(1,mes.getNomeMes());
+            ps.setString(1, mes.getNomeMes());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro na insercao de dados: " +e.getMessage());

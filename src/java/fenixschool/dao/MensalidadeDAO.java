@@ -28,12 +28,12 @@ import java.util.List;
  */
 public class MensalidadeDAO implements GenericoDAOLogico<Mensalidade> {
 
-    private static final String INSERIR = "INSERT INTO mensalidade(descricao_mensalidade, data_pagamento, valor_pago, valor_juro, "
-            + "observacao, id_ano_letivo, id_departamento, id_turma, id_ciclo_letivo, id_mes, id_aluno, codigo_curso) "
-            + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String ACTUALIZAR = "UPDATE mensalidade SET descricao_mensalidade =?, data_pagamento=?, valor_pago=?, valor_juro=?, "
-            + "observacao=?, id_ano_letivo=?,  id_departamento=?, id_turma=?, id_ciclo_letivo=?, id_mes=?, id_aluno=?, codigo_curso=?  "
-            + "WHERE id_mensalidade =?";
+    private static final String INSERIR = "INSERT INTO mensalidade(descricao_mensalidade, observacao, desconto, valor_pago, valor_multa, "
+            + "data_pagamento, id_ano_letivo, id_departamento, id_turma, id_ciclo_letivo, id_mes, id_aluno, codigo_curso) "
+            + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String ACTUALIZAR = "UPDATE mensalidade SET descricao_mensalidade =?, observacao=?, desconto=?, valor_pago=?, "
+            + "valor_multa=?, data_pagamento=?,  id_ano_letivo=?, id_departamento=?, id_turma=?, id_ciclo_letivo=?, id_mes=?, id_aluno=?, "
+            + "codigo_curso=? WHERE id_mensalidade =?";
     private static final String ELIMINAR = "DELETE FROM mensalidade WHERE id_mensalidade=?";
 
     private static final String LISTAR_POR_CODIGO = "SELECT * FROM mensalidade m "
@@ -54,188 +54,7 @@ public class MensalidadeDAO implements GenericoDAOLogico<Mensalidade> {
             + "INNER JOIN aluno al ON m.id_aluno = al.id_aluno "
             + "INNER JOIN curso cur ON m.codigo_curso = cur.codigo_curso ";
 
-    /*
-    @Override
-    public void save(Mensalidade mensalidade) {
-        if (mensalidade == null) {
-            System.err.println("O campo anterior nao pode ser nulo");
-        }
-
-        try {
-            conn = Conexao.getConnection();
-            ps = conn.prepareStatement(INSERIR);
-
-            ps.setString(1, mensalidade.getDescricaoMensalidade());
-            ps.setDate(2, new java.sql.Date(mensalidade.getDataPagamento().getTime()));
-            ps.setDouble(3, mensalidade.getValorPago());
-            ps.setDouble(4, mensalidade.getValorJuro());
-            ps.setString(5, mensalidade.getObservacaoMensalidade());
-            ps.setInt(6, mensalidade.getAnoLetivo().getIdAnoLectivo());
-            ps.setInt(7, mensalidade.getDepartamento().getIdDepartamento());
-            ps.setInt(8, mensalidade.getTurma().getIdTurma());
-            ps.setInt(9, mensalidade.getCicloLectivo().getIdCicloLectivo());
-            ps.setInt(10, mensalidade.getMes().getIdMes());
-            ps.setInt(11, mensalidade.getAluno().getIdAluno());
-            ps.setString(12, mensalidade.getCurso().getCodigoCurso());
-
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("Erro a inserir dados: " + e.getLocalizedMessage());
-            System.out.println(e.getMessage());
-        } finally {
-            Conexao.closeConnection(conn, ps);
-        }
-    }
-
-    @Override
-    public void update(Mensalidade mensalidade) {
-        if (mensalidade == null) {
-            System.err.println("O campo anterior nao pode ser nulo");
-        }
-
-        try {
-            conn = Conexao.getConnection();
-            ps = conn.prepareStatement(ACTUALIZAR);
-
-            ps.setString(1, mensalidade.getDescricaoMensalidade());
-            ps.setDate(2, new java.sql.Date(mensalidade.getDataPagamento().getTime()));
-            ps.setDouble(3, mensalidade.getValorPago());
-            ps.setDouble(4, mensalidade.getValorJuro());
-            ps.setString(5, mensalidade.getObservacaoMensalidade());
-            ps.setInt(6, mensalidade.getAnoLetivo().getIdAnoLectivo());
-            ps.setInt(7, mensalidade.getDepartamento().getIdDepartamento());
-            ps.setInt(8, mensalidade.getTurma().getIdTurma());
-            ps.setInt(9, mensalidade.getCicloLectivo().getIdCicloLectivo());
-            ps.setInt(10, mensalidade.getMes().getIdMes());
-            ps.setInt(11, mensalidade.getAluno().getIdAluno());
-            ps.setString(12, mensalidade.getCurso().getCodigoCurso());
-            ps.setInt(13, mensalidade.getIdMensalidade());
-
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("Erro a actualizar dados: " + e.getLocalizedMessage());
-            System.out.println(e.getMessage());
-        } finally {
-            Conexao.closeConnection(conn, ps);
-        }
-    }
-
-    @Override
-    public void delete(Mensalidade mensalidade) {
-        if (mensalidade == null) {
-            System.err.println("O valor passado não pode ser nulo");
-        }
-        try {
-            conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(ELIMINAR);
-            ps.setInt(1, mensalidade.getIdMensalidade());
-            ps.executeUpdate();
-        } catch (Exception ex) {
-            System.err.println("Erro ao eliminar dados: " + ex.getLocalizedMessage());
-        } finally {
-            Conexao.closeConnection(conn, ps);
-        }
-    }
-
-    @Override
-    public Mensalidade findById(Integer id) {
-        Mensalidade mensalidade = new Mensalidade();
-
-        try {
-            conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(LISTAR_POR_CODIGO);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.err.println("Não foi possivel encontrado nenhum registro com o id:  " + id);
-            }
-            popularComDados(mensalidade, rs);
-
-        } catch (SQLException ex) {
-            System.err.println("Erro ao ler os dados: " + ex.getLocalizedMessage());
-        } finally {
-            Conexao.closeConnection((java.sql.Connection) conn, ps, rs);
-        }
-        return mensalidade;
-    }
-
-    @Override
-    public List<Mensalidade> findAll() {
-        List<Mensalidade> mensalidades = new ArrayList<>();
-        try {
-            conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(LISTAR_TUDO);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Mensalidade mensalidade = new Mensalidade();
-                popularComDados(mensalidade, rs);
-                mensalidades.add(mensalidade);
-            }
-        } catch (SQLException ex) {
-            System.err.println("Erro ao ler os dados: " + ex.getLocalizedMessage());
-        } finally {
-            Conexao.closeConnection((java.sql.Connection) conn);
-        }
-
-        return mensalidades;
-    }
-
-    @Override
-    public void popularComDados(Mensalidade mensalidade, ResultSet rs) {
-        try {
-            mensalidade.setIdMensalidade(rs.getInt("id_mensalidade"));
-            mensalidade.setDescricaoMensalidade(rs.getString("descricao_mensalidade"));
-            mensalidade.setValorPago(rs.getDouble("valor_pago"));
-            mensalidade.setValorJuro(rs.getDouble("valor_juro"));
-            mensalidade.setObservacaoMensalidade(rs.getString("observacao"));
-            mensalidade.setDataPagamento(rs.getDate("data_pagamento"));
-
-            AnoLectivo anoLetivo = new AnoLectivo();
-            anoLetivo.setIdAnoLectivo(rs.getInt("id_ano_letivo"));
-            anoLetivo.setAnoLectivo(rs.getString("ano_letivo"));
-            mensalidade.setAnoLetivo(anoLetivo);
-
-            Departamento departamento = new Departamento();
-            departamento.setIdDepartamento(rs.getInt("id_departamento"));
-            departamento.setNomeDepartamento(rs.getString("nome_departamento"));
-            mensalidade.setDepartamento(departamento);
-
-            Turma turma = new Turma();
-            turma.setIdTurma(rs.getInt("id_turma"));
-            turma.setNomeTurma(rs.getString("nome_turma"));
-            mensalidade.setTurma(turma);
-
-            CicloLectivo cicloLectivo = new CicloLectivo();
-            cicloLectivo.setIdCicloLectivo(rs.getInt("id_ciclo_letivo"));
-            cicloLectivo.setCicloLectivo(rs.getString("ciclo_letivo"));
-            mensalidade.setCicloLectivo(cicloLectivo);
-
-            Mes mes = new Mes();
-            mes.setIdMes(rs.getInt("id_mes"));
-            mes.setNomeMes(rs.getString("nome_mes"));
-            mensalidade.setMes(mes);
-
-            Aluno aluno = new Aluno();
-            aluno.setIdAluno(rs.getInt("id_aluno"));
-            aluno.setNumeroAluno(rs.getString("numero_aluno"));
-            aluno.setNomeAluno(rs.getString("nome_aluno"));
-            aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
-            aluno.setDataNascimentoAluno(rs.getDate("data_nascimento"));
-            mensalidade.setAluno(aluno);
-
-            Curso curso = new Curso();
-            curso.setCodigoCurso(rs.getString("codigo_curso"));
-            curso.setNomeCurso(rs.getString("nome_curso"));
-            mensalidade.setCurso(curso);
-
-        } catch (SQLException ex) {
-            System.out.println("Erro ao carregar dados");
-        }
-
-    }
-     */
+   
     @Override
     public boolean save(Mensalidade mensalidade) {
         Connection conn = null;
@@ -252,17 +71,20 @@ public class MensalidadeDAO implements GenericoDAOLogico<Mensalidade> {
             ps = conn.prepareStatement(INSERIR);
 
             ps.setString(1, mensalidade.getDescricaoMensalidade());
-            ps.setDate(2, new java.sql.Date(mensalidade.getDataPagamento().getTime()));
-            ps.setDouble(3, mensalidade.getValorPago());
-            ps.setDouble(4, mensalidade.getValorJuro());
-            ps.setString(5, mensalidade.getObservacaoMensalidade());
-            ps.setInt(6, mensalidade.getAnoLetivo().getIdAnoLectivo());
-            ps.setInt(7, mensalidade.getDepartamento().getIdDepartamento());
-            ps.setInt(8, mensalidade.getTurma().getIdTurma());
-            ps.setInt(9, mensalidade.getCicloLectivo().getIdCicloLectivo());
-            ps.setInt(10, mensalidade.getMes().getIdMes());
-            ps.setInt(11, mensalidade.getAluno().getIdAluno());
-            ps.setString(12, mensalidade.getCurso().getCodigoCurso());
+            ps.setString(2, mensalidade.getObservacaoMensalidade());
+            ps.setDouble(3, mensalidade.getDescontoMensalidade());
+            ps.setDouble(4, mensalidade.getValorPago());
+            ps.setDouble(5, mensalidade.getValorMulta());
+            ps.setDate(6, new java.sql.Date(mensalidade.getDataPagamento().getTime()));
+            
+           
+            ps.setInt(7, mensalidade.getAnoLetivo().getIdAnoLectivo());
+            ps.setInt(8, mensalidade.getDepartamento().getIdDepartamento());
+            ps.setInt(9, mensalidade.getTurma().getIdTurma());
+            ps.setInt(10, mensalidade.getCicloLectivo().getIdCicloLectivo());
+            ps.setInt(11, mensalidade.getMes().getIdMes());
+            ps.setInt(12, mensalidade.getAluno().getIdAluno());
+            ps.setString(13, mensalidade.getCurso().getCodigoCurso());
 
             int retorno = ps.executeUpdate();
             if (retorno > 0) {
@@ -294,18 +116,22 @@ public class MensalidadeDAO implements GenericoDAOLogico<Mensalidade> {
             ps = conn.prepareStatement(ACTUALIZAR);
 
             ps.setString(1, mensalidade.getDescricaoMensalidade());
-            ps.setDate(2, new java.sql.Date(mensalidade.getDataPagamento().getTime()));
-            ps.setDouble(3, mensalidade.getValorPago());
-            ps.setDouble(4, mensalidade.getValorJuro());
-            ps.setString(5, mensalidade.getObservacaoMensalidade());
-            ps.setInt(6, mensalidade.getAnoLetivo().getIdAnoLectivo());
-            ps.setInt(7, mensalidade.getDepartamento().getIdDepartamento());
-            ps.setInt(8, mensalidade.getTurma().getIdTurma());
-            ps.setInt(9, mensalidade.getCicloLectivo().getIdCicloLectivo());
-            ps.setInt(10, mensalidade.getMes().getIdMes());
-            ps.setInt(11, mensalidade.getAluno().getIdAluno());
-            ps.setString(12, mensalidade.getCurso().getCodigoCurso());
-            ps.setInt(13, mensalidade.getIdMensalidade());
+            ps.setString(2, mensalidade.getObservacaoMensalidade());
+            ps.setDouble(3, mensalidade.getDescontoMensalidade());
+            ps.setDouble(4, mensalidade.getValorPago());
+            ps.setDouble(5, mensalidade.getValorMulta());
+            ps.setDate(6, new java.sql.Date(mensalidade.getDataPagamento().getTime()));
+            
+           
+            ps.setInt(7, mensalidade.getAnoLetivo().getIdAnoLectivo());
+            ps.setInt(8, mensalidade.getDepartamento().getIdDepartamento());
+            ps.setInt(9, mensalidade.getTurma().getIdTurma());
+            ps.setInt(10, mensalidade.getCicloLectivo().getIdCicloLectivo());
+            ps.setInt(11, mensalidade.getMes().getIdMes());
+            ps.setInt(12, mensalidade.getAluno().getIdAluno());
+            ps.setString(13, mensalidade.getCurso().getCodigoCurso());
+            ps.setInt(14, mensalidade.getIdMensalidade());
+
 
             int retorno = ps.executeUpdate();
 
@@ -411,8 +237,9 @@ public class MensalidadeDAO implements GenericoDAOLogico<Mensalidade> {
         try {
             mensalidade.setIdMensalidade(rs.getInt("id_mensalidade"));
             mensalidade.setDescricaoMensalidade(rs.getString("descricao_mensalidade"));
+            mensalidade.setDescontoMensalidade(rs.getDouble("desconto"));
             mensalidade.setValorPago(rs.getDouble("valor_pago"));
-            mensalidade.setValorJuro(rs.getDouble("valor_juro"));
+            mensalidade.setValorMulta(rs.getDouble("valor_multa"));
             mensalidade.setObservacaoMensalidade(rs.getString("observacao"));
             mensalidade.setDataPagamento(rs.getDate("data_pagamento"));
 
@@ -443,7 +270,7 @@ public class MensalidadeDAO implements GenericoDAOLogico<Mensalidade> {
 
             Aluno aluno = new Aluno();
             aluno.setIdAluno(rs.getInt("id_aluno"));
-            ;
+            
             aluno.setNomeAluno(rs.getString("nome_aluno"));
             aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
             aluno.setDataNascimentoAluno(rs.getDate("data_nascimento"));

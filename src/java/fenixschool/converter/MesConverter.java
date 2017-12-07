@@ -23,7 +23,7 @@ public class MesConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Integer id = Integer.parseInt(value);
+       Integer id = Integer.parseInt(value);
         try {
             return mesDAO.findById(id);
         } catch (Exception ex) {
@@ -35,10 +35,11 @@ public class MesConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value != null) {
-            Mes mes = (Mes)value;
+            Mes mes = (Mes) value;
             return String.valueOf(mes.getIdMes());
         }
         return null;
+        
     }
 
 }

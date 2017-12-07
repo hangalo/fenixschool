@@ -180,6 +180,7 @@ public class MensalidadeMBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
         }
     }
+    
 
     public String startEdit() {
         return "mensalidade_listar?faces-redirect=true";
@@ -194,7 +195,6 @@ public class MensalidadeMBean implements Serializable {
             } catch (IOException ex) {
                 Logger.getLogger(MensalidadeMBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Editar\t", "\tErro ao editar dados"));
         }
@@ -202,10 +202,10 @@ public class MensalidadeMBean implements Serializable {
     }
 
     public String delete() {
+        
         if (mensalidadeDAO.delete(mensalidade)) {
-            mensalidades = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tDados Eliminados com sucesso"));
-            
+            mensalidades = null;
             return "mensalidade_listar?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar\t", "\tErro ao eliminar dados"));
