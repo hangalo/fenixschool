@@ -34,13 +34,12 @@ import net.sf.jasperreports.view.JasperViewer;
 @ManagedBean(name = "gestorImpressao")
 @SessionScoped
 public class GestorImpressao {
-    
-     FacesContext facesContext;
+
+    FacesContext facesContext;
     ServletContext servletContext;
     JasperPrint jasperPrint;
     Connection conn;
 
-   
     public GestorImpressao() {
     }
 
@@ -56,12 +55,10 @@ public class GestorImpressao {
             if (bytes != null && bytes.length > 0) {
                 HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
                 response.setContentType("application/pdf");
-                response.setHeader("Content-Disposition", "filename=\"" + relatorio  + "\"");
-                
-               // response.setHeader( "Content-Disposition", "attachment;filename=" + relatorio+".pdf" );
-                             
+                response.setHeader("Content-Disposition", "filename=\"" + relatorio + "\"");
+
+                // response.setHeader( "Content-Disposition", "attachment;filename=" + relatorio+".pdf" );
                 //response.setHeader("Content-Disposition", "attachment; filename=\"" + relatorio  + "\"");
-                
                 response.setContentLength(bytes.length);
                 ServletOutputStream outputStream = response.getOutputStream();
                 outputStream.write(bytes, 0, bytes.length);
@@ -89,8 +86,8 @@ public class GestorImpressao {
                         me compete. Deixei algo relacionado a isso no meu readme.
             
                 Escreveu: Elisio Kavaimunwa
-            */
-            
+             */
+
             prepararRelatorio(relatorio, paramentos);
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
             ServletOutputStream outputStream = response.getOutputStream();
@@ -99,16 +96,15 @@ public class GestorImpressao {
             outputStream.flush();
             outputStream.close();
         } catch (JRException | IOException ex) {
-            System.out.println("Erro - >>>>"+ex.getMessage());
+            System.out.println("Erro - >>>>" + ex.getMessage());
         }
         FacesContext.getCurrentInstance().responseComplete();
         FacesContext.getCurrentInstance().responseComplete();
         return null;
     }
-    
-    
-     public void imprimirPDF2(String relatorio, HashMap paramentos) {
-       try {
+
+    public void imprimirPDF2(String relatorio, HashMap paramentos) {
+        try {
             System.out.println("Loading...");
             JasperDesign jasDsgn = JRXmlLoader.load(getPathPastaAplicacaoJSF() + relatorio);
             JasperReport jasRpt = JasperCompileManager.compileReport(jasDsgn);
@@ -123,15 +119,15 @@ public class GestorImpressao {
 
     private void prepararRelatorio(String relatorio, HashMap hashMap) {
         conn = Conexao.getConnection();
-        
-        System.out.println(">>>>>>> Relatio>>>>>"+getPathPastaAplicacaoJSF() + relatorio);
-        
+
+        System.out.println(">>>>>>> Relatio>>>>>" + getPathPastaAplicacaoJSF() + relatorio);
+
         try {
-          facesContext = FacesContext.getCurrentInstance();
+            facesContext = FacesContext.getCurrentInstance();
             facesContext.responseComplete();
             jasperPrint = JasperFillManager.fillReport(getPathPastaAplicacaoJSF() + relatorio, hashMap, conn);
         } catch (JRException jRException) {
-            System.out.printf(" Relatorios nao localizado"+jRException.getMessage());
+            System.out.printf(" Relatorios nao localizado" + jRException.getMessage());
         }
     }
 
@@ -142,9 +138,4 @@ public class GestorImpressao {
         return raizAplicacao + pasta;
     }
 
-    
-  
-    
-    
-    
 }
