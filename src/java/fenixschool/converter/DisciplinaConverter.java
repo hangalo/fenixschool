@@ -23,10 +23,8 @@ public class DisciplinaConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        
-        Integer id = Integer.parseInt(value);
         try {
-            return disciplinaDAO.findById(id);
+            return disciplinaDAO.findByCodigo(value);
         } catch (Exception e) {
             System.err.println("Erro na conversao "+e.getMessage());
         }

@@ -13,7 +13,7 @@
 
             <ui:define name="content">
                 <p:growl showDetail="true" autoUpdate="true" showSummary="true"/>
-                <b:panel title="Nova relação de aluno com encarregado de educação" look="info">
+                <b:panel title="Nova relação de aluno com encarregado de educação" look="primary">
                     <h:form>
                         <p:menubar>
                             <f:facet name="options" >
@@ -90,9 +90,10 @@
                 </h:form>
 
                 <h:form  id="frmNovo" >
-                    <p:dialog header="Aluno : #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}, N.º: #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="clip" hideEffect="blind" height="550" width="800">
+                    <p:dialog modal="true"  header="Aluno : #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}, N.º: #{alunoMBean.aluno.idAluno}" 
+                              widgetVar="dlgNovo" showEffect="clip" hideEffect="blind" height="400" width="800">
                         
-                        <b:panel title="Informações sobre o aluno" look="primary" collapsible="false">
+                        <b:panel title="Informações sobre o aluno" look="info" collapsible="false">
                             <h:panelGrid columns="3" >
                                 <h:panelGroup style="margin-right: 20px;">
                                     <h:panelGrid columns="2"> 
@@ -118,7 +119,7 @@
                             </h:panelGroup>
                         </b:panel>
 
-                        <b:panel title="Informações gerais" look="primary" collapsible="false" display="inline">
+                        <b:panel title="Informações gerais" look="info" collapsible="false" display="inline">
 
                             <h:panelGrid columns="3">
                                 <h:panelGroup>

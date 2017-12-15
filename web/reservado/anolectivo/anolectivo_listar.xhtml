@@ -70,60 +70,61 @@
                 <!--Formulario para auxiliar-->
                 <h:form id="Operacoes">
                     <p:commandButton  icon="ui-icon-plus" value="Novo" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
-                    <p:commandLink value="Voltar" action="index"/>
+                    <p:commandButton value="Fechar" action="index"/>
                 </h:form>
                 <!--Fim-->
 
                 <!--Formulario para guardar um novo registro-->
                 <h:form id="FrmGuardar">
-                    <p:dialog widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind">
+                    <p:dialog widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind" modal="true" width="340" height="150">
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Ano lectivo:"/>
-                            <h:inputText  size="10" value="#{anoLectivoMBean.anoLectivo.anoLectivo}" required="true"/>
+                            <p:inputText  style="margin-left: 10px;" size="20" value="#{anoLectivoMBean.anoLectivo.anoLectivo}" required="true"/>
                             <p:outputLabel value="Data de inicio:"/>
-                            <p:calendar value="#{anoLectivoMBean.anoLectivo.inicioAnoLetivo}" pattern="dd/MM/yyyy" size="10" required="true"/>
+                            <p:calendar style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.inicioAnoLetivo}" pattern="dd/MM/yyyy" size="20" required="true"/>
                             <p:outputLabel value="Data de fim:"/>
-                            <p:calendar value="#{anoLectivoMBean.anoLectivo.fimAnoLetivo}" pattern="dd/MM/yyyy" size="10" required="true"/>
+                            <p:calendar style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.fimAnoLetivo}" pattern="dd/MM/yyyy" size="20" required="true"/>
                         </h:panelGrid>
-                        <p:commandButton icon="ui-icon-disk" value="Guardar" actionListener="#{anoLectivoMBean.guardar}"/>
+                        <p:commandButton style="margin-top: 10px;" icon="ui-icon-disk" value="Guardar" actionListener="#{anoLectivoMBean.guardar}"/>
                     </p:dialog>
                 </h:form>
                 <!--Fim do formulario-->
                 
                 <!--Formulario editar-->
                 <h:form id="FrmEditar">
-                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                    <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind" modal="true" width="350" height="150">
                         <h:inputHidden value="#{anoLectivoMBean.anoLectivo.idAnoLectivo}"/>
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Ano lectivo:"/>
-                            <h:inputText value="#{anoLectivoMBean.anoLectivo.anoLectivo}" size="10"/>
+                            <p:inputText style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.anoLectivo}" size="20"/>
                             <p:outputLabel value="Data de ano:"/>
-                            <p:calendar value="#{anoLectivoMBean.anoLectivo.inicioAnoLetivo}" size="10"/>
+                            <p:calendar style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.inicioAnoLetivo}" size="20"/>
                             <p:outputLabel value="Data de fim:"/>
-                            <p:calendar value="#{anoLectivoMBean.anoLectivo.fimAnoLetivo}" size="10"/>
+                            <p:calendar style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.fimAnoLetivo}" size="20"/>
                         </h:panelGrid>
-                        <p:commandButton value="Guardar" icon="ui-icon-plus" action="#{anoLectivoMBean.edit(event)}"/>
+                        <p:commandButton style="margin-top: 10px;" value="Guardar" icon="ui-icon-plus" action="#{anoLectivoMBean.edit(event)}"/>
                     </p:dialog>
                 </h:form>
                 <!--Fim do formulario aditar-->
                 
                 <!--Formulario ver-->
                 <h:form id="FrmVer">
-                    <p:dialog id="ver" header="Detalhes" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind">
-                        <p:panelGrid columns="2">
+                    <p:dialog id="ver" header="Detalhes" widgetVar="dialogoVer" showEffect="clip" hideEffect="blind"
+                              modal="true" width="350" height="150">
+                        <h:panelGrid columns="2">
                             <p:outputLabel value="Código:"/>
-                            <h:outputText value="#{anoLectivoMBean.anoLectivo.idAnoLectivo}"/>
+                            <p:outputLabel style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.idAnoLectivo}"/>
                             <p:outputLabel value="Ano lectivo:"/>
-                            <p:outputLabel value="#{anoLectivoMBean.anoLectivo.anoLectivo}"/>
+                            <p:outputLabel style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.anoLectivo}"/>
                             <p:outputLabel value="Data de início:"/>
-                            <p:outputLabel value="#{anoLectivoMBean.anoLectivo.inicioAnoLetivo}">
+                            <p:outputLabel style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.inicioAnoLetivo}">
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </p:outputLabel>
                             <p:outputLabel value="Data de fim:"/>
-                            <p:outputLabel value="#{anoLectivoMBean.anoLectivo.fimAnoLetivo}">
+                            <p:outputLabel style="margin-left: 10px;" value="#{anoLectivoMBean.anoLectivo.fimAnoLetivo}">
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </p:outputLabel>
-                        </p:panelGrid>
+                        </h:panelGrid>
                     </p:dialog>
                 </h:form>
                 <!--Fim-->

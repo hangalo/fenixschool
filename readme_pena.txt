@@ -1,3 +1,44 @@
+*****15/12/2017********
+
+****INFORMAÇÔES********
+De 11 a 13 de Mês em curso trabalhei nas entidades que me cabem respeito com o intuito de melhorar
+os aspectos visuais e padronizar os componentes da aplicação. Realizei melhorias algumas modificações na Entidade Encarregado
+deixando tudo ao mesmo tamanho ao nível de dialogos.
+Portanto trabalhei nas Entidades: Curso disciplina, Disciplina por ciclo e proceder com os devidos relatórios.
+Os relatórios foram bem elaborados e exportados para a pasta RELATORIOS localizada na raiz da aplicação.
+
+******TESTES*****
+Com base as entidades que me cabem respeito realizei os testes possíveis e todas funcionam perfeitamente. Tavez,
+faltando alguns aspectos estéticos...AGRADECERIA que todos fizessem os testes das minhas entidades e dar um feedback.
+
+
+****DIFICULDADES
+
+Após a construção dos relatórios tive muitas dificuldades de implementação na aplicação. Sempre passava um campo nulo dos parametros
+fornecidos trazendo assim um erro NULL EXCEPTIONPOINT e não consegui descobrir o que se passe ate agora.
+
+****EM FALTA*****
+Nas Entidades trabalhadas falta a Entidade transferencia de Alunos, uma vez que não está completa no banco de dados e estaou aguardar que 
+se actualize o script da BD para terminar a mesma.
+
+*****REALIZAÇÂO DO PUSH****
+Espero não ter causado transtorno
+depois de tudo feito realizei o push seguindo os seguintes passos:
+
+1 - Realizar o pull
+2 - Add...
+3 - Commit...
+4 - Push
+
+Abraços para toda equipa...
+Salomão Pena
+----------------------------------------------------------------FIM-------------------------------------------------------------------------------------------
+
+
+
+
+
+
 29/10/2017
 --Tarefas:--
 Trabalhou-se nas entidades disciplina, transferencia, situação da transferencia...

@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
- 
+
     </h:head>
     <h:body>
 
@@ -19,7 +19,7 @@
 
                     <p:submenu label="Escola" icon="ui-icon-contact">
                         <p:menuitem value="Dados" url="/reservado/instituicao/instituicao_listar.jsf"/>
-                        
+
                     </p:submenu>
 
                     <p:separator />
@@ -46,11 +46,11 @@
                         <p:submenu label="Procurar por" icon="ui-icon-search">
                             <p:menuitem value="Nome" url="/reservado/professor/professor_por_nome_sobrenome.jsf"/>
                             <p:menuitem value="Nº do BI"  url="/reservado/professor/professor_por_numero_bi.jsf"/>
-                             <p:menuitem value="Departamento" url="/reservado/professor/professores_por_departamento.jsf" />
+                            <p:menuitem value="Departamento" url="/reservado/professor/professores_por_departamento.jsf" />
                             <p:menuitem value="Listagem Geral" url="/reservado/professor/professor_gestao.jsf" />
 
-                            
-                            
+
+
                         </p:submenu>
 
 
@@ -82,7 +82,7 @@
                     <p:submenu label="Alunos:" icon="ui-icon-search">
                         <p:menuitem value="Novo Aluno"  url="/reservado/aluno/aluno_novo.jsf" />
                         <p:submenu label="Pesquisa por:" icon="ui-icon-search">
-                            
+
                             <p:menuitem value="Nome" url="/reservado/aluno/aluno_por_nome_sobrenome.jsf"/>
                             <p:menuitem value="Nº do BI"  url="/reservado/aluno/aluno_por_numero.jsf"/>
                             <p:menuitem value="Data de Nascimento" url="/reservado/aluno/aluno_por_nascimento.jsf"/>
@@ -111,13 +111,13 @@
 
 
                 <p:submenu label="Tabelas" icon="ui-icon-home ">
-                    
-                      <p:submenu label="Turmas:" icon="ui-icon-search">
+
+                    <p:submenu label="Turmas:" icon="ui-icon-search">
                         <p:menuitem value="Criar turma"  url="/reservado/turma/turma_novo.jsf" />
                         <p:submenu label="Pesquisa por:" icon="ui-icon-search">
-                            
+
                             <p:menuitem value="Nº de Turma"  url="#"/>
-                           
+
                             <p:menuitem value="Listagem Geral" url="/reservado/turma/turma_listar.jsf" />
                         </p:submenu>
                     </p:submenu>
@@ -184,7 +184,12 @@
                 <p:submenu label="Area academica" icon="ui-icon-home ">
                     <p:submenu label="Encarregado">
                         <p:menuitem value="Novo Encarregado" url="/reservado/encarregado/encarregado_educacao_novo.jsf" />
-                        <p:menuitem value="Encarregados" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        <p:submenu label="Listagem">
+                            <p:menuitem value="Por nome" url="/reservado/encarregado/encarregado_por_nome.jsf"/>
+                            <p:menuitem value="Por nome e sobrenome" url="/reservado/encarregado/encarregado_por_nome_sobrenome.jsf"/>
+                            <p:menuitem value="Por sexo" url="/reservado/encarregado/encarregado_por_sexo.jsf"/>
+                            <p:menuitem value="Lista geral" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        </p:submenu>
                     </p:submenu>
                 </p:submenu>
 
@@ -251,9 +256,9 @@
                             <p:menuitem value="data de nascimento"  url="/reservado/candidato/candidato_por_data_nascimento.jsf"/>
                             <p:menuitem value="Listagem Geral"  url="/reservado/candidato/candidato_listar.jsf" ajax="false" icon="ui-icon-search" />
                         </p:submenu>
-                        
+
                         <p:menuitem value="Categorias de Artigo" url="/reservado/categoria_artigo/categoria_artigo_listar.jsf" ajax="false" icon="ui-icon-search" />
-                        
+
                         <p:menuitem value="+ Novo Artigo" url="/reservado/artigo/artigo_novo.jsf" ajax="false" />
                         <p:submenu label="Pesquisa por:" icon="ui-icon-search">
                             <p:menuitem value="Nome" url="/reservado/artigo/artigo_by_codigo_nome.jsf"/>
@@ -263,37 +268,35 @@
                             <!-- <p:menuitem value="Categoria" url="/reservado/artigo/artigo_by_codigo_categoria.jsf"/>-->
                             <p:menuitem value="Listagem Geral"  url="/reservado/artigo/artigo_listar.jsf" ajax="false" icon="ui-icon-search" />
                         </p:submenu>
-                        
+
                         <p:menuitem value="Mensalidades" url="/reservado/mensalidade/mensalidade_listar.jsf" ajax="false" icon="ui-icon-search" />
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
                     </p:submenu>
 
                     <p:separator />
 
                     <p:submenu label="Pena" icon="ui-icon-contact">
-                         <p:menuitem icon="ui-icon-plus" value="Aluno encarregado (novo)" url="/reservado/alunoEncarregado/alunoEncarregado_novo.jsf" />
-                         <p:menuitem icon="ui-icon-search" value="Aluno Encarregado Educação" url="/reservado/alunoEncarregado/alunoEncarregado_listar.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Disciplina por curso" url="/reservado/disciplina/disciplina_do_curso_listar.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Disciplina por ciclo" url="/reservado/disciplina/disciplina_por_ciclo.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Lista de aluno por encarregado" url="/reservado/aluno_encarregado/aluno_encarregado_listar.jsf" />
+                        <p:menuitem icon="ui-icon-plus" value="Aluno encarregado (novo)" url="/reservado/aluno_encarregado/aluno_encarregado_novo.jsf" />
                         <p:menuitem icon="ui-icon-search" value="Parentesco" url="/reservado/parentesco/parentesco_listar.jsf" />
                         <p:menuitem icon="ui-icon-plus" value="Nova transferência" url="/reservado/transferencia/transferencia_nova.jsf" />
                         <p:menuitem value="Novo Encarregado" url="/reservado/encarregado/encarregado_educacao_novo.jsf" />
                         <p:menuitem value="Encarregados" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
                         <p:menuitem icon="ui-icon-plus" value="Nova Disciplina " url="/reservado/disciplina/disciplina_novo.jsf" />
                         <p:menuitem icon="ui-icon-search" value="Disciplinas" url="/reservado/disciplina/disciplina_listar.jsf" />
-                        <p:menuitem icon="ui-icon-plus" value="Novas notas" url="/reservado/nota/nota_novo.jsf" />
-                        <p:menuitem icon="ui-icon-search" value="Notas" url="/reservado/nota/nota_listar.jsf" />
                         <p:menuitem icon="ui-icon-plus" value="Novo boletim" url="/reservado/boletimnotas/boletimnotas_novo.jsf" />
                         <p:menuitem icon="ui-icon-search" value="Boletim de notas" url="/reservado/boletimnotas/boletimnotas_listar.jsf" />
                         <p:menuitem icon="ui-icon-search" value="Situação de transferência" url="/reservado/situacaoTransferencia/situacaoTransferencia_listar.jsf" />
-                        <p:menuitem value="Menu1" url="#"/>
-                        <p:menuitem value="Menu2" url="#" />
                     </p:submenu>
                     <p:separator />
                     <p:submenu label="Aisha" icon="ui-icon-contact">
-                        
+
                         <p:menuitem value="Menu2" url="#" />
                         <p:menuitem value="Menu1" url="#"/>
                         <p:menuitem value="Menu2" url="#" />
@@ -310,13 +313,13 @@
                         <p:menuitem value="Menu2" url="#" />
                     </p:submenu>
                     <p:separator />
-                 <p:submenu label="Deu" icon="ui-icon-contact">
-                     
-                      <p:menuitem value="Nova Matricula" url="/reservado/matricula/matricula_nova.jsf"/>
+                    <p:submenu label="Deu" icon="ui-icon-contact">
+
+                        <p:menuitem value="Nova Matricula" url="/reservado/matricula/matricula_nova.jsf"/>
                         <p:menuitem value="Gestao Matriculas" url="/reservado/matricula/matricula_gestao.jsf"/>
-                        
-                      
-                        
+
+
+
                         <p:menuitem value="Por Turma" url="/reservado/matricula/listagem_por_turma.jsf" />
                         <p:menuitem value="Nova Matricula" url="/reservado/matricula/matricula_novo.jsf"/>
                         <p:menuitem value="Turma por Ano Lectivo" url="/reservado/matricula/listagem_turma_anolectivo.jsf" />

@@ -6,42 +6,41 @@
 package fenixschool.modelo;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
  * @author PENA
  */
-public class BoletimNotas {
+public class BoletimNota {
     
-    private int idBoletimNotas;
-    private Date dataBoletimNotas;
+    private int idBoletim;
+    private Date dataBoletim;
     private Aluno aluno;
 
-    public BoletimNotas() {
+    public BoletimNota() {
     }
 
-    public BoletimNotas(int idBoletimNotas, Date dataBoletimNotas, Aluno aluno) {
-        this.idBoletimNotas = idBoletimNotas;
-        this.dataBoletimNotas = dataBoletimNotas;
+    public BoletimNota(int idBoletim, Date dataBoletim, Aluno aluno) {
+        this.idBoletim = idBoletim;
+        this.dataBoletim = dataBoletim;
         this.aluno = aluno;
     }
 
-    
-
-    public int getIdBoletimNotas() {
-        return idBoletimNotas;
+    public int getIdBoletim() {
+        return idBoletim;
     }
 
-    public void setIdBoletimNotas(int idBoletimNotas) {
-        this.idBoletimNotas = idBoletimNotas;
+    public void setIdBoletim(int idBoletim) {
+        this.idBoletim = idBoletim;
     }
 
-    public Date getDataBoletimNotas() {
-        return dataBoletimNotas;
+    public Date getDataBoletim() {
+        return dataBoletim;
     }
 
-    public void setDataBoletimNotas(Date dataBoletimNotas) {
-        this.dataBoletimNotas = dataBoletimNotas;
+    public void setDataBoletim(Date dataBoletim) {
+        this.dataBoletim = dataBoletim;
     }
 
     public Aluno getAluno() {
@@ -54,8 +53,8 @@ public class BoletimNotas {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + this.idBoletimNotas;
+        int hash = 3;
+        hash = 53 * hash + this.idBoletim;
         return hash;
     }
 
@@ -70,8 +69,8 @@ public class BoletimNotas {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BoletimNotas other = (BoletimNotas) obj;
-        if (this.idBoletimNotas != other.idBoletimNotas) {
+        final BoletimNota other = (BoletimNota) obj;
+        if (this.idBoletim != other.idBoletim) {
             return false;
         }
         return true;
@@ -79,8 +78,9 @@ public class BoletimNotas {
 
     @Override
     public String toString() {
-        return "BoletimNotas{" + "data_boletin_notas=" + dataBoletimNotas + '}';
+        return "BoletimNota{" + "dataBoletim=" + dataBoletim + '}';
     }
-    
+
+ 
     
 }

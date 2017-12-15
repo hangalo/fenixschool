@@ -1,9 +1,8 @@
 package fenixschool.modelo;
 
-import java.io.Serializable;
-import java.util.Objects;
 
-public class EncarregadoEducacao implements Serializable{
+public class EncarregadoEducacao {
+
 
     private int idEncarregadoEducacao;
     private String nomeEncarregado;
@@ -221,6 +220,5 @@ public class EncarregadoEducacao implements Serializable{
     public String toString() {
         return "EncarregadoEducacao{" + "nomeEncarregado=" + nomeEncarregado + ", sobrenomeEncarregado=" + sobrenomeEncarregado + '}';
     }
-    
-  
+
 }

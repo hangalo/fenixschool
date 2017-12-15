@@ -15,152 +15,155 @@
                 <b:panel title="Novo Encarregado de Educação" collapsible="false" look="primary">
                     <p:messages showDetail="true" autoUpdate="true" showSummary="true" showIcon="true"/>
                     <h:form id="frmGuardar" enctype="multipart/form-data">
-                        <p:tabView>
-                            <p:tab title="Dados Pessoais">
-                                <p:growl showDetail="true" id="messages"/>
+                        <b:panel title="Dados pessoais (* Compos obrigatórios)" look="primary" collapsible="false">
+                            <p:growl showDetail="true" id="messages"/>
 
-                                <h:panelGrid columns="2">
-                                    <h:panelGroup >
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel value="Nome:"/>
-                                            <p:inputText id="nome" placeholder="nome" style="width: 400px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.nomeEncarregado}"/>
-                                        </h:panelGrid>
-                                    </h:panelGroup>
-
-                                    <h:panelGroup>
-                                        <h:panelGrid>
-                                            <p:outputLabel value="Sobrenome:"/>
-                                            <p:inputText id="sobrenome" placeholder="sobrenome" style="width: 400px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenomeEncarregado}" />
-                                        </h:panelGrid>
-                                    </h:panelGroup>
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel value="Sexo:"/>
-                                        <p:selectOneRadio value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo}">
-                                            <f:selectItems  value="#{encarregadoEducacaoMBean.opSexos}"/>
-                                        </p:selectOneRadio>
-                                        <p:outputLabel value="Foto:"/>
-                                        <p:fileUpload fileUploadListener="#{encarregadoEducacaoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                            <h:panelGrid columns="2">
+                                <h:panelGroup >
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Nome: *"/>
+                                        <p:inputText id="nome"  placeholder="Nome" style="width: 200px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.nomeEncarregado}"/>
                                     </h:panelGrid>
-                                </h:panelGrid>
+                                </h:panelGroup>
 
-                                <p:fieldset legend="Profissão"  style="margin-bottom: 15px;">
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel value="Profissão:"/>
-                                        <!--SelectOneMenu Profissao-->
-                                        <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width: 351px;" label="Profissão:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.profissao}" converter="profissaoConverter">
-                                            <f:selectItem itemLabel="--Seleccione a profissão--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems var="profissao" value="#{encarregadoEducacaoMBean.prossifoes}" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}"/>
+                                <h:panelGroup>
+                                    <h:panelGrid>
+                                        <p:outputLabel value="Sobrenome: *"/>
+                                        <p:inputText id="sobrenome" placeholder="Sobrenome" style="width: 200px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.sobrenomeEncarregado}" />
+                                    </h:panelGrid>
+                                </h:panelGroup>    
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Sexo:"/>
+                                <p:selectOneRadio value="#{encarregadoEducacaoMBean.encarregadoEducacao.sexo}">
+                                    <f:selectItems  value="#{encarregadoEducacaoMBean.opSexos}"/>
+                                </p:selectOneRadio>
+                                <p:outputLabel value="Foto:"/>
+                                <p:fileUpload fileUploadListener="#{encarregadoEducacaoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid style="margin-top: 10px;" columns="2">
+                                <p:outputLabel value="Profissão:"/>
+                                <!--SelectOneMenu Profissao-->
+                                <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width: 351px;" label="Profissão:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.profissao}" converter="profissaoConverter">
+                                    <f:selectItem itemLabel="--Seleccione a profissão--" value="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems var="profissao" value="#{encarregadoEducacaoMBean.prossifoes}" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}"/>
+                                </p:selectOneMenu>
+                                <!--Fim-->
+                            </h:panelGrid>
+                        </b:panel>
+
+
+                        <b:panel title="Endereço" look="primary" collapsible="false">
+                            <h:panelGrid columns="4">
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Nº Casa:"/>
+                                        <p:inputText style="width: 100px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.casaEncarregado}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Rua:"/>
+                                        <p:inputText style="width: 150px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.ruaEncarregado}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Bairro:"/>
+                                        <p:inputText style="width: 155px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairroEncarregado}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Distrito urbano:"/>                              
+                                        <p:inputText style="width: 155px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.distritoUrbanoEncarregado}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Província:"/>
+                                        <!--SelectOneMenu Municipio-->
+                                        <p:selectOneMenu style="width: 280px;"  id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{encarregadoEducacaoMBean.provincia}" required="true" converter="provinciaConverter">
+                                            <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{encarregadoEducacaoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                            <f:ajax listener="#{encarregadoEducacaoMBean.carregarMunicipiosDaProvincia()}" render="municipios"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel style="margin-left: 3%;" value="Município:"/>
+                                        <p:selectOneMenu style="width: 280px; margin-left: 3%;"  id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.municipio}" required="true" converter="municipioConverter">
+                                            <f:selectItem itemLabel="--Seleccione o município--" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{encarregadoEducacaoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
                                         </p:selectOneMenu>
                                         <!--Fim-->
                                     </h:panelGrid>
-                                </p:fieldset>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </b:panel>
 
-                                <p:fieldset legend="Endereço">
-                                    <h:panelGrid columns="4">
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Nº Casa:"/>
-                                                <p:inputText style="width: 100px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.casaEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Rua:"/>
-                                                <p:inputText style="width: 280px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.ruaEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Bairro:"/>
-                                                <p:inputText style="width: 280px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.bairroEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Distrito urbano:"/>                              
-                                                <p:inputText style="width: 280px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.distritoUrbanoEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-                                    </h:panelGrid>
 
-                                    <h:panelGrid columns="2">
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Província:"/>
-                                                <!--SelectOneMenu Municipio-->
-                                                <p:selectOneMenu style="width: 280px;"  id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{encarregadoEducacaoMBean.provincia}" required="true" converter="provinciaConverter">
-                                                    <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
-                                                    <f:selectItems value="#{encarregadoEducacaoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                                    <f:ajax listener="#{encarregadoEducacaoMBean.carregarMunicipiosDaProvincia()}" render="municipios"/>
-                                                </p:selectOneMenu>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
 
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Município:"/>
-                                                <p:selectOneMenu style="width: 280px;"  id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{encarregadoEducacaoMBean.encarregadoEducacao.municipio}" required="true" converter="municipioConverter">
-                                                    <f:selectItem itemLabel="--Seleccione o município--" value="#{null}" noSelectionOption="true"/>
-                                                    <f:selectItems value="#{encarregadoEducacaoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
-                                                </p:selectOneMenu>
-                                                <!--Fim-->
-                                            </h:panelGrid>
-                                        </h:panelGroup>
+                        <b:panel title="Contactos" look="primary" collapsible="false">
+                            <h:panelGrid columns="4">
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <h:outputLabel  value="Telefone principal:"/>
+                                        <p:inputText id="text" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelPrincipalEncarregado}"/>
                                     </h:panelGrid>
-                                </p:fieldset>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Telefone altenativo:"/>
+                                        <p:inputText  value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelAlternativoEncarregado}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Email principal:"/>
+                                        <p:inputText size="30" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailPrincipalEncarregado}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Email alternativo:"/>
+                                        <p:inputText size="30" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailAlternativoEncarregado}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </b:panel>
 
-                                <p:fieldset legend="Contactos">
-                                    <h:panelGrid columns="4">
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <h:outputLabel  value="Telefone principal:"/>
-                                                <p:inputText style="width: 300px;"  value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelPrincipalEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Telefone altenativo:"/>
-                                                <p:inputText style="width: 300px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.telemovelAlternativoEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Email principal:"/>
-                                                <p:inputText style="width: 300px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailPrincipalEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Email alternativo:"/>
-                                                <p:inputText style="width: 300px;" value="#{encarregadoEducacaoMBean.encarregadoEducacao.emailAlternativoEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
+
+                        <b:panel title="Acesso ao sistema" look="primary" collapsible="false">
+                            <h:panelGrid columns="2">
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Login"/>
+                                        <p:inputText size="40" value="#{encarregadoEducacaoMBean.encarregadoEducacao.loginEncarregado}" placeholder="Login"/>
                                     </h:panelGrid>
-                                </p:fieldset>
-                                <p:fieldset legend="Acesso ao sistema">
-                                    <h:panelGrid columns="2">
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Login"/>
-                                                <p:inputText size="40" value="#{encarregadoEducacaoMBean.encarregadoEducacao.loginEncarregado}" placeholder="Login"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value="Password"/>
-                                                <p:inputText type="password" size="40" placeholder="Password" value="#{encarregadoEducacaoMBean.encarregadoEducacao.passwordEncarregado}"/>
-                                            </h:panelGrid>
-                                        </h:panelGroup>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Password"/>
+                                        <p:inputText type="password" size="40" placeholder="Password" value="#{encarregadoEducacaoMBean.encarregadoEducacao.passwordEncarregado}"/>
                                     </h:panelGrid>
-                                </p:fieldset>
-                            </p:tab>
-                        </p:tabView>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </b:panel>
                         <h:panelGrid columns="2">
-                            <p:commandButton value="Guardar" actionListener="#{encarregadoEducacaoMBean.guardar(evt)}" ajax="false"/>
+                            <p:commandButton  value="Guardar" actionListener="#{encarregadoEducacaoMBean.guardar(evt)}" ajax="false"/>
                             <p:commandButton value="Fechar" icon="ui-icon-close" action="/index" immediate="true" ajax="false"/>
                         </h:panelGrid>
                     </h:form>
                 </b:panel>
+                
             </ui:define>
         </ui:composition>
     </h:body>

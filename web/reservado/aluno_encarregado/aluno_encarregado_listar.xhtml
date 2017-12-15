@@ -14,7 +14,7 @@
             <ui:define name="content">
                 <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>
                 <p:growl showDetail="true" showSummary="true" autoUpdate="true"/>
-                <b:panel title="Lista de alunos e seus encarregados" collapsible="false" look="info">
+                <b:panel title="Lista de alunos e seus encarregados" collapsible="false" look="primary">
                     <h:form id="lista">
                         <p:dataTable emptyMessage="Nenhum registo encontrado" paginator="true" paginatorPosition="bottom" var="alunoEncarregado" value="#{alunoEncarregadoMBean.alunoEncarregadoEducacaos}"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rows="10" cellSeparator="true">
@@ -64,9 +64,9 @@
 
                     <!--Dialogo ver-->
                     <h:form id="frmVer">
-                        <p:dialog id="ver" header="Aluno : #{alunoEncarregadoMBean.alunoEncarregado.aluno.nomeAluno} #{alunoEncarregadoMBean.alunoEncarregado.aluno.sobrenomeAluno}, N.º: #{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}"  widgetVar="dlgVer" showEffect="clip" hideEffect="blind" height="550" width="600">
+                        <p:dialog id="ver" modal="true" header="Aluno : #{alunoEncarregadoMBean.alunoEncarregado.aluno.nomeAluno} #{alunoEncarregadoMBean.alunoEncarregado.aluno.sobrenomeAluno}, N.º: #{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}"  widgetVar="dlgVer" showEffect="clip" hideEffect="blind" height="400" width="800">
 
-                            <b:panel title="Informações sobre o aluno" look="primary" collapsible="false">
+                            <b:panel title="Informações sobre o aluno" look="info" collapsible="false">
                                 <h:panelGrid columns="3" >
                                     <h:panelGroup style="margin-right: 20px;">
                                         <h:panelGrid columns="2"> 
@@ -92,7 +92,7 @@
                                 </h:panelGroup>
                             </b:panel>
 
-                            <b:panel title="Informações gerais" look="primary" collapsible="false" display="inline">
+                            <b:panel title="Informações gerais" look="info" collapsible="false" display="inline">
 
                                 <h:panelGrid columns="2" >
                                     <p:outputLabel value="Código: "/>
@@ -125,9 +125,10 @@
 
                     <!--Dialogo edit-->
                     <h:form id="frmEdit">
-                        <p:dialog id="edit" header="Aluno : #{alunoEncarregadoMBean.alunoEncarregado.aluno.nomeAluno} #{alunoEncarregadoMBean.alunoEncarregado.aluno.sobrenomeAluno}, N.º: #{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}"  widgetVar="dlgEdit" showEffect="clip" hideEffect="blind" height="550" width="800">
+                        <p:dialog id="edit" modal="true" header="Aluno : #{alunoEncarregadoMBean.alunoEncarregado.aluno.nomeAluno} #{alunoEncarregadoMBean.alunoEncarregado.aluno.sobrenomeAluno}, N.º: #{alunoEncarregadoMBean.alunoEncarregado.aluno.idAluno}" 
+                                  widgetVar="dlgEdit" showEffect="clip" hideEffect="blind" height="400" width="800">
 
-                            <b:panel title="Informações sobre o aluno" look="primary" collapsible="false">
+                            <b:panel title="Informações sobre o aluno" look="info" collapsible="false">
                                 <h:inputHidden value="#{alunoEncarregadoMBean.alunoEncarregado.idAlunoEncarregado}"/>
                                 <h:panelGrid columns="3" >
                                     <h:panelGroup style="margin-right: 20px;">
@@ -154,7 +155,7 @@
                                 </h:panelGroup>
                             </b:panel>
 
-                            <b:panel title="Informações gerais" look="primary" collapsible="false" display="inline">
+                            <b:panel title="Informações gerais" look="info" collapsible="false" display="inline">
 
                                 <h:panelGrid columns="3">
                                     <h:panelGroup>

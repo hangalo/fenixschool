@@ -12,14 +12,17 @@ import fenixschool.dao.DisciplinasDoCursoDAO;
 import fenixschool.modelo.Curso;
 import fenixschool.modelo.Disciplina;
 import fenixschool.modelo.DisciplinasDoCurso;
+import fenixschool.util.GestorImpressao;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
@@ -30,7 +33,7 @@ import javax.faces.view.ViewScoped;
  */
 @ManagedBean(name = "disciplinasDoCursoMBean")
 @ViewScoped
-public class DisciplinasDoCursoMBean implements Serializable{
+public class DisciplinasDoCursoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,6 +46,12 @@ public class DisciplinasDoCursoMBean implements Serializable{
 
     private DisciplinaDAO disciplinaDAO;
     private List<Disciplina> disciplinas;
+    private List<DisciplinasDoCurso> discipCursos;
+
+    private String curso;
+
+    @ManagedProperty(value = "#{gestorImpressao}")
+    private GestorImpressao gestorImpressao;
 
     public DisciplinasDoCursoMBean() {
     }
@@ -52,8 +61,8 @@ public class DisciplinasDoCursoMBean implements Serializable{
 
         disciplinasDoCurso = new DisciplinasDoCurso();
         disciplinasDoCursoDAO = new DisciplinasDoCursoDAO();
-        disciplinasDoCursos = new ArrayList<>();
-
+        discipCursos = disciplinasDoCursoDAO.findByCurso(curso);
+        disciplinasDoCursos = disciplinasDoCursoDAO.findAll();
         cursoDAO = new CursoDAO();
         cursos = cursoDAO.findAll();
 
@@ -70,8 +79,12 @@ public class DisciplinasDoCursoMBean implements Serializable{
     }
 
     public List<DisciplinasDoCurso> getDisciplinasDoCursos() {
+        // if (!curso.isEmpty()) {
         disciplinasDoCursos = disciplinasDoCursoDAO.findAll();
         return disciplinasDoCursos;
+        // }
+
+        //return null;
     }
 
     public void setDisciplinasDoCursos(List<DisciplinasDoCurso> disciplinasDoCursos) {
@@ -96,35 +109,51 @@ public class DisciplinasDoCursoMBean implements Serializable{
         this.disciplinas = disciplinas;
     }
 
-    public void save(ActionEvent event) {
-        int controlo = 0;
-        disciplinasDoCursoDAO.save(disciplinasDoCurso);
-        if (controlo > 0) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Guardado com sucesso!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            disciplinasDoCurso = new DisciplinasDoCurso();
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar", "Erro ao guardar com sucesso!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
+    public String getCurso() {
+        return curso;
+    }
 
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
+    public List<DisciplinasDoCurso> getDiscipCursos() {
+        if (curso != null) {
+            discipCursos = disciplinasDoCursoDAO.findByCurso(curso);
+            return discipCursos;
+        }
+        return null;
+    }
+
+    public void setDiscipCursos(List<DisciplinasDoCurso> discipCursos) {
+        this.discipCursos = discipCursos;
+    }
+
+    public GestorImpressao getGestorImpressao() {
+        return gestorImpressao;
+    }
+
+    public void setGestorImpressao(GestorImpressao gestorImpressao) {
+        this.gestorImpressao = gestorImpressao;
+    }
+
+    public void save(ActionEvent event) {
+        disciplinasDoCursoDAO.save(disciplinasDoCurso);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Guardado com sucesso!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        disciplinasDoCurso = new DisciplinasDoCurso();
     }
 
     public void edit(ActionEvent event) {
-        int controlo = 0;
         disciplinasDoCursoDAO.update(disciplinasDoCurso);
         disciplinasDoCurso = null;
-        if (controlo > 0) {
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("disciplina_do_curso_listar.jsf");
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            } catch (IOException e) {
-                java.util.logging.Logger.getLogger(DisciplinasDoCursoMBean.class.getName()).log(Level.SEVERE, null, e);
-            }
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Erro ao actualizar.");
+
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("disciplina_do_curso_listar.jsf");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (IOException e) {
+            java.util.logging.Logger.getLogger(DisciplinasDoCursoMBean.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -132,6 +161,14 @@ public class DisciplinasDoCursoMBean implements Serializable{
         disciplinasDoCursoDAO.delete(disciplinasDoCurso);
         disciplinasDoCurso = null;
         return "disciplina_do_curso_listar?faces-redirect=true";
+    }
+
+    public String imprimirDisciplinaPorCurso() {
+        String relatorio = "curso_disciplina.jasper";
+        HashMap parametro = new HashMap();
+        parametro.put("nome_curso",curso);
+        gestorImpressao.imprimirPDF(relatorio, parametro);
+        return null;
     }
 
 }

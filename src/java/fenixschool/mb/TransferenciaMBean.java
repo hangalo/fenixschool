@@ -123,11 +123,11 @@ public class TransferenciaMBean implements Serializable {
             aluno.setIdAluno(Integer.parseInt(numeroDoALuno));
             transferencia.setAluno(aluno);
             transferenciaDAO.save(transferencia);
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", transferencia.getAluno().getNomeAluno() + " Guardado com sucesso!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", " Guardado com sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             transferencia = new Transferencia();
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao guardar " + transferencia.getAluno().getNomeAluno() + "!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao guardar!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
@@ -143,7 +143,7 @@ public class TransferenciaMBean implements Serializable {
             aluno.setIdAluno(Integer.parseInt(numeroDoALuno));
             transferencia.setAluno(aluno);
             transferenciaDAO.update(transferencia);
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", transferencia.getAluno().getNomeAluno() + " Actualizado  com sucesso!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar"," Actualizado  com sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             transferencia = null;
             try {
@@ -152,7 +152,7 @@ public class TransferenciaMBean implements Serializable {
                 java.util.logging.Logger.getLogger(TransferenciaMBean.class.getName()).log(Level.SEVERE, null, e);
             }
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Actualizar", "Erro ao actualizar " + transferencia.getAluno().getNomeAluno() + "!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Actualizar", "Erro ao actualizar!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }

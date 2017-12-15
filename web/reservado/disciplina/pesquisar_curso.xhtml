@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+
+            <ui:define name="content">
+                <b:panel title="Pesquisar disciplinas por curso" look="primary" collapsible="false" display="iniline">
+                    <h:form id="frmVer">
+                        <h:form id="formBuscar">
+                            <h:messages/>
+                            <h:panelGrid columns="5">
+                                <p:outputLabel value="Pesquisar disciplinas por curso:"/>
+                                <!--<p:inputText style="margin-left: 8px; width: 250px;"  placeholder="Pesquisar por nome do curso" value="{disciplinasDoCursoMBean.curso}"/>-->
+                                <p:selectOneMenu style="margin-left: 8px; width: 300px;" value="#{disciplinasDoCursoMBean.curso}" filter="true" filterMatchMode="startsWith">
+                                    <f:selectItem noSelectionOption="true" itemLabel="--Seleccione o curso--" itemValue="#{null}"/>
+                                    <f:selectItems var="curso" itemLabel="#{curso.nomeCurso}" value="#{cursoMBean.cursos}" itemValue="#{curso.nomeCurso}"/>
+                                </p:selectOneMenu>
+
+                                <b:commandButton icon="search" immediate="true" value="Pesquisar..." style="margin-left: 5px; " look="primary"/>
+                            </h:panelGrid>
+                        </h:form>
+
+                        <p:dataTable  var="disciplinaPorCurso" paginator="true" paginatorPosition="bottom" emptyMessage="Nenhum registro encontrado" 
+                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                      value="#{disciplinasDoCursoMBean.discipCursos}">
+
+                            <p:column headerText="Código" style="width: 100px;">
+                                <p:outputLabel value="#{disciplinaPorCurso.disciplina.idDisciplina}"/>
+                            </p:column>
+
+                            <p:column headerText="Disciplinas">
+                                <p:outputLabel value="#{disciplinaPorCurso.disciplina.nomeDisciplina}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                Total de disciplinas: (#{disciplinasDoCursoMBean.discipCursos.size()})
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <h:form>
+                        <p:commandButton ajax="false" value="Voltar" icon="ui-icon-refresh" action="/reservado/disciplina/disciplina_do_curso_listar"/>
+                        <p:commandButton value="Imprimir" action="#{disciplinasDoCursoMBean.imprimirDisciplinaPorCurso()}"/>
+                    </h:form>
+
+                </b:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

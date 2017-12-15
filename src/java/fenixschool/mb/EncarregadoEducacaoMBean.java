@@ -28,7 +28,7 @@ import javax.annotation.PostConstruct;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
 
@@ -43,7 +43,7 @@ import org.primefaces.model.UploadedFile;
  * @author PENA
  */
 @ManagedBean(name = "encarregadoEducacaoMBean")
-@SessionScoped
+@ViewScoped
 
 public class EncarregadoEducacaoMBean implements Serializable {
 

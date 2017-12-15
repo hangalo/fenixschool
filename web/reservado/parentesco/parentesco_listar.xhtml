@@ -15,7 +15,7 @@
 
             <ui:define name="content">
                 <p:growl showDetail="true" showSummary="true" autoUpdate="true"/>
-                <b:panel title="Lista de graus parentescos" collapsible="false" look="primary">
+                <b:panel title="Lista de graus parentescos" collapsible="false" look="info">
                     <h:form id="lista">
                         <p:dataTable  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                       var="parentesco" value="#{parentescoMBean.parentescos}" paginatorPosition="bottom" rows="10" cellSeparator="true" paginator="true" emptyMessage="Nenhum registro encontrado">
@@ -50,7 +50,7 @@
                     </h:form>
 
                     <h:form id="frmEditar"> 
-                        <p:dialog style="width: 700px; height: 400px;" id="editar" header="Actualizar informações" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                        <p:dialog width="400" height="150" modal="true" id="editar" header="Actualizar informações" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
                             <p:tabView>
                                 <p:tab title="Actualização das informações">
                                     <p:messages showDetail="true" autoUpdate="true" showSummary="true"/>
@@ -77,7 +77,7 @@
                     </h:form>
 
                     <h:form id="guardar"> 
-                        <p:dialog style="width: 700px; height: 400px;" id="guardar" header="Guardar informações" widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind">
+                        <p:dialog width="400" height="150" modal="true" id="guardar" header="Novas informações" widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind">
                             <p:tabView>
                                 <p:tab title="Informações gerais">
                                     <h:panelGrid columns="2">

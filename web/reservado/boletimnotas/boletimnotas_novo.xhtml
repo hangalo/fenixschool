@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Novo boletim de notas</title>
         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
@@ -14,23 +15,31 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <p:messages autoUpdate="true" showIcon="true" showDetail="true"/>
-                <p:panel header="Cadastro de um novo boletim de notas" footer="Regitos de boletins de notas">
-                    <h:form>
-                        <h:panelGrid columns="2">
-                            <p:outputLabel value="Aluno:"/>
-                            <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width: 250px;" value="#{boletimNotasMBean.boletimNota.aluno}" rendered="true" converter="alunoConverter">
-                                <f:selectItem itemLabel="--Selecione o aluno--" value="#{null}" noSelectionOption="true"/>
-                                <f:selectItems value="#{boletimNotasMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
-                            </p:selectOneMenu>
-                            <p:outputLabel value="Data:"/>
-                            <p:calendar locale="pt" value="#{boletimNotasMBean.boletimNota.dataBoletimNotas}" pattern="dd/MM/yyyy" size="24"/>
-                        </h:panelGrid>
-                        <h:panelGrid columns="2">
-                            <p:commandButton  icon="ui-icon-plus" value="Guardar" actionListener="#{boletimNotasMBean.guardar(event)}" ajax="false"/>
-                            <p:commandButton  icon="ui-icon-close" value="Fechar" ajax="false" action="/index" immediate="true"/>
-                        </h:panelGrid>
-                    </h:form>
-                </p:panel>
+                <b:panel title="Cadastro de um novo boletim de notas" look="primary" collapsible="false">
+
+                    <b:panel look="primary" title="Novos dados" collapsible="false">
+                        <h:form id="frmGuardar">
+                            <h:panelGrid columns="2">
+
+                                <p:outputLabel value="Nome do aluno:"/>
+                                <p:selectOneMenu  style="margin-left: 5px; width: 280px;" value="#{boletimMBean.boletim.aluno}"
+                                                  filter="true" filterMatchMode="startsWith" converter="alunoConverter">
+                                    <f:selectItem itemLabel="--Seleccione o aluno--" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno} #{aluno.sobrenomeAluno}"
+                                                   value="#{boletimMBean.alunos}"/>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Data de emissão:"/>
+                                <p:calendar style="margin-left: 5px;" value="#{boletimMBean.boletim.dataBoletim}" pattern="dd/MM/yyyy" locale="pt"/>
+                            </h:panelGrid>
+                            <p:commandButton style="margin-top: 10px;" value="Guardar" icon="ui-icon-disk" actionListener="#{boletimMBean.save(event)}"/>
+                            <p:commandButton value="Fechar" icon="ui-icon-close" action="/index" immediate="true" ajax="false"/>
+                        </h:form>
+
+
+                    </b:panel>
+
+                </b:panel>
             </ui:define>
         </ui:composition>
     </h:body>

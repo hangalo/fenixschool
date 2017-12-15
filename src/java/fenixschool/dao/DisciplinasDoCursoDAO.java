@@ -1,4 +1,3 @@
-
 package fenixschool.dao;
 
 import fenixschool.modelo.Curso;
@@ -21,13 +20,13 @@ public class DisciplinasDoCursoDAO implements GenericoDAO<DisciplinasDoCurso> {
     private static final String INSERT = "INSERT INTO curso_disciplina (codigo_curso,id_disciplina) VALUES (?,?);";
     private static final String UPDATE = "UPDATE curso_disciplina SET codigo_curso = ?, id_disciplina = ? WHERE id_curso_disciplina = ?";
     private static final String DELETE = "DELETE FROM curso_disciplina WHERE id_curso_disciplina = ?";
-    private static final String SELECT_BY_ID = "SELECT cd.id_curso_disciplina, d.nome_disciplina, c.nome_curso,d.descricao_displina,c.descricao_curso,c.codigo_ministerio_educacao FROM curso_disciplina cd INNER JOIN curso c ON (cd.codigo_curso = c.codigo_curso) INNER JOIN disciplina d ON (cd.id_disciplina = d.id_disciplina) WHERE cd.id_curso_disciplina =?";
-    private static final String SELECT_ALL = "SELECT cd.id_curso_disciplina,d.nome_disciplina, c.nome_curso,d.descricao_displina,c.descricao_curso,c.codigo_ministerio_educacao FROM curso_disciplina cd INNER JOIN curso c ON (cd.codigo_curso = c.codigo_curso) INNER JOIN disciplina d ON (cd.id_disciplina = d.id_disciplina)";
+    private static final String SELECT_BY_ID = "SELECT cd.id_curso_disciplina,d.id_disciplina, d.nome_disciplina,c.codigo_curso, c.nome_curso,d.descricao_displina,c.descricao_curso,c.codigo_ministerio_educacao FROM curso_disciplina cd INNER JOIN curso c ON (cd.codigo_curso = c.codigo_curso) INNER JOIN disciplina d ON (cd.id_disciplina = d.id_disciplina) WHERE cd.id_curso_disciplina =? ORDER by c.nome_curso";
+    private static final String SELECT_BY_CURSO = "SELECT cd.id_curso_disciplina,d.id_disciplina, d.nome_disciplina,c.codigo_curso, c.nome_curso,d.descricao_displina,c.descricao_curso,c.codigo_ministerio_educacao FROM curso_disciplina cd INNER JOIN curso c ON (cd.codigo_curso = c.codigo_curso) INNER JOIN disciplina d ON (cd.id_disciplina = d.id_disciplina) WHERE c.nome_curso LIKE ? ORDER by c.nome_curso";
+    private static final String SELECT_ALL = "SELECT cd.id_curso_disciplina,d.id_disciplina, d.nome_disciplina,c.codigo_curso, c.nome_curso,d.descricao_displina,c.descricao_curso,c.codigo_ministerio_educacao FROM curso_disciplina cd INNER JOIN curso c ON (cd.codigo_curso = c.codigo_curso) INNER JOIN disciplina d ON (cd.id_disciplina = d.id_disciplina) ORDER by c.nome_curso";
 
     public DisciplinasDoCursoDAO() {
     }
 
-    
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
@@ -118,6 +117,28 @@ public class DisciplinasDoCursoDAO implements GenericoDAO<DisciplinasDoCurso> {
         return disciplinasDoCurso;
     }
 
+    public List<DisciplinasDoCurso> findByCurso(String curso) {
+        List<DisciplinasDoCurso> disciplinasDoCursos = new ArrayList<>();
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_CURSO);
+            ps.setString(1, curso);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                DisciplinasDoCurso disciplinasDoCurso = new DisciplinasDoCurso();
+                popularComDados(disciplinasDoCurso, rs);
+                disciplinasDoCursos.add(disciplinasDoCurso);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao carregar dados: " + ex.getMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+        return disciplinasDoCursos;
+    }
+
     @Override
     public List<DisciplinasDoCurso> findAll() {
         List<DisciplinasDoCurso> disciplinasDoCursos = new ArrayList<>();
@@ -148,10 +169,14 @@ public class DisciplinasDoCursoDAO implements GenericoDAO<DisciplinasDoCurso> {
 
             discipCurso.setIdCursoDisciplina(rs.getInt("id_curso_disciplina"));
 
+            disciplina.setIdDisciplina(rs.getString("id_disciplina"));
             disciplina.setNomeDisciplina(rs.getString("nome_disciplina"));
             disciplina.setDescricaoDisplina(rs.getString("descricao_displina"));
             discipCurso.setDisciplina(disciplina);
 
+            //id_disciplina
+            //codigo_curso
+            curso.setCodigoCurso(rs.getString("codigo_curso"));
             curso.setNomeCurso(rs.getString("nome_curso"));
             curso.setDescricaoCurso(rs.getString("descricao_curso"));
             curso.setCodigoMinisterioDaEducação(rs.getString("codigo_ministerio_educacao"));

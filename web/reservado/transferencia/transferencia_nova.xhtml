@@ -89,24 +89,26 @@
 
                 <h:form>
                     <p:commandButton value="Fechar" action="/index" ajax="false"/> 
+                    <p:commandButton value="Voltar" icon="ui-icon-refresh" action="/reservado/transferencia/transferencia_listar.jsf"/>
                 </h:form>
 
                 <h:form  id="frmNovo" >
-                    <p:dialog header="Efetuar transferência de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}, Aluno N.º: #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="clip" hideEffect="blind" height="550" width="550">
+                    <p:dialog  header="Efetuar transferência de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}, Aluno N.º: #{alunoMBean.aluno.idAluno}" 
+                               widgetVar="dlgNovo" showEffect="clip" hideEffect="blind" height="400" width="880" modal="true">
 
-                        <b:panel title="Informações sobre o aluno" look="primary" collapsible="false">
+                        <b:panel title="Informações sobre o aluno" look="info" collapsible="false">
                             <h:panelGrid columns="3" >
                                 <h:panelGroup style="margin-right: 20px;">
                                     <h:panelGrid columns="2"> 
                                         <p:outputLabel value="Nº: "/>
-                                        <p:outputLabel style="margin-left: 3px;" value=" #{alunoMBean.aluno.idAluno}"/>
+                                        <p:outputLabel style="margin-left: 8px;" value=" #{alunoMBean.aluno.idAluno}"/>
                                     </h:panelGrid>
                                 </h:panelGroup>
                                 <h:panelGroup/>
 
                                 <h:panelGroup>
                                     <h:panelGrid columns="2">
-                                        <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{alunoMBean.aluno.urlfotoAluno}" alt="foto" width="70" height="70"/>
+                                        <h:graphicImage style="margin-left: 10px;" value="/alunoVisualizarFotoServlet?file=#{alunoMBean.aluno.urlfotoAluno}" alt="foto" width="70" height="70"/>
                                     </h:panelGrid>
                                 </h:panelGroup>
 
@@ -121,7 +123,7 @@
                         </b:panel>
 
 
-                        <b:panel title="Informações gerais sobre a transferência" look="primary" collapsible="false" display="inline">
+                        <b:panel title="Informações gerais sobre a transferência" look="info" collapsible="false" display="inline">
                                
                                 <h:panelGrid columns="2">
                                     <h:panelGroup>
@@ -146,14 +148,14 @@
                                     <h:panelGroup>
                                         <h:panelGrid columns="1">
                                             <p:outputLabel value="Texto de transferência"/>
-                                            <p:inputTextarea cols="50" rows="5" value="#{transferenciaMBean.transferencia.textoTransferencia}"/>
+                                            <p:inputTextarea cols="52" rows="5" value="#{transferenciaMBean.transferencia.textoTransferencia}"/>
                                         </h:panelGrid>
                                     </h:panelGroup>
 
                                     <h:panelGroup>
                                         <h:panelGrid columns="1">
                                             <p:outputLabel style="margin-left: 4px;" value="Observações"/>
-                                            <p:inputTextarea cols="25" rows="5" style="margin-left: 4px;" value="#{transferenciaMBean.transferencia.observacoes}"/>
+                                            <p:inputTextarea cols="50" rows="5" style="margin-left: 4px;" value="#{transferenciaMBean.transferencia.observacoes}"/>
                                         </h:panelGrid>
                                     </h:panelGroup>
                                 </h:panelGrid>
@@ -173,7 +175,7 @@
                             </b:panel>
                         <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{transferenciaMBean.guardar(event)}" update="@form">
                             <f:param name="numeroAluno" value="#{alunoMBean.aluno.idAluno}"/>
-                        </p:commandButton> 
+                        </p:commandButton>
                     </p:dialog>
                 </h:form>
             </ui:define>

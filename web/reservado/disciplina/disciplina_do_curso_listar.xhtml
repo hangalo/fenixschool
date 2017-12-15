@@ -1,14 +1,126 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
 
             <ui:define name="content">
-                content
+                <b:panel title="Disciplinas por curso" look="primary" collapsible="false">
+
+                    <h:form>
+                        <p:growl autoUpdate="true" showDetail="true" showSummary="true"/>
+                        <p:dataTable id="disciplinas" class="dataTable" paginator="true"
+                                     paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rows="10" rowsPerPageLabel="10" emptyMessage="Nenhum registro encontrado" liveScroll="true"
+                                     selection="Single" var="disciplina" value="#{disciplinasDoCursoMBean.disciplinasDoCursos}"
+                                     cellSeparator="true" nativeElements="true" >
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Curso"/>
+                                </f:facet>
+                                <p:outputLabel value="#{disciplina.curso.nomeCurso}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código da disciplina"/>
+                                </f:facet>
+                                <p:outputLabel value="#{disciplina.disciplina.idDisciplina}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Disciplina"/>
+                                </f:facet>
+                                <p:outputLabel value="#{disciplina.disciplina.nomeDisciplina}"/>
+                            </p:column>
+
+                            <p:column style="width: 150px;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton icon="ui-icon-trash" action="#{disciplinasDoCursoMBean.delete()}">
+                                    <f:setPropertyActionListener target="#{disciplinasDoCursoMBean.disciplinasDoCurso}" value="#{disciplina}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-pencil" update=":frmEditar:editar" oncomplete="PF('dialogoEditar').show();">
+                                    <f:setPropertyActionListener target="#{disciplinasDoCursoMBean.disciplinasDoCurso}" value="#{disciplina}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-zoomin" action="/reservado/disciplina/pesquisar_curso"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                Total de registros: (#{disciplinasDoCursoMBean.disciplinasDoCursos.size()})
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+
+                    <h:form id="Operacoes">
+                        <p:commandButton  icon="ui-icon-plus" value="Novo" type="button" onclick="PF('dialogoNovo').show();" update="growl" ajax="false"/>
+                        <p:commandButton value="Fechar" action="/index" icon="ui-icon-close" immediate="true" ajax="false"/>
+                    </h:form>
+
+
+                    <h:form id="novo">
+                        <p:dialog id="Novo" widgetVar="dialogoNovo" modal="true" header="Novo registo" showEffect="clip" hideEffect="blind">
+                            <h:panelGrid columns="2">
+
+                                <p:outputLabel value="Curso:"/>
+                                <p:selectOneMenu style="width: 300px; margin-left: 8px;" filter="true" filterMatchMode="startsWith"
+                                                 value="#{disciplinasDoCursoMBean.disciplinasDoCurso.curso}" converter="cursoConverter">
+                                    <f:selectItem noSelectionOption="true" value="#{null}" itemLabel="--Selecione o curso--"/>
+                                    <f:selectItems var="curso" itemValue="#{curso}" value="#{disciplinasDoCursoMBean.cursos}"
+                                                   itemLabel="#{curso.nomeCurso}"/>
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="Disciplina:"/>
+                                <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width: 300px; margin-left: 8px;" 
+                                                 value="#{disciplinasDoCursoMBean.disciplinasDoCurso.disciplina}" converter="disciplinaConverter">
+                                    <f:selectItem noSelectionOption="true" value="#{null}" itemLabel="--Seleccione a disciplina--"/>
+                                    <f:selectItems var="diciplina" itemValue="#{disciplina}" value="#{disciplinasDoCursoMBean.disciplinas}"
+                                                   itemLabel="#{diciplina.nomeDisciplina} --{#{diciplina.idDisciplina}}--" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <p:commandButton value="Guardar" icon="ui-icon-disk" action="#{disciplinasDoCursoMBean.save(event)}"/>
+                        </p:dialog>
+                    </h:form>
+
+
+                    <h:form id="frmEditar">
+                        <p:dialog id="editar" modal="true" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind" header="Actualizar informação">
+                            <h:inputHidden value="#{disciplinasDoCursoMBean.disciplinasDoCurso.idCursoDisciplina}"/>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Curso:"/>
+                                <p:selectOneMenu style="width: 300px; margin-left: 8px;" filter="true" filterMatchMode="startsWith"
+                                                 value="#{disciplinasDoCursoMBean.disciplinasDoCurso.curso}" converter="cursoConverter">
+                                    <f:selectItem noSelectionOption="true" value="#{null}" itemLabel="--Selecione o curso--"/>
+                                    <f:selectItems var="curso" itemValue="#{curso}" value="#{disciplinasDoCursoMBean.cursos}"
+                                                   itemLabel="#{curso.nomeCurso}"/>
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="Disciplina:"/>
+                                <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width: 300px; margin-left: 8px;" 
+                                                 value="#{disciplinasDoCursoMBean.disciplinasDoCurso.disciplina}" converter="disciplinaConverter">
+                                    <f:selectItem noSelectionOption="true" value="#{null}" itemLabel="--Seleccione a disciplina--"/>
+                                    <f:selectItems var="diciplina" itemValue="#{disciplina}" value="#{disciplinasDoCursoMBean.disciplinas}"
+                                                   itemLabel="#{diciplina.nomeDisciplina} --{ #{diciplina.idDisciplina} }--" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <p:commandButton value="Actualizar" icon="ui-icon-pencil" action="#{disciplinasDoCursoMBean.edit(event)}"/>
+                        </p:dialog>
+                    </h:form>
+
+                </b:panel>
             </ui:define>
 
         </ui:composition>

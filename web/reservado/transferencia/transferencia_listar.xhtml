@@ -17,7 +17,7 @@
 
             <ui:define name="content">
                 <p:growl showDetail="true" autoUpdate="true" showSummary="true"/>
-                <b:panel collapsible="false" title="Lista de transferências" look="primary">
+                <b:panel collapsible="false" title="Lista de transferências" look="info">
                     <h:form id="lista">
                         <p:dataTable  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                       var="transferencia" value="#{transferenciaMBean.transferencias}" paginatorPosition="bottom" rows="10" cellSeparator="true" paginator="true" emptyMessage="Nenhum registro encontrado">
@@ -73,21 +73,22 @@
                     </h:form>
 
                     <h:form id="frmVer">
-                        <p:dialog id="ver" width="700" height="530" widgetVar="dialogoVer" header="Ver detalhes da transferência de (#{transferenciaMBean.transferencia.aluno.nomeAluno} #{transferenciaMBean.transferencia.aluno.sobrenomeAluno})" showEffect="clip" hideEffect="blind">
+                        <p:dialog id="ver" width="800" height="400" widgetVar="dialogoVer" header="Ver detalhes da transferência de (#{transferenciaMBean.transferencia.aluno.nomeAluno} #{transferenciaMBean.transferencia.aluno.sobrenomeAluno})" 
+                                  showEffect="clip" hideEffect="blind" modal="true">
 
                             <b:panel title="Informações do(a) aluno(a)" look="info" collapsible="false">
                                 <h:panelGrid columns="3" >
                                     <h:panelGroup style="margin-right: 20px;">
                                         <h:panelGrid columns="2"> 
                                             <p:outputLabel value="Nº: "/>
-                                            <p:outputLabel style="margin-left: 3px;" value=" #{transferenciaMBean.transferencia.aluno.idAluno}"/>
+                                            <p:outputLabel style="margin-left: 8px;" value=" #{transferenciaMBean.transferencia.aluno.idAluno}"/>
                                         </h:panelGrid>
                                     </h:panelGroup>
                                     <h:panelGroup/>
 
                                     <h:panelGroup>
                                         <h:panelGrid columns="2">
-                                            <h:graphicImage style="margin-left: 5px;" value="/alunoVisualizarFotoServlet?file=#{transferenciaMBean.transferencia.aluno.urlfotoAluno}" alt="foto" width="70" height="70"/>
+                                            <h:graphicImage style="margin-left: 10px;" value="/alunoVisualizarFotoServlet?file=#{transferenciaMBean.transferencia.aluno.urlfotoAluno}" alt="foto" width="70" height="70"/>
                                         </h:panelGrid>
                                     </h:panelGroup>
 
@@ -130,9 +131,11 @@
 
 
                     <h:form id="frmEditar"> 
-                        <p:dialog id="editar" style="width: 700px; height: 400px;" header="Actualizar transferência de: #{transferenciaMBean.transferencia.aluno.nomeAluno} #{transferenciaMBean.transferencia.aluno.sobrenomeAluno}, Aluno N.º: #{transferenciaMBean.transferencia.aluno.idAluno}"  widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                        <p:dialog id="editar" width="800" height="400" header="Actualizar transferência de: #{transferenciaMBean.transferencia.aluno.nomeAluno} #{transferenciaMBean.transferencia.aluno.sobrenomeAluno}, Aluno N.º: #{transferenciaMBean.transferencia.aluno.idAluno}" 
+                                  widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind" modal="true">
                             <h:inputHidden value="#{transferenciaMBean.transferencia.idTransferencia}"/>
-                            <b:panel title="Informações sobre o aluno" look="primary" collapsible="false">
+                            
+                            <b:panel title="Informações sobre o aluno" look="info" collapsible="false">
                                 <h:panelGrid columns="3" >
                                     <h:panelGroup style="margin-right: 20px;">
                                         <h:panelGrid columns="2"> 
@@ -159,7 +162,7 @@
                             </b:panel>
 
 
-                            <b:panel title="Informações gerais sobre a transferência" look="primary" collapsible="false" display="inline">
+                            <b:panel title="Informações gerais sobre a transferência" look="info" collapsible="false" display="inline">
 
                                 <h:panelGrid columns="2">
                                     <h:panelGroup>
@@ -184,14 +187,14 @@
                                     <h:panelGroup>
                                         <h:panelGrid columns="1">
                                             <p:outputLabel value="Texto de transferência"/>
-                                            <p:inputTextarea cols="50" rows="5" value="#{transferenciaMBean.transferencia.textoTransferencia}"/>
+                                            <p:inputTextarea cols="52" rows="5" value="#{transferenciaMBean.transferencia.textoTransferencia}"/>
                                         </h:panelGrid>
                                     </h:panelGroup>
 
                                     <h:panelGroup>
                                         <h:panelGrid columns="1">
                                             <p:outputLabel style="margin-left: 4px;" value="Observações"/>
-                                            <p:inputTextarea cols="25" rows="5" style="margin-left: 4px;" value="#{transferenciaMBean.transferencia.observacoes}"/>
+                                            <p:inputTextarea cols="50" rows="5" style="margin-left: 4px;" value="#{transferenciaMBean.transferencia.observacoes}"/>
                                         </h:panelGrid>
                                     </h:panelGroup>
                                 </h:panelGrid>

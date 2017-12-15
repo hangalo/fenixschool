@@ -16,7 +16,7 @@
         <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
                 <p:growl showDetail="true" autoUpdate="true" showSummary="true"/>
-                <b:panel collapsible="false" title="Lista de disciplinas" look="primay">
+                <b:panel collapsible="false" title="Lista de disciplinas" look="info">
                     <h:form>
                         <p:dataTable  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                       var="disciplina" value="#{disciplinaMBean.disciplinas}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
@@ -68,7 +68,8 @@
 
 
                     <h:form id="FrmVer">
-                        <p:dialog id="ver" widgetVar="dialogoVer" header="Ver detalhes do registo" showEffect="clip" hideEffect="blind">
+                        <p:dialog id="ver" widgetVar="dialogoVer" header="Detalhes do registo" showEffect="clip" hideEffect="blind"
+                                  modal="true" width="800" height="300">
                             <p:accordionPanel>
                                 <p:tab title="Detalhes da disciplina">
                                     <h:panelGrid columns="2" style="width: 30em;">
@@ -99,7 +100,8 @@
 
                     <!-- Inicio do Formulario editar-->
                     <h:form id="FrmEditar">
-                        <p:dialog style="width: 700px; height: 300px;" id="editar" widgetVar="dialogoEditar" header="Actualizar informações" showEffect="clip" hideEffect="blind">
+                        <p:dialog style="width: 700px; height: 300px;" id="editar" widgetVar="dialogoEditar" header="Actualizar informações"
+                                  showEffect="clip" hideEffect="blind" modal="true">
                             <p:tabView>
                                 <p:tab title="Informções da disciplina" >
                                     <h:panelGrid columns="4">
@@ -163,13 +165,13 @@
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
                                                 <p:outputLabel value="Descrição:"/>
-                                                <p:inputTextarea rows="3" cols="64" value="#{disciplinaMBean.disciplina.descricaoDisplina}"/>
+                                                <p:inputTextarea rows="3" cols="69" value="#{disciplinaMBean.disciplina.descricaoDisplina}"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
                                                 <p:outputLabel value="Sumário:"/>
-                                                <p:inputTextarea value="#{disciplinaMBean.disciplina.sumarioDisciplina}" cols="64" rows="3"/>
+                                                <p:inputTextarea value="#{disciplinaMBean.disciplina.sumarioDisciplina}" cols="68" rows="3"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
                                     </h:panelGrid>
@@ -190,7 +192,8 @@
 
                     <!--Inicio do formulario guardar-->
                     <h:form id="FrmGuardar">
-                        <p:dialog style="width: 700px; height: 300px;" widgetVar="dialogoNovo" showEffect="clip" hideEffect="blind" header="Guardar informações">
+                        <p:dialog style="width: 700px; height: 300px;" widgetVar="dialogoNovo" showEffect="clip" 
+                                  hideEffect="blind" header="Novas informações" modal="true">
                             <p:tabView>
                                 <p:tab title="Informções da disciplina" >
                                     <h:panelGrid columns="4">
@@ -218,7 +221,7 @@
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
                                                 <p:outputLabel value="Data de criação:"/>
-                                                <p:calendar pattern="dd/MM/yyyy" value="#{disciplinaMBean.disciplina.dataCriacao}" locale="pt"/>
+                                                <p:calendar  pattern="dd/MM/yyyy" value="#{disciplinaMBean.disciplina.dataCriacao}" locale="pt"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
 
@@ -254,13 +257,13 @@
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
                                                 <p:outputLabel value="Descrição:"/>
-                                                <p:inputTextarea rows="3" cols="64" value="#{disciplinaMBean.disciplina.descricaoDisplina}"/>
+                                                <p:inputTextarea rows="3" cols="69" value="#{disciplinaMBean.disciplina.descricaoDisplina}"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
                                                 <p:outputLabel value="Sumário:"/>
-                                                <p:inputTextarea value="#{disciplinaMBean.disciplina.sumarioDisciplina}" cols="64" rows="3"/>
+                                                <p:inputTextarea value="#{disciplinaMBean.disciplina.sumarioDisciplina}" cols="68" rows="3"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
                                     </h:panelGrid>

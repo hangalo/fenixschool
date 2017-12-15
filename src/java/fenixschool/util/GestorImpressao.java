@@ -87,7 +87,7 @@ public class GestorImpressao {
             
                 Escreveu: Elisio Kavaimunwa
              */
-
+            
             prepararRelatorio(relatorio, paramentos);
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
             ServletOutputStream outputStream = response.getOutputStream();
@@ -127,7 +127,7 @@ public class GestorImpressao {
             facesContext.responseComplete();
             jasperPrint = JasperFillManager.fillReport(getPathPastaAplicacaoJSF() + relatorio, hashMap, conn);
         } catch (JRException jRException) {
-            System.out.printf(" Relatorios nao localizado" + jRException.getMessage());
+            System.out.printf(" Relatorios nao localizado " + jRException.getMessage());
         }
     }
 
