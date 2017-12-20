@@ -17,12 +17,18 @@ public class Aluno{
     private String nomeAluno;
     private String sobrenomeAluno;
     private Date dataNascimentoAluno;
+    private String nomeDoPai;
+    private String nomeDaMae;
     private String biAluno;
+    private Date dataEmissaoBi;
+    private String localEmissaoBi; 
     private String passaportAluno;
-    private Sexo sexo;
+    private Date dataEmissaoPassaporte;
+    private String localEmissaoPassaporte;
     private String casaAluno;
     private String bairroAluno;
     private String distritoAluno;
+    private String comunaAluno;
     private Municipio municipioAluno;
     private byte [] fotoAluno;
     private String urlfotoAluno;
@@ -30,6 +36,7 @@ public class Aluno{
     private String telefoneMovelAluno;
     private String emailAluno;
     private Profissao profissaoAluno;
+    private Sexo sexo;    
     private String loginAluno;
     private String passwordAluno;
 
@@ -188,11 +195,66 @@ public class Aluno{
         this.passwordAluno = passwordAluno;
     }
 
+    public String getNomeDoPai() {
+        return nomeDoPai;
+    }
+
+    public void setNomeDoPai(String nomeDoPai) {
+        this.nomeDoPai = nomeDoPai;
+    }
+
+    public String getNomeDaMae() {
+        return nomeDaMae;
+    }
+
+    public void setNomeDaMae(String nomeDaMae) {
+        this.nomeDaMae = nomeDaMae;
+    }
+
+    public Date getDataEmissaoBi() {
+        return dataEmissaoBi;
+    }
+
+    public void setDataEmissaoBi(Date dataEmissaoBi) {
+        this.dataEmissaoBi = dataEmissaoBi;
+    }
+
+    public String getLocalEmissaoBi() {
+        return localEmissaoBi;
+    }
+
+    public void setLocalEmissaoBi(String localEmissaoBi) {
+        this.localEmissaoBi = localEmissaoBi;
+    }
+
+    public Date getDataEmissaoPassaporte() {
+        return dataEmissaoPassaporte;
+    }
+
+    public void setDataEmissaoPassaporte(Date dataEmissaoPassaporte) {
+        this.dataEmissaoPassaporte = dataEmissaoPassaporte;
+    }
+
+    public String getLocalEmissaoPassaporte() {
+        return localEmissaoPassaporte;
+    }
+
+    public void setLocalEmissaoPassaporte(String localEmissaoPassaporte) {
+        this.localEmissaoPassaporte = localEmissaoPassaporte;
+    }
+
+    public String getComunaAluno() {
+        return comunaAluno;
+    }
+
+    public void setComunaAluno(String comunaAluno) {
+        this.comunaAluno = comunaAluno;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 37 * hash + this.idAluno;
-        hash = 37 * hash + Objects.hashCode(this.biAluno);
+        hash = 97 * hash + this.idAluno;
         return hash;
     }
 
@@ -211,12 +273,12 @@ public class Aluno{
         if (this.idAluno != other.idAluno) {
             return false;
         }
-        if (!Objects.equals(this.biAluno, other.biAluno)) {
-            return false;
-        }
         return true;
     }
-
+    
+    
+    
+    
     @Override
     public String toString() {
         return "Aluno{" + "nomeAluno=" + nomeAluno + ", sobrenomeAluno=" + sobrenomeAluno + '}';

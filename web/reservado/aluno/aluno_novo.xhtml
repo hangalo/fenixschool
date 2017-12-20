@@ -14,13 +14,12 @@
     <h:body>
         <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
-                <b:panel title="Novo Aluno" collapsible="false" look="primary">
+                <b:panel title="Cadastrar Novo Aluno" collapsible="false" look="primary">
                     <h:form  id="frmNovo"  enctype="multipart/form-data">
-                        <p:tabView>
-
-                            <p:tab title="Dados Pessoais">
+                        
                                 <p:growl id="messages" showDetail="true"/>
                                 <h:messages showSummary="true" showDetail="true"/>
+                                <b:panel look="primary" collapsible="false" title="Dados Pessoais" style="margin-bottom: 20px">
                                 <h:panelGrid columns="2" >
                                     
                                         <h:panelGroup>
@@ -45,12 +44,39 @@
                                     </h:panelGroup>
                                     
                                     <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 18%" value="Nome do Pai:"/>
+                                            <p:inputText style="margin-left: 18%" id="nomePai" value="#{alunoMBean.aluno.nomeDoPai}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                            <p:outputLabel value="Nome da Mãe"/>
+                                            <p:inputText id="nomeMae" value="#{alunoMBean.aluno.nomeDaMae}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    
+                                    <h:panelGroup>
                                         <h:panelGrid columns="1">
                                         <p:outputLabel style="margin-left: 18%" value="Número do BI:"/>
                                         <p:inputText style="margin-left: 18%" id="bi" value="#{alunoMBean.aluno.biAluno}" size="20"/>
                                         </h:panelGrid>
                                     </h:panelGroup>
                                     
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                        <p:outputLabel value="Data de Emissão do BI"/>
+                                        <p:calendar id="dataEmissaoBI" size="20" value="#{alunoMBean.aluno.dataEmissaoBi}" pattern="dd/MM/yyyy" locale="pt" />
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                        <p:outputLabel style="margin-left: 18%" value="Local de Emissão do BI:"/>
+                                        <p:inputText style="margin-left: 18%" id="localEmissaoBI" value="#{alunoMBean.aluno.localEmissaoBi}" size="20"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
                                     
                                     
                                     <h:panelGrid columns="2">
@@ -68,15 +94,29 @@
                                     </h:panelGroup>
                                     
                                     <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                        <p:outputLabel value="Data de Emissão do Passaporte"/>
+                                        <p:calendar id="dataEmissaoPassaporte" size="20" value="#{alunoMBean.aluno.dataEmissaoPassaporte}" pattern="dd/MM/yyyy" locale="pt" />
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                        <p:outputLabel style="margin-left: 15%" value="Local de Emissão do Passaporte:"/>
+                                        <p:inputText style="margin-left: 15%" id="localEmissaoPassaporte" value="#{alunoMBean.aluno.localEmissaoPassaporte}" size="20"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup>
                                     <h:panelGrid columns="1">
                                     <p:outputLabel value="Foto:"/>
-                                    <p:fileUpload id="foto" fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1073741824" invalidSizeMessage="o tamanho máximo permitido è de 1GB" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                                    <p:fileUpload style="background-color: #02138f" id="foto" fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1073741824" invalidSizeMessage="o tamanho máximo permitido è de 1GB" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                                 </h:panelGrid>
                                 </h:panelGroup>
                                                                 
                                 </h:panelGrid>
-                                
-                                <p:fieldset legend="Endereço" style="margin-bottom: 20px">
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Endereço" style="margin-bottom: 20px">
 
                                     <h:panelGrid columns="3">
 
@@ -102,6 +142,13 @@
                                             </h:panelGrid>
                                         </h:panelGroup>
 
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Comuna:"/>
+                                                <p:inputText id="comuna" value="#{alunoMBean.aluno.comunaAluno}" size="25"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
@@ -142,8 +189,8 @@
                                     </h:panelGrid>
 
 
-                                </p:fieldset>
-                                <p:fieldset legend="Contactos">
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Contactos">
                                     <h:panelGrid columns="4">
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
@@ -171,12 +218,9 @@
                   
                                     </h:panelGrid>
 
-                                </p:fieldset>
-
-                            </p:tab>
-                            
-                            <p:tab title="Dados de acesso">
-                                <h:panelGrid columns="1" >
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Dados de Acesso">
+                                    <h:panelGrid columns="1" >
                                     <p:outputLabel value="Nome de usuário:"/>
                                     <p:inputText value="#{alunoMBean.aluno.loginAluno}"/>
 
@@ -185,8 +229,8 @@
                                     <p:outputLabel value="Password:"/>
                                     <p:password value="#{alunoMBean.aluno.passwordAluno}"/>
                                 </h:panelGrid>
-                            </p:tab>
-                        </p:tabView>
+                                </b:panel>
+                           
 
                         <h:panelGrid columns="2">
                             <p:commandButton value="Guardar" actionListener="#{alunoMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
@@ -200,4 +244,3 @@
         </ui:composition>
     </h:body>
 </html>
-

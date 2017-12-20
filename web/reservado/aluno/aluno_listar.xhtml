@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Lista de Alunos</title>
     </h:head>
@@ -13,12 +14,13 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
+                    <b:panel style="text-align: center" title="Listagem dos Alunos Cadastrados" collapsible="false" look="primary">
                     <h:form>
-                        <h1 align="center">Listagem dos Alunos</h1>
+                        
 
                         <!--Inicio Data table-->
 
-                        <p:dataTable value="#{alunoMBean.alunos}"   var="aluno" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                        <p:dataTable value="#{alunoMBean.alunos}"  var="aluno" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                            
 
                             <p:column style="width: 20px; text-align: center">
@@ -92,27 +94,27 @@
 
 
 
-                    </h:form>
+                    </h:form></b:panel>
 
                     <!--Fim Data table-->
 
 
                     <!--Inicio Formulario auxiliar-->
                     <h:form id="operacoes">
-                        <p:commandButton value="Novo Aluno" type="button" onclick="PF('dlgNovoAluno').show();" />
-
+                        <p:commandButton value="Novo Aluno" type="button" icon="ui-icon-plus" onclick="PF('dlgNovoAluno').show();" />
+                        <p:commandButton value="Imprimir Cartões" action="#" ajax="false"/>
+                        <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
                     </h:form>
                     <!--Fim  Formulario auxiliar-->
 
                     <!-- Inicio Dialogo Guardar-->
-                    <p:dialog header="Novo Aluno" widgetVar="dlgNovoAluno" showEffect="explode" hideEffect="bounce" height="480" width="600">
+                    <p:dialog header="Novo Aluno" widgetVar="dlgNovoAluno" showEffect="explode" hideEffect="bounce" height="450" width="9   00">
                         <h:form  id="frmNovo"  enctype="multipart/form-data">
-                        <p:tabView>
-
-                            <p:tab title="Dados Pessoais">
+                        
                                 <p:growl id="messages" showDetail="true"/>
                                 <h:messages showSummary="true" showDetail="true"/>
                                 <!--<h:message for="provincias"/>-->
+                                <b:panel title="Dados Pessoais" collapsible="false" look="primary">
                                 <h:panelGrid columns="2" >
                                     
                                         <h:panelGroup>
@@ -167,8 +169,9 @@
                                 </h:panelGroup>
                                                                 
                                 </h:panelGrid>
+                                </b:panel>
                                 
-                                <p:fieldset legend="Endereço" style="margin-bottom: 20px">
+                                <b:panel collapsible="false" look="primary" title="Endereço" style="margin-bottom: 20px">
 
                                     <h:panelGrid columns="3">
 
@@ -234,8 +237,8 @@
                                     </h:panelGrid>
 
 
-                                </p:fieldset>
-                                <p:fieldset legend="Contactos">
+                                </b:panel>
+                                <b:panel collapsible="false" look="primary" title="Contactos">
                                     <h:panelGrid columns="4">
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
@@ -263,11 +266,11 @@
                   
                                     </h:panelGrid>
 
-                                </p:fieldset>
+                                </b:panel>
 
-                            </p:tab>
+                           
                             
-                            <p:tab title="Dados de acesso">
+                                <b:panel look="primary" collapsible="false" title="Dados de acesso">
                                 <h:panelGrid columns="1" >
                                     <p:outputLabel value="Nome de usuário:"/>
                                     <p:inputText value="#{alunoMBean.aluno.loginAluno}"/>
@@ -277,8 +280,8 @@
                                     <p:outputLabel value="Password:"/>
                                     <p:password value="#{alunoMBean.aluno.passwordAluno}"/>
                                 </h:panelGrid>
-                            </p:tab>
-                        </p:tabView>
+                                </b:panel>
+                            
 
                         <h:panelGrid columns="2">
                            <p:commandButton value="Guardar" actionListener="#{alunoMBean.guardar(evt)}"  update="growl" resetValues="true" ajax="false"/>
@@ -301,14 +304,12 @@
                     <!-- Dialogo Editar-->
 
                     <p:dialog header="Alterar dados do Aluno" id="editar" widgetVar="dialogoAlterar" showEffect="explode" hideEffect="bounce" height="450" width="900" modal="true"  resizable="false">
+                        
                         <h:form id="formEditar" enctype="multipart/form-data">
-                            
-                                <p:tabView>
-
-                            <p:tab title="Dados Pessoais">
+                            <b:panel look="primary" collapsible="false" title="Dados Pessoais" style="margin-bottom: 20px">
+                                
                                 <p:growl id="messages" showDetail="true"/>
                                 <h:messages showSummary="true" showDetail="true"/>
-                                <!--<h:message for="provincias"/>-->
                                 <h:panelGrid columns="2" >
                                     
                                         <h:panelGroup>
@@ -333,12 +334,39 @@
                                     </h:panelGroup>
                                     
                                     <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 18%" value="Nome do Pai:"/>
+                                            <p:inputText style="margin-left: 18%" id="nomePai" value="#{alunoMBean.aluno.nomeDoPai}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                            <p:outputLabel value="Nome da Mãe"/>
+                                            <p:inputText id="nomeMae" value="#{alunoMBean.aluno.nomeDaMae}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    
+                                    <h:panelGroup>
                                         <h:panelGrid columns="1">
                                         <p:outputLabel style="margin-left: 18%" value="Número do BI:"/>
                                         <p:inputText style="margin-left: 18%" id="bi" value="#{alunoMBean.aluno.biAluno}" size="20"/>
                                         </h:panelGrid>
                                     </h:panelGroup>
                                     
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                        <p:outputLabel value="Data de Emissão do BI"/>
+                                        <p:calendar id="dataEmissaoBI" size="20" value="#{alunoMBean.aluno.dataEmissaoBi}" pattern="dd/MM/yyyy" locale="pt" />
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                        <p:outputLabel style="margin-left: 18%" value="Local de Emissão do BI:"/>
+                                        <p:inputText style="margin-left: 18%" id="localEmissaoBI" value="#{alunoMBean.aluno.localEmissaoBi}" size="20"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
                                     
                                     
                                     <h:panelGrid columns="2">
@@ -356,6 +384,20 @@
                                     </h:panelGroup>
                                     
                                     <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                        <p:outputLabel value="Data de Emissão do Passaporte"/>
+                                        <p:calendar id="dataEmissaoPassaporte" size="20" value="#{alunoMBean.aluno.dataEmissaoPassaporte}" pattern="dd/MM/yyyy" locale="pt" />
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                        <p:outputLabel style="margin-left: 15%" value="Local de Emissão do Passaporte:"/>
+                                        <p:inputText style="margin-left: 15%" id="localEmissaoPassaporte" value="#{alunoMBean.aluno.localEmissaoPassaporte}" size="20"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup>
                                     <h:panelGrid columns="1">
                                     <p:outputLabel value="Foto:"/>
                                     <p:fileUpload id="foto" fileUploadListener="#{alunoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1073741824" invalidSizeMessage="o tamanho máximo permitido è de 1GB" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
@@ -363,8 +405,8 @@
                                 </h:panelGroup>
                                                                 
                                 </h:panelGrid>
-                                
-                                <p:fieldset legend="Endereço" style="margin-bottom: 20px">
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Endereço" style="margin-bottom: 20px">
 
                                     <h:panelGrid columns="3">
 
@@ -390,6 +432,13 @@
                                             </h:panelGrid>
                                         </h:panelGroup>
 
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Comuna:"/>
+                                                <p:inputText id="comuna" value="#{alunoMBean.aluno.comunaAluno}" size="25"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
@@ -430,8 +479,10 @@
                                     </h:panelGrid>
 
 
-                                </p:fieldset>
-                                <p:fieldset legend="Contactos">
+                                    </b:panel>
+                                
+                                
+                                <b:panel collapsible="false" look="primary" title="Contactos">
                                     <h:panelGrid columns="4">
                                         <h:panelGroup>
                                             <h:panelGrid columns="1">
@@ -459,11 +510,11 @@
                   
                                     </h:panelGrid>
 
-                                </p:fieldset>
+                                </b:panel>
 
-                            </p:tab>
                             
-                            <p:tab title="Dados de acesso">
+                            
+                                <b:panel collapsible="false" look="primary" title="Dados de acesso">
                                 <h:panelGrid columns="1" >
                                     <p:outputLabel value="Nome de usuário:"/>
                                     <p:inputText value="#{alunoMBean.aluno.loginAluno}"/>
@@ -473,13 +524,14 @@
                                     <p:outputLabel value="Password:"/>
                                     <p:password value="#{alunoMBean.aluno.passwordAluno}"/>
                                 </h:panelGrid>
-                            </p:tab>
-                        </p:tabView>
+                            </b:panel>
+                                
                             
                             
 
                             <p:commandButton value="Guardar" actionListener="#{alunoMBean.edit(event)}" update="growl" resetValues="true" ajax="false"/>
                         </h:form>
+                        
 
                     </p:dialog>
 
@@ -506,10 +558,26 @@
                                         <p:outputLabel value="#{alunoMBean.aluno.dataNascimentoAluno}">
                                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                                         </p:outputLabel>
+                                        <p:outputLabel value="Nome do Pai: "/>
+                                        <p:outputLabel value="#{alunoMBean.aluno.nomeDoPai}"/>
+                                        <p:outputLabel value="Nome da Mãe: "/>
+                                        <p:outputLabel value="#{alunoMBean.aluno.nomeDaMae}"/>
                                         <p:outputLabel value="Bilhete de Identidade: "/>
                                         <p:outputLabel value="#{alunoMBean.aluno.biAluno}"/>
+                                        <p:outputLabel value="Data de Emissão BI: "/>
+                                        <p:outputLabel value="#{alunoMBean.aluno.dataEmissaoBi}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </p:outputLabel>
+                                        <p:outputLabel value="Local de Emissão do BI: "/>
+                                        <p:outputLabel value="#{alunoMBean.aluno.localEmissaoBi}"/>                                        
                                         <p:outputLabel value="Número do Pasaporte: "/>
                                         <p:outputLabel value="#{alunoMBean.aluno.passaportAluno}"/>
+                                        <p:outputLabel value="Emissão Passaporte: "/>
+                                        <p:outputLabel value="#{alunoMBean.aluno.dataEmissaoPassaporte}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </p:outputLabel>
+                                        <p:outputLabel value="Local de Emissão do Passaporte: "/>
+                                        <p:outputLabel value="#{alunoMBean.aluno.localEmissaoPassaporte}"/>
                                         <p:outputLabel value="Gênero:"/>
                                         <p:outputLabel value="#{alunoMBean.aluno.sexo}"/>
                                         <p:outputLabel value="Profissão:"/>
@@ -535,6 +603,8 @@
                                     <p:outputLabel value="#{alunoMBean.aluno.bairroAluno}"/>
                                     <p:outputLabel value="Distrito"/>
                                     <p:outputLabel value="#{alunoMBean.aluno.distritoAluno}"/>
+                                    <p:outputLabel value="Comuna"/>
+                                    <p:outputLabel value="#{alunoMBean.aluno.comunaAluno}"/>
                                     <p:outputLabel value="Município:"/>
                                     <p:outputLabel value="#{alunoMBean.aluno.municipioAluno}"/>
                                 </h:panelGrid>
