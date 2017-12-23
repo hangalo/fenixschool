@@ -81,12 +81,12 @@
                                     <h:outputText value="#{matricula.turma.periodoLectivo}"/> </p:column>
 
 
-                                <p:column style="width: 160px; text-align: center">
+                                <p:column style="width: 200px; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Operações"/>
                                     </f:facet>
-                                    <p:commandButton  action="#{matriculaBean.imprimirListaTurma()}" icon="ui-icon-print " ajax="false"/>
-                                    <p:commandButton  action="#{matriculaBean.imprimirCartoesTurma()}" icon="ui-icon-document " ajax="false"/>
+                                    <p:commandButton  action="#{matriculaBean.imprimirListaTurma()}" icon="ui-icon-print " ajax="false" value="Lista"/>
+                                    <p:commandButton  action="#{matriculaBean.imprimirCartoesTurma()}" icon="ui-icon-document " ajax="false" value ="Cartões"/>
 
                                     
 
