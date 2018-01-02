@@ -15,17 +15,17 @@
             <ui:define name="content">
                 <p:growl showDetail="true" autoUpdate="true" showSummary="true"/>
                 <h:form>
-                    <b:panel title="Lista de turmas" collapsible="false" look="primary">
+                    <b:panel title="Lista de turmas" collapsible="false" look="info">
                         <p:dataTable paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      var="turma" value="#{turmaMBean.turmas}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
 
-                            <p:column style="width: 20px;">
+                            <p:column style="width: 50px;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Codigo"/>
                                 </f:facet>
                                 <p:outputLabel value="#{turma.idTurma}"/>
                             </p:column>
-                            <p:column style="width: 30px;">
+                            <p:column style="width: 50px;">
                                 <f:facet name="header">
                                     <p:outputLabel value="Tuma"/>
                                 </f:facet>
@@ -53,7 +53,7 @@
                 </h:form>
                 <!--Inicio do fomulario ver-->
                 <h:form id="FrmVer">
-                    <p:dialog id="ver" header="Detalhes da turma" widgetVar="dialogoVer"  showEffect="clip" hideEffect="blind">
+                    <p:dialog id="ver" header="Ver detalhes da turma (#{turmaMBean.turma.nomeTurma})" widgetVar="dialogoVer"  showEffect="clip" hideEffect="blind" width="400">
                         <p:accordionPanel>
                             <p:tab title="Dados da turma">
                                 <p:panelGrid columns="2">
@@ -62,9 +62,11 @@
                                     <p:outputLabel value="Turma:"/>
                                     <p:outputLabel value="#{turmaMBean.turma.nomeTurma}"/>
                                     <p:outputLabel value="Ano Lectivo:"/>
-                                    <p:outputLabel value="#{turmaMBean.turma.anoLectivo}"/>
+                                    <p:outputLabel value="#{turmaMBean.turma.anoLectivo.anoLectivo}"/>
                                     <p:outputLabel value="Periodo Lectivo:"/>
                                     <p:outputLabel value="#{turmaMBean.turma.periodoLectivo.periodoLectivo}"/>
+                                     <p:outputLabel value="Sala:"/>
+                                     <p:outputLabel value="#{turmaMBean.turma.sala.nomeSala}"/>
                                     <p:outputLabel value="Numero maximo de inscritos:"/>
                                     <p:outputLabel value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
                                 </p:panelGrid>
@@ -84,19 +86,25 @@
                             <p:tab title="Dados da Turma">
                                 <h:panelGrid columns="2">
                                     <p:outputLabel  value="Turma:"/>
-                                    <h:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
+                                    <p:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}" style="width: 200px;"/>
                                     <p:outputLabel value="Ano lectivo:"/>
-                                    <p:selectOneMenu style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
+                                    <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.anoLectivos}" var="anoLectivo" itemValue="#{anoLectivo}" itemLabel="#{anoLectivo.anoLectivo}" />
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Periodo lectivo:"/>
-                                    <p:selectOneMenu  style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
+                                    <p:selectOneMenu  filter="true" filterMatchMode="startsWith" style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione --" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.periodoLectivos}" var="periodoLectivo" itemValue="#{periodoLectivo}" itemLabel="#{periodoLectivo.periodoLectivo}" />
                                     </p:selectOneMenu>
+                                    
+                                    <p:outputLabel value="Sala:"/>
+                                        <p:selectOneMenu  filter="true" filterMatchMode="startsWith" style="width:200px" label="Sala" value="#{turmaMBean.turma.sala}" required="true" converter="salaConverter">
+                                        <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{turmaMBean.salas}" var="sala" itemValue="#{sala}" itemLabel="#{sala.nomeSala}" />
+                                    </p:selectOneMenu>
                                     <p:outputLabel  value="Número maxímos de inscritos:"/>
-                                    <h:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
+                                    <p:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}" style="width: 40px;"/>
                                 </h:panelGrid> 
 
                             </p:tab>
@@ -121,14 +129,19 @@
                                     <p:outputLabel  value="Turma:"/>
                                     <p:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
                                     <p:outputLabel value="Ano lectivo:"/>
-                                    <p:selectOneMenu style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
+                                    <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.anoLectivos}" var="anoLectivo" itemValue="#{anoLectivo}" itemLabel="#{anoLectivo.anoLectivo}" />
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Periodo lectivo:"/>
-                                    <p:selectOneMenu style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
+                                    <p:selectOneMenu filter="true" filterMatchMode="startsWith" style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione --" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.periodoLectivos}" var="periodoLectivo" itemValue="#{periodoLectivo}" itemLabel="#{periodoLectivo.periodoLectivo}" />
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Sala:"/>
+                                        <p:selectOneMenu  filter="true" filterMatchMode="startsWith" style="width:200px" label="Sala" value="#{turmaMBean.turma.sala}" required="true" converter="salaConverter">
+                                        <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{turmaMBean.salas}" var="sala" itemValue="#{sala}" itemLabel="#{sala.nomeSala}" />
                                     </p:selectOneMenu>
                                     <p:outputLabel  value="Número maxímos de inscritos:"/>
                                     <p:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>

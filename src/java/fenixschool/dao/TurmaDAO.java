@@ -7,6 +7,7 @@ package fenixschool.dao;
 
 import fenixschool.modelo.AnoLectivo;
 import fenixschool.modelo.PeriodoLectivo;
+import fenixschool.modelo.Sala;
 import fenixschool.modelo.Turma;
 import fenixschool.util.Conexao;
 import java.sql.Connection;
@@ -22,11 +23,11 @@ import java.util.List;
  */
 public class TurmaDAO implements GenericoDAOLogico<Turma> {
 
-    private static final String INSERIR = "INSERT INTO turma(nome_turma, id_ano_letivo, id_periodo_letivo, numero_maximo_inscristos )VALUES(?, ?, ?, ?)";
-    private static final String ACTUALIZAR = "UPDATE turma SET nome_turma = ?, id_ano_letivo = ?, id_periodo_letivo = ?, mumero_maximo_inscristos =? WHERE id_turma = ?";
+    private static final String INSERIR = "INSERT INTO turma(nome_turma, id_ano_letivo, id_periodo_letivo, numero_maximo_inscristos, id_sala)VALUES(?, ?, ?, ?, ?)";
+    private static final String ACTUALIZAR = "UPDATE turma SET nome_turma = ?, id_ano_letivo = ?, id_periodo_letivo = ?, mumero_maximo_inscristos =?, id_sala=? WHERE id_turma = ?";
     private static final String ELIMINAR = "DELETE FROM turma WHERE id_turma = ?";
-    private static final String BUSCAR_POR_CODIGO = "SELECT t.id_turma , t.nome_turma ,a.ano_letivo , p.periodo_letivo, t.numero_maximo_inscristos FROM turma t INNER JOIN ano_letivo a ON t.id_ano_letivo=a.id_ano_letivo INNER JOIN periodo_letivo p ON t.id_periodo_letivo=p.id_periodo_letivo WHERE id_turma= ?";
-    private static final String LISTAR_TUDO = "SELECT t.id_turma , t.nome_turma ,a.ano_letivo , p.periodo_letivo, t.numero_maximo_inscristos FROM turma t INNER JOIN ano_letivo a ON t.id_ano_letivo=a.id_ano_letivo INNER JOIN periodo_letivo p ON t.id_periodo_letivo=p.id_periodo_letivo";
+    private static final String BUSCAR_POR_CODIGO = "SELECT t.id_turma , t.nome_turma ,a.ano_letivo , p.periodo_letivo, t.numero_maximo_inscristos, s.id_sala FROM turma t INNER JOIN ano_letivo a ON t.id_ano_letivo=a.id_ano_letivo INNER JOIN periodo_letivo p ON t.id_periodo_letivo=p.id_periodo_letivo INNER JOIN sala s ON t.id_sala= s.id_sala WHERE id_turma= ?";
+    private static final String LISTAR_TUDO = "SELECT t.id_turma , t.nome_turma ,a.ano_letivo , p.periodo_letivo, t.numero_maximo_inscristos , s.id_sala FROM turma t INNER JOIN ano_letivo a ON t.id_ano_letivo=a.id_ano_letivo INNER JOIN periodo_letivo p ON t.id_periodo_letivo=p.id_periodo_letivo INNER JOIN sala s ON t.id_sala= s.id_sala";
 
     @Override
     public boolean save(Turma turma) {
@@ -44,6 +45,7 @@ public class TurmaDAO implements GenericoDAOLogico<Turma> {
             ps.setInt(2, turma.getAnoLectivo().getIdAnoLectivo());
             ps.setInt(3, turma.getPeriodoLectivo().getIdPeriodoLectivo());
             ps.setInt(4, turma.getNumeroMaximoInscritos());
+            ps.setInt(5, turma.getSala().getIdSala());
              int retorno = ps.executeUpdate();
             if (retorno > 0) {
                 System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
@@ -74,7 +76,8 @@ public class TurmaDAO implements GenericoDAOLogico<Turma> {
             ps.setInt(2, turma.getAnoLectivo().getIdAnoLectivo());
             ps.setInt(3, turma.getPeriodoLectivo().getIdPeriodoLectivo());
             ps.setInt(4, turma.getNumeroMaximoInscritos());
-            ps.setInt(5, turma.getIdTurma());
+            ps.setInt(5,turma.getSala().getIdSala());
+            ps.setInt(6, turma.getIdTurma());
              int retorno = ps.executeUpdate();
             if (retorno > 0) {
                 System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
@@ -183,9 +186,14 @@ public class TurmaDAO implements GenericoDAOLogico<Turma> {
             turma.setPeriodoLectivo(periodoLectivo);
 
             turma.setNumeroMaximoInscritos(rs.getInt("numero_maximo_inscristos"));
+            
+            Sala sala = new Sala();
+            sala.setIdSala(rs.getInt("id_sala"));
+            //sala.setNomeSala(rs.getString("nome_sala"));
+            turma.setSala(sala);
 
         } catch (SQLException ex) {
-            System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
+            System.err.println("Erro ao carregar dados da turma: " + ex.getLocalizedMessage());
         }
     }
 

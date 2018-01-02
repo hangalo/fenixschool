@@ -33,20 +33,20 @@
                     
                     <h1>Dados do Funcionário</h1>
                     <p:dataTable  value="#{funcionarioMBean.byNomeSobrenome}" var="funcionario" rows="10" >
-                             <p:column style="width: 40px; text-align: center">
+                             <p:column style="width: 50px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Código:"/>
                                 </f:facet>
                                  <h:outputText value="#{funcionario.idFuncionario}"/>
                             </p:column>  
-                              <p:column>
+                              <p:column style="width: 50px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Nome:"/>
                                 </f:facet>
                                   <h:outputText value="#{funcionario.nomeFuncionario}"/>
                                 
                             </p:column>
-                              <p:column>
+                              <p:column style="width: 50px; text-align: center">
                                 <f:facet name="header">
                                     <p:outputLabel value="Sobrenome:"/>
                                 </f:facet>
@@ -54,7 +54,7 @@
                             </p:column>
                             
                                                         
-                            <p:column style="width: 20px; text-align: center">
+                            <p:column style="width: 50px; text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="Foto"/>
                                 </f:facet>
@@ -179,14 +179,14 @@
                                 <p:tab title="Dados Pessoais">
                                 
                                 <p:growl id="messages" showDetail="true"/>
-                                <h:messages  for="dropmunicipio"  showDetail="true"/>
-                                <h:panelGrid columns="2" >
+                                <p:messages  for="dropmunicipio"  showDetail="true"/>
+                                <p:panelGrid columns="2" >
                                   
                                
-                                <h:outputLabel value="Nome:" />
-                                <h:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
-                                <h:outputLabel  value="Sobrenome"/>
-                                <h:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
+                                <p:outputLabel value="Nome:" />
+                                <p:inputText  id="nome" value="#{funcionarioMBean.funcionario.nomeFuncionario}" size="60"/>
+                                <p:outputLabel  value="Sobrenome"/>
+                                <p:inputText id="sobrenome" value="#{funcionarioMBean.funcionario.sobrenomeFuncionario}" size="60"/>
                                 <p:outputLabel value="Data da Nacimento:"/>
                                 <p:calendar id="dataNascimento" value="#{funcionarioMBean.funcionario.dataNascimentoFuncionario}" pattern="dd/MM/yyyy" locale="pt"/>
                                 <p:outputLabel value="Sexo:"/>
@@ -197,11 +197,11 @@
                                     <p:fileUpload id="foto" fileUploadListener="#{funcionarioMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                                     
                                     
-                                </h:panelGrid>
+                                </p:panelGrid>
                                  </p:tab>
                                 
                                 <p:tab title="Endereço:">
-                                    <h:panelGrid columns="2" >
+                                    <p:panelGrid columns="2" >
                                         <p:outputLabel value="N.º Casa:"/>
                                         <p:inputText id="casa" value="#{funcionarioMBean.funcionario.casaFuncionario}" size="20"/>
                                 
@@ -209,21 +209,21 @@
                                         <p:inputText id="bairro" value="#{funcionarioMBean.funcionario.bairroFuncionario}" size="50"/>
                                         <p:outputLabel value="Distrito:"/>
                                         <p:inputText id="distrito" value="#{funcionarioMBean.funcionario.distritoFuncionario}" size="40"/>
-                                        <h:outputLabel value="Municipio:"/>
-                                        <h:selectOneMenu id="dropmunicipio" value="#{funcionarioMBean.funcionario.municipio}" converter="municipioConverter">
+                                        <p:outputLabel value="Municipio:"/>
+                                        <p:selectOneMenu id="dropmunicipio" value="#{funcionarioMBean.funcionario.municipio}" converter="municipioConverter">
                                             <f:selectItem value="#{null}" itemLabel="Escolha um Municipio" noSelectionOption="true"/>
 
                                             <f:selectItems value="#{funcionarioMBean.municipios}"
                                                            var="municipio" itemValue="#{municipio}"  
                                                            itemLabel="#{municipio.nomeMunicipio}"  />
-                                        </h:selectOneMenu>
+                                        </p:selectOneMenu>
 
 
-                                    </h:panelGrid>
+                                    </p:panelGrid>
                                 </p:tab>
                                 
-                                <p:tab title="Telefone/Email">
-                                    <h:panelGrid columns="2" >
+                                <p:tab title="Telefone/E-mail">
+                                    <p:panelGrid columns="2" >
                                         <p:outputLabel value="Telefone fixo:"/>
                                         <p:inputText id="telefonefixo" value="#{funcionarioMBean.funcionario.telefoneFixoFuncionario}" size="30"/>
                                         <p:outputLabel value="Telefone movél:"/>
@@ -234,9 +234,21 @@
                                         <p:inputText value="#{funcionarioMBean.funcionario.emailFuncionario}" size="30"/>
 
 
-                                    </h:panelGrid>
+                                    </p:panelGrid>
                                 </p:tab>
-                    
+                    <p:tab title="Dados de acesso">
+                                    <p:panelGrid columns="2" >
+                                        <p:outputLabel value="Login"/>
+                                        <p:inputText id="login" value="#{funcionarioMBean.funcionario.loginFuncionario}" size="30"/>
+                                        <p:outputLabel value="Password"/>
+                                        <p:inputText id="password" value="#{funcionarioMBean.funcionario.passwordFuncionario}" size="30"/>
+                                       
+                                    
+                                        
+
+
+                                    </p:panelGrid>
+                                </p:tab>
                
                             </p:tabView>
                                 <p:commandButton value="Guardar" actionListener="#{funcionarioMBean.edit(event)}" update="growl" resetValues="true" ajax="false"/>
@@ -244,7 +256,7 @@
                         </p:dialog>
                     <!-- Fim Dialogo Editar-->
                     <!-- Inicio Dialogo Ver detalhes do funcionario-->
-                    <p:dialog header="Dados do Funcionário" id="ver" widgetVar="dlgVer" showEffect="explode" hideEffect="bounce"  height="600">
+                    <p:dialog header="Dados do Funcionário #{funcionarioMBean.funcionario.nomeFuncionario} #{funcionarioMBean.funcionario.sobrenomeFuncionario} " id="ver" widgetVar="dlgVer" showEffect="clipe" hideEffect="blind"  height="600">
                         <h:form id="formVer">
                             <p:tabView>
                                 <p:tab title="Dados Pessoais">

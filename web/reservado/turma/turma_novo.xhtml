@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Nova turma</title>
     </h:head>
@@ -12,7 +13,7 @@
          <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
                  <p:growl autoUpdate="true" showDetail="true"/>
-                 <p:panel header="Adicionar novo cadastro de turmas" footer="Cadastro de turmas">
+                 <b:panel title="Nova turma" collapsible="false" look="info" >
                      <h:form id="frmGuardar">
                           
                         <p:tabView>
@@ -21,19 +22,25 @@
                                 
                                     <h:panelGrid columns="2">
                                         <p:outputLabel  value="Turma:"/>
-                                        <p:inputText  size="30" value="#{turmaMBean.turma.nomeTurma}"/>
+                                        <p:inputText  size="30" style="width: 400px;" value="#{turmaMBean.turma.nomeTurma}"/>
                                         <p:outputLabel value="Ano lectivo:"/>
-                                        <p:selectOneMenu  style="width:200px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
+                                        <p:selectOneMenu  filter="true" filterMatchMode="startsWith" style="width:400px" label="Ano lectivo" value="#{turmaMBean.turma.anoLectivo}" required="true" converter="anoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.anoLectivos}" var="anoLectivo" itemValue="#{anoLectivo}" itemLabel="#{anoLectivo.anoLectivo}" />
                                     </p:selectOneMenu>
                                         <p:outputLabel value="Periodo lectivo:"/>
-                                        <p:selectOneMenu  style="width:200px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
+                                        <p:selectOneMenu  filter="true" filterMatchMode="startsWith" style="width:400px" label="Periodo lectivo" value="#{turmaMBean.turma.periodoLectivo}" required="true" converter="periodoLectivoConverter">
                                         <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{turmaMBean.periodoLectivos}" var="periodoLectivo" itemValue="#{periodoLectivo}" itemLabel="#{periodoLectivo.periodoLectivo}" />
                                     </p:selectOneMenu>
+                                       
+                                        <p:outputLabel value="Sala:"/>
+                                        <p:selectOneMenu  filter="true" filterMatchMode="startsWith" style="width:400px" label="Sala" value="#{turmaMBean.turma.sala}" required="true" converter="salaConverter">
+                                        <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{turmaMBean.salas}" var="sala" itemValue="#{sala}" itemLabel="#{sala.nomeSala}" />
+                                    </p:selectOneMenu>
                                         <p:outputLabel  value="Número maxímos de inscritos:"/>
-                                        <p:inputText  size="30" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
+                                        <p:inputText  size="30" style="width: 40px;" value="#{turmaMBean.turma.numeroMaximoInscritos}"/>
                                     </h:panelGrid> 
                                     
                              </p:tab>
@@ -43,7 +50,7 @@
                     
                      </h:form>
                      
-                 </p:panel>
+                 </b:panel>
             </ui:define>
         </ui:composition>
     </h:body>

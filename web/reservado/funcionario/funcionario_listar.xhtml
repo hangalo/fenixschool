@@ -16,26 +16,26 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
-                    <b:panel title="Lista - funcionários" collapsible="false" look="primary">
+                    <b:panel title="Lista - funcionários" collapsible="false" look="info">
                         <h:form>
                             <!--Inicio Data table-->
 
-                            <p:dataTable value="#{funcionarioMBean.funcionarios}"   var="funcionarios" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                                <p:column style="width: 45px; text-align: center">
+                            <p:dataTable value="#{funcionarioMBean.funcionarios}"   var="funcionario" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                                <p:column style="width: 15px; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Código"/>
                                     </f:facet>
                                     <h:outputText value="#{funcionario.idFuncionario}"/>
                                 </p:column>
 
-                                <p:column>
+                                <p:column style="width: 60px; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Nome"/>
                                     </f:facet>
                                     <h:outputText value="#{funcionario.nomeFuncionario}"/>
                                 </p:column>
 
-                                <p:column>
+                                <p:column style="width: 60px; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Sobrenome"/>
                                     </f:facet>
@@ -44,14 +44,14 @@
 
 
 
-                                <p:column style="width: 60px; text-align: center">
+                                <p:column style="width: 50px; text-align: center">
                                     <f:facet name="header">
                                         <h:outputText value="Foto"/>
                                     </f:facet>
                                     <h:graphicImage value="/funcionarioVisualizarFotoServlet?file=#{funcionario.urlfotoFuncionario}" alt="foto" width="60" height="60"/>
                                 </p:column>
 
-                                <p:column style="width: 160px; text-align: center">
+                                <p:column style="width: 50px; text-align: center">
                                     <f:facet name="header">
                                         <p:outputLabel value="Operações"/>
                                     </f:facet>
@@ -78,8 +78,11 @@
 
                     <!--Inicio Formulario auxiliar-->
                     <h:form id="operacoes">
-                        <h:panelGrid columns="2">
+                        <h:panelGrid columns="5">
                             <p:commandButton value="Novo Funcionário" actionListener="#{funcionarioMBean.newSave()}" type="button" onclick="PF('dlgNovo').show();" />
+                            <p:commandButton value="Imprimir Cartões" action="#{funcionarioMBean.imprimirCartaoFuncionario()}" ajax="false"/>
+                            <p:commandButton value="Imprimir Lista" action="#{funcionarioMBean.imprimirListaFuncionario()}" ajax="false"/>
+                            <p:commandButton value="Imprimir Fichas" action="#{funcionarioMBean.imprimirFichaFuncinario()}" ajax="false"/>
                             <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
                         </h:panelGrid>
                     </h:form>
@@ -87,12 +90,12 @@
 
                     <!-- Inicio Dialogo Guardar-->
 
-                    <p:dialog header="Novo Funciona´rio" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="950" width="1200">
+                    <p:dialog header="Novo Funcionário"   widgetVar="dlgNovo" showEffect="clipe" hideEffect="blind"  height="400" width="1000">
                         <h:form  id="frmNovo"  enctype="multipart/form-data">
 
                             <p:tabView>
 
-                                 <p:tab title="Dados Pessoais">
+                                <p:tab title="Dados Pessoais">
                                 <p:growl id="messages" showDetail="true"/>
                                 <h:messages showSummary="true" showDetail="true"/>
                                 <h:message for="provincias"/>
@@ -218,7 +221,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="Alterar dados do funcionário" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="950" width="1200">
+                    <p:dialog header="Alterar dados do funcionário" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="400" width="900">
                         <h:form id="formEditar" enctype="multipart/form-data">
                             <h:inputHidden value="#{funcionarioMBean.funcionario.idFuncionario}"/>
                             <p:tabView>

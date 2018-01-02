@@ -14,6 +14,7 @@ import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Provincia;
 import fenixschool.modelo.Sexo;
 import fenixschool.util.FicheiroUtil;
+import fenixschool.util.GestorImpressao;
 import java.awt.event.ActionEvent;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -23,12 +24,14 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -46,40 +49,46 @@ public class FuncionarioMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Funcionario funcionario;
-    private List<Provincia> provincias;
-    private FuncionarioDAO funcionarioDAO;
-    private ProvinciaDAO provinciaDAO;
-    private List<Funcionario> funcionarios;
-    private MunicipioDAO municipioDAO;
-    private Municipio municipio;
-    private List<Municipio> municipios;
-
     /*variaveis para as consultas*/
     private String nome;
     private String sobrenome;
     private Date dataDeNascimento;
-
-   
     private Provincia provincia;
     private Departamento departamento;
+    private Funcionario funcionario;
+    private Municipio municipio;
+
+    private FuncionarioDAO funcionarioDAO;
+    private ProvinciaDAO provinciaDAO;
+    private MunicipioDAO municipioDAO;
+
+    private List<Funcionario> funcionarios;
+    private List<Municipio> municipios;
+    private List<Provincia> provincias;
     private List<Funcionario> findBydataNascimento;
-    
+    private List<Funcionario> findByNomeSobrenome;
 
     public FuncionarioMBean() {
     }
+    
+    @ManagedProperty(value = "#{gestorImpressao}")
+    private GestorImpressao gestorImpressao;
 
     @PostConstruct
     public void inicializar() {
-        funcionario = new Funcionario();
+      
+        municipioDAO = new MunicipioDAO();
         funcionarioDAO = new FuncionarioDAO();
+        provinciaDAO = new ProvinciaDAO();
+        
         funcionarios = new ArrayList<>();
         municipios = new ArrayList<>();
-        provinciaDAO = new ProvinciaDAO();
-        municipio = new Municipio();
-        municipioDAO = new MunicipioDAO();
+        findByNomeSobrenome = new ArrayList<>();
         findBydataNascimento = new ArrayList<>();
         provincias = new ArrayList<>();
+        
+        funcionario = new Funcionario();
+        municipio = new Municipio();
         provincias = provinciaDAO.findAll();
     }
 
@@ -90,6 +99,15 @@ public class FuncionarioMBean implements Serializable {
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
+
+    public GestorImpressao getGestorImpressao() {
+        return gestorImpressao;
+    }
+
+    public void setGestorImpressao(GestorImpressao gestorImpressao) {
+        this.gestorImpressao = gestorImpressao;
+    }
+    
 
     public List<SelectItem> getOpSexos() {
         List<SelectItem> list = new ArrayList<>();
@@ -135,7 +153,13 @@ public class FuncionarioMBean implements Serializable {
     public List<Municipio> getMunicipios() {
         return municipios;
     }
-     public Date getDataDeNascimento() {
+
+    public void setMunicipios(List<Municipio> municipios) {
+        this.municipios = municipios;
+    }
+    
+
+    public Date getDataDeNascimento() {
         return dataDeNascimento;
     }
 
@@ -149,10 +173,20 @@ public class FuncionarioMBean implements Serializable {
         return provincias;
     }
 
+    public void setProvincias(List<Provincia> provincias) {
+        this.provincias = provincias;
+    }
+    
+    
+
     // carrega municipios em função da provincia
     public void carregaMunicipiosDaProvincia() {
         System.out.println("Provncia >>>>>" + provincia);
         municipios = municipioDAO.findByIdProvincia2(provincia);
+    }
+
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
     }
 
     public List<Funcionario> getFuncionarios() {
@@ -162,7 +196,7 @@ public class FuncionarioMBean implements Serializable {
 
     public List<Funcionario> getFindBydataNascimento() {
         findBydataNascimento = funcionarioDAO.findByDataNascimento((java.sql.Date) dataDeNascimento);
-       
+
         return findBydataNascimento;
     }
 
@@ -196,9 +230,14 @@ public class FuncionarioMBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (IOException ex) {
+             System.out.println("Erro ao carregar foto.");
             ex.printStackTrace(System.out);
         }
 
+    }
+
+    public String getRealPath() {
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
     }
 
     public String newSave() {
@@ -214,8 +253,6 @@ public class FuncionarioMBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar\t", "\tErro ao guardar os dados"));
 
         }
-        
-       
 
     }
 
@@ -269,9 +306,6 @@ public class FuncionarioMBean implements Serializable {
         }
         return null;
     }
-    
-    
-            
 
     public static String getPathPastaAplicacaoJSF() {
         String separador = System.getProperty("file.separator");
@@ -280,4 +314,31 @@ public class FuncionarioMBean implements Serializable {
         return raizAplicacao + pasta;
     }
 
+     public String imprimirCartaoFuncionario() {
+
+        String relatorio = "cartao_de_funcionario.jasper";
+        HashMap parametros = new HashMap();
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+
+        return null;
+
+    }
+      public String imprimirListaFuncionario() {
+
+        String relatorio = "lista_funcionario.jasper";
+        HashMap parametros = new HashMap();
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+
+        return null;
+
+    }
+       public String imprimirFichaFuncinario() {
+
+        String relatorio = "funcionario_ficha_todos.jasper";
+        HashMap parametros = new HashMap();
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+
+        return null;
+
+    }
 }

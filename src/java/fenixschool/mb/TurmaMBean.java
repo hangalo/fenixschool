@@ -7,9 +7,11 @@ package fenixschool.mb;
 
 import fenixschool.dao.AnoLectivoDAO;
 import fenixschool.dao.PeriodoLectivoDAO;
+import fenixschool.dao.SalaDAO;
 import fenixschool.dao.TurmaDAO;
 import fenixschool.modelo.AnoLectivo;
 import fenixschool.modelo.PeriodoLectivo;
+import fenixschool.modelo.Sala;
 import fenixschool.modelo.Turma;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -38,9 +40,11 @@ public class TurmaMBean implements Serializable  {
      private TurmaDAO turmaDAO;
      private AnoLectivoDAO anoLectivoDAO;
      private PeriodoLectivoDAO periodoLectivoDAO;
+     private SalaDAO salaDAO;
      private List<Turma> turmas;
      private List<AnoLectivo> anoLectivos;
      private List<PeriodoLectivo> periodoLectivos;
+     private List<Sala> salas;
    
      public TurmaMBean() {
     }
@@ -50,9 +54,11 @@ public class TurmaMBean implements Serializable  {
     turmaDAO = new TurmaDAO();
     anoLectivoDAO = new AnoLectivoDAO();
     periodoLectivoDAO= new PeriodoLectivoDAO();
+    salaDAO = new SalaDAO();
     turmas = new ArrayList<>();
     anoLectivos= new ArrayList<>();
     periodoLectivos= new ArrayList<>();
+    salas= new ArrayList<>();
     
     
     
@@ -90,6 +96,14 @@ public class TurmaMBean implements Serializable  {
         this.periodoLectivoDAO = periodoLectivoDAO;
     }
 
+    public SalaDAO getSalaDAO() {
+        return salaDAO;
+    }
+
+    public void setSalaDAO(SalaDAO salaDAO) {
+        this.salaDAO = salaDAO;
+    }
+
     public List<Turma> getTurmas() {
         turmas= turmaDAO.findAll();
         return turmas;
@@ -115,6 +129,15 @@ public class TurmaMBean implements Serializable  {
 
     public void setPeriodoLectivos(List<PeriodoLectivo> periodoLectivos) {
         this.periodoLectivos = periodoLectivos;
+    }
+
+    public List<Sala> getSalas() {
+        salas = salaDAO.findAll();
+        return salas;
+    }
+
+    public void setSalas(List<Sala> salas) {
+        this.salas = salas;
     }
     
      public void guardar(ActionEvent evt) {
