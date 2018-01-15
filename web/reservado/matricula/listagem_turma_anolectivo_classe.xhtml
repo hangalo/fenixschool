@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Matriculas</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <b:panel style="text-align: left" title="Turmas" collapsible="false" look="primary">
+
+                        <h:form id="formBusca" >
+                            <h:messages/>
+                            <p:panel header="Pesquisar Turmas do Ano Lectivo">
+
+                                <h:panelGrid columns="4"  cellspacing="10%">
+                                    <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Turma: "/>
+                                        <p:selectOneMenu value="#{matriculaBean.matricula.turma}"  converter="turmaConverter" filterMatchMode="startswith" >
+                                            <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{matriculaBean.turmas}" var="turma" itemValue="#{turma}" itemLabel="#{turma.nomeTurma}" />
+                                            <f:ajax listener="#{matriculaBean.carregaVagasDaTurma()}" render="vagas" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>  
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Ano Lectivo: "/>
+                                        <p:selectOneMenu value="#{matriculaBean.matricula.anoLetivo}" converter="anoLectivoConverter" filterMatchMode="startswith">
+                                            <f:selectItem itemLabel="Selecione uma Ano Letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{matriculaBean.anoLectivos}" var="anoletivo" itemValue="#{anoletivo}" itemLabel="#{anoletivo.anoLectivo}" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                        </h:panelGroup>
+                                    
+                                     <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Classe: "/>
+                                        <p:selectOneMenu value="#{matriculaBean.matricula.anoCurricular}" converter="anoCurricularConverter" filterMatchMode="startswith">
+                                            <f:selectItem itemLabel="Selecione a classe" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{matriculaBean.anoCurriculars}" var="anocurricular" itemValue="#{anocurricular}" itemLabel="#{anocurricular.anoCurricular}" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                        </h:panelGroup>
+                                    <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                      <p:outputLabel/>
+                                    <p:commandButton action="#{matriculaBean.getMatriculaByTurmaAnoLectivoAnoCurricular()}" value="Pesquisar" styleClass="but but-primary" ajax="false"/>
+                                    </h:panelGrid>
+                                        </h:panelGroup>
+                                </h:panelGrid>
+                                
+                            </p:panel>
+                        </h:form>
+
+                        <h:form>
+                            <!--Inicio Data table-->
+
+                            <p:dataTable value="#{matriculaBean.listaTurmasAnoLectivoAnoCurricular}"   var="matricula" emptyMessage="Não foi encontrado nenhum registo" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+
+<p:column style="width: 3%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Nº"/>
+                                    </f:facet>
+                                    <h:outputText value="#{matricula.idMatricula}"/>
+                                </p:column>
+
+                             
+
+                                <p:column style="width: 20%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="NOME COMPLETO"/>
+                                    </f:facet>
+                                    <h:outputText value="#{matricula.aluno.nomeAluno}  #{matricula.aluno.sobrenomeAluno}"/>
+                                </p:column>
+
+                               
+
+                                <p:column style="width: 4%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="SEXO"/>
+                                    </f:facet>
+                                    <h:outputText value="#{matricula.aluno.sexo.abreviatura}"/>
+                                </p:column>
+
+                                <p:column style="width: 5%">
+                                    <f:facet name="header">
+                                        <h:outputText value="IDADE"/>
+                                    </f:facet>
+                                    <h:outputText value="20"/> </p:column>
+                                <p:column style="width: 15%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="DATA DE NASCIMENTO"/>
+                                    </f:facet>
+                                    <h:outputText value="#{matricula.aluno.dataNascimentoAluno}"/>
+                                </p:column>
+                                
+                                 <p:column style="width: 10%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="NATURAL"/>
+                                    </f:facet>
+                                     <h:outputText value="#{matricula.aluno.municipioAluno}"/>
+                                </p:column>
+                                
+                                 <p:column style="width: 10%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="OPÇÃO"/>
+                                    </f:facet>
+                                     <h:outputText value="#{matricula.linguaOpcao}"/>
+                                </p:column>
+                                
+                                 <p:column style="width: 10%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="SITUAÇÃO"/>
+                                    </f:facet>
+                                     <h:outputText value="#{matricula.situacaoAlunoMatricula}"/>
+                                </p:column>
+                                 <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Perído"/>
+                                    </f:facet>
+                                    <h:outputText value="#{matricula.turma.periodoLectivo}"/> </p:column>
+
+
+                                 <p:column style="width: 5%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="OBS."/>
+                                    </f:facet>
+                                     <h:outputText value="#{matricula.observacao}"/>
+                                </p:column>
+
+                          
+                                <p:column style="width: 160px; text-align: center">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Operações"/>
+                                    </f:facet>
+                                    <p:commandButton  action="#{matriculaBean.imprimirListaTurma()}" icon="ui-icon-print " ajax="false"/>
+                                    <p:commandButton  action="#{matriculaBean.imprimirCartoesTurma()}" icon="ui-icon-document " ajax="false"/>
+
+                                    
+
+
+
+                                </p:column>
+
+                            </p:dataTable>
+
+
+
+                        </h:form>
+                    </b:panel>
+                    <!--Fim Data table-->
+
+
+                    <!--Inicio Formulario auxiliar-->
+                    <h:form id="operacoes">
+                        <h:panelGrid columns="3">
+                             <p:commandButton value="Nova matricula" action="/reservado/matricula/matricula_nova.jsf" ajax="false" immediate="true" />
+                           
+                           <p:commandButton value="Imprimir Lista" action="#{professorMBean.imprimirProfessoresPorDepartamento()}" ajax="false"/>
+                           
+                            <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                        </h:panelGrid>
+                    </h:form>
+                    <!--Fim  Formulario auxiliar-->
+
+                    <!-- Inicio Dialogo Guardar-->
+
+
+
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

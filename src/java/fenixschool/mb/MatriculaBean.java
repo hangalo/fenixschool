@@ -13,6 +13,7 @@ import fenixschool.dao.CursoDAO;
 import fenixschool.dao.FuncionarioDAO;
 import fenixschool.dao.LocalEmissaoDocumentoDAO;
 import fenixschool.dao.MatriculaDAO;
+import fenixschool.dao.PeriodoLectivoDAO;
 import fenixschool.dao.TipoDocumentoIdentidadeDAO;
 import fenixschool.dao.TurmaDAO;
 import fenixschool.modelo.Aluno;
@@ -24,6 +25,7 @@ import fenixschool.modelo.Funcionario;
 import fenixschool.modelo.Lingua;
 import fenixschool.modelo.LocalEmissaoDocumento;
 import fenixschool.modelo.Matricula;
+import fenixschool.modelo.PeriodoLectivo;
 import fenixschool.modelo.SituacaoAlunoMatricula;
 import fenixschool.modelo.TipoDocumentoIdentidade;
 import fenixschool.modelo.Turma;
@@ -94,18 +96,25 @@ public class MatriculaBean implements Serializable {
     private AnoCurricular anoCurricular;
     private AnoCurricularDAO anoCurricularDAO;
     private List<AnoCurricular> anoCurriculars;
-    
+
+    private PeriodoLectivo periodoLectivo;
+    private PeriodoLectivoDAO periodoLectivoDAO;
+    private List<PeriodoLectivo> periodoLectivos;
+
     private List<Matricula> listaTurmasAnoLectivo;
+    private List<Matricula> listaTurmasAnoLectivoAnoCurricular;
+    private List<Matricula> listaTurmasAnoLectivoAnoCurricularCurso;
+    private List<Matricula> listaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo;
 
     private String byTurma;
-    
+
     private String vagasNaTurma;
-    
-     @ManagedProperty(value = "#{gestorImpressao}")
-     private GestorImpressao gestorImpressao;
+
+    @ManagedProperty(value = "#{gestorImpressao}")
+    private GestorImpressao gestorImpressao;
 
     public MatriculaBean() {
-       
+
     }
 
     @PostConstruct
@@ -150,7 +159,7 @@ public class MatriculaBean implements Serializable {
         anoCurricularDAO = new AnoCurricularDAO();
         anoCurriculars = new ArrayList<>();
         listaTurmasAnoLectivo = new ArrayList<>();
-         matricula.setDataMatricula(DateUtil.getDataActual());
+        matricula.setDataMatricula(DateUtil.getDataActual());
     }
 
     public Matricula getMatricula() {
@@ -396,6 +405,30 @@ public class MatriculaBean implements Serializable {
         this.anoCurriculars = anoCurriculars;
     }
 
+    public PeriodoLectivo getPeriodoLectivo() {
+        return periodoLectivo;
+    }
+
+    public void setPeriodoLectivo(PeriodoLectivo periodoLectivo) {
+        this.periodoLectivo = periodoLectivo;
+    }
+
+    public PeriodoLectivoDAO getPeriodoLectivoDAO() {
+        return periodoLectivoDAO;
+    }
+
+    public void setPeriodoLectivoDAO(PeriodoLectivoDAO periodoLectivoDAO) {
+        this.periodoLectivoDAO = periodoLectivoDAO;
+    }
+
+    public List<PeriodoLectivo> getPeriodoLectivos() {
+        return periodoLectivos = periodoLectivoDAO.findAll();
+    }
+
+    public void setPeriodoLectivos(List<PeriodoLectivo> periodoLectivos) {
+        this.periodoLectivos = periodoLectivos;
+    }
+
     public String getVagasNaTurma() {
         return vagasNaTurma;
     }
@@ -420,10 +453,30 @@ public class MatriculaBean implements Serializable {
         this.listaTurmasAnoLectivo = listaTurmasAnoLectivo;
     }
 
-    
-    
-    
-    
+    public List<Matricula> getListaTurmasAnoLectivoAnoCurricular() {
+        return listaTurmasAnoLectivoAnoCurricular;
+    }
+
+    public void setListaTurmasAnoLectivoAnoCurricular(List<Matricula> listaTurmasAnoLectivoAnoCurricular) {
+        this.listaTurmasAnoLectivoAnoCurricular = listaTurmasAnoLectivoAnoCurricular;
+    }
+
+    public List<Matricula> getListaTurmasAnoLectivoAnoCurricularCurso() {
+        return listaTurmasAnoLectivoAnoCurricularCurso;
+    }
+
+    public void setListaTurmasAnoLectivoAnoCurricularCurso(List<Matricula> listaTurmasAnoLectivoAnoCurricularCurso) {
+        this.listaTurmasAnoLectivoAnoCurricularCurso = listaTurmasAnoLectivoAnoCurricularCurso;
+    }
+
+    public List<Matricula> getListaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo() {
+        return listaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo;
+    }
+
+    public void setListaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo(List<Matricula> listaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo) {
+        this.listaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo = listaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo;
+    }
+
     public List<SelectItem> getOpcaoLingua() {
         List<SelectItem> list = new ArrayList<>();
         for (Lingua lingua : Lingua.values()) {
@@ -431,35 +484,33 @@ public class MatriculaBean implements Serializable {
         }
         return list;
     }
-    
-     public List<SelectItem> getOpcaoSituacaoAlunoMatricula() {
+
+    public List<SelectItem> getOpcaoSituacaoAlunoMatricula() {
         List<SelectItem> list = new ArrayList<>();
         for (SituacaoAlunoMatricula situacao : SituacaoAlunoMatricula.values()) {
             list.add(new SelectItem(situacao, situacao.getExtensao()));
         }
         return list;
     }
-    
-    
+
     public void newSave(ActionEvent evt) {
         matricula = new Matricula();
         //return "professor_listar?faces-redirect=true";
     }
 
-    
-       public void carregaVagasDaTurma() {
+    public void carregaVagasDaTurma() {
         Turma turmaCarregada = matricula.getTurma();
         setVagasNaTurma(turmaCarregada.getNumeroMaximoInscritos().toString());
     }
-    
+
     public void guardar(ActionEvent evt) {
 
         Aluno alunoNovo = new Aluno();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String numeroAlunoParametro = (String) facesContext.getExternalContext().getRequestParameterMap().get("numeroAluno");
-        
+
         Turma turmaActual = matricula.getTurma();
-            
+
         if (numeroAlunoParametro != null) {
 
             System.out.println(">>>>>>>>>>>>>Id Truma recuperada:\t" + turmaActual.getIdTurma());
@@ -469,17 +520,17 @@ public class MatriculaBean implements Serializable {
             matricula.setAluno(alunoNovo);
 
             matriculaDAO.save(matricula);
-            
+
             // decrementa o numero de vagas na turma
             matriculaDAO.decrementaVagas(turmaActual.getIdTurma());
-            
+
             matricula = new Matricula();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Matricula efectuada com sucesso"));
         } else {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Guardar", "Erro ao gravar Matricula"));
         }
-        
+
         // Depois de guardar a matricula - imprime o boletim de matricula
         imprimirFichaMatricula();
 
@@ -516,20 +567,54 @@ public class MatriculaBean implements Serializable {
             } catch (IOException ex) {
                 Logger.getLogger(MatriculaBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
-          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Editar", "Erro ao gravar Matricula"));
-        
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Editar", "Erro ao gravar Matricula"));
+
         }
 
     }
 
-     public List<Matricula> getMatriculaByTurmaAnoLectivo() {
+    public List<Matricula> getMatriculaByTurmaAnoLectivo() {
         Turma turmaPesquisa = matricula.getTurma();
         AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
-        
+
         listaTurmasAnoLectivo = matriculaDAO.findByTurmaAnoLectivo(turmaPesquisa.getNomeTurma(), anoLectivoPesquisa.getAnoLectivo());
         return listaTurmasAnoLectivo;
     }
+
+    /*metods adicionados por mim DEU, para imprimir outras listas de turmas com varios parametros*/
+    public List<Matricula> getMatriculaByTurmaAnoLectivoAnoCurricular() {
+        Turma turmaPesquisa = matricula.getTurma();
+        AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
+        AnoCurricular anoCurricularPesquisa = matricula.getAnoCurricular();
+
+        listaTurmasAnoLectivoAnoCurricular = matriculaDAO.findByTurmaAnoLectivoAnoCurricular(turmaPesquisa.getNomeTurma(), anoLectivoPesquisa.getAnoLectivo(), anoCurricularPesquisa.getAnoCurricular());
+        return listaTurmasAnoLectivoAnoCurricular;
+    }
+
+    public List<Matricula> getMatriculaByTurmaAnoLectivoAnoCurricularCurso() {
+        Turma turmaPesquisa = matricula.getTurma();
+        AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
+        AnoCurricular anoCurricularPesquisa = matricula.getAnoCurricular();
+        Curso cursoPesquisa = matricula.getCurso();
+
+        listaTurmasAnoLectivoAnoCurricularCurso = matriculaDAO.findByTurmaAnoLectivoAnoCurricularCurso(turmaPesquisa.getNomeTurma(), anoLectivoPesquisa.getAnoLectivo(), anoCurricularPesquisa.getAnoCurricular(), cursoPesquisa.getNomeCurso());
+        return listaTurmasAnoLectivoAnoCurricularCurso;
+    }
+
+    public List<Matricula> getMatriculaByTurmaAnoLectivoAnoCurricularCursoPeriodoLetivo() {
+        Turma turmaPesquisa = matricula.getTurma();
+        AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
+        AnoCurricular anoCurricularPesquisa = matricula.getAnoCurricular();
+        Curso cursoPesquisa = matricula.getCurso();
+        PeriodoLectivo periodoLectivoPesquisa = turma.getPeriodoLectivo();
+        turma.setPeriodoLectivo(periodoLectivo);
+        matricula.setTurma(turma);
+        listaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo = matriculaDAO.findByTurmaAnoLectivoAnoCurricularCursoPeriodoLetivo(turmaPesquisa.getNomeTurma(), anoLectivoPesquisa.getAnoLectivo(), anoCurricularPesquisa.getAnoCurricular(), cursoPesquisa.getNomeCurso(), periodoLectivoPesquisa.getPeriodoLectivo());
+        return listaTurmasAnoLectivoAnoCurricularCursoPeriodoLetivo;
+    }
+
+    /*fim*/
     public List<Matricula> getMatriculaByTurma() {
 
         matriculas = matriculaDAO.findByTurma(byTurma);
@@ -544,59 +629,80 @@ public class MatriculaBean implements Serializable {
         this.byTurma = byTurma;
     }
 
-       public String imprimirFichaMatricula() {
-           
-       Integer ultimaMatricula = matriculaDAO.buscaUltimaMatriculaFeita();
-        System.out.println(">>>>>>>>imprimirFichaMatricula()"+ultimaMatricula);
+    public String imprimirFichaMatricula() {
+
+        Integer ultimaMatricula = matriculaDAO.buscaUltimaMatriculaFeita();
+        System.out.println(">>>>>>>>imprimirFichaMatricula()" + ultimaMatricula);
         String relatorio = "matricula_ficha.jasper";
-         HashMap parametros = new HashMap();
-         parametros.put("numeroMatricula", ultimaMatricula);
+        HashMap parametros = new HashMap();
+        parametros.put("numeroMatricula", ultimaMatricula);
         gestorImpressao.imprimirPDF(relatorio, parametros);
 
         return null;
 
     }
-  
-  
+
     public String imprimirListaTurma() {
-           
-       Turma turmaPesquisa = matricula.getTurma();
+
+        Turma turmaPesquisa = matricula.getTurma();
         AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
-        
-        System.out.println(">>>>>>>>Ano Lectivo()"+anoLectivoPesquisa.getAnoLectivo());
-        
-         System.out.println(">>>>>>>>Ano Lectivo()"+turmaPesquisa.getNomeTurma());
+
+        System.out.println(">>>>>>>>Ano Lectivo()" + anoLectivoPesquisa.getAnoLectivo());
+
+        System.out.println(">>>>>>>>Ano Lectivo()" + turmaPesquisa.getNomeTurma());
         String relatorio = "alunos_por_turma.jasper";
-         HashMap parametros = new HashMap();
-         parametros.put("anoLectivo", anoLectivoPesquisa.getAnoLectivo());
-          parametros.put("turma", turmaPesquisa.getNomeTurma());
+        HashMap parametros = new HashMap();
+        parametros.put("anoLectivo", anoLectivoPesquisa.getAnoLectivo());
+        parametros.put("turma", turmaPesquisa.getNomeTurma());
         gestorImpressao.imprimirPDF(relatorio, parametros);
 
         return null;
 
     }
-    
-    
-    
-    
-     public String imprimirCartoesTurma() {
-           
-       Turma turmaPesquisa = matricula.getTurma();
+
+    public String imprimirCartoesTurma() {
+
+        Turma turmaPesquisa = matricula.getTurma();
         AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
-        
-        System.out.println(">>>>>>>>Ano Lectivo()"+anoLectivoPesquisa.getAnoLectivo());
-        
-         System.out.println(">>>>>>>>Ano Lectivo()"+turmaPesquisa.getNomeTurma());
+
+        System.out.println(">>>>>>>>Ano Lectivo()" + anoLectivoPesquisa.getAnoLectivo());
+
+        System.out.println(">>>>>>>>Ano Lectivo()" + turmaPesquisa.getNomeTurma());
         String relatorio = "cartao_aluno.jasper";
-         HashMap parametros = new HashMap();
-         parametros.put("anoLectivo", anoLectivoPesquisa.getAnoLectivo());
-          parametros.put("turma", turmaPesquisa.getNomeTurma());
+        HashMap parametros = new HashMap();
+        parametros.put("anoLectivo", anoLectivoPesquisa.getAnoLectivo());
+        parametros.put("turma", turmaPesquisa.getNomeTurma());
         gestorImpressao.imprimirPDF(relatorio, parametros);
 
         return null;
 
     }
+
+    /*metods adicionados por mim DEU, para imprimir outras listas de turmas dos relatorios pdf*/
+    public String imprimirListaTurmaAnoLetivoAnoCurricularCurso() {
+
+        AnoCurricular anoCurricularPesquisa = matricula.getAnoCurricular();
+        Turma turmaPesquisa = matricula.getTurma();
+        Curso cursoPesquisa = matricula.getCurso();
+        AnoLectivo anoLectivoPesquisa = matricula.getAnoLetivo();
+
+        System.out.println(">>>>>>>>Ano Curricular()" + anoCurricularPesquisa.getAnoCurricular());
+        System.out.println(">>>>>>>>Turma()" + turmaPesquisa.getNomeTurma());
+        System.out.println(">>>>>>>>Curso()" + cursoPesquisa.getNomeCurso());
+        System.out.println(">>>>>>>>Ano Lectivo()" + anoLectivoPesquisa.getAnoLectivo());
+
+        String relatorio = "alunosMatriculadosBuscarPorClasseTurmaCursoAnoLetivo.jasper";
+        HashMap parametros = new HashMap();
+
+     
+        parametros.put("anoCurricularPesquisa", anoCurricularPesquisa.getAnoCurricular());
+        parametros.put("turmaPesquisa", turmaPesquisa.getNomeTurma());
+        parametros.put("cursoPesquisa", cursoPesquisa.getNomeCurso());
+        parametros.put("anoLectivoPesquisa", anoLectivoPesquisa.getAnoLectivo());
+
+        gestorImpressao.imprimirPDF(relatorio, parametros);
        
-       
-    
+        return null;
+
+    }
 }
