@@ -1,0 +1,77 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8/jan/2018, 9:22:45
+    Author     : PENA
+*/
+
+
+.body{
+    font-size: 100% !important; 
+}
+
+@media screen and(max-device-width: 100%){
+    .container-central{
+        text-align: center;
+        border: solid #ccc 1em;
+    }
+}
+
+@media screen and(max-width: 640px){
+    .botton-div{
+        max-width: 90%;
+    }
+}
+
+.container-central{
+    float: right;
+    width: 60%;
+    margin-top: -32%;
+    margin-right: 4%;
+    border-right: solid #f3f3f3 0.1em;
+    border-left: solid #f3f3f3 0.1em;
+}
+
+.left-container{
+    width: 35%;
+    float: left; 
+}
+.container-principal{
+    background-color: #ddd;
+}
+
+.botton-div {
+    background-color: #f3f3f3;
+    padding: 20px;
+    margin: 3px;
+    display: inline-block;
+    max-width: 50%;
+    border-radius: 120%;
+}
+
+
+.button-text{
+    color: black;
+    font: sans-serif;
+    font-family: serif;
+}
+
+.left-button{
+    padding: 2px;
+    margin: 3px;
+    display: block;
+    margin-left: 10%;
+}
+
+.container-form{
+    margin-left: 16%;
+}
+
+
+
+
+
+

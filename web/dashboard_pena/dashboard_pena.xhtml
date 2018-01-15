@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Fenix School</title>
+                <h:outputStylesheet library="css" name="dashboard-pena.css"/>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <!--Menu superior-->
+            <b:navBar inverse="true" fixed="top"  position="inline" class="cabecalho" >
+                <b:navbarLinks >
+                    <b:navLink value="Home" href="#" icon="home"/>
+                    <b:navLink value="Secretaria" href="#"/>
+                    
+                    <b:dropMenu value="Professores">
+                        <b:navLink value="Novo professor" href="#"/>
+                        <b:navLink value="Visualizar lista" href="#"/>
+                        <b:dropMenu value="Docência">
+                            <b:navLink value="Professor por Departamento" href="#"/>
+                        </b:dropMenu>
+                        <b:dropMenu value="Pesquisar professor..." icon="search">
+                            <b:navLink value="Por nome" href="#"/>
+                            <b:navLink value="Género" href="#"/>
+                            <b:navLink value="Por data de nascimento" href="#"/>
+                        </b:dropMenu>
+                    </b:dropMenu>
+                    
+                    <b:dropMenu value="Alunos">
+                        <b:navLink value="Novo" href="#"/>
+                        <b:navLink value="Visualizar lista" href="#"/>
+                        <b:dropMenu value="Pesquisar aluno..." icon="search">
+                            <b:navLink value="Por nome" href="#"/>
+                            <b:navLink value="Por sobrenome" href="#"/>
+                            <b:navLink value="Por data de nascimento" href="#"/>
+                            <b:navLink value="Por turma" href="#"/>
+                            <b:navLink value="Por ano lectivo" href="#"/>
+                            <b:navLink value="Por sala" href="#"/>
+                            <b:navLink value="Por curso" href="#"/>
+                        </b:dropMenu>
+                    </b:dropMenu>
+                    
+                    
+                    <b:dropMenu value="Pautas">
+                        <b:navLink value="Inserir" href="#"/>
+                        <b:navLink value="Visualizar pauta" href="#"/>
+                    </b:dropMenu>
+                    
+                    <b:dropMenu value="Encarregados">
+                        <b:navLink value="Adicionar novo" href="#"/>
+                        <b:navLink value="Visualizar lista" href="#"/>
+                    </b:dropMenu>
+                    
+                    <b:dropMenu value="Localidades">
+                        <b:navLink value="Países" href="#"/>
+                        <b:navLink value="Províncias" href="#"/>
+                        <b:navLink value="Municípios" href="#"/>
+                    </b:dropMenu>
+                    
+                    <b:dropMenu value="Ajuda" icon="search">
+                        <b:navLink value="Conteúdo..." href="#"/>
+                        <b:navLink value="Procurar na web..." href="#"/>
+                    </b:dropMenu>
+                    
+                </b:navbarLinks>
+                
+                <b:navbarLinks pull="right">
+                    <b:navLink value="Logout" href="#"/>
+
+                    <b:dropMenu value="Idiomas" display="iniline" >
+                        <b:navLink value="Português" href="#"/>
+                        <b:navLink value="Inglês" href="#"/>
+                        <b:navLink value="Francês" href="#"/>
+                        <b:navLink value="Espanhol" href="#"/>
+                    </b:dropMenu>
+
+                </b:navbarLinks>
+            </b:navBar>
+
+
+
+
+
+            <div class="container-principal">
+                <b:row>
+                    <div class="left-container">
+                        <b:image library="imagens" style="margin-left: 19%;" name="beca.png" width="150" height="150"/>
+                        <div id="left-panel">
+                            <h:form class="left-container-form">
+                                <div class="left-button">
+                                    <h4 style="margin-left: 4px;">ADMINISTRAÇÃO E GESTÃO</h4>
+                                </div>
+
+                                <b:buttonGroup display="iniline-block"  col-sm="1" col-md="4" colMd="3" offset-md="1" pull="left"
+                                               span="4">
+                                    <div class="left-button">
+                                        <b:commandButton  look="normal" style="width: 120%;"  action="#" ajax="false">
+                                            <h4>Área acadêmica</h4>
+                                        </b:commandButton>
+                                    </div>
+
+                                    <div class="left-button">
+                                        <b:commandButton look="normal" style="width: 120%;"  action="#" ajax="false">
+                                            <h4>Recursos humanos</h4>
+                                        </b:commandButton>
+                                    </div>
+
+                                    <div class="left-button">
+                                        <b:commandButton look="normal" style="width: 120%;"  action="#" ajax="false">
+                                            <h4>Área pedagógica</h4>
+                                        </b:commandButton>
+                                    </div>
+
+                                    <div class="left-button">
+                                        <b:commandButton  style="width: 120%;" look="normal"  action="#" ajax="false">
+                                            <h4>Usuários</h4>
+                                        </b:commandButton>
+                                    </div>
+                                </b:buttonGroup>
+                            </h:form>
+                        </div>
+
+                    </div>
+                </b:row>
+
+
+
+
+
+                <b:row>
+                    <div class="container-central">
+                        <div class="container-panel">
+                            <h:form class="container-form">
+
+                                <div class="header-text">
+                                    <h3 style="color: #AA8866; margin-left: 18px;"><b>COLÉGIO Nº 1320 "14 DE ABRIL" - LUBANGO</b></h3>
+                                </div>
+
+                                <div class="botton-div button-text">
+                                    <b:commandButton class="button" look="normal" action="/reservado/aluno/aluno_listar.jsf">
+                                        <b:image width="70" height="60" class="img-responsive" library="imagens" name="student_icon.png" alt="Sem imagem"/>
+                                        <p>Alunos</p>
+                                    </b:commandButton>
+                                </div>
+
+                                <div class="botton-div button-text">
+                                    <b:commandButton class="button" look="normal" action="/reservado/professor/professor_gestao.jsf">
+                                        <b:image width="70" height="60" class="img-responsive" library="imagens" name="professores_01_1.png" alt="Sem imagem"/>
+                                        <p>Professores</p>
+                                    </b:commandButton>
+                                </div>
+
+                                <div class="botton-div button-text">
+                                    <b:commandButton class="button" look="normal" action="#">
+                                        <b:image width="70" height="60" class="img-responsive" library="imagens" name="time_management.png" alt="Sem imagem"/>
+                                        <p>Horários</p>
+                                    </b:commandButton>
+                                </div>
+
+                                <div class="botton-div button-text">
+                                    <b:commandButton class="button" look="normal" action="/reservado/matricula/matricula_gestao.jsf">
+                                        <b:image width="70" height="60" class="img-responsive" library="imagens" name="Programmes.png" alt="Sem imagem"/>
+                                        <p>Matrícula</p>
+                                    </b:commandButton>
+                                </div>
+                            </h:form>
+                        </div>
+
+                        <div class="container-panel">
+                            <h:form class="container-form">
+                                <div class="botton-div button-text">
+                                    <b:commandButton class="button" look="normal" action="/reservado/turma/turma_listar.jsf">
+                                        <b:image width="70" height="60" class="img-responsive" library="imagens" name="group1.png" alt="Sem imagem"/>
+                                        <p>Turmas</p>
+                                    </b:commandButton>
+                                </div>
+
+                                <div class="botton-div button-text">
+                                    <b:commandButton class="button" look="normal" action="/reservado/aluno/aluno_listar.jsf">
+                                        <b:image width="70" height="60" class="img-responsive" library="imagens" name="cartoes_estudantes.png" alt="Sem imagem"/>
+                                        <p>Cartões</p>
+                                    </b:commandButton>
+                                </div>
+
+                                <div class="botton-div button-text">
+                                    <b:commandButton class="button" look="normal" action="/reservado/aluno/aluno_listar.jsf">
+                                        <b:image width="70" height="60" class="img-responsive" library="imagens" name="secretaria.png" alt="Sem imagem"/>
+                                        <p>Secretaria</p>
+                                    </b:commandButton>
+                                </div>
+
+                                <div class="botton-div button-text">
+                                    <b:commandButton class="button" look="normal" action="/reservado/aluno/aluno_listar.jsf">
+                                        <b:image width="70" height="60" class="img-responsive" library="imagens" name="maly.png" alt="Sem imagem"/>
+                                        <h4>Artigos</h4>
+                                    </b:commandButton>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </b:row>
+            </div>
+
+            <div class="notificacoes">
+                <b:navBar fluid="fluid" position="iniline">
+                    <p:notificationBar autoDisplay="true" effect="slide"  widgetVar="notification" position="bottom" effectSpeed="slow">
+                        <h5 style="text-align: center;">&copy;2018 Fénix innovation</h5>
+                    </p:notificationBar>
+                </b:navBar>
+            </div>
+            <!-- <b:navBar fixed="bottom" fluid="true"   position="inline" class="rodape">
+                 <h5 style="text-align: center;"> &copy;2018 Fénix innovation</h5>
+             </b:navBar>-->
+
+        </h:body>
+
+    </f:view>
+</html>
+

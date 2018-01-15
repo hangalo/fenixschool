@@ -1,3 +1,19 @@
+****15/01/2018
+Tarefas concluída....
+
+Dashboad concluido numa primeira fase... agradeceria que dessem uma sugestão quando a estética e
+outros elementos do mesmo. O mesmo dashboard tem o nome de dashboard_pena.
+
+testes realizados da Entidade gestão de Matrículas. e notou-se  algumas irregularidades no que toca as dimensões dos formúlarios
+e quanto a inserção e impressão da ficha de matrículas:
+A) Ao inserir dados na entidate matrícula traz o erro 500 e aponta por linha 94 do gestor de impressão e na linha 554
+do managedbean matrícula.
+B) As dimensões do formulários são maiores podendo dificultar o inserção de dados em casos
+de monitores com polegadas inferior a 16'.
+----------------------------------------------------------------------------------------
+
+
+
 *****15/12/2017********
 
 ****INFORMAÇÔES********
