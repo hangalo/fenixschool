@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <h:outputStylesheet  library="css" name="dashboard_aisha.css"/>
+
+            <title>Fenix school</title>
+        </f:facet>
+    </h:head>
+
+    <h:body>
+        <header>
+        </header>
+        <h:form >
+            <p:menubar style="margin-top: -25px; margin-bottom: 20px">
+
+                <p:menuitem value="HOME" icon="ui-icon-home "/>
+
+
+                <p:submenu label="SECRETARIA">
+                    <p:submenu label="Pagamentos">
+                        <p:menuitem value="Mensalidades"/>
+                        <p:menuitem value="Transporte"/>
+                    </p:submenu>  
+                </p:submenu>
+                <p:submenu label="PROFESSORES">
+                    <p:menuitem value="Novo Professor" />
+                    <p:menuitem value="Ver lista de professores"/>
+
+                </p:submenu>
+                <p:submenu label="ALUNOS">
+                    <p:menuitem value="Incrição de aluno" />
+                    <p:menuitem value="Matriculas de aluno" />
+                    <p:menuitem value="Lista de alunos"/>
+                </p:submenu>
+                <p:submenu label="PAUTAS">
+                    <p:menuitem value="Pautas por turma" />
+                </p:submenu>
+                <p:submenu label="ENCARREGADOS">
+                    <p:menuitem value="Pautas por turma" />
+                </p:submenu>
+                <p:submenu label="LOCALIDADE">
+                    <p:menuitem value="Municipio" />
+                    <p:menuitem value="Provincia" />
+                </p:submenu>
+
+                <p:submenu label="AJUDA">
+                    <p:menuitem value="sobre o sistema" />
+
+                </p:submenu>
+                <p:submenu style="margin-left: 20%;" label="IDIOMAS"  >
+
+                    <p:menuitem  value="Português"  url="#" />
+                    <p:menuitem value="Inglês"  url="#" />
+                    <p:menuitem value="Francês"  url="#" />
+                    <p:menuitem value="Espanhol"  url="#" />
+
+                </p:submenu>
+
+                <p:menuitem style="margin-left: 15%;" value="LOGOUT"  url="#" />
+
+
+
+            </p:menubar>
+        </h:form>
+
+
+        <div id="conteudo">
+            <h3> Escola do Iº Ciclo do ensino secundário 14 de Abril</h3>
+
+
+
+            <div id="painel-esquerdo">
+                <h:form>
+                    <h:panelGrid  columns="1" >
+                        <h:panelGroup>
+                            <h:graphicImage name="beca.png" width="250" height="250" library="imagens" /> 
+
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+
+                    <p:accordionPanel>
+                        <p:tab title="Administraçao e Gestão" >
+                            <h:form style=" background-color: #666666">
+                                <b:commandButton action="#" value="Área Académica" look="normal" style=" text-align: center"/>
+                                <hr style="margin: 3px"/>
+                                <b:commandButton action="#" value=" Recursos Humanos" look="normal" style=" text-align: center"/>
+                                <hr style="margin: 3px"/>
+                                <b:commandButton action="#" value="área Pedagogica" look="normal" style=" text-align: center"/>
+                                <hr style="margin: 3px"/>
+
+                                <b:commandButton action="#" value="Usuários" look="normal" style=" text-align: center"/>
+                                <hr style="margin: 3px"/>
+
+                            </h:form>
+                        </p:tab>
+                    </p:accordionPanel>  
+
+
+
+
+
+                </h:form>
+
+            </div>
+            <div id="painel-central">
+
+                <h:form>
+
+
+                    <div class="container">
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/aluno/aluno_novo" look="normal">
+
+                                <h:graphicImage name="novo_aluno.png" width="50" height="50"  library="imagens" />  
+                                <p>Novo Aluno</p>
+
+                            </b:commandButton>
+
+
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/professor/professores_por_departamento" look="normal">
+                                <h:graphicImage name="professores_01_1.png" width="50" height="50" library="imagens" />  
+                                <p>Professores</p>
+                            </b:commandButton>
+
+
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/aluno/aluno_por_nome_sobrenome" look="normal">
+                                <h:graphicImage name="time_management.png"  width="60" height="50" library="imagens"/>  
+                                <p>Horarios</p>
+                            </b:commandButton>
+
+
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/matricula/matricula_nova" look="normal">
+                                <h:graphicImage name="matriculas.png" width="50" height="50"  library="imagens" />  
+                                <p>Inscrições</p>
+                            </b:commandButton>
+
+                        </div>
+
+                    </div>
+                </h:form>
+
+                <br/>
+
+
+                <div class="container">
+                    <h:form>
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/matricula/listagem_turma_anolectivo" look="normal">
+                                <h:graphicImage name="turmas.png" width="50" height="50"  library="imagens"/>  
+                                <p>Turmas</p>
+                            </b:commandButton>
+
+
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/professor/professores_por_departamento" look="normal" >
+                                <h:graphicImage name="cartoes_estudantes.png" width="50" height="50" library="imagens" />  
+                                <p>Cartões</p>
+                            </b:commandButton>
+
+
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="#" look="normal">
+
+                                <h:graphicImage name="secretaria.png"  width="50" height="50" library="imagens" />  
+                                <p>Secretaria</p>
+
+                            </b:commandButton>
+
+
+
+                        </div>
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="#" look="normal">
+
+                                <h:graphicImage name="maly.png"  width="50" height="50" library="imagens" />  
+                                <p>Artigos</p>
+
+                            </b:commandButton>
+
+                        </div>
+
+                    </h:form>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <footer>
+            Fénix Innovation &copy; 2018
+        </footer>
+
+    </h:body>
+
+</html>

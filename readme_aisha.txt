@@ -1,3 +1,58 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+15/01/2018
+
+Dashboard feito, embora tenha tido um pouco de disficuldade no empregue de algumas tags, 
+dado o modelo de layout elegido pela equipa tentei implementar um dashboar com base no anterior.
+utilizei cores alternativas só para variar.
+opinem aqui no meu readme.
+Espaço para opinioes:
+
+
+
+
+
+
+
+
+
+
+
+tarefas anteriores
+
+Trabalhei com a entidade sala, visto que acrescentou-se um novo campo na entidade turma que foi o nº de sala,
+isso obrigou-me a trabalhar com sala.
+
+relatórios feitos com o jasper, mas ao chamar na apliçação eles aparecem em branco, e simplesmente não 
+mostra indicção de nenhum erro
+
+
+
+
+
+
+_________________________fim____________________________________________________________________________-
+
+
+
+
+
+
+
+
+
+
 02/10/2017
 Alteracões feitas:
 Funcionario :
