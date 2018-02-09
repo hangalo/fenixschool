@@ -18,18 +18,15 @@
 
                     <h:form id="formBusca" >
                         <h:messages/>
-                        <p:panel header="Pesquisar Aluno por Nome e Sobrenome">
+                        <b:panel collapsible="false" look="primary" style="text-align: center" title="Pesquisar Aluno por Data de Nascimento">
 
                             <h:panelGrid columns="6"  cellspacing="10%">
-                                <h:outputLabel value="Nome: " style="margin-right: 10px"/>
-                                <h:inputText id="nome" value="#{alunoMBean.nome}" />
-                                <h:outputLabel value="Sobrenome: " style="margin-right: 10px"/>
-                                <h:inputText id="cognome" value="#{alunoMBean.sobrenome}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
-                                <h:message for="nome"/>
+                                <p:outputLabel value="Data de nascimento:"/>
+                                <p:calendar id="cogdatanascimento"  locale="pt" value="#{alunoMBean.dataDeNascimento}" pattern="dd/MM/yyyy"  immediate="true" />
                                 <b:commandButton value="Pesquisar..." look="primary"/>
                             </h:panelGrid>
 
-                        </p:panel>
+                        </b:panel>
                     </h:form>
 
                     <b:panel title="Lista - alunos" collapsible="false" look="primary">
@@ -37,7 +34,7 @@
 
                             <!--Inicio Data table-->
 
-                            <p:dataTable value="#{alunoMBean.byNomeSobrenome}"   var="aluno" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                            <p:dataTable value="#{alunoMBean.byDataNascimento}"   var="aluno" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                            
 
                             <p:column style="width: 20px; text-align: center">
@@ -119,8 +116,8 @@
 
                     <!--Inicio Formulario auxiliar-->
                     <h:form id="operacoes">
-                        <p:commandButton value="Novo Aluno" type="button" onclick="PF('dlgNovoAluno').show();" />
-
+                       <p:commandButton value="Novo Aluno" action="/alunos/aluno_novo.jsf" ajax="false" immediate="true" />
+                 
                     </h:form>
                     <!--Fim  Formulario auxiliar-->
 

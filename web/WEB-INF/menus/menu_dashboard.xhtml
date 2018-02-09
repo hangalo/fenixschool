@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+
+    </h:head>
+    <h:body>
+
+
+
+        <h:form>  
+            <p:growl id="messages"/>
+
+            <p:menubar>
+
+
+
+                <p:menuitem  value="Home"  outcome="/index.xhtml" icon="ui-icon-home "/>
+
+
+
+
+
+
+
+
+
+                <p:submenu label="Aluno">
+
+                    <p:menuitem value="Novo" outcome="/alunos/aluno_novo.xhtml" />
+
+                    <p:submenu label="Listagem por">
+                        <p:menuitem value="Bilhete de Identidade" outcome="/alunos/aluno_por_numero.xhtml"/>
+                        <p:menuitem value="Nome e Sobrenome" outcome="/alunos/aluno_por_nome_sobrenome.xhtml"/>
+                        <p:menuitem value="Genero" outcome="/alunos/aluno_por_sexo.xhtml"/>
+                         <p:menuitem value="Data de Nascimento" outcome="/alunos/aluno_por_nascimento.xhtml" />
+                        <p:menuitem value="Lista geral" outcome="/alunos/aluno_listar.xhtml" />
+
+                    </p:submenu>
+                    <p:submenu label="Encarregado">
+                        <p:menuitem value="Novo Encarregado" url="/reservado/encarregado/encarregado_educacao_novo.jsf" />
+                        <p:submenu label="Listagem">
+                            <p:menuitem value="Por nome" url="/reservado/encarregado/encarregado_por_nome.jsf"/>
+                            <p:menuitem value="Por nome e sobrenome" url="/reservado/encarregado/encarregado_por_nome_sobrenome.jsf"/>
+                            <p:menuitem value="Por sexo" url="/reservado/encarregado/encarregado_por_sexo.jsf"/>
+                            <p:menuitem value="Lista geral" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        </p:submenu>
+                    </p:submenu>
+
+                    <p:submenu label="Notas">
+                        <p:menuitem value="I Trimestre" url="/reservado/encarregado/encarregado_por_nome.jsf"/>
+                        <p:menuitem value="II Trimestre" url="/reservado/encarregado/encarregado_por_nome_sobrenome.jsf"/>
+                        <p:menuitem value="III Trimestre" url="/reservado/encarregado/encarregado_por_sexo.jsf"/>
+                        <p:menuitem value="Exame" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        <p:menuitem value="Recurso" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        <p:menuitem value="Exame Especial" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+
+                    </p:submenu>
+
+
+
+                </p:submenu>
+
+
+
+
+                <p:submenu label="Matricula">
+
+                    <p:menuitem value="Nova"  url="/reservado/turma/turma_novo.jsf" />
+
+                    <p:submenu label="Listagem">
+                        <p:menuitem value="Por nome" url="/reservado/encarregado/encarregado_por_nome.jsf"/>
+                        <p:menuitem value="Por nome e sobrenome" url="/reservado/encarregado/encarregado_por_nome_sobrenome.jsf"/>
+                        <p:menuitem value="Por sexo" url="/reservado/encarregado/encarregado_por_sexo.jsf"/>
+                        <p:menuitem value="Lista geral" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+
+                    </p:submenu>
+                    <p:submenu label="Encarregado">
+                        <p:menuitem value="Novo Encarregado" url="/reservado/encarregado/encarregado_educacao_novo.jsf" />
+                        <p:submenu label="Listagem">
+                            <p:menuitem value="Por nome" url="/reservado/encarregado/encarregado_por_nome.jsf"/>
+                            <p:menuitem value="Por nome e sobrenome" url="/reservado/encarregado/encarregado_por_nome_sobrenome.jsf"/>
+                            <p:menuitem value="Por sexo" url="/reservado/encarregado/encarregado_por_sexo.jsf"/>
+                            <p:menuitem value="Lista geral" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        </p:submenu>
+                    </p:submenu>
+
+                    <p:submenu label="Notas">
+                        <p:menuitem value="I Trimestre" url="/reservado/encarregado/encarregado_por_nome.jsf"/>
+                        <p:menuitem value="II Trimestre" url="/reservado/encarregado/encarregado_por_nome_sobrenome.jsf"/>
+                        <p:menuitem value="III Trimestre" url="/reservado/encarregado/encarregado_por_sexo.jsf"/>
+                        <p:menuitem value="Exame" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        <p:menuitem value="Recurso" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        <p:menuitem value="Exame Especial" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+
+                    </p:submenu>
+
+
+
+                </p:submenu>
+
+                <p:submenu label="PROFESSORES" icon="ui-icon-home ">
+                    <p:submenu label="Encarregado">
+                        <p:menuitem value="Novo Encarregado" url="/reservado/encarregado/encarregado_educacao_novo.jsf" />
+                        <p:submenu label="Listagem">
+                            <p:menuitem value="Por nome" url="/reservado/encarregado/encarregado_por_nome.jsf"/>
+                            <p:menuitem value="Por nome e sobrenome" url="/reservado/encarregado/encarregado_por_nome_sobrenome.jsf"/>
+                            <p:menuitem value="Por sexo" url="/reservado/encarregado/encarregado_por_sexo.jsf"/>
+                            <p:menuitem value="Lista geral" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        </p:submenu>
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="ALUNOS" icon="ui-icon-home ">
+                    <p:submenu label="Notas">
+
+
+                        <p:menuitem icon="ui-icon-plus" value="Novas notas" url="/reservado/nota/nota_novo.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Notas" url="/reservado/nota/nota_listar.jsf" />
+                        <p:menuitem icon="ui-icon-plus" value="Novo boletim" url="/reservado/boletimnotas/boletimnotas_novo.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Boletim de notas" url="/reservado/boletimnotas/boletimnotas_listar.jsf" />
+
+                        <p:menuitem icon="ui-icon-search" value="Class. Notas" url="/reservado/classificacao_nota/classificacao_nota_listar.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Declaração" url="/reservado/declaracao/declaracao_listar.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Obj. Declaração" url="/reservado/objetivo_declaracao/objetivo_declaracao_listar.jsf" />
+
+                    </p:submenu>
+
+                    <p:submenu label="Certificados e Declaracoes">
+                        <p:menuitem icon="ui-icon-search" value="Declaração" url="/reservado/declaracao/declaracao_listar.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Obj. Declaração" url="/reservado/objetivo_declaracao/objetivo_declaracao_listar.jsf" />
+                        <p:menuitem icon="ui-icon-search" value="Certificado" url="/reservado/certificado/certificado_listar.jsf" />
+
+
+                    </p:submenu>
+
+
+
+
+
+
+                </p:submenu>
+
+                <p:submenu label="PAUTAS" icon="ui-icon-home ">
+                    <p:menuitem value="Novo Aluno" url="reservado/aluno/aluno_novo.jsf" />
+                    <p:submenu label="Pesquisa por:" icon="ui-icon-search">
+                        <p:menuitem value="N.º de Aluno" url="#"/>
+                        <p:menuitem value="Nome" url="#"/>
+                        <p:menuitem value="Nº do BI"  url="#"/>
+                        <p:menuitem value="data de nascimento" url="#"/>
+                        <p:menuitem value="Listagem Geral" url="/reservado/aluno/aluno_listar.jsf" />
+                    </p:submenu>
+                    <p:menuitem value="Matricula" url="#" />
+                    <p:menuitem value="Transferencias" url="/reservado/transferencia/transferencia_listar.jsf" />
+                </p:submenu>
+
+
+
+                <p:submenu label="ENCARREGADO" icon="ui-icon-home ">
+                    <p:menuitem value="Guida do usuario" url="/reservado/sistema/ajuda.jsf" />
+
+                    <p:menuitem value="Sobre..." url="/reservado/sistema/ajuda.jsf" />
+                </p:submenu>
+
+
+
+
+                <p:submenu style="margin-left: 25%;" label="IDIOMA" icon="ui-icon-home " >
+
+                    <p:menuitem  value="Portugues"  url="/reservado/aluno/aluno_novo.jsf" />
+                    <p:menuitem value="Ingles"  url="/reservado/aluno/aluno_novo.jsf" />
+                    <p:menuitem value="Espanhol"  url="/reservado/aluno/aluno_novo.jsf" />
+
+                </p:submenu>
+                <p:menuitem style="margin-left: 20%;" value="LOGOUT"  url="/reservado/aluno/aluno_novo.jsf" />
+
+
+
+            </p:menubar>
+
+        </h:form>
+
+    </h:body>
+</html>

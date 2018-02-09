@@ -74,11 +74,14 @@
 				padding:0;
 				background: #FFFFFF;
 				border-radius:10px;
+                                 font-size: 13px !important;
+    font-family:monospace;
 				
 			}
 			
 			#loop-opcao h1{
-				font-family:"Arial Black", Gadget, sans-serif;
+				
+    font-family:monospace;
 				font-size:1.1em;
 				background:#006600;
 				
@@ -89,7 +92,7 @@
 			}
 			
 			#loop-opcao p{
-					font-family:"Arial", Gadget, sans-serif;
+					 font-family:monospace;
 				font-size:0.85em;
                                 background:#666666;
                                 
@@ -101,7 +104,7 @@
 				}
 				
 				.desc{
-					font-family:"Arial", Gadget, sans-serif;
+					 font-family:monospace;
 				font-size:1.25em;
                                 
 				/*background:#666666;*/
@@ -154,7 +157,8 @@
 }
 .ui-layout-north {
     z-index: 20 !important;
-    overflow: visible !important;;
+    overflow: visible !important;
+    
 }
 .ui-layout-north .ui-layout-unit-content {
     overflow: visible !important;

@@ -1,0 +1,361 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Gestão de Matriculas</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+
+         aa  <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <b:panel title="Nova Matricula" look="primary">
+                        <h:form>
+                            <p:menubar>
+                                <f:facet name="options" >
+                                    <h:panelGrid columns="2">
+
+                                        <p:inputText size="50" value="#{alunoMBean.numeroAluno}" placeholder="Nº do aluno ou Nº do Bilhete de Identidade"/>
+                                        <p:commandButton  value="Pesquisar"  ajax="false"/>
+
+
+
+
+
+                                    </h:panelGrid>
+                                </f:facet>
+                            </p:menubar>
+
+                        </h:form>
+
+                        <h:form>
+
+                            <!--Inicio Data table-->
+                            <p:dataTable value="#{alunoMBean.byNumeroAluno}"   var="item" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+
+
+                                <p:column style="width: 3%; text-align: center">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Código"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idAluno}"/>
+                                </p:column>
+
+                                <p:column style="width: 20%; text-align: center">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Nome"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nomeAluno}"/>
+                                </p:column>
+
+                                <p:column style="width: 20%; text-align: center">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Sobrenome"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.sobrenomeAluno}"/>
+                                </p:column>
+
+                                <p:column style="width:10%; text-align: center">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Bilhete de Identidade "/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.biAluno}"/>
+                                </p:column>   
+
+
+
+                                <p:column style="width: 10%; text-align: center">
+                                    <f:facet name="header">
+                                        <h:outputText value="Foto"/>
+                                    </f:facet>
+                                    <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{item.urlfotoAluno}" alt="foto" width="50" height="50"/>
+
+                                </p:column>
+
+
+                                <p:column style="width: 160px; text-align: center">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Operações"/>
+                                    </f:facet>
+
+
+                                    <p:commandButton icon="ui-icon-pencil" value="Matricular" oncomplete="PF('dlgNovo').show();" >
+                                        <f:setPropertyActionListener target="#{alunoMBean.aluno}" value="#{item}"/>
+                                    </p:commandButton>
+
+
+                                </p:column>
+
+                            </p:dataTable>
+
+
+
+                        </h:form>
+                    </b:panel>    
+                    <!--Fim Data table-->
+                    <h:form>
+                        <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                    </h:form>
+
+
+
+                    <!-- Inicio Dialogo Guardar-->
+                    <h:form  id="frmNovo" >
+                        <p:dialog header="Efetuar Matricula de: #{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno} Aluno N.º #{alunoMBean.aluno.idAluno}"  widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="1000" width="1100">
+
+                            <p:growl id="messages" showDetail="true"/>
+                            <b:panel title="Dados do aluno" look="info">
+                                <h:panelGrid columns="3">
+                                    <h:panelGroup style="margin-right: 20px;">
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Nº:"/>
+                                            <p:outputLabel value="#{alunoMBean.aluno.idAluno}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup/>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <h:graphicImage value="/alunoVisualizarFotoServlet?file=#{alunoMBean.aluno.urlfotoAluno}" alt="foto" width="50" height="50"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                </h:panelGrid>
+
+
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Nome e Sobrenome:"/>
+                                        <p:outputLabel value="#{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}"/>
+                                    </h:panelGrid>
+
+                                </h:panelGroup>
+                            </b:panel>
+                            <p:fieldset legend="Dados da Matricula" style="margin-top: 12px">
+                                <h:panelGrid columns="5">
+                                    <h:panelGroup>
+                                        <h:form id="frmTurma">
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Turma: "/>
+                                            <p:selectOneMenu value="#{matriculaBean.matricula.turma}"  converter="turmaConverter" >
+                                                <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{matriculaBean.turmas}" var="turma" itemValue="#{turma}" itemLabel="#{turma.nomeTurma}" />
+                                                <f:ajax listener="#{matriculaBean.carregaVagasDaTurma()}" render="vagas" />
+                                            </p:selectOneMenu>
+                                            <h:outputLabel id="vagas" value="Vagas disponivels:#{matriculaBean.vagasNaTurma}" style="color: blue;"/>
+                                        </h:panelGrid>
+                                        </h:form>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Curso: "/>
+                                            <p:selectOneMenu value="#{matriculaBean.matricula.curso}" converter="cursoConverter">
+                                                <f:selectItem itemLabel="Selecione uma Curso" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{matriculaBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nomeCurso}" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Ciclo letivo"/>
+                                            <p:selectOneMenu value="#{matriculaBean.matricula.cicloLectivo}" converter="cicloLectivoConverter">
+                                                <f:selectItem itemLabel="Selecione ciclo letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{matriculaBean.cicloLectivos}" var="cicloLectivo" itemValue="#{cicloLectivo}" itemLabel="#{cicloLectivo.cicloLectivo}" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Classe:"/>
+                                            <p:selectOneMenu value="#{matriculaBean.matricula.anoCurricular}" converter="anoCurricularConverter">
+                                                <f:selectItem itemLabel="Selecione um ano curricular" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{matriculaBean.anoCurriculars}" var="anoCurricular" itemValue="#{anoCurricular}" itemLabel="#{anoCurricular.anoCurricular}" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Ano Lectivo: "/>
+                                            <p:selectOneMenu value="#{matriculaBean.matricula.anoLetivo}" converter="anoLectivoConverter">
+                                                <f:selectItem itemLabel="Selecione uma Ano Letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{matriculaBean.anoLectivos}" var="anoletivo" itemValue="#{anoletivo}" itemLabel="#{anoletivo.anoLectivo}" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Data da Matricula"/>
+                                            <p:calendar id="dataMatricula" value="#{matriculaBean.matricula.dataMatricula}"  pattern="dd/MM/yyyy" size="30" locale="pt"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                    
+                                      <h:panelGrid columns="1">
+                                        <p:outputLabel value="Língua Estrangeira Estudada:"/>
+                                        <p:selectOneRadio id="linguaEstudada" value="#{matriculaBean.matricula.linguaEstudada}">
+                                            <f:selectItems value="#{matriculaBean.opcaoLingua}" />
+                                    </p:selectOneRadio >
+                                    </h:panelGrid>                
+                                    
+                                    
+                                </h:panelGroup>
+                                    
+                                    <h:panelGroup>
+                                    
+                                      <h:panelGrid columns="1">
+                                        <p:outputLabel value="Língua Estrangeira de opção"/>
+                                        <p:selectOneRadio id="linguaOpcao" value="#{matriculaBean.matricula.linguaOpcao}">
+                                            <f:selectItems value="#{matriculaBean.opcaoLingua}" />
+                                    </p:selectOneRadio >
+                                    </h:panelGrid>                
+                                    
+                                    
+                                </h:panelGroup>
+
+                                </h:panelGrid>
+                            </p:fieldset>
+                            <h:panelGrid columns="1">
+                               
+                                
+                                
+                               
+                                
+                                
+                                 <h:panelGroup>
+                                    
+                                      <h:panelGrid columns="1">
+                                        <p:outputLabel value="Situação do aluno:"/>
+                                        <p:selectOneRadio id="situacao" value="#{matriculaBean.matricula.situacaoAlunoMatricula}">
+                                            <f:selectItems value="#{matriculaBean.opcaoSituacaoAlunoMatricula}" />
+                                    </p:selectOneRadio >
+                                    </h:panelGrid>
+                                    
+                                    
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+
+                            <p:fieldset legend="Documentos" style="margin-top: 12px">
+
+                                <h:panelGrid columns="4">
+
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Tipo de Documento: "/>
+                                            <p:selectOneMenu value="#{matriculaBean.matricula.tipoDocumentoIdentidade}" converter="tipoDocumentoIdentidadeConverter">
+                                                <f:selectItem itemLabel="==Seleccione ==" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{matriculaBean.tipoDocumentoIdentidades}" var="tipoDocumentoIdentidade" itemValue="#{tipoDocumentoIdentidade}" itemLabel="#{tipoDocumentoIdentidade.tipoDOcumentoIdentidade}" />
+                                            </p:selectOneMenu>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Nº do documento"/>
+                                            <p:inputText id="numeroDocumento" value="#{matriculaBean.matricula.numeroDocumento}" size="30"/>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Data de Emissao"/>
+                                            <p:calendar id="dataEmissaoDocumento" value="#{matriculaBean.matricula.dataEmissaoDocumento}"  pattern="dd/MM/yyyy" size="30" locale="pt"/>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Local de Emissao: "/>
+                                            <p:selectOneMenu value="#{matriculaBean.matricula.localEmissaoDocumento}" converter="localEmissaoDocumentoConverter">
+                                                <f:selectItem itemLabel=" ==Seleccione ==" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{matriculaBean.localEmissaoDocumentos}" var="localEmissaoDocumento" itemValue="#{localEmissaoDocumento}" itemLabel="#{localEmissaoDocumento.localEmissaoDocumento}" />
+                                            </p:selectOneMenu>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+
+
+                                </h:panelGrid>
+
+
+
+
+
+
+                            </p:fieldset>
+                            <h:panelGroup/>
+
+
+                            <h:panelGrid columns="1" style="margin-top: 12px" >
+
+                                  <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Matricula Ok:"/>
+                                            <p:selectBooleanCheckbox id="estadoMatricula" value="#{matriculaBean.matricula.estadoMatricula}"/>
+
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                <p:outputLabel value="Funcionário:"/>
+                                <p:selectOneMenu value="#{matriculaBean.matricula.funcionario}" converter="funcionarioConverter" >
+                                    <f:selectItem itemLabel="==Selecione==" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{matriculaBean.funcionarios}" var="funcionario" itemValue="#{funcionario}" itemLabel="#{funcionario.nomeFuncionario}" />
+                                </p:selectOneMenu>
+                                </h:panelGrid>
+
+                                </h:panelGroup>
+
+                            </h:panelGrid>
+
+                                
+
+
+
+
+
+                            <h:panelGrid columns="1" style="margin-top: 12px">
+
+                                <p:outputLabel value="Observações"/>
+                                <p:inputTextarea id="observacao" value="#{matriculaBean.matricula.observacao}" cols="90" rows="6"/>
+
+                            </h:panelGrid>
+
+                            <p:commandButton id="guardar" actionListener="#{matriculaBean.guardar}" value="Guardar e Imprimir"  update="growl" ajax="false">
+                                <f:param name="numeroAluno" value="#{alunoMBean.aluno.idAluno}"/>
+                            </p:commandButton>
+
+
+                        </p:dialog>
+                    </h:form>
+
+
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
