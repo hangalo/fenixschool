@@ -9,17 +9,20 @@ import fenixschool.dao.ArtigoDAO;
 import fenixschool.dao.CategoriaArtigoDAO;
 import fenixschool.modelo.Artigo;
 import fenixschool.modelo.CategoriaArtigo;
+import fenixschool.util.GestorImpressao;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 /**
@@ -36,6 +39,7 @@ public class ArtigoBean implements Serializable {
     private ArtigoDAO artigoDAO;
     private List<Artigo> artigos;
     private CategoriaArtigoDAO categoriaArtigoDAO;
+    private CategoriaArtigo categoriaArtigo;
     private List<CategoriaArtigo> categorias;
 
     private String codigo;
@@ -52,15 +56,21 @@ public class ArtigoBean implements Serializable {
 
     public ArtigoBean() {
     }
+    
+    @ManagedProperty(value = "#{gestorImpressao}")
+    private GestorImpressao gestorImpressao;
+    
 
     @PostConstruct
     public void inicializar() {
         artigo = new Artigo();
+        categoriaArtigo = new CategoriaArtigo();
         artigoDAO = new ArtigoDAO();
         categoriaArtigoDAO = new CategoriaArtigoDAO();
+        
+        
         artigos = new ArrayList<>();
         categorias = new ArrayList<>();
-        
         findByCodigo = new ArrayList<>();
         findByCodigoBarras = new ArrayList<>();
         findByNome = new ArrayList<>();
@@ -138,10 +148,36 @@ public class ArtigoBean implements Serializable {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
+    
+    public String getNomeCategoria() {
+        return nomeCategoria;
+    }
+
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
+    }
+    
+    
+    public GestorImpressao getGestorImpressao() {
+        return gestorImpressao;
+    }
+
+    public void setGestorImpressao(GestorImpressao gestorImpressao) {
+        this.gestorImpressao = gestorImpressao;
+    }
 
     
+   
     
-     public List<Artigo> getFindByCodigo() {
+     public CategoriaArtigo getCategoriaArtigo() {
+        return categoriaArtigo;
+    }
+
+    public void setCategoriaArtigo(CategoriaArtigo categoriaArtigo) {
+        this.categoriaArtigo = categoriaArtigo;
+    }
+    
+    public List<Artigo> getFindByCodigo() {
         findByCodigo = artigoDAO.buscarPorCodigo(codigo);
         return findByCodigo;
     }
@@ -177,16 +213,10 @@ public class ArtigoBean implements Serializable {
         this.findByPreco = findByPreco;
     }
 
-     public String getNomeCategoria() {
-        return nomeCategoria;
-    }
-
-    public void setNomeCategoria(String nomeCategoria) {
-        this.nomeCategoria = nomeCategoria;
-    }
+    
 
     public List<Artigo> getFindByIdCategoria() {
-        findByIdCategoria = artigoDAO.buscarNomeCategoria(nomeCategoria);
+        findByIdCategoria = artigoDAO.buscarCategoria(nomeCategoria);
         return findByIdCategoria;
     }
 
@@ -227,6 +257,20 @@ public class ArtigoBean implements Serializable {
         return "artigo_listar?faces-redirect=true";
     }
 
+   public String imprimirListaArtigo() {
+        String relatorio = "artigo_lista.jasper";
+        HashMap parametros = new HashMap();
+        gestorImpressao = new GestorImpressao(); // Analisar essa instrução. 
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+        return null;
+
+    }
+
+     
+     
+   
+
+   
    
    
 }

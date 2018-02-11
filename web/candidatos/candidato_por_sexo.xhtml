@@ -9,7 +9,7 @@
 
     <body>
 
-          <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+        <ui:composition template="./../WEB-INF/templates/dashboard_template.xhtml">
 
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
@@ -17,7 +17,8 @@
 
                     <h:form id="formBusca" >
                         <h:messages/>
-                        <p:panel header="Pesquisar Candidato por Sexo.">
+                        <b:panel look="primary" collapsible="false" style="text-align: center" title="Pesquisar Candidato por Sexo.">
+
                             <h:panelGrid columns="6"  cellspacing="10%">
                                 <p:selectOneRadio value="#{candidatoMBean.sexo}" id="sexo" required="true" immediate="true" >
                                     <f:selectItem itemLabel="M" itemValue="M"/>
@@ -25,11 +26,11 @@
                                 </p:selectOneRadio>
                                 <b:commandButton style="margin-left: 10%"  value="Pesquisar..." look="primary"/>
                             </h:panelGrid>
+                        </b:panel>
 
-                        </p:panel>
                     </h:form>
 
-                   <b:panel title="Lista - candidatos" collapsible="false" look="primary">
+                    <b:panel title="Lista - candidatos" collapsible="false" look="primary">
                         <h:form>
 
                             <!-- Inicio Data Table-->
@@ -83,7 +84,7 @@
                         </h:form>
                     </b:panel>
 
-                   <!-- Formulario auxiliar-->
+                    <!-- Formulario auxiliar-->
 
                     <h:form id="operacoes">
                         <p:commandButton value="+ Novo Candidato" type="button" onclick="PF('dlgNovoCandidato').show();" />

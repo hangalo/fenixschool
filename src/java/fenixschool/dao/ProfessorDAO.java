@@ -325,6 +325,7 @@ public class ProfessorDAO implements GenericoDAOLogico<Professor> {
             ps.setInt(1, departamento.getIdDepartamento());
             ps.setString(2, inicioIntervalo);
             ps.setString(3, fimIntervalo);
+            
             rs = ps.executeQuery();
             while (rs.next()) {
                 ProfessorDepartamento professorDepartamento = new ProfessorDepartamento();

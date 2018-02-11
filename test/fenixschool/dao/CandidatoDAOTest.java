@@ -19,10 +19,10 @@ import static org.junit.Assert.*;
  * @author Elísio Kavaimunwa
  */
 public class CandidatoDAOTest {
-    
+
     public CandidatoDAOTest() {
     }
-    
+
     @Before
     public void setUp() {
     }
@@ -32,7 +32,7 @@ public class CandidatoDAOTest {
      */
     @Test
     public void testSave() {
-       /* System.out.println("save");
+        /* System.out.println("save");
         Candidato candidato = null;
         CandidatoDAO instance = new CandidatoDAO();
         instance.save(candidato);
@@ -45,7 +45,7 @@ public class CandidatoDAOTest {
      */
     @Test
     public void testUpdate() {
-       /* System.out.println("update");
+        /* System.out.println("update");
         Candidato candidato = null;
         CandidatoDAO instance = new CandidatoDAO();
         instance.update(candidato);
@@ -58,7 +58,7 @@ public class CandidatoDAOTest {
      */
     @Test
     public void testDelete() {
-       /* System.out.println("delete");
+        /* System.out.println("delete");
         Candidato candidato = null;
         CandidatoDAO instance = new CandidatoDAO();
         instance.delete(candidato);
@@ -71,7 +71,7 @@ public class CandidatoDAOTest {
      */
     @Test
     public void testFindById() {
-       /* System.out.println("findById");
+        /* System.out.println("findById");
         Integer id = null;
         CandidatoDAO instance = new CandidatoDAO();
         Candidato expResult = null;
@@ -108,7 +108,7 @@ public class CandidatoDAOTest {
         System.out.println("Tel. Fixo: " + candidato.getTelefoneFixo());
         System.out.println("Tel. Movel: " + candidato.getTelefoneMovel());
         System.out.println("Email: " + candidato.getEmailCandidato());
-        */
+         */
     }
 
     /**
@@ -116,7 +116,7 @@ public class CandidatoDAOTest {
      */
     @Test
     public void testFindNumero() {
-        System.out.println("findNumero");
+        /* System.out.println("findNumero");
         String numero = "12345";
         CandidatoDAO instance = new CandidatoDAO();
         //Candidato expResult = null;
@@ -124,8 +124,8 @@ public class CandidatoDAOTest {
         assertTrue(candidato != null);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");*/
-        
-        /*
+
+ /*
         System.out.println("Código: " + candidato.getIdCandidato());
         System.out.println("Número: " + candidato.getNumeroCandidato());
         System.out.println("Nome: " + candidato.getNomeCandidato());
@@ -139,7 +139,7 @@ public class CandidatoDAOTest {
         System.out.println("Tel. Fixo: " + candidato.getTelefoneFixo());
         System.out.println("Tel. Movel: " + candidato.getTelefoneMovel());
         System.out.println("Email: " + candidato.getEmailCandidato());
-        */
+         */
     }
 
     /**
@@ -147,7 +147,7 @@ public class CandidatoDAOTest {
      */
     @Test
     public void testFindSexo() {
-       /* System.out.println("findSexo");
+        /* System.out.println("findSexo");
         String sexo = "M";
         CandidatoDAO instance = new CandidatoDAO();
         //Candidato expResult = null;
@@ -155,7 +155,7 @@ public class CandidatoDAOTest {
         assertTrue(candidato != null);*/
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");*/
-        
+
         /*System.out.println("Código: " + candidato.getIdCandidato());
         System.out.println("Número: " + candidato.getNumeroCandidato());
         System.out.println("Nome: " + candidato.getNomeCandidato());
@@ -169,7 +169,7 @@ public class CandidatoDAOTest {
         System.out.println("Tel. Fixo: " + candidato.getTelefoneFixo());
         System.out.println("Tel. Movel: " + candidato.getTelefoneMovel());
         System.out.println("Email: " + candidato.getEmailCandidato());
-        */
+         */
     }
 
     /**
@@ -206,7 +206,7 @@ public class CandidatoDAOTest {
      */
     @Test
     public void testPopularComDados() {
-       /* System.out.println("popularComDados");
+        /* System.out.println("popularComDados");
         Candidato candidato = null;
         ResultSet rs = null;
         CandidatoDAO instance = new CandidatoDAO();
@@ -214,5 +214,135 @@ public class CandidatoDAOTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");*/
     }
-    
+
+    /**
+     * Test of findByNomeSobrenome method, of class CandidatoDAO.
+     */
+    @Test
+    public void testFindByNomeSobrenome() {
+        System.out.println("findByNomeSobrenome");
+        String nome = "Luiz";
+        String sobrenome = "Braga";
+        CandidatoDAO instance = new CandidatoDAO();
+        List<Candidato> expResult = null;
+        List<Candidato> candidatos = instance.findByNomeSobrenome(nome, sobrenome);
+        assertTrue(candidatos.size() > 0);
+        
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+        for (Candidato candidato : candidatos) {
+            System.out.println("Código: " + candidato.getIdCandidato());
+            System.out.println("Número: " + candidato.getNumeroCandidato());
+            System.out.println("Nome: " + candidato.getNomeCandidato());
+            System.out.println("Data de Nascimento: " + DateUtil.formataData(candidato.getDataNascimento()));
+            System.out.println("Sexo: " + candidato.getSexo().getAbreviatura());
+            System.out.println("Profissão: " + candidato.getProfissao().getNomeProfissao());
+            System.out.println("Casa: " + candidato.getCasaCandidato());
+            System.out.println("Bairro: " + candidato.getBairroCandidato());
+            System.out.println("Distrito: " + candidato.getDistritoCandidato());
+            System.out.println("Municipio: " + candidato.getMunicipio().getNomeMunicipio());
+            System.out.println("Tel. Fixo: " + candidato.getTelefoneFixo());
+            System.out.println("Tel. Movel: " + candidato.getTelefoneMovel());
+            System.out.println("Email: " + candidato.getEmailCandidato());
+        }
+    }
+
+    /**
+     * Test of findByNome method, of class CandidatoDAO.
+     */
+    @Test
+    public void testFindByNome() {
+        /*System.out.println("findByNome");
+        String nome = "";
+        CandidatoDAO instance = new CandidatoDAO();
+        List<Candidato> expResult = null;
+        List<Candidato> result = instance.findByNome(nome);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");*/
+    }
+
+    /**
+     * Test of findBySobrenome method, of class CandidatoDAO.
+     */
+    @Test
+    public void testFindBySobrenome() {
+        /*System.out.println("findBySobrenome");
+        String sobrenome = "";
+        CandidatoDAO instance = new CandidatoDAO();
+        List<Candidato> expResult = null;
+        List<Candidato> result = instance.findBySobrenome(sobrenome);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");*/
+    }
+
+    /**
+     * Test of findByNumero method, of class CandidatoDAO.
+     */
+    @Test
+    public void testFindByNumero() {
+        /*System.out.println("findByNumero");
+        String numero = "";
+        CandidatoDAO instance = new CandidatoDAO();
+        Candidato expResult = null;
+        Candidato result = instance.findByNumero(numero);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");*/
+    }
+
+    /**
+     * Test of findBySexo method, of class CandidatoDAO.
+     */
+    @Test
+    public void testFindBySexo() {
+        /* System.out.println("findBySexo");
+        String sexo = "";
+        CandidatoDAO instance = new CandidatoDAO();
+        List<Candidato> expResult = null;
+        List<Candidato> result = instance.findBySexo(sexo);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");*/
+    }
+
+    /**
+     * Test of findByDataDeNascimento method, of class CandidatoDAO.
+     */
+    @Test
+    public void testFindByDataDeNascimento() {
+
+        /*System.out.println("findByDataDeNascimento");
+        String dataInicio = "01/01/2000";
+        String dataFim = "12/09/2017";
+
+        Date inicioIntervalo = DateUtil.strToDate(dataInicio);
+        Date fimIntervalo = DateUtil.strToDate(dataFim);
+
+        CandidatoDAO instance = new CandidatoDAO();
+        List<Candidato> expResult = null;
+        List<Candidato> candidatos = instance.findByDataDeNascimento(DateUtil.formataData(inicioIntervalo), DateUtil.formataData(fimIntervalo));
+        assertTrue(candidatos.size() > 0);
+
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+        
+        for (Candidato candidato : candidatos) {
+            System.out.println("Código: " + candidato.getIdCandidato());
+        System.out.println("Número: " + candidato.getNumeroCandidato());
+        System.out.println("Nome: " + candidato.getNomeCandidato());
+        System.out.println("Data de Nascimento: " + DateUtil.formataData(candidato.getDataNascimento()));
+        System.out.println("Sexo: " + candidato.getSexo().getAbreviatura());
+        System.out.println("Profissão: " + candidato.getProfissao().getNomeProfissao());
+        System.out.println("Casa: " + candidato.getCasaCandidato());
+        System.out.println("Bairro: " + candidato.getBairroCandidato());
+        System.out.println("Distrito: " + candidato.getDistritoCandidato());
+        System.out.println("Municipio: " + candidato.getMunicipio().getNomeMunicipio());
+        System.out.println("Tel. Fixo: " + candidato.getTelefoneFixo());
+        System.out.println("Tel. Movel: " + candidato.getTelefoneMovel());
+        System.out.println("Email: " + candidato.getEmailCandidato());
+        }*/
+    }
+
 }

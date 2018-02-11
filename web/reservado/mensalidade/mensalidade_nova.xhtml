@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+      <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+
+
+
+
+
+                    <h:form>
+                        <p:tabView>
+                            <p:tab title="Dados da Mensalidade">
+                                <p:growl id="messages" showDetail="true"/>
+                                <h:panelGrid columns="4" >
+                                    <p:outputLabel value="Valor Pago: "/>
+                                    <p:inputText value="#{mensalidadeMBean.mensalidade.valorPago}" size="20"/>
+                                    <p:outputLabel style="margin-left: 18%" value="Valor da Multa:"/>
+                                    <p:inputText value="#{mensalidadeMBean.mensalidade.valorMulta}" size="20"/>
+                                    <p:outputLabel value="Valor de Desconto:  "/>
+                                    <p:inputText value="#{mensalidadeMBean.mensalidade.descontoMensalidade}" size="20"/>
+                                    <p:outputLabel style="margin-left: 18%" value="Data de Pagamento:  "/>
+                                    <p:calendar locale="pt" value="#{mensalidadeMBean.mensalidade.dataPagamento}" size="20"  pattern="dd/MM/yyyy"/>                                                                               
+                                </h:panelGrid>
+                                <br></br>
+                                <h:panelGroup>
+                                    <p:panelGrid columns="1">
+                                        <p:outputLabel value="Descrição:"/>
+                                        <p:inputTextarea value="#{mensalidadeMBean.mensalidade.descricaoMensalidade}" cols="100" rows="8"/>
+                                        <p:outputLabel value="Observção:"/>
+                                        <p:inputTextarea value="#{mensalidadeMBean.mensalidade.observacaoMensalidade}" cols="100" rows="6"/>
+                                    </p:panelGrid>
+                                </h:panelGroup> 
+                            </p:tab>
+                            <p:tab title="Outros dados">
+                                <h:panelGrid columns="4">
+                                    <p:outputLabel value="Aluno: "/>
+                                    <p:selectOneMenu style="width:200px" value="#{mensalidadeMBean.mensalidade.aluno}" converter="alunoConverter">
+                                        <f:selectItem itemLabel="Selecione um Aluno" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{mensalidadeMBean.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno}" />
+                                    </p:selectOneMenu>
+                                    <p:outputLabel style="margin-left: 18%" value="Departamento: "/>
+                                    <p:selectOneMenu   style="width:200px" value="#{mensalidadeMBean.mensalidade.departamento}" converter="departamentoConverter">
+                                        <f:selectItem  itemLabel="Selecione um Departamento" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems  value="#{mensalidadeMBean.departamentos}" var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}" />
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Turma: "/>
+                                    <p:selectOneMenu style="width:200px"  value="#{mensalidadeMBean.mensalidade.turma}" converter="turmaConverter">
+                                        <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{mensalidadeMBean.turmas}" var="turma" itemValue="#{turma}" itemLabel="#{turma.nomeTurma}" />
+                                    </p:selectOneMenu>
+                                    <p:outputLabel style="margin-left: 18%" value="Ciclo Letivo: "/>
+                                    <p:selectOneMenu style="width:200px" value="#{mensalidadeMBean.mensalidade.cicloLectivo}" converter="cicloLectivoConverter">
+                                        <f:selectItem itemLabel="Selecione um Ciclo Letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{mensalidadeMBean.cicloLetivos}" var="cicloLetivo" itemValue="#{cicloLetivo}" itemLabel="#{cicloLetivo.cicloLectivo}" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Ano Lectivo: "/>
+                                    <p:selectOneMenu  style="width:200px" value="#{mensalidadeMBean.mensalidade.anoLetivo}" converter="anoLectivoConverter">
+                                        <f:selectItem itemLabel="Selecione um Ano Letivo" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{mensalidadeMBean.anoletivos}" var="anoletivo" itemValue="#{anoletivo}" itemLabel="#{anoletivo.anoLectivo}" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel style="margin-left: 18%" value="Mes: "/>
+                                    <p:selectOneMenu style="width:200px" value="#{mensalidadeMBean.mensalidade.mes}" converter="mesConverter">
+                                        <f:selectItem itemLabel="Selecione um Mes" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{mensalidadeMBean.meses}" var="mes" itemValue="#{mes}" itemLabel="#{mes.nomeMes}" />
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Curso: "/>
+                                    <p:selectOneMenu style="width:200px" value="#{mensalidadeMBean.mensalidade.curso}" converter="cursoConverter">
+                                        <f:selectItem itemLabel="Selecione um Curso" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{mensalidadeMBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nomeCurso}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                            </p:tab>
+                        </p:tabView>
+
+                        <p:commandButton value="Guardar" actionListener="#{mensalidadeMBean.guardar(evt)}" ajax="false"/>
+                    </h:form>
+
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

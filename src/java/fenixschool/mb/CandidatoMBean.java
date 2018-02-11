@@ -14,7 +14,9 @@ import fenixschool.modelo.Municipio;
 import fenixschool.modelo.Profissao;
 import fenixschool.modelo.Provincia;
 import fenixschool.modelo.Sexo;
+import fenixschool.util.DateUtil;
 import fenixschool.util.FicheiroUtil;
+import fenixschool.util.GestorImpressao;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,6 +25,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -38,6 +41,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -60,6 +64,9 @@ public class CandidatoMBean implements Serializable {
     private String sexo;
     private String Bi;
     private String numero;
+    
+    private Date inicioIntervalo;
+    private Date fimIntervalo;
 
     private List<Candidato> candidatos;
     private List<Municipio> municipios;
@@ -78,6 +85,10 @@ public class CandidatoMBean implements Serializable {
 
     public CandidatoMBean() {
     }
+    
+    @ManagedProperty(value = "#{gestorImpressao}")
+    private GestorImpressao gestorImpressao;
+    
 
     @PostConstruct
     public void inicializar() {
@@ -187,6 +198,31 @@ public class CandidatoMBean implements Serializable {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
+    
+    public Date getFimIntervalo() {
+        return fimIntervalo;
+    }
+
+    public void setFimIntervalo(Date fimIntervalo) {
+        this.fimIntervalo = fimIntervalo;
+    }
+    
+    public Date getInicioIntervalo() {
+        return inicioIntervalo;
+    }
+
+    public void setInicioIntervalo(Date inicioIntervalo) {
+        this.inicioIntervalo = inicioIntervalo;
+    }
+
+    public GestorImpressao getGestorImpressao() {
+        return gestorImpressao;
+    }
+
+    public void setGestorImpressao(GestorImpressao gestorImpressao) {
+        this.gestorImpressao = gestorImpressao;
+    }
+    
 
     public void fileUpload(FileUploadEvent event) {
         try {
@@ -282,7 +318,7 @@ public class CandidatoMBean implements Serializable {
     public List<SelectItem> getOpSexos() {
         List<SelectItem> list = new ArrayList<>();
         for (Sexo sexo : Sexo.values()) {
-            list.add(new SelectItem(sexo, sexo.getAbreviatura()));
+            list.add(new SelectItem(sexo, sexo.getExtensao()));
         }
         return list;
     }
@@ -308,8 +344,14 @@ public class CandidatoMBean implements Serializable {
     }
 
     public List<Candidato> getByDataNascimento() {
-        findBydataNascimento = candidatoDAO.findByDataDeNascimento((java.sql.Date) dataDeNascimento);
-        return findBydataNascimento;
+        /*String inicioDataFormatada = DateUtil.formataData(inicioIntervalo);
+        String fimDataFormatada = DateUtil.formataData(fimIntervalo);
+        findBydataNascimento = candidatoDAO.findByDataDeNascimento(inicioDataFormatada, fimDataFormatada);
+        return findBydataNascimento;*/
+        
+        return null;
+                
+       
     }
 
     public List<Candidato> getBySexo() {
@@ -335,4 +377,16 @@ public class CandidatoMBean implements Serializable {
         return null;
     }
 
+     public String imprimirListaArtigo() {
+        String relatorio = "candidato_lista.jasper";
+        HashMap parametros = new HashMap();
+        gestorImpressao = new GestorImpressao(); // Analisar essa instrução. 
+        gestorImpressao.imprimirPDF(relatorio, parametros);
+        return null;
+
+    }
+    
+
+
+    
 }

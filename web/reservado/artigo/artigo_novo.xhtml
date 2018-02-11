@@ -20,17 +20,17 @@
                                 <p:growl id="messages" showDetail="true"/>
 
                                 <h:panelGrid columns="2">
-                                    <p:outputLabel  value="Artigo"/>
-                                    <p:inputText  size="30" value="#{artigoBean.artigo.nomeArtigo}"/>
-                                    <p:outputLabel  value="Código"/>
-                                    <p:inputText  size="30" value="#{artigoBean.artigo.codigoArgito}"/>
-                                    <p:outputLabel  value="Codigo de Barras"/>
-                                    <p:inputText  size="30" value="#{artigoBean.artigo.codigoBarraArtigo}"/>
-                                    <p:outputLabel  value="Preço"/>
-                                    <p:inputText  size="30" value="#{artigoBean.artigo.precoArtigo}"/>
+                                    <p:outputLabel  value="Artigo:"/>
+                                    <p:inputText  style="margin-bottom: 5%" size="30" value="#{artigoBean.artigo.nomeArtigo}"/>
+                                    <p:outputLabel  value="Código:"/>
+                                    <p:inputText  style="margin-bottom: 5%" size="30" value="#{artigoBean.artigo.codigoArgito}"/>
+                                    <p:outputLabel  value="Codigo de Barras:"/>
+                                    <p:inputText  style="margin-bottom: 5%" size="30" value="#{artigoBean.artigo.codigoBarraArtigo}"/>
+                                    <p:outputLabel  value="Preço:"/>
+                                    <p:inputText style="margin-bottom: 5%"  size="30" value="#{artigoBean.artigo.precoArtigo}"/>
 
 
-                                    <p:outputLabel value="Categoria"/>
+                                    <p:outputLabel value="Categoria:"/>
                                     <p:selectOneMenu  style="width:200px" label="Categoria" value="#{artigoBean.artigo.categoriaArtigo}" required="true" converter="categoriaArtigoConverter">
                                         <f:selectItem itemLabel="--Selecione--" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{artigoBean.categorias}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.categoriaArtigo}" />

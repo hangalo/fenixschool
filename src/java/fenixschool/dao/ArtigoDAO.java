@@ -31,7 +31,7 @@ public class ArtigoDAO implements GenericoDAOLogico<Artigo> {
     private static final String LISTAR_POR_CODIGO_BARRAS = "SELECT * FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo WHERE codigo_barras_artigo=? ORDER BY nome_artigo";
     private static final String LISTAR_POR_NOME = "SELECT * FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo WHERE nome_artigo=? ORDER BY nome_artigo";
     private static final String LISTAR_POR_PRECO = "SELECT * FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo WHERE preco_artigo=? ORDER BY nome_artigo";
-    private static final String LISTAR_POR_CATEGORIA = "SELECT * FROM artigo ar INNER JOIN categoria_artigo ca ON ar.id_categoria_artigo=ca.id_categoria_artigo WHERE ar.id_categoria_artigo=? ORDER BY nome_artigo";
+    private static final String LISTAR_POR_CATEGORIA = "SELECT *  FROM artigo ar INNER JOIN categoria_artigo ca  ON ar.id_categoria_artigo = ca.id_categoria_artigo WHERE ca.categoria_artigo =?";
     
     
     
@@ -39,68 +39,7 @@ public class ArtigoDAO implements GenericoDAOLogico<Artigo> {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    /* @Override
-    public void save(Artigo artigo){
-        if (artigo!=null) {
-            System.out.println("Valor passado nao pode ser nulo");           
-        }
-        try {
-            conn=Conexao.getConnection();
-            ps=conn.prepareStatement(INSERIR);
-            ps.setString(1, artigo.getCodigoArgito());
-            ps.setString(2, artigo.getCodigoBarraArtigo());
-            ps.setString(3, artigo.getNomeArtigo());
-            ps.setDouble(4, artigo.getPrecoArtigo());
-            ps.setInt(5, artigo.getCategoriaArtigo().getIdCategoriaArtigo());
-            ps.executeUpdate();
-            
-        } catch (SQLException e) {
-            System.out.println("Erro ao inserir dados"+e.getMessage());
-        }finally{
-        Conexao.closeConnection(conn, ps);
-        }
     
-    }
-    @Override
-    public void update(Artigo artigo){
-        if (artigo!=null) {
-            System.out.println("O Valor passado nao pode ser nulo");
-         }
-        try {
-            conn=Conexao.getConnection();
-            ps=conn.prepareCall(UPDATE);
-            ps.setInt(1, artigo.getIdArtigo());
-            ps.setString(2, artigo.getCodigoArgito());
-            ps.setString(3, artigo.getCodigoBarraArtigo());
-            ps.setString(4, artigo.getNomeArtigo());
-            ps.setDouble(4, artigo.getPrecoArtigo());
-            ps.setInt(6, artigo.getCategoriaArtigo().getIdCategoriaArtigo());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Erro ao actualizar dados"+e.getMessage());
-        }finally{
-        Conexao.closeConnection(conn, ps);
-        }
-    }
-    @Override
-    public void delete(Artigo artigo){
-        if (artigo!=null) {
-            
-            System.out.println("Valor passado nao pode ser nulo");
-            
-            try {
-                conn=Conexao.getConnection();
-                ps=conn.prepareStatement(DELETE);
-                ps.setInt(1, artigo.getIdArtigo());
-                ps.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println("Erro ao eliminar registo"+e.getLocalizedMessage());
-            }finally{
-                Conexao.closeConnection(conn, ps);
-            }
-            
-        }
-    }*/
     @Override
     public boolean save(Artigo artigo) {
         Connection conn = null;
@@ -362,7 +301,7 @@ public class ArtigoDAO implements GenericoDAOLogico<Artigo> {
         return artigos;
     }
     
-    public List<Artigo> buscarNomeCategoria(String nomeCategoria) {
+    public List<Artigo> buscarCategoria(String nomeCategoria) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;

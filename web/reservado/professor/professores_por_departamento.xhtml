@@ -10,19 +10,19 @@
 
         <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
 
-          
+
 
             <ui:define name="content">
                 <h:form id="formPesquisa">
                     <p:panel header="Lista professores activos por Departamento" >
 
                         <h:panelGrid columns="6" cellspacing="5%">
-                            
-                                <p:outputLabel value="Início"/>
-                                <p:calendar value="#{professorMBean.inicioIntervalo}" pattern="dd/MM/yyyy" locale="pt" required="true"/>
-                                <p:outputLabel value="Fim"/>
-                                <p:calendar value="#{professorMBean.fimIntervalo}" pattern="dd/MM/yyyy" locale="pt" required="true"/>
-                            
+
+                            <p:outputLabel value="Início"/>
+                            <p:calendar value="#{professorMBean.inicioIntervalo}" pattern="dd/MM/yyyy" locale="pt" required="true"/>
+                            <p:outputLabel value="Fim"/>
+                            <p:calendar value="#{professorMBean.fimIntervalo}" pattern="dd/MM/yyyy" locale="pt" required="true"/>
+
                             <h:outputLabel value="Departamentos:" for="idDepartamento" />
                             <p:selectOneMenu id="idDepartamento" value="#{professorMBean.professorDepartamento.departamento}" converter="departamentoConverter" converterMessage="Departamento - Erro de conversao" required="true">
                                 <f:selectItem itemLabel="--Seleccione Departamento--" value="#{null}" noSelectionOption="true"/>
@@ -55,53 +55,53 @@
                             </f:facet>
                             <h:outputText value="#{item.professor.sobrenomeProfessor}"/>
                         </p:column>
-                           <p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Categoria"/>
                             </f:facet>
-                               <h:outputText value="#{item.professorCategoriaCargo.categoriaCargo.categoriaCargo}"/>
+                            <h:outputText value="#{item.professorCategoriaCargo.categoriaCargo.categoriaCargo}"/>
                         </p:column>
-                        
-                           <p:column>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Departamento"/>
                             </f:facet>
-                               <h:outputText value="#{item.departamento.nomeDepartamento}"/>
+                            <h:outputText value="#{item.departamento.nomeDepartamento}"/>
                         </p:column>
-                         <p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Início"/>
                             </f:facet>
-                             <h:outputText value="#{item.dataInicio}">
-                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
-                             </h:outputText>
+                            <h:outputText value="#{item.dataInicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
                         </p:column>
-                        
-                        
+
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Anos de Serviço"/>
                             </f:facet>
                             <h:outputText value="#{item.anosDeServico}"/>
                         </p:column>
-                        
-                        
+
+
                     </p:dataTable>
 
                 </h:form>
-                
-                   <!--Inicio Formulario auxiliar-->
-                    <h:form id="operacoes">
-                        <h:panelGrid columns="3">
-                            <p:commandButton value="Imprimir Lista" action="#{professorMBean.imprimirProfessoresPorDepartamento()}" ajax="false"/>
-                            <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
-                        </h:panelGrid>
-                    </h:form>
-                    <!--Fim  Formulario auxiliar-->
+
+                <!--Inicio Formulario auxiliar-->
+                <h:form id="operacoes">
+                    <h:panelGrid columns="3">
+                        <p:commandButton value="Imprimir Lista" action="#{professorMBean.imprimirProfessoresPorDepartamento()}" ajax="false"/>
+                        <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                    </h:panelGrid>
+                </h:form>
+                <!--Fim  Formulario auxiliar-->
 
             </ui:define>
 
-          
+
 
         </ui:composition>
 

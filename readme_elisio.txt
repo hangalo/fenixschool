@@ -1,3 +1,32 @@
+11/02/2018
+Implementação das novas paginas de acesso a área de candidatos.
+Coisas feitas:
+-----> Foi criada uma pasta com nome 'candidatos', que contem todas as páginas 		criadas.
+-----> Foi alterado o menu do dashboard_template (adicionei links para as novas páginas).
+-----> As páginas construídas são clientes do dashboard_template.
+
+-------------------------------------------------------------- Fim -------------------------------------------------------------- 
+
+
+
+
+
+
+
+
+
+
+
+24/12/2017
+Testes das funcionalidades de 
+------------> Mensalidade
+------------> Artigo
+------------> Candidato
+
+
+
+
+--------------------------------------------------------------------------------------------------------------
 07/12/2017   00h:51m
 --> Alteração em DisciplinasDoCursoMBean
 	Não implementava a interface Serializable, o que causava o erro ao fazer deploy.

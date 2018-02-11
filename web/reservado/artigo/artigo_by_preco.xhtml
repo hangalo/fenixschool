@@ -17,11 +17,11 @@
 
                     <h:form id="formBusca" >
                         <h:messages/>
-                        <p:panel header="Pesquisar Artigo por Código de barras.">
+                        <p:panel header="Pesquisar Artigo por Preço.">
 
                             <h:panelGrid columns="6"  cellspacing="10%">
-                                <h:outputLabel value="Código de Barras: " style="margin-right: 10px"/>
-                                <p:inputText id="cognumero" value="#{artigoBean.codigoBarras}" required="true" requiredMessage="#{msg.msg_cognumero}" immediate="true"/>
+                                <h:outputLabel value="Preço: " style="margin-right: 10px"/>
+                                <p:inputText id="cognumero" value="#{artigoBean.preco}" required="true" requiredMessage="#{msg.msg_cognumero}" immediate="true"/>
                                 <b:commandButton style="margin-left: 10%" value="Pesquisar..." look="primary"/>
                             </h:panelGrid>
 
@@ -31,7 +31,7 @@
 
                     <h:form>
                         <b:panel title="Lista de artigos" collapsible="false" look="primary">
-                            <p:dataTable value="#{artigoBean.findByCodigoBarras}" var="artigo" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom" scrollable="true">
+                            <p:dataTable value="#{artigoBean.findByPreco}" var="artigo" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom" scrollable="true">
 
                                 <p:column style="width: 100px;">
                                 <f:facet name="header">
@@ -67,7 +67,7 @@
                                     </p:commandButton>
                                 </p:column>
                                 <f:facet name="footer">
-                                    Total de registos: #{artigoBean.findByCodigoBarras.size()}
+                                    Total de registos: #{artigoBean.findByPreco.size()}
                                 </f:facet>
                             </p:dataTable>
                         </b:panel>
@@ -174,7 +174,6 @@
                 </h:form>
 
                 <!--Fim do fomulario ver-->
-
 
 
                 </f:view>

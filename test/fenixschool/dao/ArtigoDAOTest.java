@@ -31,7 +31,7 @@ public class ArtigoDAOTest {
      */
     @Test
     public void testSave() {
-        System.out.println("save");
+       /* System.out.println("save");
         Artigo artigo = new Artigo();
         artigo.setCodigoArgito("cert");
         artigo.setCodigoBarraArtigo("cert");
@@ -40,7 +40,7 @@ public class ArtigoDAOTest {
         CategoriaArtigo categoriaArtigo = new CategoriaArtigo();
         categoriaArtigo.setIdCategoriaArtigo(3);
         artigo.setCategoriaArtigo(categoriaArtigo);
-        ArtigoDAO artigoDAO = new ArtigoDAO();
+        ArtigoDAO artigoDAO = new ArtigoDAO();*/
         // boolean expResult = false;
        // boolean result = artigoDAO.save(artigo);
 
@@ -54,7 +54,7 @@ public class ArtigoDAOTest {
      */
     @Test
     public void testUpdate() {
-        System.out.println("update");
+        /*System.out.println("update");
         Artigo artigo = new Artigo();
         artigo.setIdArtigo(2);
         artigo.setCodigoArgito("codigo3");
@@ -64,7 +64,7 @@ public class ArtigoDAOTest {
         CategoriaArtigo categoriaArtigo = new CategoriaArtigo();
         categoriaArtigo.setIdCategoriaArtigo(2);
         artigo.setCategoriaArtigo(categoriaArtigo);
-        ArtigoDAO artigoDAO = new ArtigoDAO();
+        ArtigoDAO artigoDAO = new ArtigoDAO();*/
         // boolean expResult = false;
         //boolean result = artigoDAO.update(artigo);
         // assertTrue(result);
@@ -77,11 +77,11 @@ public class ArtigoDAOTest {
      */
     @Test
     public void testDelete() {
-        System.out.println("delete");
+       /* System.out.println("delete");
         Artigo artigo = new Artigo();
         artigo.setIdArtigo(2);
         ArtigoDAO instance = new ArtigoDAO();
-        boolean expResult = false;
+        boolean expResult = false;*/
         //boolean result = instance.delete(artigo);
         //assertTrue(result);
         // TODO review the generated test code and remove the default call to fail.
@@ -115,14 +115,14 @@ public class ArtigoDAOTest {
      */
     @Test
     public void testFindAll() {
-        System.out.println("findAll");
+        /*System.out.println("findAll");
         ArtigoDAO instance = new ArtigoDAO();
         //List<Artigo> expResult = null;
         List<Artigo> artigos = instance.findAll();
         assertTrue(artigos.size() > 0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
-        /*for (Artigo artigo : artigos) {
+        for (Artigo artigo : artigos) {
             System.out.println("Id: " + artigo.getIdArtigo());
             System.out.println("Código: " + artigo.getCodigoArgito());
             System.out.println("Nome: " + artigo.getNomeArtigo());
@@ -152,7 +152,7 @@ public class ArtigoDAOTest {
      */
     @Test
     public void testBuscarPorCodigo() {
-        System.out.println("buscarPorCodigo");
+        /*System.out.println("buscarPorCodigo");
         String codigo = "cert";
         ArtigoDAO instance = new ArtigoDAO();
         List<Artigo> expResult = null;
@@ -169,7 +169,7 @@ public class ArtigoDAOTest {
             System.out.println("Preço: " + artigo.getPrecoArtigo());
             System.out.println("Categoria: " + artigo.getCategoriaArtigo().getCategoriaArtigo());
             System.out.println("--------------------------------------------------------------");
-        }
+        }*/
     }
 
     /**
@@ -249,11 +249,12 @@ public class ArtigoDAOTest {
      */
     @Test
     public void testBuscarIdCategoria() {
-        /*System.out.println("buscarIdCategoria");
-        int idCategoria = 3;
+       /* System.out.println("buscarIdCategoria");
+        
+        
         ArtigoDAO instance = new ArtigoDAO();
         List<Artigo> expResult = null;
-        List<Artigo> artigos = instance.buscarIdCategoria(idCategoria);
+        List<Artigo> artigos = instance.buscarCategoria("Certificado");
         assertTrue(artigos.size() > 0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -267,6 +268,33 @@ public class ArtigoDAOTest {
             System.out.println("--------------------------------------------------------------");
         }*/
     }
+
+    /**
+     * Test of buscarCategoria method, of class ArtigoDAO.
+     */
+    @Test
+    public void testBuscarCategoria() {
+         ArtigoDAO instance = new ArtigoDAO();
+        List<Artigo> expResult = null;
+        List<Artigo> artigos = instance.buscarCategoria("Certificado");
+        assertTrue(artigos.size() > 0);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+        for (Artigo artigo : artigos) {
+            System.out.println("Id: " + artigo.getIdArtigo());
+            System.out.println("Código: " + artigo.getCodigoArgito());
+            System.out.println("Nome: " + artigo.getNomeArtigo());
+            System.out.println("Código de barras: " + artigo.getCodigoBarraArtigo());
+            System.out.println("Preço: " + artigo.getPrecoArtigo());
+            System.out.println("Categoria: " + artigo.getCategoriaArtigo().getCategoriaArtigo());
+            System.out.println("--------------------------------------------------------------");
+        }
+    }
+
+    /**
+     * Test of buscarIdCategoria method, of class ArtigoDAO.
+     */
+   
 
     /**
      * Test of buscarIdCategoria method, of class ArtigoDAO.

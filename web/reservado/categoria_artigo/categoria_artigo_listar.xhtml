@@ -57,13 +57,13 @@
                     
                      <h:form id="operacoes">
                         <p:commandButton value="+ Nova Categoria" type="button" onclick="PF('dlgNovaCategoria').show();" />
-
+                         <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
                     </h:form>
                     
                       <!-- Fim Formulario auxiliar-->
                     
                     <!-- Dialogo Guardar-->
-                    <p:dialog header="Nova Categoria" widgetVar="dlgNovaCategoria" showEffect="explode" hideEffect="bounce" height="100">
+                    <p:dialog header="Nova Categoria" widgetVar="dlgNovaCategoria"  showEffect="explode" hideEffect="bounce" width="400" height="100">
                         <h:form>
 
                             <h:panelGrid columns="2">
@@ -82,7 +82,7 @@
                     
                      <h:form id="formEditar">
                         <p:growl id="growl" showDetail="true" sticky="true"/>
-                        <p:dialog header="Alterar dados da Categoria" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:dialog header="Alterar dados da Categoria" id="editar" width="400" height="100" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 
                             <h:inputHidden value="#{categoriaArtigoMBean.categoriaArtigo.idCategoriaArtigo}"/>
                             <h:panelGrid columns="2" title="Editar ">

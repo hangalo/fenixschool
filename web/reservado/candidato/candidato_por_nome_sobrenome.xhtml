@@ -22,12 +22,12 @@
                         <p:panel header="Pesquisar Candidato por Nome e Sobrenome">
 
                             <h:panelGrid columns="6"  cellspacing="10%">
-                                <h:outputLabel value="Sobrenome: " style="margin-right: 10px"/>
-                                <h:inputText id="cognome" value="#{candidatoMBean.sobrenome}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
-                                <h:outputLabel value="Nome: " style="margin-right: 10px"/>
-                                <h:inputText id="nome" value="#{candidatoMBean.nome}" />
+                                <p:outputLabel value="Sobrenome: " style="margin-right: 10px"/>
+                                <p:inputText id="cognome" value="#{candidatoMBean.sobrenome}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
+                                <p:outputLabel value="Nome: " style="margin-right: 10px; margin-left: 10%"/>
+                                <p:inputText id="nome" value="#{candidatoMBean.nome}" />
                                 <h:message for="nome"/>
-                                <b:commandButton value="Pesquisar..." look="primary"/>
+                                <b:commandButton style="margin-left: 10%"  value="Pesquisar..." look="primary"/>
                             </h:panelGrid>
 
                         </p:panel>
@@ -57,7 +57,7 @@
                                     </f:facet>
                                     <h:outputText value="#{candidato.sobrenomeCandidato}"/>
                                 </p:column>
-                                <p:column>
+                                <p:column style="text-align: center">
                                     <f:facet name="header">
                                         <h:outputText value="Foto"/>
                                     </f:facet>
@@ -78,7 +78,7 @@
                                     </p:commandButton>
                                 </p:column>
                                 <f:facet name="footer">  
-                                    N.º Candidatos #{(candidatoMBean.candidatos.size())}.  
+                                    N.º Candidatos #{(candidatoMBean.byNomeSobrenome.size())}.  
                                 </f:facet> 
                             </p:dataTable>
 
@@ -90,7 +90,8 @@
                     <!-- Formulario auxiliar-->
 
                     <h:form id="operacoes">
-                        <p:commandButton value="Novo Candidato" type="button" onclick="PF('dlgNovoCandidato').show();" />
+                        <p:commandButton value="+ Novo Candidato" type="button" onclick="PF('dlgNovoCandidato').show();" />
+                        <p:commandButton value="Imprimir Lista" action="#" ajax="false"/>
                         <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />                   
                     </h:form>
 
@@ -98,70 +99,175 @@
 
                     <!-- Dialogo Guardar-->
                     <p:dialog id="guardar" header="Novo Candidato" widgetVar="dlgNovoCandidato" showEffect="explode" hideEffect="bounce" height="450" width="900">
-                        <h:form enctype="multipart/form-data">
-                            <p:tabView>
-                                <p:tab title="Dados Pessoais">
-                                    <p:growl id="messages" showDetail="true"/>
+                       
+                            <h:form  id="frmNovo"  enctype="multipart/form-data">
+
+                                <p:growl id="messages" showDetail="true"/>
+                                <h:messages showSummary="true" showDetail="true"/>
+                                <b:panel look="primary" collapsible="false" title="Dados Pessoais" style="margin-bottom: 20px">
                                     <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Nome"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.nomeCandidato}" size="45"/>
-                                        <p:outputLabel value="Sobrenome:"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.sobrenomeCandidato}" size="45"/>
-                                        <p:outputLabel value="Número"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.numeroCandidato}" size="20"/>
-                                        <p:outputLabel value="Data de nascimento:"/>
-                                        <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" locale="pt"  />
-                                        <p:outputLabel value="Sexo:"/>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Nome:"/>
+                                                <p:inputText id="nome" value="#{candidatoMBean.candidato.nomeCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Sobrenome:"/>
+                                                <p:inputText style="margin-left: 18%" id="sobrenome" value="#{candidatoMBean.candidato.sobrenomeCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Data de nascimento:"/>
+                                                <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" locale="pt"  />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Número:"/>
+                                                <p:inputText style="margin-left: 18%" value="#{candidatoMBean.candidato.numeroCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Profissão:"/>
+                                            <p:selectOneMenu style="width:200px" id="droprofissao" value="#{candidatoMBean.candidato.profissao}" converter="profissaoConverter">
+                                                <f:selectItem itemLabel="Selecione a profissão" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{candidatoMBean.prossifoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Gênero:"/>
                                         <p:selectOneRadio id="sexo" value="#{candidatoMBean.candidato.sexo}">
                                             <f:selectItems value="#{candidatoMBean.opSexos}" />
                                         </p:selectOneRadio >
-                                        <p:outputLabel value="Profissão:"/>
-                                        <p:selectOneMenu id="droprofissao" value="#{candidatoMBean.candidato.profissao}" converter="profissaoConverter">
-                                            <f:selectItem itemLabel="Selecione a profissão" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.prossifoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
-                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+
+
+                                    <h:panelGrid columns="1">
                                         <p:outputLabel value="Foto:"/>
-                                        <p:fileUpload fileUploadListener="#{candidatoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                                        <p:fileUpload style="margin-bottom: 5%" fileUploadListener="#{candidatoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                                     </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Endereço">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="N.º Casa"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.casaCandidato}" size="21"/>
-                                        <p:outputLabel value="Bairro:"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.bairroCandidato}" size="21"/>
-                                        <p:outputLabel value="Distrito:"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="21"/>
 
-                                        <p:outputLabel value="Província: "/>
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
-                                            <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                            <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
-                                        </p:selectOneMenu>
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Endereço" style="margin-bottom: 20px">
 
-                                        <p:outputLabel value="Município:"/>
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
-                                            <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
-                                        </p:selectOneMenu>
+                                    <h:panelGrid columns="3">
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="N.º Casa:"/>
+                                                <p:inputText id="casa" value="#{candidatoMBean.candidato.casaCandidato}" size="20"/>
+                                            </h:panelGrid>
+
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Bairro:"/>
+                                                <p:inputText style="margin-left: 18%" id="bairro" value="#{candidatoMBean.candidato.bairroCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Distrito:"/>
+                                                <p:inputText style="margin-left: 18%" id="distrito" value="#{candidatoMBean.candidato.distritoCandidato}" size="25"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
                                     </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Telefene/Email">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Telefone Movel"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.telefoneMovel}" size="20"/>
-                                        <p:outputLabel value="Telefone Fixo"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.telefoneFixo}" size="20"/>
-                                        <p:outputLabel value="Email"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.emailCandidato}" size="20"/>
+
+                                    <h:panelGrid columns="1">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Provincia:" />
+                                                <p:selectOneMenu style="width:200px" id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
+                                                    <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                                    <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Município:" />
+                                                <p:selectOneMenu style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
+                                                    <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+
                                     </h:panelGrid>
-                                </p:tab>
 
-                            </p:tabView>
-                            <p:commandButton value="Guardar" actionListener="#{candidatoMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
-                        </h:form>
 
+
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Contactos">
+                                    <h:panelGrid columns="4">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone Móvel:"/>
+                                                <p:inputText id="telefoneMovel" value="#{candidatoMBean.candidato.telefoneMovel}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Telefone Fixo:"/>
+                                                <p:inputText style="margin-left: 18%" value="#{candidatoMBean.candidato.telefoneFixo}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Email:"/>
+                                                <p:inputText value="#{candidatoMBean.candidato.emailCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                    </h:panelGrid>
+
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Dados de Acesso">
+                                    <h:panelGrid columns="1" >
+                                        <p:outputLabel value="Nome de usuário:"/>
+                                        <p:inputText value="#{candidatoMBean.candidato.loginCandidato}"/>
+
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Password:"/>
+                                        <p:password value="#{candidatoMBean.candidato.passwordCandidato}"/>
+                                    </h:panelGrid>
+                                </b:panel>
+
+                                <h:panelGrid columns="2">
+                                    <p:commandButton value="Guardar" actionListener="#{candidatoMBean.guardar(evt)}" update="growl" resetValues="true" ajax="false"/>
+                                    <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
+                                </h:panelGrid>
+
+                            </h:form>
+
+                      
                     </p:dialog>
 
                     <!-- Fim Dialogo Guardar-->
@@ -170,69 +276,166 @@
 
                     <p:dialog header="Alterar dados do candidato" id="editar" widgetVar="dialogoAlterar" showEffect="explode" hideEffect="bounce" height="450" width="900" modal="true"  resizable="false">
                         <h:form id="formEditar" enctype="multipart/form-data">
-                            <p:tabView>
-                                <p:tab title="Dados Pessoais">
-                                    <p:growl id="messages" showDetail="true"/>
+                            
+                                <p:growl id="messages" showDetail="true"/>
+                                <h:messages showSummary="true" showDetail="true"/>
+                                <b:panel look="primary" collapsible="false" title="Dados Pessoais" style="margin-bottom: 20px">
                                     <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Nome"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.nomeCandidato}" size="45"/>
-                                        <p:outputLabel value="Sobrenome:"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.sobrenomeCandidato}" size="45"/>
-                                        <p:outputLabel value="Número"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.numeroCandidato}" size="20"/>
-                                        <p:outputLabel value="Data de nascimento:"/>
-                                        <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" locale="pt"  />
-                                        <p:outputLabel value="Sexo:"/>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Nome:"/>
+                                                <p:inputText id="nome" value="#{candidatoMBean.candidato.nomeCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Sobrenome:"/>
+                                                <p:inputText style="margin-left: 18%" id="sobrenome" value="#{candidatoMBean.candidato.sobrenomeCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Data de nascimento:"/>
+                                                <p:calendar value="#{candidatoMBean.candidato.dataNascimento}" pattern="dd/MM/yyyy" locale="pt"  />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Número:"/>
+                                                <p:inputText style="margin-left: 18%" value="#{candidatoMBean.candidato.numeroCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Profissão:"/>
+                                            <p:selectOneMenu style="width:200px" id="droprofissao" value="#{candidatoMBean.candidato.profissao}" converter="profissaoConverter">
+                                                <f:selectItem itemLabel="Selecione a profissão" itemValue="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{candidatoMBean.prossifoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Gênero:"/>
                                         <p:selectOneRadio id="sexo" value="#{candidatoMBean.candidato.sexo}">
                                             <f:selectItems value="#{candidatoMBean.opSexos}" />
                                         </p:selectOneRadio >
-                                        <p:outputLabel value="Profissão:"/>
-                                        <p:selectOneMenu id="droprofissao" value="#{candidatoMBean.candidato.profissao}" converter="profissaoConverter">
-                                            <f:selectItem itemLabel="Selecione a profissão" itemValue="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.prossifoes}" var="profissao" itemValue="#{profissao}" itemLabel="#{profissao.nomeProfissao}" />
-                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+
+
+                                    <h:panelGrid columns="1">
                                         <p:outputLabel value="Foto:"/>
-                                        <p:fileUpload fileUploadListener="#{candidatoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
+                                        <p:fileUpload style="margin-bottom: 5%" fileUploadListener="#{candidatoMBean.fileUpload}" mode="advanced" update="messages" multiple="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpg|jpe?|png)$/"/>
                                     </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Endereço">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="N.º Casa"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.casaCandidato}" size="21"/>
-                                        <p:outputLabel value="Bairro:"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.bairroCandidato}" size="21"/>
-                                        <p:outputLabel value="Distrito:"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.distritoCandidato}" size="21"/>
 
-                                        <p:outputLabel value="Província: "/>
-                                        <p:selectOneMenu id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
-                                            <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
-                                            <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
-                                        </p:selectOneMenu>
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Endereço" style="margin-bottom: 20px">
 
-                                        <p:outputLabel value="Município:"/>
-                                        <p:selectOneMenu id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
-                                            <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
-                                            <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
-                                        </p:selectOneMenu>
+                                    <h:panelGrid columns="3">
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="N.º Casa:"/>
+                                                <p:inputText id="casa" value="#{candidatoMBean.candidato.casaCandidato}" size="20"/>
+                                            </h:panelGrid>
+
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Bairro:"/>
+                                                <p:inputText style="margin-left: 18%" id="bairro" value="#{candidatoMBean.candidato.bairroCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Distrito:"/>
+                                                <p:inputText style="margin-left: 18%" id="distrito" value="#{candidatoMBean.candidato.distritoCandidato}" size="25"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
                                     </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Telefene/Email">
-                                    <h:panelGrid columns="2" >
-                                        <p:outputLabel value="Telefone Movel"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.telefoneMovel}" size="20"/>
-                                        <p:outputLabel value="Telefone Fixo"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.telefoneFixo}" size="20"/>
-                                        <p:outputLabel value="Email"/>
-                                        <p:inputText value="#{candidatoMBean.candidato.emailCandidato}" size="20"/>
-                                    </h:panelGrid>
-                                </p:tab>
 
-                            </p:tabView>
+                                    <h:panelGrid columns="1">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Provincia:" />
+                                                <p:selectOneMenu style="width:200px" id="provincias" filter="true" filterMatchMode="startsWith" label="Províncias" value="#{candidatoMBean.provincia}" required="true" converter="provinciaConverter">
+                                                    <f:selectItem itemLabel="--Seleccionar Província--" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{candidatoMBean.provincias}" var="provincia" itemValue="#{provinia}" itemLabel="#{provincia.nomeProvincia}"/>
+                                                    <f:ajax listener="#{candidatoMBean.carregaMunicipiosDaProvincia()}" render="municipios"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Município:" />
+                                                <p:selectOneMenu style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{candidatoMBean.candidato.municipio}" required="true" converter="municipioConverter">
+                                                    <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{candidatoMBean.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+
+                                    </h:panelGrid>
+
+
+
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Contactos">
+                                    <h:panelGrid columns="4">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Telefone Móvel:"/>
+                                                <p:inputText id="telefoneMovel" value="#{candidatoMBean.candidato.telefoneMovel}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel style="margin-left: 18%" value="Telefone Fixo:"/>
+                                                <p:inputText style="margin-left: 18%" value="#{candidatoMBean.candidato.telefoneFixo}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Email:"/>
+                                                <p:inputText value="#{candidatoMBean.candidato.emailCandidato}" size="20"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                    </h:panelGrid>
+
+                                </b:panel>
+                                <b:panel look="primary" collapsible="false" title="Dados de Acesso">
+                                    <h:panelGrid columns="1" >
+                                        <p:outputLabel value="Nome de usuário:"/>
+                                        <p:inputText value="#{candidatoMBean.candidato.loginCandidato}"/>
+
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Password:"/>
+                                        <p:password value="#{candidatoMBean.candidato.passwordCandidato}"/>
+                                    </h:panelGrid>
+                                </b:panel>      
                             <p:commandButton value="Guardar" actionListener="#{candidatoMBean.edit(event)}" update="growl" resetValues="true" ajax="false"/>
                         </h:form>
-
                     </p:dialog>
 
 
@@ -240,10 +443,9 @@
                     <!-- Fim Dialogo Editar-->
 
                     <!-- Inicio Dialogo Ver detalhes do candidato-->
-                    <p:dialog header="Detalhes do Candidato" id="ver" widgetVar="dlgVerCandidato" showEffect="explode" hideEffect="bounce"  height="350" width="900">
-
+                    <p:dialog header="Detalhes do Candidato" id="ver" widgetVar="dlgVerCandidato" showEffect="explode" hideEffect="bounce"  height="450" width="900">
                         <h:form id="formVer">
-                            <p:tabView>
+                            <p:accordionPanel>
                                 <p:tab title="Dados Pessoais">
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Código"/>
@@ -288,8 +490,16 @@
                                         <p:outputLabel id="email" value="#{candidatoMBean.candidato.emailCandidato}"/>
                                     </h:panelGrid>
                                 </p:tab>
+                                <p:tab title="Dados de acesso:">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Nome de usuário:"/>
+                                        <p:outputLabel value="#{candidatoMBean.candidato.loginCandidato}" />
+                                        <p:outputLabel value="Password"/>
+                                        <p:outputLabel value="#{candidatoMBean.candidato.passwordCandidato}" />
+                                    </h:panelGrid>
+                                </p:tab>
 
-                            </p:tabView>
+                            </p:accordionPanel>
                         </h:form>
                     </p:dialog>
 

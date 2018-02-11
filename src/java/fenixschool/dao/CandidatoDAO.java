@@ -39,15 +39,15 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
     private static final String LISTAR_POR_SEXO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE sexo=? ORDER BY nome_candidato ASC";
 
-    private static final String LISTAR_POR_DATA_DE_NACIMENTO = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
-            + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE data_nascimento=? ORDER BY nome_candidato ASC";
-
     private static final String SELECT_BY_NOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE nome_candidato=? ORDER BY nome_candidato ASC ";
 
     private static final String SELECT_BY_SOBRENOME = "SELECT * FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao "
             + "INNER JOIN municipio m ON c.id_municipio = m.id_municipio WHERE sobrenome_candidato=? ORDER BY nome_candidato ASC ";
-
+    
+    private static final String SELECT_DATA_NASCIMENTO ="SELECT *  FROM candidato c INNER JOIN profissao p ON c.id_profissao = p.id_profissao INNER JOIN municipio m ON c.id_municipio = m.id_municipio  WHERE c.data_nascimento < ? AND c.data_nascimento > ?  ORDER BY c.nome_candidato ASC;";
+    
+    
     @Override
     public boolean save(Candidato candidato){
         Connection conn = null;
@@ -321,17 +321,20 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
         return candidatos;
     }
 
-    public List<Candidato> findByDataDeNascimento(Date data) {
+    public List<Candidato> findByDataDeNascimento(String dataInicio, String dataFim) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Candidato> candidatos = new ArrayList();
         try {
             conn = (Connection) Conexao.getConnection();
-            ps = conn.prepareStatement(LISTAR_POR_DATA_DE_NACIMENTO);
-            ps.setDate(1, data);
-         
+            ps = conn.prepareStatement(SELECT_DATA_NASCIMENTO);
+            
+              ps.setString(1, dataInicio);
+              ps.setString(2, dataFim);
+            
             rs = ps.executeQuery();
+            
             while (rs.next()){
                 Candidato candidato = new Candidato();
                 popularComDados(candidato, rs);
@@ -410,5 +413,6 @@ public class CandidatoDAO implements GenericoDAOLogico<Candidato> {
         }
     }
 
+    
     
 }

@@ -369,7 +369,6 @@ public class ProfessorMBean implements Serializable {
     }
 
     public String imprimirListaProfessores() {
-
         String relatorio = "professores_lista_todos.jasper";
         HashMap parametros = new HashMap();
         gestorImpressao.imprimirPDF(relatorio, parametros);
