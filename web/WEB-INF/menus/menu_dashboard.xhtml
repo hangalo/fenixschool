@@ -84,13 +84,14 @@
 
                 <p:submenu label="Matricula">
 
-                    <p:menuitem value="Nova"  url="/reservado/turma/turma_novo.jsf" />
+                    <p:menuitem value="Nova"  url="/matricula/matricula_nova.jsf" />
 
                     <p:submenu label="Listagem">
-                        <p:menuitem value="Por nome" url="/reservado/encarregado/encarregado_por_nome.jsf"/>
-                        <p:menuitem value="Por nome e sobrenome" url="/reservado/encarregado/encarregado_por_nome_sobrenome.jsf"/>
-                        <p:menuitem value="Por sexo" url="/reservado/encarregado/encarregado_por_sexo.jsf"/>
-                        <p:menuitem value="Lista geral" url="/reservado/encarregado/encarregado_educacao_listar.jsf" />
+                        <p:menuitem value="Por turma e ano lectivo" url="/matricula/listagem_turma_anolectivo.jsf"/>
+                        <p:menuitem value="Por Turma, ano lectivo e classe" url="/matricula/listagem_turma_anolectivo_classe.jsf"/>
+                        <p:menuitem value="Por turma, ano lectivo, classe e curso  " url="/matricula/listagem_turma_anolectivo_classe_curso.jsf"/>
+                        <p:menuitem value="Por turma, ano lectivo, classe,curso  e periodo " url="/matricula/listagem_turma_anolectivo_classe_curso_periodo.jsf"/>
+                        <p:menuitem value="Lista geral" url="/matricula/matricula_gestao.jsf" />
 
                     </p:submenu>
                     <p:submenu label="Encarregado">
