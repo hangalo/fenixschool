@@ -10,7 +10,7 @@
         <title>Matriculas</title>
     </h:head>
     <h:body>
-        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+        <ui:composition template="../WEB-INF/templates/dashboard_template.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
@@ -22,7 +22,7 @@
 
                             <h:panelGrid columns="6"  cellspacing="10%">
                                 <h:outputLabel value="TURMA:  " style="margin-right: 10px"/>
-                                <h:inputText id="cognome" value="#{matriculaBean.byTurma}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
+                                <p:inputText id="cognome" value="#{matriculaBean.byTurma}" required="true" requiredMessage="#{msg.msg_cognome}" immediate="true"/>
 
                                 <b:commandButton value="Pesquisar..." look="primary"/>
 
@@ -53,28 +53,28 @@
 
                                
 
-                                <p:column style="width: 4%">
+                                <p:column style="width: 10%">
                                     <f:facet name="header">
-                                        <p:outputLabel value="SEXO"/>
+                                        <p:outputLabel value="GÈNERO"/>
                                     </f:facet>
                                     <h:outputText value="#{matricula.aluno.sexo.abreviatura}"/>
                                 </p:column>
 
-                                <p:column style="width: 5%">
+                                <p:column style="width: 8%">
                                     <f:facet name="header">
                                         <h:outputText value="IDADE"/>
                                     </f:facet>
                                     <h:outputText value="20"/> </p:column>
-                                <p:column style="width: 15%">
+                                <p:column style="width: 20%">
                                     <f:facet name="header">
                                         <p:outputLabel value="DATA DE NASCIMENTO"/>
                                     </f:facet>
                                     <h:outputText value="#{matricula.aluno.dataNascimentoAluno}"/>
                                 </p:column>
                                 
-                                 <p:column style="width: 10%">
+                                 <p:column style="width: 20%">
                                     <f:facet name="header">
-                                        <p:outputLabel value="NATURAL"/>
+                                        <p:outputLabel value="NATURALIDADE"/>
                                     </f:facet>
                                      <h:outputText value="#{matricula.aluno.municipioAluno}"/>
                                 </p:column>
@@ -86,19 +86,9 @@
                                      <h:outputText value="#{matricula.linguaOpcao}"/>
                                 </p:column>
                                 
-                                 <p:column style="width: 10%">
-                                    <f:facet name="header">
-                                        <p:outputLabel value="SITUAÇÃO"/>
-                                    </f:facet>
-                                     <h:outputText value="#{matricula.situacaoAlunoMatricula}"/>
-                                </p:column>
+                                 
                                 
-                                 <p:column style="width: 5%">
-                                    <f:facet name="header">
-                                        <p:outputLabel value="OBS."/>
-                                    </f:facet>
-                                     <h:outputText value="#{matricula.observacao}"/>
-                                </p:column>
+                                
 
                           
                                 <p:column style="width: 160px; text-align: center">
@@ -134,7 +124,7 @@
                         <h:panelGrid columns="2">
                            <!-- <p:commandButton value="Nova matricula" actionListener="#{professorMBean.newSave(evt)}" type="button" onclick="PF('dlgNovo').show();" />-->
                           
-                            <p:commandButton value="Nova matricula" action="/reservado/matricula/matricula_nova.jsf" ajax="false" immediate="true" />
+                            <p:commandButton value="Nova matricula" type="button" icon="ui-icon-plus" onclick="PF('dlgNovo').show();"/>
                             <p:commandButton value="Fechar" action="/index" ajax="false" immediate="true" />
                         </h:panelGrid>
                     </h:form>

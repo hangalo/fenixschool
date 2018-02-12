@@ -10,7 +10,7 @@
         <title>Matriculas</title>
     </h:head>
     <h:body>
-        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+        <ui:composition template="../WEB-INF/templates/dashboard_template.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <f:view>
@@ -24,7 +24,7 @@
                                     <h:panelGroup>
                                     <h:panelGrid columns="1">
                                         <p:outputLabel value="Turma: "/>
-                                        <p:selectOneMenu value="#{matriculaBean.matricula.turma}"  converter="turmaConverter" filterMatchMode="startswith" >
+                                        <p:selectOneMenu value="#{matriculaBean.matricula.turma}" style="width: 250px"  converter="turmaConverter" filterMatchMode="startswith" >
                                             <f:selectItem itemLabel="Selecione uma Turma" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{matriculaBean.turmas}" var="turma" itemValue="#{turma}" itemLabel="#{turma.nomeTurma}" />
                                             <f:ajax listener="#{matriculaBean.carregaVagasDaTurma()}" render="vagas" />
@@ -34,7 +34,7 @@
                                     <h:panelGroup>
                                     <h:panelGrid columns="1">
                                         <p:outputLabel value="Ano Lectivo: "/>
-                                        <p:selectOneMenu value="#{matriculaBean.matricula.anoLetivo}" converter="anoLectivoConverter" filterMatchMode="startswith">
+                                        <p:selectOneMenu value="#{matriculaBean.matricula.anoLetivo}" style="width: 250px"  converter="anoLectivoConverter" filterMatchMode="startswith">
                                             <f:selectItem itemLabel="Selecione uma Ano Letivo" itemValue="#{null}" noSelectionOption="true"/>
                                             <f:selectItems value="#{matriculaBean.anoLectivos}" var="anoletivo" itemValue="#{anoletivo}" itemLabel="#{anoletivo.anoLectivo}" />
                                         </p:selectOneMenu>
@@ -42,8 +42,8 @@
                                         </h:panelGroup>
                                     <h:panelGroup>
                                     <h:panelGrid columns="1">
-                                      <p:outputLabel/>
-                                    <p:commandButton action="#{matriculaBean.getMatriculaByTurmaAnoLectivo()}" value="Pesquisar" styleClass="but but-primary" ajax="false"/>
+                                      
+                                        <p:commandButton action="#{matriculaBean.getMatriculaByTurmaAnoLectivo()}"  style="width: 100px; height: 40px" value="Pesquisar" styleClass="but but-primary" ajax="false"/>
                                     </h:panelGrid>
                                         </h:panelGroup>
                                 </h:panelGrid>
