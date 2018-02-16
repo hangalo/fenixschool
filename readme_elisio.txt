@@ -1,3 +1,25 @@
+1602/2018
+Objectivos: 
+	1 ---> Construção de um template para o dashboard feito pela Aisha. 
+	2 ---> Contrução da págna index que implementa  o tamplate construído.
+	3 ---> Implementação da ligação dos formularios da aplicação com o dasboard construído.
+
+Coisas feitas:  Objectivos 1 e 2.
+
+Outros: 
+	- O dashboard foi criado  na pasta templates  com o nome dashboard_aisha_tamplete.
+	- A pagina index foi criada com o nome index2
+	- Centralizei o conteúdo da div painel_esquerdo. Inclui a imagem da beca e os commandButtons, isso no tamplete construído e na página de 		dashboard feito pela dona Aisha. 
+	- Use um <ui: include> (para incluir o menu_dashboard) no tamplate construído.
+	
+
+Coisas não feitas: Objectivo 3.
+
+O.B.S.: Deixei uma página com o nome exemplo_dashboard, para poder ver como fica quando uma página é cliente do tamplate construído.
+  
+--------------------------------------------------------------------- Fim --------------------------------------------------------------------------
+
+
 11/02/2018
 Implementação das novas paginas de acesso a área de candidatos.
 Coisas feitas:

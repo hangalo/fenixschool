@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet  library="css" name="dashboard_aisha.css"/>
+
+        <title>Fenix school</title>
+       
+    </h:head>
+
+    <h:body>
+    
+        <header>
+        </header>
+
+        <ui:insert name="topo">
+            <ui:include src="../menus/menu_dashboard.xhtml">
+
+            </ui:include>
+        </ui:insert>
+
+        <div id="conteudo">
+            <h3> Escola do Iº Ciclo do ensino secundário 14 de Abril</h3>
+
+
+            <ui:insert name="painel_esquerdo">
+                <div id="painel-esquerdo" align="center">
+                    <h:form>
+                        <h:panelGrid  columns="1" >
+                            <h:panelGroup>
+                                <h:graphicImage name="beca.png" width="240" height="240" library="imagens" /> 
+
+                            </h:panelGroup>
+
+                        </h:panelGrid>
+
+                        <p:accordionPanel>
+                            <p:tab title="Administraçao e Gestão" >
+                                <h:form style=" background-color: #666666">
+                                    <b:commandButton action="#" value="Área Académica" look="normal" style=" text-align: center"/>
+                                    <hr style="margin: 3px"/>
+                                    <b:commandButton action="#" value=" Recursos Humanos" look="normal" style=" text-align: center"/>
+                                    <hr style="margin: 3px"/>
+                                    <b:commandButton action="#" value="área Pedagogica" look="normal" style=" text-align: center"/>
+                                    <hr style="margin: 3px"/>
+
+                                    <b:commandButton action="#" value="Usuários" look="normal" style=" text-align: center"/>
+                                    <hr style="margin: 3px"/>
+
+                                </h:form>
+                            </p:tab>
+                        </p:accordionPanel>  
+                    </h:form>
+
+                </div>
+            </ui:insert>
+
+            <ui:insert name="painel_central">
+                <!-- Área central dos botões-->
+                
+                
+                
+                
+            </ui:insert>
+
+
+        </div>
+
+
+        <ui:insert name="rodape">
+            <footer>
+                Fénix Innovation &copy; 2018
+            </footer>
+        </ui:insert>
+
+
+
+
+
+
+    </h:body>
+
+</html>
