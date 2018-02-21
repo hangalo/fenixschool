@@ -1,4 +1,39 @@
-1602/2018
+------------------------------------------------------ 21/02/2018 -------------------------------------------------------
+Coisas feitas:
+	---> Construção de um novo dashboard, que servirá como uma outra opção;
+	---> Construção da página index cliente do dashboard constrído.
+	---> Construção das páginas que atendem as funcionalidades de Matrículas, Alunos e Candidatos;
+	---> Construção de um novo menu coo o nome menu_dashboard2(que foi incluído nas novas páginas)
+
+
+Observações:
+	---> Todo trabalho feito no dia 16/02/2018 (como mencionado no readme anterior), está dentro da pasta backup e já não é mais utilizado. 
+	---> Renomeei as pastas onde estão as páginas... 
+	---> As páginas anteriores estão em uma pasta com nome, alunos_principal, candidatos_principal e matriculas_principal;
+	---> A página index construída está com o nome index2.
+
+
+
+----------------------------------------------------------- FIM ---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16/02/2018
 Objectivos: 
 	1 ---> Construção de um template para o dashboard feito pela Aisha. 
 	2 ---> Contrução da págna index que implementa  o tamplate construído.

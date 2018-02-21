@@ -7,18 +7,19 @@
 
     <body>
 
-        <ui:composition template="./WEB-INF/templates/dashboard_template2.xhtml">
+        <ui:composition template="./WEB-INF/templates/dashboard_templete_secundario.xhtml">
 
-            <ui:define name="content">
-                 <div id="painel-central">
+            <ui:define name="painel_central">
+               <div id="painel-central">
 
                 <h:form>
+
 
                     <div class="container">
 
                         <div class="right-div right-text">
 
-                            <b:commandButton action="alunos_secundario/aluno_novo" look="info">
+                            <b:commandButton action="reservado/aluno/aluno_novo" look="normal">
 
                                 <h:graphicImage name="novo_aluno.png" width="50" height="50"  library="imagens" />  
                                 <p>Novo Aluno</p>
@@ -28,18 +29,10 @@
 
 
                         </div>
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="matriculas_secundario/matricula_gestao" look="info">
-                                <h:graphicImage name="matriculas.png" width="50" height="50"  library="imagens" />  
-                                <p>Matrículas</p>
-                            </b:commandButton>
-
-                        </div>
 
                         <div class="right-div right-text">
 
-                            <b:commandButton action="reservado/professor/professor_gestao" look="info">
+                            <b:commandButton action="reservado/professor/professores_por_departamento" look="normal">
                                 <h:graphicImage name="professores_01_1.png" width="50" height="50" library="imagens" />  
                                 <p>Professores</p>
                             </b:commandButton>
@@ -50,16 +43,23 @@
 
                         <div class="right-div right-text">
 
-                            <b:commandButton action="#" look="info">
+                            <b:commandButton action="reservado/aluno/aluno_por_nome_sobrenome" look="normal">
                                 <h:graphicImage name="time_management.png"  width="60" height="50" library="imagens"/>  
-                                <p>Horarios</p>
+                                <p>Matículas</p>
                             </b:commandButton>
 
 
 
                         </div>
 
-                        
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/matricula/matricula_nova" look="normal">
+                                <h:graphicImage name="matriculas.png" width="50" height="50"  library="imagens" />  
+                                <p>Inscrições</p>
+                            </b:commandButton>
+
+                        </div>
 
                     </div>
                 </h:form>
@@ -71,7 +71,7 @@
                     <h:form>
                         <div class="right-div right-text">
 
-                            <b:commandButton action="reservado/matricula/listagem_turma_anolectivo" look="info">
+                            <b:commandButton action="reservado/matricula/listagem_turma_anolectivo" look="normal">
                                 <h:graphicImage name="turmas.png" width="50" height="50"  library="imagens"/>  
                                 <p>Turmas</p>
                             </b:commandButton>
@@ -82,7 +82,7 @@
 
                         <div class="right-div right-text">
 
-                            <b:commandButton action="#" look="info" >
+                            <b:commandButton action="reservado/professor/professores_por_departamento" look="normal" >
                                 <h:graphicImage name="cartoes_estudantes.png" width="50" height="50" library="imagens" />  
                                 <p>Cartões</p>
                             </b:commandButton>
@@ -93,7 +93,7 @@
 
                         <div class="right-div right-text">
 
-                            <b:commandButton action="#" look="info">
+                            <b:commandButton action="#" look="normal">
 
                                 <h:graphicImage name="secretaria.png"  width="50" height="50" library="imagens" />  
                                 <p>Secretaria</p>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="right-div right-text">
 
-                            <b:commandButton action="#" look="info">
+                            <b:commandButton action="#" look="normal">
 
                                 <h:graphicImage name="maly.png"  width="50" height="50" library="imagens" />  
                                 <p>Artigos</p>

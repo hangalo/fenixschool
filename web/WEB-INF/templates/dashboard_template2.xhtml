@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Fenix School</title>
+
+            </f:facet>
+            <h:outputStylesheet library="css" name="dashBoard_deu.css"/>
+            <h:outputStylesheet  library="css" name="dashboard_aisha.css"/>
+
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true" >
+
+                <p:layoutUnit position="north"  resizable="false" closable="false" collapsible="false">
+                    <ui:insert name="top">
+                        <ui:include src="../menus/menu_dashboard2.xhtml"/>
+                    </ui:insert>
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+
+                    <b:progressBar value="100" animated="true" renderCaption="false"/>
+
+                    <p style="text-align: center">
+                        Fénix Innovation &copy; 2017  Comprometidos com a inovação
+                    </p>
+
+                </p:layoutUnit>
+
+
+
+                <p:layoutUnit position="east" header="Fénix Innovation &copy; 2017" size="300" closable="false"   style="text-align: center; " collapsible="false">
+                    <h:form>
+                        <h:panelGrid  columns="1" >
+                            <h:panelGroup>
+                                <h:graphicImage name="beca.png" width="245" height="245" library="imagens" /> 
+
+                            </h:panelGroup>
+
+                        </h:panelGrid>
+
+                        <p:accordionPanel>
+                            <p:tab title="Administraçao e Gestão" >
+                                <h:form style=" background-color: #666666">
+                                    <b:commandButton action="#" value="Área Académica" look="info" style=" text-align: center"/>
+                                    <hr style="margin: 3px"/>
+                                    <b:commandButton action="#" value=" Recursos Humanos" look="info" style=" text-align: center"/>
+                                    <hr style="margin: 3px"/>
+                                    <b:commandButton action="#" value="área Pedagogica" look="info" style=" text-align: center"/>
+                                    <hr style="margin: 3px"/>
+
+                                    <b:commandButton action="#" value="Usuários" look="info" style=" text-align: center"/>
+                                    <hr style="margin: 3px"/>
+
+                                </h:form>
+                            </p:tab>
+                        </p:accordionPanel>  
+                    </h:form>
+                </p:layoutUnit>
+
+
+
+                <p:layoutUnit  style="height: auto; " footer=""  header="Escola do Iº Ciclo do ensino secundário 14 de Abril"  position="center">
+
+                    <ui:insert name="content">
+
+                    </ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

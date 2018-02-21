@@ -19,26 +19,19 @@
 
 
 
-                <p:menuitem  value="Home"  outcome="/index.xhtml" icon="ui-icon-home "/>
-
-
-
-
-
-
-
+                <p:menuitem  value="Home"  outcome="/index2.xhtml" icon="ui-icon-home "/>
 
 
                 <p:submenu label="Aluno">
 
-                    <p:menuitem value="Novo" outcome="/alunos_principal/aluno_novo.xhtml" />
+                    <p:menuitem value="Novo" outcome="/alunos_secundario/aluno_novo.xhtml" />
 
                     <p:submenu label="Listagem por">
-                        <p:menuitem value="Bilhete de Identidade" outcome="/alunos/aluno_por_numero.xhtml"/>
-                        <p:menuitem value="Nome e Sobrenome" outcome="/alunos/aluno_por_nome_sobrenome.xhtml"/>
-                        <p:menuitem value="Genero" outcome="/alunos/aluno_por_sexo.xhtml"/>
-                         <p:menuitem value="Data de Nascimento" outcome="/alunos/aluno_por_nascimento.xhtml" />
-                        <p:menuitem value="Lista geral" outcome="/alunos/aluno_listar.xhtml" />
+                        <p:menuitem value="Bilhete de Identidade" outcome="/alunos_secundario/aluno_por_numero.xhtml"/>
+                        <p:menuitem value="Nome e Sobrenome" outcome="/alunos_secundario/aluno_por_nome_sobrenome.xhtml"/>
+                        <p:menuitem value="Genero" outcome="/alunos_secundario/aluno_por_sexo.xhtml"/>
+                         <p:menuitem value="Data de Nascimento" outcome="/alunos_secundario/aluno_por_nascimento.xhtml" />
+                        <p:menuitem value="Lista geral" outcome="/alunos_secundario/aluno_listar.xhtml" />
 
                     </p:submenu>
                     <p:submenu label="Encarregado">
@@ -66,13 +59,13 @@
                 </p:submenu>
                 
                 <p:submenu label="Candidato">
-                    <p:menuitem value="Novo" outcome="/candidatos_principal/candidato_novo.xhtml" />
+                    <p:menuitem value="Novo" outcome="/candidatos_secundario/candidato_novo.xhtml" />
                     <p:submenu label="Listagem por">
-                        <p:menuitem value="Número" outcome="/candidatos/candidato_por_numero.xhtml"/>
-                        <p:menuitem value="Nome e Sobrenome" outcome="/candidatos/candidato_por_nome_sobrenome.xhtml"/>
-                        <p:menuitem value="Genero" outcome="/candidatos/candidato_por_sexo.xhtml"/>
-                         <p:menuitem value="Data de Nascimento" outcome="/candidatos/candidato_por_data_nascimento.xhtml" />
-                        <p:menuitem value="Lista geral" outcome="/candidatos/candidato_listar.xhtml" />
+                        <p:menuitem value="Número" outcome="/candidatos_secundario/candidato_por_numero.xhtml"/>
+                        <p:menuitem value="Nome e Sobrenome" outcome="/candidatos_secundario/candidato_por_nome_sobrenome.xhtml"/>
+                        <p:menuitem value="Genero" outcome="/candidatos_secundario/candidato_por_sexo.xhtml"/>
+                         <p:menuitem value="Data de Nascimento" outcome="/candidatos_secundario/candidato_por_data_nascimento.xhtml" />
+                        <p:menuitem value="Lista geral" outcome="/candidatos_secundario/candidato_listar.xhtml" />
 
                     </p:submenu>
                     
@@ -84,14 +77,15 @@
 
                 <p:submenu label="Matricula">
 
-                    <p:menuitem value="Nova"  url="/matricula_principal/matricula_nova.jsf" />
+                    <p:menuitem value="Nova"  url="/matriculas_secundario/matricula_nova.jsf" />
 
                     <p:submenu label="Listagem">
-                        <p:menuitem value="Por turma e ano lectivo" url="/matricula/listagem_turma_anolectivo.jsf"/>
-                        <p:menuitem value="Por Turma, ano lectivo e classe" url="/matricula/listagem_turma_anolectivo_classe.jsf"/>
-                        <p:menuitem value="Por turma, ano lectivo, classe e curso  " url="/matricula/listagem_turma_anolectivo_classe_curso.jsf"/>
-                        <p:menuitem value="Por turma, ano lectivo, classe,curso  e periodo " url="/matricula/listagem_turma_anolectivo_classe_curso_periodo.jsf"/>
-                        <p:menuitem value="Lista geral" url="/matricula/matricula_gestao.jsf" />
+                        <p:menuitem value="Por turma" url="/matriculas_secundario/listagem_por_turma.jsf"/>
+                        <p:menuitem value="Por turma e ano lectivo" url="/matriculas_secundario/listagem_turma_anolectivo.jsf"/>
+                        <p:menuitem value="Por Turma, ano lectivo e classe" url="/matriculas_secundario/listagem_turma_anolectivo_classe.jsf"/>
+                        <p:menuitem value="Por turma, ano lectivo, classe e curso  " url="/matriculas_secundario/listagem_turma_anolectivo_classe_curso.jsf"/>
+                        <p:menuitem value="Por turma, ano lectivo, classe,curso  e periodo " url="/matriculas_secundario/listagem_turma_anolectivo_classe_curso_periodoletivo.jsf"/>
+                        <p:menuitem value="Lista geral" url="/matriculas_secundario/matricula_gestao.jsf" />
 
                     </p:submenu>
                     <p:submenu label="Encarregado">
