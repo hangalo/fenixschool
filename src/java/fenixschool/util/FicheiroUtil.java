@@ -18,6 +18,7 @@ public class FicheiroUtil {
   public static String getPathPastaAplicacaoJSF() {
         String separador = System.getProperty("file.separator");
         String pasta ="fotos"+ separador;
+        
         String raizAplicacao = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
         return raizAplicacao + pasta;
     }

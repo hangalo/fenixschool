@@ -1,3 +1,19 @@
+23/03/2018
+
+
+
+Modulo de gestao de vendas
+
+Tem como funcao principal permite gerir as vendas de diversos artigos por parte da escola.
+23/03/2018
+Foi criada a tabela cliente e tipo_cliente.
+Pelo facto de os clientes poderem ser professores, alunos ou clientes vários então foi criada uma tabela especifica para armazenar os dados dos clientes.
+O tipo de cliente pode ser: Aluno, Professor, Varios
+
+A tabela venda_detalhes tem chave composta para que na mesma venda não seja possível registar o mesmo produto duas vezes.
+
+
+
 
 07/11/2017
 Dashboard

@@ -1,4 +1,4 @@
-﻿-- MySQL Administrator dump 1.4
+-- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
 -- Server version	5.7.17-log
@@ -99,6 +99,9 @@ CREATE TABLE `aluno` (
 -- Dumping data for table `aluno`
 --
 
+/*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
+/*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
+
 
 --
 -- Definition of table `aluno_encarregado_educacao`
@@ -194,6 +197,8 @@ CREATE TABLE `ano_curricular` (
 -- Dumping data for table `ano_curricular`
 --
 
+/*!40000 ALTER TABLE `ano_curricular` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ano_curricular` ENABLE KEYS */;
 
 
 --
@@ -208,6 +213,13 @@ CREATE TABLE `ano_letivo` (
   `fim_ano_letivo` date DEFAULT NULL,
   PRIMARY KEY (`id_ano_letivo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ano_letivo`
+--
+
+/*!40000 ALTER TABLE `ano_letivo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ano_letivo` ENABLE KEYS */;
 
 
 --
@@ -249,7 +261,12 @@ CREATE TABLE `boletim_notas` (
   CONSTRAINT `fk_boletin_notas_aluno1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `boletim_notas`
+--
 
+/*!40000 ALTER TABLE `boletim_notas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `boletim_notas` ENABLE KEYS */;
 
 
 --
@@ -283,7 +300,12 @@ CREATE TABLE `candidato` (
   CONSTRAINT `fk_aluno_profissao10` FOREIGN KEY (`id_profissao`) REFERENCES `profissao` (`id_profissao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `candidato`
+--
 
+/*!40000 ALTER TABLE `candidato` DISABLE KEYS */;
+/*!40000 ALTER TABLE `candidato` ENABLE KEYS */;
 
 
 --
@@ -368,7 +390,12 @@ CREATE TABLE `categoria_cargo` (
   PRIMARY KEY (`id_categoria_cargo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `categoria_cargo`
+--
 
+/*!40000 ALTER TABLE `categoria_cargo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categoria_cargo` ENABLE KEYS */;
 
 
 --
@@ -411,7 +438,12 @@ CREATE TABLE `ciclo_letivo` (
   PRIMARY KEY (`id_ciclo_letivo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `ciclo_letivo`
+--
 
+/*!40000 ALTER TABLE `ciclo_letivo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ciclo_letivo` ENABLE KEYS */;
 
 
 --
@@ -425,7 +457,44 @@ CREATE TABLE `classificacao_nota` (
   PRIMARY KEY (`id_classificacao_nota`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `classificacao_nota`
+--
 
+/*!40000 ALTER TABLE `classificacao_nota` DISABLE KEYS */;
+/*!40000 ALTER TABLE `classificacao_nota` ENABLE KEYS */;
+
+
+--
+-- Definition of table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+CREATE TABLE `cliente` (
+  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_cliente` varchar(45) DEFAULT NULL,
+  `sobrenome_cliente` varchar(45) DEFAULT NULL,
+  `telemovel_cliente` varchar(45) DEFAULT NULL,
+  `telefone_cliente` varchar(45) DEFAULT NULL,
+  `email_cliente` varchar(45) DEFAULT NULL,
+  `casa_cliente` varchar(45) DEFAULT NULL,
+  `bairro_cliente` varchar(45) DEFAULT NULL,
+  `rua_cliente` varchar(45) DEFAULT NULL,
+  `id_municipio` int(11) NOT NULL,
+  `id_tipo_cliente` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_cliente`),
+  KEY `fk_cliente_municipio1_idx` (`id_municipio`),
+  KEY `fk_cliente_tipo_cliente1_idx` (`id_tipo_cliente`),
+  CONSTRAINT `fk_cliente_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cliente_tipo_cliente1` FOREIGN KEY (`id_tipo_cliente`) REFERENCES `tipo_cliente` (`id_tipo_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cliente`
+--
+
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
 
 --
@@ -447,7 +516,12 @@ CREATE TABLE `curso` (
   CONSTRAINT `fk_curso_departamento1` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id_departamento`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `curso`
+--
 
+/*!40000 ALTER TABLE `curso` DISABLE KEYS */;
+/*!40000 ALTER TABLE `curso` ENABLE KEYS */;
 
 
 --
@@ -495,7 +569,12 @@ CREATE TABLE `declaracao` (
   CONSTRAINT `fk_delcaracao_objetivo_declaracao1` FOREIGN KEY (`id_objetivo_declaracao`) REFERENCES `objetivo_declaracao` (`id_objetivo_declaracao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `declaracao`
+--
 
+/*!40000 ALTER TABLE `declaracao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `declaracao` ENABLE KEYS */;
 
 
 --
@@ -509,7 +588,12 @@ CREATE TABLE `departamento` (
   PRIMARY KEY (`id_departamento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `departamento`
+--
 
+/*!40000 ALTER TABLE `departamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
 
 
 --
@@ -533,7 +617,12 @@ CREATE TABLE `disciplina` (
   CONSTRAINT `fk_disciplina_tipo_disciplina1` FOREIGN KEY (`id_tipo_disciplina`) REFERENCES `tipo_disciplina` (`id_tipo_disciplina`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `disciplina`
+--
 
+/*!40000 ALTER TABLE `disciplina` DISABLE KEYS */;
+/*!40000 ALTER TABLE `disciplina` ENABLE KEYS */;
 
 
 --
@@ -597,7 +686,12 @@ CREATE TABLE `encarregado_educacao` (
   CONSTRAINT `fk_encarregado_educacao_profissao1` FOREIGN KEY (`id_profissao_encarregado`) REFERENCES `profissao` (`id_profissao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `encarregado_educacao`
+--
 
+/*!40000 ALTER TABLE `encarregado_educacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `encarregado_educacao` ENABLE KEYS */;
 
 
 --
@@ -681,6 +775,12 @@ CREATE TABLE `funcionario` (
   CONSTRAINT `fk_aluno_municipio10` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `funcionario`
+--
+
+/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 
 
 --
@@ -761,7 +861,12 @@ CREATE TABLE `instituicao` (
   CONSTRAINT `fk_insituicao_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `instituicao`
+--
 
+/*!40000 ALTER TABLE `instituicao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `instituicao` ENABLE KEYS */;
 
 
 --
@@ -775,7 +880,12 @@ CREATE TABLE `local_emissao_documento` (
   PRIMARY KEY (`id_local_emissao_documento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `local_emissao_documento`
+--
 
+/*!40000 ALTER TABLE `local_emissao_documento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `local_emissao_documento` ENABLE KEYS */;
 
 
 --
@@ -823,6 +933,12 @@ CREATE TABLE `matricula` (
   CONSTRAINT `fk_matricula_turma1` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id_turma`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `matricula`
+--
+
+/*!40000 ALTER TABLE `matricula` DISABLE KEYS */;
+/*!40000 ALTER TABLE `matricula` ENABLE KEYS */;
 
 
 --
@@ -889,21 +1005,6 @@ CREATE TABLE `mes` (
 /*!40000 ALTER TABLE `mes` ENABLE KEYS */;
 
 
-
---
--- Definition of table `provincia`
---
-
-DROP TABLE IF EXISTS `provincia`;
-CREATE TABLE `provincia` (
-  `id_provincia` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_provincia` varchar(45) DEFAULT NULL,
-  `id_pais` int(11) NOT NULL,
-  PRIMARY KEY (`id_provincia`),
-  KEY `fk_provincia_pais1_idx` (`id_pais`),
-  CONSTRAINT `fk_provincia_pais1` FOREIGN KEY (`id_pais`) REFERENCES `pais` (`id_pais`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
-
 --
 -- Definition of table `municipio`
 --
@@ -917,6 +1018,13 @@ CREATE TABLE `municipio` (
   KEY `fk_municipio_provincia1_idx` (`id_provincia`),
   CONSTRAINT `fk_municipio_provincia1` FOREIGN KEY (`id_provincia`) REFERENCES `provincia` (`id_provincia`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `municipio`
+--
+
+/*!40000 ALTER TABLE `municipio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `municipio` ENABLE KEYS */;
 
 
 --
@@ -1039,7 +1147,12 @@ CREATE TABLE `objetivo_declaracao` (
   PRIMARY KEY (`id_objetivo_declaracao`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `objetivo_declaracao`
+--
 
+/*!40000 ALTER TABLE `objetivo_declaracao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `objetivo_declaracao` ENABLE KEYS */;
 
 
 --
@@ -1053,6 +1166,13 @@ CREATE TABLE `pais` (
   `name_pais` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_pais`)
 ) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pais`
+--
+
+/*!40000 ALTER TABLE `pais` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pais` ENABLE KEYS */;
 
 
 --
@@ -1085,6 +1205,12 @@ CREATE TABLE `periodo_letivo` (
   PRIMARY KEY (`id_periodo_letivo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `periodo_letivo`
+--
+
+/*!40000 ALTER TABLE `periodo_letivo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `periodo_letivo` ENABLE KEYS */;
 
 
 --
@@ -1122,6 +1248,12 @@ CREATE TABLE `professor` (
   CONSTRAINT `fk_professor_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `professor`
+--
+
+/*!40000 ALTER TABLE `professor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `professor` ENABLE KEYS */;
 
 
 --
@@ -1143,7 +1275,12 @@ CREATE TABLE `professor_categoria_cargo` (
   CONSTRAINT `fk_professor_categoria_cargo_professor1` FOREIGN KEY (`id_professor`) REFERENCES `professor` (`id_professor`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `professor_categoria_cargo`
+--
 
+/*!40000 ALTER TABLE `professor_categoria_cargo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `professor_categoria_cargo` ENABLE KEYS */;
 
 
 --
@@ -1165,7 +1302,12 @@ CREATE TABLE `professor_departamento` (
   CONSTRAINT `fk_professor_departamento_professor1` FOREIGN KEY (`id_professor`) REFERENCES `professor` (`id_professor`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `professor_departamento`
+--
 
+/*!40000 ALTER TABLE `professor_departamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `professor_departamento` ENABLE KEYS */;
 
 
 --
@@ -1180,6 +1322,33 @@ CREATE TABLE `profissao` (
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `profissao`
+--
+
+/*!40000 ALTER TABLE `profissao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `profissao` ENABLE KEYS */;
+
+
+--
+-- Definition of table `provincia`
+--
+
+DROP TABLE IF EXISTS `provincia`;
+CREATE TABLE `provincia` (
+  `id_provincia` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_provincia` varchar(45) DEFAULT NULL,
+  `id_pais` int(11) NOT NULL,
+  PRIMARY KEY (`id_provincia`),
+  KEY `fk_provincia_pais1_idx` (`id_pais`),
+  CONSTRAINT `fk_provincia_pais1` FOREIGN KEY (`id_pais`) REFERENCES `pais` (`id_pais`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `provincia`
+--
+
+/*!40000 ALTER TABLE `provincia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `provincia` ENABLE KEYS */;
 
 
 --
@@ -1197,7 +1366,12 @@ CREATE TABLE `sala` (
   CONSTRAINT `fk_sala_andar_edificio1` FOREIGN KEY (`id_andar_edificio`) REFERENCES `andar_edificio` (`id_andar_edificio`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `sala`
+--
 
+/*!40000 ALTER TABLE `sala` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sala` ENABLE KEYS */;
 
 
 --
@@ -1261,6 +1435,25 @@ CREATE TABLE `situacao_transferencia` (
 
 
 --
+-- Definition of table `tipo_cliente`
+--
+
+DROP TABLE IF EXISTS `tipo_cliente`;
+CREATE TABLE `tipo_cliente` (
+  `id_tipo_cliente` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_cliente` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_tipo_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tipo_cliente`
+--
+
+/*!40000 ALTER TABLE `tipo_cliente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipo_cliente` ENABLE KEYS */;
+
+
+--
 -- Definition of table `tipo_disciplina`
 --
 
@@ -1271,6 +1464,12 @@ CREATE TABLE `tipo_disciplina` (
   PRIMARY KEY (`id_tipo_disciplina`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `tipo_disciplina`
+--
+
+/*!40000 ALTER TABLE `tipo_disciplina` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipo_disciplina` ENABLE KEYS */;
 
 
 --
@@ -1284,7 +1483,12 @@ CREATE TABLE `tipo_documento_identidade` (
   PRIMARY KEY (`id_tipo_documento_identidade`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `tipo_documento_identidade`
+--
 
+/*!40000 ALTER TABLE `tipo_documento_identidade` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipo_documento_identidade` ENABLE KEYS */;
 
 
 --
@@ -1338,7 +1542,12 @@ CREATE TABLE `turma` (
   CONSTRAINT `fk_turma_sala1` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id_sala`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `turma`
+--
 
+/*!40000 ALTER TABLE `turma` DISABLE KEYS */;
+/*!40000 ALTER TABLE `turma` ENABLE KEYS */;
 
 
 --
@@ -1370,9 +1579,11 @@ CREATE TABLE `venda` (
   `id_venda` int(11) NOT NULL AUTO_INCREMENT,
   `data_venda` varchar(45) DEFAULT NULL,
   `id_funcionario` int(11) NOT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
+  `id_cliente` int(11) NOT NULL,
   PRIMARY KEY (`id_venda`),
   KEY `fk_venda_funcionario1_idx` (`id_funcionario`),
+  KEY `fk_venda_cliente1_idx` (`id_cliente`),
+  CONSTRAINT `fk_venda_cliente1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_venda_funcionario1` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id_funcionario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1395,6 +1606,7 @@ CREATE TABLE `venda_detalhes` (
   `quantidade_detalhes_venda` int(11) DEFAULT NULL,
   `desconto_detalhes_venda` double DEFAULT NULL,
   `preco__detalhes_venda` double DEFAULT NULL,
+  PRIMARY KEY (`id_venda`,`id_artigo`),
   KEY `fk_detalhes_venda_venda1_idx` (`id_venda`),
   KEY `fk_detalhes_venda_artigo1_idx` (`id_artigo`),
   CONSTRAINT `fk_detalhes_venda_artigo1` FOREIGN KEY (`id_artigo`) REFERENCES `artigo` (`id_artigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,

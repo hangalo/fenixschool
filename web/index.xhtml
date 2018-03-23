@@ -1,169 +1,129 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui">
 
-    <f:view contentType="text/html">
-        <h:head>
+    <body>
 
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Fenix School</title>
+        <ui:composition template="./WEB-INF/templates/dashboard_template2.xhtml">
 
-            </f:facet>
-            <h:outputStylesheet library="css" name="dashBoard_deu.css"/>
+            <ui:define name="content">
+                 <div id="painel-central">
 
-        </h:head>
+                <h:form>
 
-        <h:body>
-<ui:composition template="./WEB-INF/templates/dashboard_template.xhtml">
-           
-              <ui:define name="content">
-       
-                   
+                    <div class="container">
 
-               
+                        <div class="right-div right-text">
 
-                <!-- inicio dos botoes dashboard -->
-                    <h:form >
+                            <b:commandButton action="alunos_secundario/aluno_novo" look="info">
 
-
-
-                        <article id="loop-opcao">
-
-                            <b:commandButton action="alunos/aluno_listar" look="normal">
-
-                                <h:graphicImage name="student_icon.png" width="150" height="130" library="imagens" />  
-                                <p style="margin-top: 20px; ">Alunos</p>
-
-                            </b:commandButton>
-
-                        </article>
-
-                        <!--  Professores  -->
-
-
-                        <article id="loop-opcao">
-
-                            <b:commandButton action="/reservado/professor/professor_gestao" look="normal">
-
-                                <h:graphicImage name="turma.png" width="150" height="130"  library="imagens" />  
-                                <p style="margin-top: 20px; ">Professores</p>
-
-                            </b:commandButton>
-
-                        </article>
-
-
-                        <!--  Matricula  -->
-
-
-                        <article id="loop-opcao">
-
-
-
-                            <b:commandButton action="matricula/matricula_gestao" look="normal">
-
-                                <h:graphicImage name="time_management.png" width="150" height="130"  library="imagens" />  
-                                <p style="margin-top: 20px; ">Matricula</p>
+                                <h:graphicImage name="novo_aluno.png" width="50" height="50"  library="imagens" />  
+                                <p>Novo Aluno</p>
 
                             </b:commandButton>
 
 
 
-                        </article>
+                        </div>
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="matriculas_secundario/matricula_gestao" look="info">
+                                <h:graphicImage name="matriculas.png" width="50" height="50"  library="imagens" />  
+                                <p>Matrículas</p>
+                            </b:commandButton>
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/professor/professor_gestao" look="info">
+                                <h:graphicImage name="professores_01_1.png" width="50" height="50" library="imagens" />  
+                                <p>Professores</p>
+                            </b:commandButton>
 
 
-                        <!--  Professores  -->
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="#" look="info">
+                                <h:graphicImage name="time_management.png"  width="60" height="50" library="imagens"/>  
+                                <p>Horarios</p>
+                            </b:commandButton>
 
 
-                        <article id="loop-opcao">
-                            <b:commandButton action="/reservado/aluno/aluno_novo" onclick="alert('Sem dados de momentos')" look="normal">
 
-                                <h:graphicImage name="matriculas.png" width="150" height="130"  library="imagens" />  
-                                <p style="margin-top: 20px; ">Horarios</p>
+                        </div>
+
+                        
+
+                    </div>
+                </h:form>
+
+                <br/>
+
+
+                <div class="container">
+                    <h:form>
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="reservado/matricula/listagem_turma_anolectivo" look="info">
+                                <h:graphicImage name="turmas.png" width="50" height="50"  library="imagens"/>  
+                                <p>Turmas</p>
+                            </b:commandButton>
+
+
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="#" look="info" >
+                                <h:graphicImage name="cartoes_estudantes.png" width="50" height="50" library="imagens" />  
+                                <p>Cartões</p>
+                            </b:commandButton>
+
+
+
+                        </div>
+
+                        <div class="right-div right-text">
+
+                            <b:commandButton action="#" look="info">
+
+                                <h:graphicImage name="secretaria.png"  width="50" height="50" library="imagens" />  
+                                <p>Secretaria</p>
 
                             </b:commandButton>
 
 
 
+                        </div>
+                        <div class="right-div right-text">
 
-                        </article>
+                            <b:commandButton action="#" look="info">
 
-                        <!--  segunda linha de opcoes  -->
-                        <!--  turmas  -->
-
-
-                        <article id="loop-opcao">
-
-                            <b:commandButton action="/reservado/turma/turma_listar" look="normal">
-
-                                <h:graphicImage name="turmas.png" width="150" height="130"  library="imagens" />  
-                                <p style="margin-top: 20px; ">Turmas</p>
+                                <h:graphicImage name="maly.png"  width="50" height="50" library="imagens" />  
+                                <p>Artigos</p>
 
                             </b:commandButton>
 
-
-
-
-                        </article>
-                        <!--  cartoes  -->
-                        <article id="loop-opcao">
-                            <b:commandButton action="/reservado/aluno/aluno_novo" onclick="alert('Sem dados de momentos')" look="normal">
-
-                                <h:graphicImage name="Student-id-512.png" width="150" height="130"  library="imagens" />  
-                                <p style="margin-top: 20px; ">Cartoes</p>
-
-                            </b:commandButton>
-
-
-
-
-                        </article>
-
-                        <!--  artigos  -->
-                        <article id="loop-opcao">
-
-                            <b:commandButton onclick="alert('Sem dados de momentos')" action="/reservado/aluno/aluno_novo" look="normal">
-
-                                <h:graphicImage name="userimage.png" width="150" height="130"  library="imagens" />  
-                                <p style="margin-top: 20px; ">Secretaria</p>
-
-                            </b:commandButton>
-
-
-
-
-                        </article>
-
-
-                        <!--  artigos  -->
-                        <article id="loop-opcao">
-                            <b:commandButton action="/reservado/artigo/artigo_listar" look="normal">
-
-                                <h:graphicImage name="maly.png" width="150" height="130"  library="imagens" />  
-                                <p style="margin-top: 20px; ">Artigos</p>
-
-                            </b:commandButton>
-
-
-
-                        </article>
+                        </div>
 
                     </h:form>
-                    <!-- fim dos botoes dashboard -->
-                    
 
-                
-                 </ui:define>
+                </div>
+
+
+            </div>
+
+            </ui:define>
+
         </ui:composition>
-           
 
-        </h:body>
-
-    </f:view>
+    </body>
 </html>
-
