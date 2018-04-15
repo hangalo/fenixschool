@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="defaultHome.css" library="css"/>
+        <h:outputStylesheet name="cssLayoutHome.css" library="css"/>
+        <h:outputStylesheet name="estilosHome.css" library="css"/>
+        <title>Fénix School - Sistema Integrado de Gestão académica</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+
+                <h:graphicImage library="imagens" name="fenixschool_texto.png" styleClass="center-img"/>
+
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+
+                    <h:panelGrid columns="1">
+                        <h:link outcome="dashboard_aisha">
+                            <h:graphicImage library="imagens" name="matriculas_texto.png" styleClass="left-img"/>
+                        </h:link>
+                        <h:link outcome="dashboard_aisha">
+                            <h:graphicImage library="imagens" name="turmas_texto.png" styleClass="left-img"/>
+                        </h:link>
+
+                        <h:link outcome="dashboard_aisha">
+                            <h:graphicImage library="imagens" name="notas_pautas_texto.png"/>
+                        </h:link>
+
+                        <h:link outcome="dashboard_aisha">
+                            <h:graphicImage library="imagens" name="professores_texto.png"/>
+                        </h:link>
+
+                        <h:link outcome="dashboard_aisha">
+                            <h:graphicImage library="imagens" name="vendas_texto.png"/>
+                        </h:link>
+
+                        <h:link outcome="dashboard_aisha">
+                            <h:graphicImage library="imagens" name="turmas_texto.png"/>
+                        </h:link>
+                        
+                        
+                        <h:link outcome="dashboard_aisha">
+                            <h:graphicImage library="imagens" name="login_texto.png"/>
+                        </h:link>
+                    </h:panelGrid>
+
+                </ui:insert>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">
+
+                    <h:graphicImage library="imagens" name="fundo.png"/>
+
+                </ui:insert>
+            </div>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <h4 class="center-text">Todos os Diretos Reservados - Fénix Innovation 2018</h4>
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

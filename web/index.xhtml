@@ -1,127 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <body>
 
-        <ui:composition template="./WEB-INF/templates/dashboard_template2.xhtml">
+        <ui:composition template="./WEB-INF/templates/home_template.xhtml">
 
-            <ui:define name="content">
-                 <div id="painel-central">
+           
 
-                <h:form>
+           
 
-                    <div class="container">
+           
 
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="alunos_secundario/aluno_novo" look="info">
-
-                                <h:graphicImage name="novo_aluno.png" width="50" height="50"  library="imagens" />  
-                                <p>Novo Aluno</p>
-
-                            </b:commandButton>
-
-
-
-                        </div>
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="matriculas_secundario/matricula_gestao" look="info">
-                                <h:graphicImage name="matriculas.png" width="50" height="50"  library="imagens" />  
-                                <p>Matrículas</p>
-                            </b:commandButton>
-
-                        </div>
-
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="reservado/professor/professor_gestao" look="info">
-                                <h:graphicImage name="professores_01_1.png" width="50" height="50" library="imagens" />  
-                                <p>Professores</p>
-                            </b:commandButton>
-
-
-
-                        </div>
-
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="#" look="info">
-                                <h:graphicImage name="time_management.png"  width="60" height="50" library="imagens"/>  
-                                <p>Horarios</p>
-                            </b:commandButton>
-
-
-
-                        </div>
-
-                        
-
-                    </div>
-                </h:form>
-
-                <br/>
-
-
-                <div class="container">
-                    <h:form>
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="reservado/matricula/listagem_turma_anolectivo" look="info">
-                                <h:graphicImage name="turmas.png" width="50" height="50"  library="imagens"/>  
-                                <p>Turmas</p>
-                            </b:commandButton>
-
-
-
-                        </div>
-
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="#" look="info" >
-                                <h:graphicImage name="cartoes_estudantes.png" width="50" height="50" library="imagens" />  
-                                <p>Cartões</p>
-                            </b:commandButton>
-
-
-
-                        </div>
-
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="#" look="info">
-
-                                <h:graphicImage name="secretaria.png"  width="50" height="50" library="imagens" />  
-                                <p>Secretaria</p>
-
-                            </b:commandButton>
-
-
-
-                        </div>
-                        <div class="right-div right-text">
-
-                            <b:commandButton action="#" look="info">
-
-                                <h:graphicImage name="maly.png"  width="50" height="50" library="imagens" />  
-                                <p>Artigos</p>
-
-                            </b:commandButton>
-
-                        </div>
-
-                    </h:form>
-
-                </div>
-
-
-            </div>
-
-            </ui:define>
+          
 
         </ui:composition>
 
