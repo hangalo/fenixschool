@@ -16,6 +16,13 @@ and open the template in the editor.
 }
 
 
+.menu-left{
+    text-align: right;
+    font-size: 2em;
+    width: 95%;
+    
+}
+
 .center-text {
     padding: 10px 0;
    /* border: 3px solid green;*/
