@@ -21,6 +21,10 @@ public interface GenericoDAOLogico<T> {
     T findById(Integer id);
     List<T> findAll();
     void popularComDados(T t, ResultSet rs);
+    
+    
+    
+    
 }
 
 
