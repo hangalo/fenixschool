@@ -6,15 +6,14 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Novo Artigo</title>
+        <title>Novo artigo</title>
     </h:head>
     <h:body>
         <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
-                <p:panel header="Adicionar novo cadastro de artigos" footer="Cadastro de artigos">
+                <p:panel header="Adicionar novo cadastro de artigo" footer="Cadastro de artigo">
                     <h:form id="frmGuardar">
-
                         <p:tabView>
                             <p:tab title="Dados de artigo">
                                 <p:growl id="messages" showDetail="true"/>
@@ -36,13 +35,10 @@
                                         <f:selectItems value="#{artigoBean.categorias}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.categoriaArtigo}" />
                                     </p:selectOneMenu>
                                 </h:panelGrid>
-
                             </p:tab>
                         </p:tabView>
                         <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{artigoBean.guardar(event)}"/>
-
-
-                    </h:form>
+                       </h:form>
 
                 </p:panel>
             </ui:define>

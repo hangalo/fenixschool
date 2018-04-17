@@ -8,10 +8,6 @@ package fenixschool.modelo;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- *
- * @author informatica
- */
 public class Sala implements Serializable{
     private Integer idSala;
     private String nomeSala;

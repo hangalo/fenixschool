@@ -1,3 +1,14 @@
+23-03-2018
+
+Tarefas feitas :
+Endidates 
+_ Usuario (DAO, ManagedBeand, Classe)
+_Sala (DAO, ManagedBean, Classe)
+_Andar (DAO, Andar Converter)
+_ProfessorCategoriaCargo (DAO, MBean)
+_Categoria Cargo (DAO, Converter)
+
+CRUDS de SALA, USUARIO, PROFESSOR CATEGORIA CARGO.
 
 
 
@@ -10,7 +21,7 @@
 
 
 
-
+----------------------------------------------------fim--------------------------------------------------
 15/01/2018
 
 Dashboard feito, embora tenha tido um pouco de disficuldade no empregue de algumas tags, 

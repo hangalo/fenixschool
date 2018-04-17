@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>lista de salas</title>
+    </h:head>
+    <h:body>
+            <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <f:view>
+                    <h:form>
+                        <h1>Lista de salas</h1>
+
+                        <!--Inicio Data table-->
+
+                        <p:dataTable value="#{salaMBean.salas}"   var="sala" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                            <p:column style="width: 40px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{sala.idSala}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Nome sala"/>
+                                </f:facet>
+                                <h:outputText value="#{sala.nomeSala}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Localização"/>
+                                </f:facet>
+                                <h:outputText value="#{sala.localizacaoSala}"/>
+                            </p:column>
+                            
+                             <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Andar"/>
+                                </f:facet>
+                                 <h:outputText value="#{sala.andar.nomeAndar}"/>
+                            </p:column>
+
+                            <p:column style="width: 30px; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+                                <p:commandButton  action="#{salaMBean.delete()}" icon="ui-icon-trash ">
+                                    <f:setPropertyActionListener target="#{salaMBean.sala}" value="#{sala}"/>
+                                </p:commandButton>
+
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dialogoAlterar').show();" >
+                                    <f:setPropertyActionListener target="#{salaMBean.sala}" value="#{sala}"/>
+                                </p:commandButton>
+                                
+                            </p:column>
+
+                            <f:facet name="footer">  
+                                Número de salas: #{salaMBean.salas.size()}
+                            </f:facet> 
+
+
+                        </p:dataTable>
+                    </h:form>
+                    <h:form id="operacoes">
+                        <p:commandButton value="Guardar" actionListener="#{salaMBean.guardar(evt)}"/>
+                    </h:form >
+
+                    <!-- Fim  Dialogo Guardar-->
+
+                    <!-- Inicio Dialogo Editar-->
+                    <p:dialog header="Alterar dados da sala" id="editar" widgetVar="dialogoAlterar" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  height="700">
+                        <h:form id="formEditar">
+                            <p:growl id="growl" showDetail="true" sticky="true"/>
+                            <h:inputHidden value="#{salaMBean.sala.idSala}"/>
+                            <h:panelGrid columns="2" title="Editar sala">
+                                <p:outputLabel  value="Nome da sala:"/>
+                                    <p:inputText    size="30" value="#{salaMBean.sala.nomeSala}"/>
+                                    <p:outputLabel  value="Localização :"/>
+                                    <p:inputText    size="30" value="#{salaMBean.sala.localizacaoSala}"/>
+                                    <p:outputLabel value="Municipio:" />
+                                    <p:selectOneMenu style="width:200px" id="andares" filter="true" filterMatchMode="startsWith" label="Andar Edificio:" value="#{salaMBean.sala.andar}" required="true" converter="andarConverter">
+                                        <f:selectItem itemLabel="-Seleccione o andar do edificio-" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{salaMBean.andares}" var="andar" itemValue="#{andar}" itemLabel="#{andar.nomeAndar}"/>
+                                    </p:selectOneMenu>
+
+                            </h:panelGrid>
+
+                            <p:commandButton actionListener="#{salaMBean.guardar(evt)}" value="Guardar"  update="growl" ajax="false"/>
+
+                        </h:form>
+
+                    </p:dialog>
+
+
+                    <!-- Fim Dialogo Editar-->
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

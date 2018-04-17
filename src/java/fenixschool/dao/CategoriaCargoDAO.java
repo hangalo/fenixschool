@@ -5,7 +5,7 @@
  */
 package fenixschool.dao;
 
-import fenixschool.modelo.Usuario;
+import fenixschool.modelo.CategoriaCargo;
 import fenixschool.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,38 +16,43 @@ import java.util.List;
 
 /**
  *
- * @author informatica
+ * @author Aisha Lubadika
  */
-public class UsuarioDAO implements GenericoDAOLogico<Usuario> {
+public class CategoriaCargoDAO implements GenericoDAOLogico<CategoriaCargo>{
+    
+     private static final String INSERIR = "INSERT INTO categoria_cargo (categoria_cargo)VALUES(?)";
+    private static final String ACTUALIZAR = "UPDATE categoria_cargo SET categoria_cargo=? WHERE id_categoria_cargo=?";
+    private static final String ELIMINAR = "DELETE FROM categoria_cargo WHERE id_categoria_cargo=?";
+    private static final String BUSCAR_POR_CODIGO = "SELECT * FROM categoria_cargo WHERE id_categoria_cargo=?";
+    private static final String LISTAR_TUDO = "SELECT * FROM categoria_cargo";
 
-    private static final String INSERIR = "INSERT INTO usuario(nome_usuario, password_usuario)VALUES(?,?) ";
-    private static final String ACTUALIZAR = " UPDATE usuario SET nome_usuario = ?, password_usuario = ? WHERE id_usuario = ?";
-    private static final String ELIMINAR = "DELETE FROM fenixschoolem.usuario WHERE id_usuario = ?";
-    private static final String BUSCAR_POR_CODIGO = " SELECT usuario.id_usuario, usuario.nome_usuario,usuario.password_usuario FROM fenixschoolem.usuario WHERE id_usuario = ?";
-    private static final String LISTAR_TUDO = " SELECT usuario.id_usuario, usuario.nome_usuario, usuario.password_usuario FROM fenixschoolem.usuario";
-
+    
+    Connection conn;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    
     @Override
-    public boolean save(Usuario usuario) {
+    public boolean save(CategoriaCargo categoriaCargo) {
+         Connection conn = null;
         PreparedStatement ps = null;
-        Connection conn = null;
         boolean flagControlo = false;
-        if (usuario == null) {
-            System.err.println("O valor oassado nÃ£o pode ser nulo!");
+        if (categoriaCargo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
         }
+
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERIR);
-            ps.setString(1, usuario.getNomeUsuario());
-            ps.setString(2, usuario.getPasswordUsuario());
+            ps.setString(1, categoriaCargo.getCategoriaCargo());
+
             int retorno = ps.executeUpdate();
             if (retorno > 0) {
                 System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
                 flagControlo = true;
             }
-
             return flagControlo;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao inserir dados: " + e.getMessage());
             return false;
         } finally {
@@ -56,28 +61,28 @@ public class UsuarioDAO implements GenericoDAOLogico<Usuario> {
     }
 
     @Override
-    public boolean update(Usuario usuario) {
+    public boolean update(CategoriaCargo categoriaCargo) {
+      Connection conn = null;
         PreparedStatement ps = null;
-        Connection conn = null;
         boolean flagControlo = false;
-        if (usuario == null) {
-            System.err.println("O valor oassado nao pode ser nulo!");
+        if (categoriaCargo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
         }
+
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(ACTUALIZAR);
-            ps.setString(1, usuario.getNomeUsuario());
-            ps.setString(2, usuario.getPasswordUsuario());
-            ps.setInt(3, usuario.getIdUsuario());
+            ps.setString(1, categoriaCargo.getCategoriaCargo());
+            ps.setInt(2, categoriaCargo.getIdCategoriaCargo());
+
             int retorno = ps.executeUpdate();
             if (retorno > 0) {
                 System.out.println("Dados actualizados com sucesso: " + ps.getUpdateCount());
                 flagControlo = true;
             }
-
             return flagControlo;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao actualizar dados: " + e.getMessage());
             return false;
         } finally {
@@ -86,27 +91,27 @@ public class UsuarioDAO implements GenericoDAOLogico<Usuario> {
     }
 
     @Override
-    public boolean delete(Usuario usuario) {
+    public boolean delete(CategoriaCargo categoriaCargo) {
+          Connection conn = null;
         PreparedStatement ps = null;
-        Connection conn = null;
         boolean flagControlo = false;
-        if (usuario == null) {
-            System.err.println("O valor oassado nao pode ser nulo!");
+        if (categoriaCargo == null) {
+            System.err.println("O campo anterior nao pode ser nulo");
         }
+
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(ELIMINAR);
+            ps.setInt(1, categoriaCargo.getIdCategoriaCargo());
 
-            ps.setInt(1, usuario.getIdUsuario());
             int retorno = ps.executeUpdate();
             if (retorno > 0) {
-                System.out.println("Dados eleiminar com sucesso: " + ps.getUpdateCount());
+                System.out.println("Dados eliminados com sucesso: " + ps.getUpdateCount());
                 flagControlo = true;
             }
-
             return flagControlo;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao eliminar dados: " + e.getMessage());
             return false;
         } finally {
@@ -115,12 +120,11 @@ public class UsuarioDAO implements GenericoDAOLogico<Usuario> {
     }
 
     @Override
-    public Usuario findById(Integer id) {
-        PreparedStatement ps = null;
+    public CategoriaCargo findById(Integer id) {
         Connection conn = null;
-
+        PreparedStatement ps = null;
         ResultSet rs = null;
-        Usuario usuario = new Usuario();
+        CategoriaCargo categoriaCargo = new CategoriaCargo();
 
         try {
             conn = (Connection) Conexao.getConnection();
@@ -128,52 +132,51 @@ public class UsuarioDAO implements GenericoDAOLogico<Usuario> {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
-                System.err.println("Nao foi encontrado nenhum registo com o id: " + id);
+                System.err.println("Não foi possivel encontrado nenhum registro com o id:  " + id);
             }
-            popularComDados(usuario, rs);
+            popularComDados(categoriaCargo, rs);
 
-        } catch (Exception e) {
-            System.out.println("Erro ao ler dados: " + e.getMessage());
-         
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
         } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-        return usuario;
+        return categoriaCargo;
     }
 
     @Override
-    public List<Usuario> findAll() {
+    public List<CategoriaCargo> findAll() {
+     Connection conn = null;
         PreparedStatement ps = null;
-        Connection conn = null;
         ResultSet rs = null;
-        List<Usuario> usuarios = new ArrayList<>();
+        List<CategoriaCargo> categoriaCargos = new ArrayList<>();
         try {
             conn = (Connection) Conexao.getConnection();
             ps = conn.prepareStatement(LISTAR_TUDO);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Usuario usuario = new Usuario();
-                popularComDados(usuario, rs);
-                usuarios.add(usuario);
+                CategoriaCargo categoriaCargo = new CategoriaCargo();
+                popularComDados(categoriaCargo, rs);
+                categoriaCargos.add(categoriaCargo);
             }
         } catch (SQLException ex) {
-            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+            System.err.println("Erro ao ler os dados: " + ex.getLocalizedMessage());
         } finally {
-            Conexao.closeConnection(conn);
+            Conexao.closeConnection((java.sql.Connection) conn);
         }
-        return usuarios;
+
+        return categoriaCargos;
     }
 
     @Override
-    public void popularComDados(Usuario usuario, ResultSet rs) {
-        try {
-            usuario.setIdUsuario(rs.getInt("id_usuario"));
-            usuario.setNomeUsuario(rs.getString("nome_usuario"));
-            usuario.setPasswordUsuario(rs.getString("password_usuario"));
+    public void popularComDados(CategoriaCargo categoriaCargo, ResultSet rs) {
+       try {
+            categoriaCargo.setIdCategoriaCargo(rs.getInt("id_categoria_cargo"));
+            categoriaCargo.setCategoriaCargo(rs.getString("categoria_cargo"));
             
-        } catch (Exception ex) {
-            System.err.println("Erro ao carregar dados do professor: " + ex.getLocalizedMessage());
+        } catch (SQLException ex) {
+            System.out.println("Erro ao carregar dados"+ex.getLocalizedMessage());
         }
     }
-
+    
 }

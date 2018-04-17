@@ -17,15 +17,15 @@ public class Usuario implements Serializable{
     private static final long serialVersionUID = 1L;
     
     private Integer idUsuario;
-    private String nomeUsario;
+    private String nomeUsuario;
     private String passwordUsuario;
 
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario, String nomeUsario, String passwordUsuario) {
+    public Usuario(Integer idUsuario, String nomeUsuario, String passwordUsuario) {
         this.idUsuario = idUsuario;
-        this.nomeUsario = nomeUsario;
+        this.nomeUsuario = nomeUsuario;
         this.passwordUsuario = passwordUsuario;
     }
 
@@ -37,12 +37,12 @@ public class Usuario implements Serializable{
         this.idUsuario = idUsuario;
     }
 
-    public String getNomeUsario() {
-        return nomeUsario;
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setNomeUsario(String nomeUsario) {
-        this.nomeUsario = nomeUsario;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getPasswordUsuario() {
@@ -80,7 +80,7 @@ public class Usuario implements Serializable{
 
     @Override
     public String toString() {
-        return "Usuario{" + "nomeUsario=" + nomeUsario + '}';
+        return "Usuario{" + "nomeUsario=" + nomeUsuario + '}';
     }
     
     
