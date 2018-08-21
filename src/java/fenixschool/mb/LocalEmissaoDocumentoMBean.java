@@ -5,10 +5,8 @@
  */
 package fenixschool.mb;
 
-import fenixschool.dao.LocalEmissaoDocumentoDAO;
-import fenixschool.dao.PeriodoLectivoDAO;
+import fenixschool.dao.LocalEmissaoDocumentoDAO;;
 import fenixschool.modelo.LocalEmissaoDocumento;
-import fenixschool.modelo.PeriodoLectivo;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;

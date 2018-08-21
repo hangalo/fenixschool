@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>        
+        <h:outputStylesheet name="main.min.css" library="css"/>
+        <h:outputStylesheet name="mainMenu.css" library="css"/>
+        <h:outputStylesheet name="mainStyle.css" library="css"/>
+        <h:outputScript name="main.min.js" library="js"/>
+        <title>Fénix School - Sistema Integrado de Gestão académica</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
+    </h:head>
+    <h:body>
+        <div id="wrapper">
+            <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
+
+                <div class="navbar-header">                    
+                    <a class="navbar-brand titulo table-responsive active">FÉNIX SCHOOL - SISTEMA INTEGRADO DE GESTÃO ACADÉMICA</a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">            
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>ADMINISTRAÇÃO</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>PROFESSORES</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>ALUNOS</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>ENCAREGADOS</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>GESTÃO PEDAGÓGICA</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>PAUTAS E NOTAS</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>INSCRIÇÕES</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>CANDIDATURAS</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>MENSALIDADES</a></li>
+                        <li><a href="#"><i class="fa fa-product-hunt text-primary"></i>VENDAS</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div class="jumbotron">
+                        <h2 style="font-size: 5em;" class="titulo"><b>FÉNIX SCHOOL</b></h2>
+                        <h2  class="text-primary h2 show"><b>GESTÃO ACADÉMICA</b></h2>                        
+                        <p>Aproveite nossos produtos de alta qualidade.</p>
+                        <p>Vamos nos divertir nesse universo mágico.</p>
+                        <h:form>
+                            <p:poll update="grafico" interval="5"/>
+                            <p:chart type="bar" id="grafico" class="text-primary show" model="#{grafico.graficoBarra}"/>
+                        </h:form>
+                        <hr class="hr"/>
+                        <h4 class="h4 text-nowrap text-primary center-text text-center thumbnail ">Todos os Diretos Reservados - Fénix Innovation &copy;2018</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>

@@ -14,6 +14,7 @@ import fenixschool.modelo.Professor;
 import fenixschool.modelo.ProfessorDepartamento;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,7 +32,9 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "professorDepartamentoMBean")
 @ViewScoped
-public class ProfessorDepartamentoMBean {
+public class ProfessorDepartamentoMBean implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private ProfessorDepartamento professorDepartamento;
     private List<ProfessorDepartamento> professorDepartamentos;

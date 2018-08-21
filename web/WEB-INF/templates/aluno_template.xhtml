@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="defaultHome.css" library="css"/>
+        <h:outputStylesheet name="cssLayoutHome.css" library="css"/>
+        <h:outputStylesheet name="estilosHome.css" library="css"/>
+        <title>Fénix School - Sistema Integrado de Gestão académica</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+
+                <h:graphicImage library="imagens" name="fenixschool_texto.png" styleClass="center-img"/>
+
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    <h:panelGrid columns="1" styleClass="menu-left" >
+                        <div >
+                            <h:link outcome="/aluno_principal/aluno_listar">
+                                <h:outputText value="Alunos"/>                            
+                            </h:link>
+                        </div>
+
+                        <p:separator/>
+                        <div class="box-menu-left">
+                            <h:link outcome="index">
+                                <h:outputText value="Voltar"/>                            
+                            </h:link>
+                        </div>
+
+
+
+                    </h:panelGrid>
+
+
+                </ui:insert>
+            </div>
+            <div id="content" class="left-container">
+                <ui:insert name="content">
+                    <div class="menu-list">
+                        <ul>            
+                            <li><a href="/fenixschool/reservado/aluno/aluno_listar.jsf">LISTA GERAL DOS ALUNOS</a></li>
+                            <li><a href="#">PROFESSORES</a></li>
+                            <li><a href="#">ALUNOS</a></li>
+                            <li><a href="#">ENCAREGADOS</a></li>
+                            <li><a href="#">GESTÃO PEDAGÓGICA</a></li>
+                            <li><a href="#">PAUTAS E NOTAS</a></li>
+                            <li><a href="#">INSCRIÇÕES</a></li>
+                            <li><a href="#">CANDIDATURAS</a></li>                           
+                        </ul>
+                    </div>
+
+                </ui:insert>
+            </div>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <h4 class="center-text">Todos os Diretos Reservados - Fénix Innovation 2018</h4>
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

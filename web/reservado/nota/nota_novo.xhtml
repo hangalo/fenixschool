@@ -4,131 +4,302 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Adicionar novas notas</title>
         <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
     </h:head>
-    <h:body>
-        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+    <h:body>       <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
             <ui:define name="content">
-                <p:panel header="Adicionar novo cadastro de notas" footer="Cadastro de notas">
-                    <h:form id="frmGuardar">
-                        <p:messages autoUpdate="true" showDetail="true" showSummary="true" showIcon="true"/>
-                         <p:growl autoUpdate="true" showDetail="true" showSummary="true"/>
-                        <p:tabView> 
-                               <p:tab title="Informções sobre as notas">
-                                    <h:panelGrid columns="2">
-                                       <p:outputLabel value="Primeira nota:"/>
-                                        <p:inputText style="width: 330px;"  value="#{notaMBean.nota.notaPrimeiraProva}">
-                                            <f:convertNumber pattern="00.0"/>
-                                        </p:inputText>
-                                       
-                                        <p:outputLabel value="Segunda nota nota:"/>
-                                        <p:inputText style="width: 330px;"  value="#{notaMBean.nota.notaSegundaProva}">
-                                            <f:convertNumber pattern="00.0"/>
-                                        </p:inputText>
-                                        
-                                         <p:outputLabel value="Terceira nota:"/>
-                                        <p:inputText style="width: 330px;"  value="#{notaMBean.nota.notaPrimeiraProva}">
-                                            <f:convertNumber pattern="00.0"/>
-                                        </p:inputText>
-                                         </h:panelGrid>
-                                </p:tab>
-                            
-                            
-                             <p:tab title="Detalhes sobre as notas">
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel value="Descrição:"/>
-                                        <p:inputText style="width: 330px;" value="#{notaMBean.nota.descricao}"/>
-                                        <p:outputLabel value="Data de lançamento:"/>
-                                        <p:calendar locale="pt" style="width: 330px;"  pattern="dd/MM/yyyy" value="#{notaMBean.nota.dataLancamento}"/>
-                                      
-                                        <p:outputLabel value="Class. da nota:"/>
-                                        <p:selectOneMenu style="width: 330px;"  value="#{notaMBean.nota.classificacaoNota}" required="true" converter="classificacaoNotaConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione a classificação--" value="#{null}"/>
-                                            <f:selectItems var="classificacaoNota" itemValue="#{classificacaoNota}" value="#{notaMBean.classificacaoNotas}" itemLabel="#{classificacaoNota.classificacaoNota}"/>
-                                        </p:selectOneMenu>
-                                        <p:outputLabel value="Peso:"/>
-                                        <p:inputText style="width: 330px;" value="#{notaMBean.nota.peso}">
-                                            <f:convertNumber pattern="00.0"/>
-                                        </p:inputText>
-                                        <p:outputLabel value="Observação:"/>
-                                        <p:inputTextarea style="width: 330px;"  cols="21" rows="2" value="#{notaMBean.nota.observacao}"/>
-                                    </h:panelGrid>
-                                </p:tab>
-                            
-                            
-                              <p:tab title="Aluno/disciplina/Curso">
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel value="Aluno:"/>
-                                        <p:selectOneMenu style="width: 330px;"  label="Aluno" value="#{notaMBean.nota.aluno}" required="true" converter="alunoConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione o aluno--" value="#{null}"/>
-                                            <f:selectItems var="aluno" itemValue="#{aluno}" value="#{notaMBean.alunos}" itemLabel="#{aluno.nomeAluno}"/>
-                                        </p:selectOneMenu>
-                                        <p:outputLabel value="Turma:"/>
-                                        <p:selectOneMenu style="width: 330px;"  label="Tutma" value="#{notaMBean.nota.turma}" required="true" converter="turmaConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione a turma--" value="#{null}"/>
-                                            <f:selectItems var="turma" itemValue="#{turma}" value="#{notaMBean.turmas}" itemLabel="#{turma.nomeTurma}"/>
-                                        </p:selectOneMenu>
-                                     
-                                        <p:outputLabel value="Curso:"/>
-                                        <p:selectOneMenu style="width: 330px;"  label="Curso:" value="#{notaMBean.nota.curso}" required="true" converter="cursoConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione o curso--" value="#{null}"/>
-                                            <f:selectItems var="curso" itemValue="#{curso}" value="#{notaMBean.cursos}" itemLabel="#{curso.nomeCurso}"/>
-                                        </p:selectOneMenu>
-                                      
-                                        <p:outputLabel value="Disciplina:"/>
-                                        <p:selectOneMenu style="width: 330px;"  label="Disciplina" value="#{notaMBean.nota.disciplina}" required="true" converter="disciplinaConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione a disciplina--" value="#{null}"/>
-                                            <f:selectItems var="disciplina" itemValue="#{disciplina}" value="#{notaMBean.disciplinas}" itemLabel="#{disciplina.nomeDisciplina}"/>
-                                        </p:selectOneMenu>
-                                        
-                                        <p:outputLabel value="Departamento:"/>
-                                        <p:selectOneMenu style="width: 330px;"  label="Departamento" value="#{notaMBean.nota.departamento}" required="true" converter="departamentoConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione o departamento--" value="#{null}"/>
-                                            <f:selectItems var="departamento" itemValue="#{departamento}" value="#{notaMBean.departamentos}" itemLabel="#{departamento.nomeDepartamento}"/>
-                                        </p:selectOneMenu>
-                                    </h:panelGrid>
-                                </p:tab>
-                            
-                            
-                              <p:tab title="Informções lectivas">
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel value="Ano lectivo:"/>
-                                        <p:selectOneMenu style="width: 330px;"  label="Ano lectivo" value="#{notaMBean.nota.anoLetivo}" required="true" converter="anoLectivoConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione o ano lectivo--" value="#{null}"/>
-                                            <f:selectItems var="anoLectivo" itemValue="#{anoLectivo}" value="#{notaMBean.anoLectivos}" itemLabel="#{anoLectivo.anoLectivo}"/>
-                                        </p:selectOneMenu>
-                                        <p:outputLabel value="Ano Curricular:"/>
-                                        <p:selectOneMenu style="width: 330px;"  value="#{notaMBean.nota.anoCurricular}" required="true" converter="anoCurricularConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione o ano curricular--" value="#{null}"/>
-                                            <f:selectItems var="anoCurricular" itemValue="#{anoCurricular}" value="#{notaMBean.anoCurriculares}" itemLabel="#{anoCurricular.anoCurricular}"/>
-                                        </p:selectOneMenu>
-                                        <p:outputLabel value="Ciclo lectivo:"/>
-                                        <p:selectOneMenu style="width: 330px;"  value="#{notaMBean.nota.cicloLetivo}" required="true" converter="cicloLectivoConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione o ciclo--" value="#{null}"/>
-                                            <f:selectItems var="cicloLectivo" itemValue="#{cicloLectivo}" value="#{notaMBean.cicloLectivos}" itemLabel="#{cicloLectivo.cicloLectivo}"/>
-                                        </p:selectOneMenu>
-                                        <p:outputLabel value="Período lectivo:"/>
-                                        <p:selectOneMenu style="width: 330px;"  value="#{notaMBean.nota.periodoLetivo}" required="true" converter="periodoLectivoConverter">
-                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione o período--" value="#{null}"/>
-                                            <f:selectItems var="periodoLectivo" itemValue="#{periodoLectivo}" value="#{notaMBean.periodoLectivos}" itemLabel="#{periodoLectivo.periodoLectivo}"/>
-                                        </p:selectOneMenu>
-                                    </h:panelGrid>
-                                </p:tab>
-                            
-                            
+                <b:panel title="Lançamento de novas notas"  look="primary" collapsible="false">
 
-                        </p:tabView>
-                        <h:panelGrid columns="2">
-                            <p:commandButton  icon="ui-icon-disk" value="Guardar" actionListener="#{notaMBean.guardar(event)}">
-                                <p:ajax resetValues="true" rendered="@form"/>
-                            </p:commandButton>
-                            <p:commandButton icon="ui-icon-close" value="Fechar" action="/index" immediate="true"  ajax="false"/>
-                        </h:panelGrid>
+
+
+                    <h:form>
+                        <p:menubar>
+                            <f:facet name="options" >
+                                <h:panelGrid columns="2">
+
+                                    <p:inputText size="50" value="#{alunoMBean.numeroAluno}" placeholder="Nº do aluno ou Nº do B.I"/>
+                                    <p:commandButton  value="Pesquisar"  ajax="false"/>
+                                </h:panelGrid>
+                            </f:facet>
+                        </p:menubar>
+
                     </h:form>
-                </p:panel>
+
+                    <h:form>
+
+                        <!--Inicio Data table-->
+                        <p:dataTable value="#{alunoMBean.byNumeroAluno}" emptyMessage="Nenhum resgistro encontrado"  var="item" rows="10" paginator="true" cellSeparator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+
+
+                            <p:column style="width: 5%; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idAluno}"/>
+                            </p:column>
+
+                            <p:column style="width: 20%; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Nome"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomeAluno}"/>
+                            </p:column>
+
+                            <p:column style="width: 20%; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Sobrenome"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sobrenomeAluno}"/>
+                            </p:column>
+
+                            <p:column style="width:25%; text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Bilhete de Identidade "/>
+                                </f:facet>
+                                <h:outputText value="#{item.biAluno}"/>
+                            </p:column>   
+
+                            <p:column style="text-align: center">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Operações"/>
+                                </f:facet>
+
+                                <p:commandButton icon="ui-icon-pencil" value="Lançar nota pela primeira vez" oncomplete="PF('dlgNovo').show();" >
+                                    <f:setPropertyActionListener target="#{alunoMBean.aluno}" value="#{item}"/>
+                                </p:commandButton>
+
+
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+
+
+
+
+                    <p:dialog modal="true" showEffect="clip" hideEffect="blind" width="800" height="450" header="Novo registo" widgetVar="dlgNovo">
+
+                        <b:panel look="primary" title="lancamento de novas notas" collapsible="false">
+
+
+                            <h:form id="frmGuardar">
+                                <p:messages autoUpdate="true" showDetail="true" showSummary="true" showIcon="true"/>
+                                <p:growl autoUpdate="true" showDetail="true" showSummary="true"/>
+
+                                <h:panelGroup id="display">
+                                    <b:panel look="primary" title="Lançamento de notas para: (#{alunoMBean.aluno.nomeAluno})" collapsible="false">
+                                        <h:panelGrid columns="2"  cellspacing="10">
+                                            <p:outputLabel value="Foto:"/>
+                                            <h:graphicImage style="margin-left: 10px;" value="/alunoVisualizarFotoServlet?file=#{alunoMBean.aluno.urlfotoAluno}" alt="foto" width="80" height="80"/>
+                                            <p:outputLabel value="Nº do aluno:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{alunoMBean.aluno.idAluno}"/>
+                                            <p:outputLabel value="Nome completo:"/>
+                                            <h:outputText style="margin-left: 10px; color: red;" value="#{alunoMBean.aluno.nomeAluno} #{alunoMBean.aluno.sobrenomeAluno}"/>
+                                        </h:panelGrid>
+                                    </b:panel>
+
+                                    <b:panel collapsible="false" look="primary">
+                                        <h:panelGrid columns="3">
+                                            <h:panelGroup>
+                                                <h:panelGrid columns="1">
+                                                    <p:outputLabel value="Trimestre/Semestre" for="semestre"/>
+                                                    <p:selectOneMenu filter="true" style="width: 150px;" id="semestre"   value="#{notaMBean.nota.semestreLectivo}" required="true" converter="semestreLectivoConverter">
+                                                        <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                        <f:selectItems var="semestre" itemValue="#{semestre}" value="#{semestreLectivoMbean.lista}" itemLabel="#{semestre.semestreLectivo}"/>
+                                                    </p:selectOneMenu>
+                                                </h:panelGrid>
+                                            </h:panelGroup>
+
+                                            <h:panelGroup>
+                                                <h:panelGrid columns="1">
+                                                    <p:outputLabel style="margin-left: 10px;" value="MAC"/>
+                                                    <p:inputText size="10" style="margin-left: 10px;"   value="#{notaMBean.nota.notaPrimeiraProva}">
+                                                        <f:convertNumber pattern="00.0" maxFractionDigits="2" maxIntegerDigits="2"/>
+                                                    </p:inputText>
+                                                </h:panelGrid>
+                                            </h:panelGroup>
+
+
+                                            <h:panelGroup>
+                                                <h:panelGrid columns="1">
+                                                    <p:outputLabel style="margin-left: 10px;" value="CPP"/>
+                                                    <p:inputText size="10" style="margin-left: 10px;" value="#{notaMBean.nota.notaSegundaProva}">
+                                                        <f:convertNumber pattern="00.0" maxFractionDigits="2" maxIntegerDigits="2"/>
+                                                    </p:inputText>
+                                                </h:panelGrid>
+                                            </h:panelGroup>
+
+                                            <!-- <h:panelGroup>
+                                                 <h:panelGrid columns="1">
+                                                     <p:outputLabel style="margin-left: 10px;" value="3ª Prova:"/>
+                                                     <p:inputText  size="10" style="margin-left: 10px;" value="{notaMBean.nota.notaTerceiraProva}">
+                                                         <f:convertNumber pattern="00.0" maxIntegerDigits="2" maxFractionDigits="2"/>
+                                                     </p:inputText>
+                                                 </h:panelGrid>
+                                             </h:panelGroup>
+ 
+                                             <h:panelGroup>
+                                                 <h:panelGrid columns="1">
+                                                     <p:outputLabel style="margin-left: 10px;" value="Peso:"/>
+                                                     <p:inputText size="10" style="margin-left: 10px;"  value="{notaMBean.nota.peso}">
+                                                         <f:convertNumber maxIntegerDigits="1" minIntegerDigits="0"/>
+                                                     </p:inputText>
+                                                 </h:panelGrid>
+                                             </h:panelGroup>-->
+                                        </h:panelGrid>
+
+
+
+
+
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="3">
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel value="Class. da nota:" for="nota"/>
+                                                        <p:selectOneMenu style="width: 150px;" id="nota" value="#{notaMBean.nota.classificacaoNota}" required="true" converter="classificacaoNotaConverter">
+                                                            <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                            <f:selectItems var="classificacaoNota" itemValue="#{classificacaoNota}" value="#{notaMBean.classificacaoNotas}" itemLabel="#{classificacaoNota.classificacaoNota}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel style="margin-left: 10px;" value="Data de lançamento:"/>
+                                                        <p:calendar  size="28" style="margin-left: 10px;" autocomplete="true" locale="pt" mask="true" pattern="dd/MM/yyyy" value="#{notaMBean.nota.dataLancamento}"/>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel style="margin-left: 10px;" value="Descrição:"/>
+                                                        <p:inputText style="margin-left: 10px;" size="36" value="#{notaMBean.nota.descricao}"/>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                    </b:panel>
+
+                                    <b:panel  collapsible="false" look="primary">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="4">
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel value="Ano lectivo" for="ano-lectivo"/>
+                                                        <p:selectOneMenu filter="true" style="width: 150px;" id="ano-lectivo"  label="Ano lectivo" value="#{notaMBean.nota.anoLetivo}" required="true" converter="anoLectivoConverter">
+                                                            <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                            <f:selectItems var="anoLectivo" itemValue="#{anoLectivo}" value="#{notaMBean.anoLectivos}" itemLabel="#{anoLectivo.anoLectivo}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel style="margin-left: 10px;" value="Ciclo lectivo" for="ciclo"/>
+                                                        <p:selectOneMenu style=" margin-left: 10px; width: 150px;" id="ciclo"  value="#{notaMBean.nota.cicloLetivo}" required="true" converter="cicloLectivoConverter">
+                                                            <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                            <f:selectItems var="cicloLectivo" itemValue="#{cicloLectivo}" value="#{notaMBean.cicloLectivos}" itemLabel="#{cicloLectivo.cicloLectivo}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel style="margin-left: 10px;" value="Período lectivo" for="periodo"/>
+                                                        <p:selectOneMenu style="margin-left: 10px; width: 150px;" id="periodo"  value="#{notaMBean.nota.periodoLetivo}" required="true" converter="periodoLectivoConverter">                           
+                                                            <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                            <f:selectItems var="periodoLectivo" itemValue="#{periodoLectivo}" value="#{notaMBean.periodoLectivos}" itemLabel="#{periodoLectivo.periodoLectivo}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel style="margin-left: 10px;" value="Classe" for="classe"/>
+                                                        <p:selectOneMenu style="width: 150px; margin-left: 10px;" id="classe" value="#{notaMBean.nota.anoCurricular}" required="true" converter="anoCurricularConverter">
+                                                            <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                            <f:selectItems var="anoCurricular" itemValue="#{anoCurricular}" value="#{notaMBean.anoCurriculares}" itemLabel="#{anoCurricular.anoCurricular}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </b:panel>
+
+
+
+                                    <b:panel look="primary">
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="4">
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel value="Departamento" for="departamento"/>
+                                                        <p:selectOneMenu style="width: 150px;" id="departamento"  label="Departamento" value="#{notaMBean.nota.departamento}" required="true" converter="departamentoConverter">
+                                                            <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                            <f:selectItems var="departamento" itemValue="#{departamento}" value="#{notaMBean.departamentos}" itemLabel="#{departamento.nomeDepartamento}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel style="margin-left: 10px;" value="Curso" for="curso"/>
+                                                        <p:selectOneMenu filter="true" style="width: 150px; margin-left: 10px;" id="curso" label="Curso:" value="#{notaMBean.nota.curso}" required="true" converter="cursoConverter">
+                                                            <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                            <f:selectItems var="curso" itemValue="#{curso}" value="#{notaMBean.cursos}" itemLabel="#{curso.nomeCurso}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel style="margin-left: 10px;" value="Disciplina" for="disciplina"/>
+                                                        <p:selectOneMenu filter="true" style="width: 150px; margin: 10px;" id="disciplina"  label="Disciplina" value="#{notaMBean.nota.disciplina}" required="true" converter="disciplinaConverter">
+                                                            <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                            <f:selectItems var="disciplina" itemValue="#{disciplina}" value="#{notaMBean.disciplinas}" itemLabel="#{disciplina.nomeDisciplina}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+
+                                                <h:panelGroup>
+                                                    <h:panelGrid columns="1">
+                                                        <p:outputLabel style="margin-left: 10px;" value="Turma" for="turma"/>
+                                                        <p:selectOneMenu filter="true" style="width: 150px;" id="turma"  label="Tutma" value="#{notaMBean.nota.turma}" required="true" converter="turmaConverter">
+                                                            <f:selectItem noSelectionOption="true" itemLabel="--Selecione--" value="#{null}"/>
+                                                            <f:selectItems var="turma" itemValue="#{turma}" value="#{notaMBean.turmas}" itemLabel="#{turma.nomeTurma}"/>
+                                                        </p:selectOneMenu>
+                                                    </h:panelGrid>
+                                                </h:panelGroup>
+
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+
+                                    </b:panel>
+                                    <p:commandButton  icon="ui-icon-disk" value="Lançar nota" actionListener="#{notaMBean.guardar(event)}" update="display">
+                                        <f:param name="idAluno" value="#{alunoMBean.aluno.idAluno}"/>
+                                    </p:commandButton>
+                                </h:panelGroup>
+                            </h:form>
+
+                        </b:panel>
+
+                    </p:dialog>
+
+                </b:panel>
             </ui:define>
         </ui:composition>
     </h:body>

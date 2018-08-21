@@ -15,7 +15,6 @@ import fenixschool.modelo.DisciplinasDoCurso;
 import fenixschool.util.GestorImpressao;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,9 +22,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
+
+
 
 /**
  *
@@ -68,6 +69,7 @@ public class DisciplinasDoCursoMBean implements Serializable {
 
         disciplinaDAO = new DisciplinaDAO();
         disciplinas = disciplinaDAO.findAll();
+        
     }
 
     public DisciplinasDoCurso getDisciplinasDoCurso() {
@@ -164,9 +166,9 @@ public class DisciplinasDoCursoMBean implements Serializable {
     }
 
     public String imprimirDisciplinaPorCurso() {
-        String relatorio = "curso_disciplina.jasper";
+        String relatorio = "disciplina_curso.jasper";
         HashMap parametro = new HashMap();
-        parametro.put("nome_curso",curso);
+        parametro.put("codigo_curso", disciplinasDoCurso.getCurso().getCodigoCurso());
         gestorImpressao.imprimirPDF(relatorio, parametro);
         return null;
     }

@@ -104,7 +104,7 @@ public class Certificado {
 
     @Override
     public String toString() {
-        return "Certificado{" + "idCertificado=" + idCertificado + ", dataCertificado=" + dataCertificado + ", funcionarioCertificado=" + funcionarioCertificado + ", alunoCertificado=" + alunoCertificado + ", anocertificado=" + anocertificado + ", textoCertificado=" + textoCertificado + '}';
+        return "Certificado{" + "alunoCertificado=" + alunoCertificado + '}';
     }
 
     

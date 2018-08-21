@@ -20,15 +20,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Aisha Lubadika
  */
-@Named(value = "salaMBean")
-@SessionScoped
+@ManagedBean(name = "salaMBean")
+@ViewScoped
 public class SalaMBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     private Sala sala = new Sala();
     private SalaDAO salaDAO;

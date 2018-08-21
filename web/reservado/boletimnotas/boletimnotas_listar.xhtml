@@ -32,9 +32,9 @@
                                 <p:outputLabel value="#{bn.aluno.nomeAluno} #{bn.aluno.sobrenomeAluno}"/>
                             </p:column>
 
-                            <p:column headerText="Data de emissão">
+                            <p:column headerText="Data de emissão" id="dataEmissao">
                                 <p:outputLabel value="#{bn.dataBoletim}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    <f:converter converterId="converterData" for="dataEmissao"/>
                                 </p:outputLabel>
                             </p:column>
 
@@ -84,7 +84,7 @@
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Data de emissão:"/>
-                                    <p:calendar style="margin-left: 5px;" value="#{boletimMBean.boletim.dataBoletim}" pattern="dd/MM/yyyy" locale="pt"/>
+                                    <p:calendar style="margin-left: 5px;" value="#{boletimMBean.boletim.dataBoletim}" pattern="dd/MM/yyyy" locale="pt" converter="converterData"/>
                                 </h:panelGrid>
                                 <p:commandButton style="margin-top: 10px;" value="Actualizar" icon="ui-icon-pencil" actionListener="#{boletimMBean.update(event)}"/>
                             </h:form>
@@ -109,7 +109,7 @@
 
                                     <p:outputLabel value="Data de emissão:"/>
                                     <p:outputLabel style="margin-left: 5px;" value="#{boletimMBean.boletim.dataBoletim}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt"/>
+                                        <f:converter converterId="converterData"/>
                                     </p:outputLabel>
                                 </h:panelGrid>
                             </h:form>
@@ -135,7 +135,7 @@
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Data de emissão:"/>
-                                    <p:calendar style="margin-left: 5px;" value="#{boletimMBean.boletim.dataBoletim}" pattern="dd/MM/yyyy" locale="pt"/>
+                                    <p:calendar locale="pt" style="margin-left: 5px;" value="#{boletimMBean.boletim.dataBoletim}" pattern="dd/MM/yyyy" converter="converterData"/>
                                 </h:panelGrid>
                                 <p:commandButton style="margin-top: 10px;" value="Guardar" icon="ui-icon-disk" actionListener="#{boletimMBean.save(event)}"/>
 

@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>listar notas</title>
+        <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
+        <h:outputStylesheet library="css" name="rowStyle.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+            <ui:define name="content">
+                <b:panel look="primary" title="MINI-PAUTA DE APROVEITAMENTO ESCOLAR" collapsible="false">
+                    
+         
+                    
+                    <p:growl showDetail="true" autoUpdate="true" showSummary="true"/>
+
+                    
+                    
+                    <h:form>
+                         <p:menubar>
+                            <f:facet name="options">
+
+                                <h:panelGrid columns="4">
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Curso: " for="curso"/>
+                                            <p:selectOneMenu filter="true" style="width: 150px;" id="curso" label="Curso:" value="#{notaMBean.curso}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="curso" itemValue="#{curso.codigoCurso}" value="#{cursoMBean.cursos}" itemLabel="#{curso.nomeCurso}"/>
+                                            </p:selectOneMenu> 
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 10px;" value="Disciplina: " for="disciplina"/>
+                                            <p:selectOneMenu filter="true" style="margin: 8px; width: 150px;" id="disciplina"  label="Disciplina" value="#{notaMBean.disciplina}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="disciplina" itemValue="#{disciplina.idDisciplina}" value="#{notaMBean.disciplinas}" itemLabel="#{disciplina.nomeDisciplina}"/>
+                                            </p:selectOneMenu> 
+                                        </h:panelGrid>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 10px;" value="Classe:" for="classe"/>
+                                            <p:selectOneMenu style="margin-left: 8px;" id="classe" value="#{notaMBean.classe}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="anoCurricular" itemValue="#{anoCurricular.idAnoCurricular}" value="#{notaMBean.anoCurriculares}" itemLabel="#{anoCurricular.anoCurricular}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 10px;" value="Turma:  " for="turma"/>
+                                            <p:selectOneMenu filter="true" style="margin-left: 8px;" id="turma"  label="Tutma" value="#{notaMBean.turma}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="--Selecione--" value="#{null}"/>
+                                                <f:selectItems var="turma" itemValue="#{turma.idTurma}" value="#{notaMBean.turmas}" itemLabel="#{turma.nomeTurma}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel   value="Ano Lectivo:  " for="ano-lectivo"/>
+                                            <p:selectOneMenu filter="true" style="width: 150px;"  id="ano-lectivo"  label="Ano lectivo" value="#{notaMBean.anoLetivo}" required="true" >
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="anoLectivo" itemValue="#{anoLectivo.idAnoLectivo}" value="#{notaMBean.anoLectivos}" itemLabel="#{anoLectivo.anoLectivo}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 10px;"  value="Período lectivo:" for="periodo"/>
+                                            <p:selectOneMenu style="margin-left: 8px; width: 150px;" id="periodo"  value="#{notaMBean.peridoLetivo}" required="true" >                           
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="periodoLectivo" itemValue="#{periodoLectivo.idPeriodoLectivo}" value="#{notaMBean.periodoLectivos}" itemLabel="#{periodoLectivo.periodoLectivo}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel style="margin-left: 10px;"  value="Ciclo lectivo:  " for="ciclo"/>
+                                            <p:selectOneMenu style=" margin-left: 8px;" id="ciclo"  value="#{notaMBean.cicloLetivo}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="cicloLectivo" itemValue="#{cicloLectivo.idCicloLectivo}" value="#{notaMBean.cicloLectivos}" itemLabel="#{cicloLectivo.cicloLectivo}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <b:commandButton style="margin-left: 5%; margin-top: 9%;" value="Localizar..." icon="search"  immediate="true" look="info"/>
+                                </h:panelGrid> 
+
+                            </f:facet>
+                        </p:menubar>
+                    </h:form>
+                    
+
+                    
+                    
+                    
+                    <h:form>
+
+                        <p:dataTable id="datatable" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     var="nota" value="#{notaMBean.notas}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom"
+                                     rowStyleClass="greenRow, whiteRow" rowKey="#{nota.idnota}" 
+                                     selectionMode="single" selection="#{notaMBean.nota}" editMode="cell">
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                <p:commandButton id="createButton" icon="ui-icon-plus" value="Novo" action="/reservado/nota/nota_novo.jsf" ajax="false"/>
+                                <p:commandButton style="margin-left: 5px;" id="viewButton" icon="ui-icon-zoomin" value="Visualizar informação" actionListener="#" update=":notaViewForm" oncomplete="PF('viewDialog').show();" disabled="#{empty notaMBean.nota}"/>
+                                <p:commandButton style="margin-left: 5px; color: red;" id="deleteButton" icon="ui-icon-trash" value="Excluir" actionListener="#{notaMBean.delete()}" update="datatable" disabled="#{empty notaMBean.nota}"/> 
+                            </f:facet>
+
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column rowspan="3" colspan="0" width="60"  headerText="Nº" />
+                                    <p:column width="300" rowspan="3" headerText="Nome Completo" />
+                                    <p:column rowspan="3" headerText="Sexo" width="45" style="text-align: center;"/>
+
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="3" headerText="I TRIMESTRE"  style="font-weight: bold;"/>
+                                    <p:column colspan="3" headerText="II TRIMESTRE"   style="font-weight: bold;"/>
+                                    <p:column colspan="7" headerText="III TRIMESTRE" width="200"   style="font-weight: bold;"/>
+
+                                    <p:column rowspan="4" headerText="Opções"/>
+
+
+                                </p:row>
+                                <p:row>
+                                    <p:column  headerText="MAC" width="45"/>
+                                    <p:column headerText="CPP" width="45" />
+                                    <p:column headerText="CT" width="45"/>
+
+
+                                    <p:column headerText="MAC" width="45"/>
+                                    <p:column headerText="CPP" width="45"/>
+                                    <p:column headerText="CT" width="45"/>
+
+
+                                    <p:column headerText="MAC" width="45"/>
+                                    <p:column headerText="CPP" width="45"/>
+                                    <p:column headerText="CT" width="45"/>
+                                    <p:column headerText="CAP" width="45" />                                   
+                                    <p:column headerText="CPE" width="45"/>
+                                    <p:column headerText="CF" width="45"/>
+                                    <p:column headerText="REC." width="45" />
+
+                                </p:row>
+                            </p:columnGroup>
+
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel value="#{nota.aluno.idAluno}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:outputLabel value="#{nota.aluno.nomeAluno} #{nota.aluno.sobrenomeAluno}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel value="#{nota.aluno.sexo.abreviatura}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;" width="45">
+                                <p:outputLabel   value="#{nota.notaPrimeiraProva}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;" width="45"> 
+                                <p:outputLabel  value="#{nota.notaSegundaProva}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel value="#{(nota.notaPrimeiraProva+nota.notaSegundaProva)/2}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel value="#{nota.notaPrimeiraProva}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel value="#{nota.notaSegundaProva}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel  value="#{(nota.notaPrimeiraProva+nota.notaSegundaProva)/2}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel  value="#{nota.notaPrimeiraProva}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel value="#{nota.notaSegundaProva}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel  value="#{(nota.notaPrimeiraProva+nota.notaSegundaProva)/2}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel  value=""/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel  value="#{nota.notaExameFinal}"/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel  value=""/>
+                            </p:column>
+
+                            <p:column style="text-align: center;">
+                                <p:outputLabel  value="#{nota.notaExameRecurso}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <p:commandButton id="editButton"  icon="ui-icon-check" update=":FrmEditar:editar" oncomplete="PF('dialogoEditar').show();">
+                                    <f:setPropertyActionListener target="#{notaMBean.nota}" value="#{nota}"/>
+                                </p:commandButton>                                
+                            </p:column>
+
+                            <p:columnGroup type="footer">
+                                <p:row>
+
+                                    <p:column colspan="2" style="text-align:center" footerText="Total de alunos"/>
+                                    <p:column footerText="#{notaMBean.listOfAlunos.size()}" />
+
+                                    <p:column colspan="3" style="text-align:right" footerText="Positivas"/>
+                                    <p:column footerText="5" />
+
+
+                                    <p:column colspan="3" style="text-align:right" footerText="Negativas"/>
+                                    <p:column footerText="7" />
+
+                                    <p:column colspan="2" style="text-align:right" footerText="Homens"/>
+                                    <p:column footerText="20" />
+
+
+                                    <p:column colspan="2" style="text-align:right" footerText="Mulheres"/>
+                                    <p:column footerText="36" />
+
+                                </p:row>
+                            </p:columnGroup>
+                        </p:dataTable>
+
+
+
+
+
+
+                    </h:form>
+                    <!--Fim do formulario-->
+
+
+                    <!--Inicio do formulario Ver-->
+
+                    <p:dialog id="viewDialog" widgetVar="viewDialog" showEffect="clip" hideEffect="blind" header="Detalhes" 
+                              width="850" height="450">
+                        <h:form id="notaViewForm">
+                            <b:panel look="primary">
+                                <b:panel look="primary" title="Aluno: (#{notaMBean.nota.aluno.nomeAluno} #{notaMBean.nota.aluno.sobrenomeAluno})" 
+                                         collapsible="false">
+                                    <h:panelGroup>
+                                        
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="Nº do aluno:"/>
+                                            <h:outputText style="margin-left: 8px;" value="#{notaMBean.nota.aluno.idAluno}"/>
+                                        </h:panelGrid>
+                                        
+                                    </h:panelGroup>                                    
+                                </b:panel>
+                            </b:panel>
+                            
+                            
+                            <p:tabView>
+                                <p:tab title="Informções sobre as notas">
+                                    <h:inputHidden value="#{notaMBean.nota.idnota}"/>
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel value="Descrição:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.descricao}"/>
+                                        <p:outputLabel value="Data de lançamento:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.dataLancamento}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </p:outputLabel>
+                                        <p:outputLabel value="Nota:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.notaPrimeiraProva}">
+                                            <f:convertNumber pattern="00.0"/>
+                                        </p:outputLabel>
+                                        <p:outputLabel value="Class. da nota:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.classificacaoNota.classificacaoNota}"/>
+                                        <p:outputLabel value="Peso:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.peso}">
+                                            <f:convertNumber pattern="00.0"/>
+                                        </p:outputLabel>
+                                        <p:outputLabel value="Observação:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.observacao}"/>
+                                    </p:panelGrid>
+                                </p:tab>
+
+                                <p:tab title="Aluno/disciplina/Curso">
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel value="Aluno:"/>
+                                        <p:outputLabel  value="#{notaMBean.nota.aluno.nomeAluno}"/>
+                                        <p:outputLabel value="Turma:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.turma}"/>
+                                        <p:outputLabel value="Curso:"/>
+                                        <p:outputLabel  value="#{notaMBean.nota.curso.nomeCurso}"/>
+                                        <p:outputLabel value="Disciplina:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.disciplina.nomeDisciplina}"/>
+                                        <p:outputLabel value="Departamento:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.departamento}"/>
+                                    </p:panelGrid>
+                                </p:tab>
+
+                                <p:tab title="Informções lectivas">
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel value="Ano lectivo:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.anoLetivo.anoLectivo}" />
+                                        <p:outputLabel value="Ano Curricular:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.anoCurricular.anoCurricular}"/>
+                                        <p:outputLabel value="Ciclo lectivo:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.cicloLetivo.cicloLectivo}"/>
+                                        <p:outputLabel value="Período lectivo:"/>
+                                        <p:outputLabel value="#{notaMBean.nota.periodoLetivo.periodoLectivo}"/>
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
+                    </p:dialog>
+
+                    <!--Fim do formulario ver-->
+
+
+
+
+
+                    <!--inicio do fomulario editar-->
+                    <h:form id="FrmEditar">
+                        <p:dialog id="editar" widgetVar="dialogoEditar" showEffect="clip" hideEffect="blind">
+                            <h:inputHidden value="#{notaMBean.nota.idnota}"/>
+                            <p:inputText value="#{notaMBean.nota.idnota}" />
+                            <p:commandButton type="Button" icon="ui-icon-pencil" value="Actualizar" ajax="false" actionListener="#{notaMBean.edit(event)}"/>
+                        </p:dialog>
+                    </h:form>
+                    <!--Fim do formulario editar-->
+                </b:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

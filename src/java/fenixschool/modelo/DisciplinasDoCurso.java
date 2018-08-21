@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author PENA
  */
-public class DisciplinasDoCurso implements Serializable {
+public class DisciplinasDoCurso {
+
 
     private int idCursoDisciplina;
     private Curso curso;

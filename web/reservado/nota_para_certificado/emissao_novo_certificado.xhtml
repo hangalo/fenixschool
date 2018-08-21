@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Novo boletim de notas</title>
+        <h:outputScript library="js" name="primefaces-calendar-pt.js"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+            <ui:define name="content">
+                <p:growl autoUpdate="true" showDetail="true" id="mensagem"/>
+                <p:messages autoUpdate="true" showIcon="true" showDetail="true"/>
+                <b:panel title="Emissão de certificados" look="primary" collapsible="false">
+
+                    <h:form id="searching" >
+                        <p:menubar>
+                            <f:facet name="options">
+                                <h:panelGrid columns="3">                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="4">
+                                            <p:outputLabel value="Ano lectivo" for="ano-lectivo"/>
+                                            <p:selectOneMenu filter="true" style="width: 150px;" id="ano-lectivo"  label="Ano lectivo" value="#{notaMBean.anoLetivo}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="anoLectivo" itemValue="#{anoLectivo.idAnoLectivo}" value="#{anoLectivoMBean.anoLectivos}" itemLabel="#{anoLectivo.anoLectivo}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel style="margin-left: 10px;" value="Período lectivo" for="periodo"/>
+                                            <p:selectOneMenu style="width: 150px;" id="periodo"  value="#{notaMBean.peridoLetivo}" required="true">                           
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="periodoLectivo" itemValue="#{periodoLectivo.idPeriodoLectivo}" value="#{periodoLectivoMBean.periodoLectivos}" itemLabel="#{periodoLectivo.periodoLectivo}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Classe" for="classe"/>
+                                            <p:selectOneMenu style="width: 150px;" id="classe" value="#{notaMBean.classe}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="anoCurricular" itemValue="#{anoCurricular.idAnoCurricular}" value="#{anoCurricularMBean.anoCurriculares}" itemLabel="#{anoCurricular.anoCurricular}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel  value="Turma" style="margin-left: 10px;" for="turma"/>
+                                            <p:selectOneMenu filter="true" style="width: 150px;" id="turma"  label="Tutma" value="#{notaMBean.turma}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="--Selecione--" value="#{null}"/>
+                                                <f:selectItems var="turma" itemValue="#{turma.idTurma}" value="#{turmaMBean.turmas}" itemLabel="#{turma.nomeTurma}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>                                    
+                                    </h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <b:commandButton style="margin-left: 10px;" value="Pesquisar..." icon="search"  look="info" ajax="false" type="buttom"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </f:facet>
+                        </p:menubar>
+                    </h:form>
+
+
+
+                    <h:form id="dataTableForm">
+                        <p:dataTable paginator="true" paginatorPosition="bottom" var="item" value="#{notaMBean.emitirBoletins}"
+                                     lazy="true" emptyMessage="Ops! Nenhuma turma selecionada"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowKey="#{item.idnota}" rows="10">
+                            <f:facet name="header">
+                                <p:outputLabel value="Emitir Certificados turma #{item.turma.nomeTurma}"/>
+                            </f:facet>
+
+                            <p:column headerText="Nome do aluno">
+                                <h:outputText value="#{item.aluno.nomeAluno} #{item.aluno.sobrenomeAluno}"/>
+                            </p:column>
+
+                            <p:column headerText="Curso" style="text-align: left;">
+                                <h:outputText value="#{item.curso.nomeCurso}"/>
+                            </p:column>
+
+                            <p:column headerText="Turma" style="text-align: center;" width="55">
+                                <h:outputText value="#{item.turma.nomeTurma}"/>
+                            </p:column>
+
+                            <p:column headerText="Classe" style="text-align: center;" width="90">
+                                <h:outputText value="#{item.anoCurricular.anoCurricular}"/>
+                            </p:column>
+
+                            <p:column headerText="Ano lectivo" style="text-align: center;" width="100">
+                                <h:outputText value="#{item.anoLetivo.anoLectivo}"/>
+                            </p:column>
+
+                            <p:column headerText="Operações" style="text-align: center;" width="200">
+                                <p:commandButton icon="ui-icon-document" update=":dialogEmitriCertificado" oncomplete="PF('dialogEmitriCertificado').show();" value="Emitir Certificado" title="Clique aqui para emitir certificado de (#{item.aluno.nomeAluno})">
+                                    <f:setPropertyActionListener target="#{notaMBean.nota}" value="#{item}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                Total de alunos: #{notaMBean.emitirBoletins.size()}
+                            </f:facet>
+                        </p:dataTable>                        
+                    </h:form>
+
+
+
+
+
+
+                    <p:dialog id="dialogEmitriCertificado" widgetVar="dialogEmitriCertificado" showEffect="clip" hideEffect="blind"
+                              modal="true" header="Emissão de certificado" resizable="false" width="500" height="400">
+                        <h:form id="emitirCertificado">
+                            <b:panel look="primary" collapsible="false" title="Emitir certificado de #{notaMBean.nota.aluno.nomeAluno}">
+
+                                <h:panelGroup id="display">
+                                    <b:panel look="primary">
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="Nº do aluno:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.aluno.idAluno}"/>
+                                            <p:outputLabel value="Nome completo:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.aluno.nomeAluno} #{notaMBean.nota.aluno.sobrenomeAluno}"/>
+                                            <p:outputLabel value="Departamento:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.departamento.nomeDepartamento}"/>
+                                            <p:outputLabel value="Curso:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.curso.nomeCurso}"/>
+                                            <p:outputLabel value="Turma:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.turma.nomeTurma}"/>
+                                            <p:outputLabel value="Ano lectivo:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.anoLetivo.anoLectivo}"/>
+                                            <p:outputLabel value="Período lectivo:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.periodoLetivo.periodoLectivo}"/>
+                                            <p:outputLabel value="Classe:"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.anoCurricular.anoCurricular}"/>
+                                            <p:outputLabel value="Ciclo lectivo"/>
+                                            <h:outputText style="margin-left: 10px;" value="#{notaMBean.nota.cicloLetivo.cicloLectivo}"/>
+                                        </h:panelGrid>
+                                    </b:panel>
+                                    <b:panel look="primary">
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="Nota do certificado:"/>
+                                            <p:inputText style="margin-left: 10px;" size="10" value="#{notaCertificadoMBean.notaCertificado.notaCertificado}">
+                                                <f:convertNumber pattern="00.00"  maxIntegerDigits="2" minIntegerDigits="1" />
+                                            </p:inputText>
+                                            <p:outputLabel value="Funcionário:"/>
+                                            <p:selectOneMenu value="#{notaCertificadoMBean.notaCertificado.certificado}" filter="true" style="margin-left: 10px; margin-top: 2px;"
+                                                             converter="certificadoConverter" converterMessage="Ops! Erro de conversão.">
+                                                <f:selectItem noSelectionOption="true" itemValue="#{null}" itemLabel="-Selecione-"/>
+                                                <f:selectItems var="cerfificado" value="#{certificadoMBean.certificados}" itemValue="#{cerfificado}" 
+                                                               itemLabel="#{cerfificado.funcionarioCertificado.nomeFuncionario}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </b:panel>
+                                    <p:commandButton ajax="false" icon="ui-icon-disk" value="Emitir" actionListener="#{notaCertificadoMBean.save(event)}">
+                                        <f:param name="idNota" value="#{notaMBean.nota.idnota}"/>
+                                    </p:commandButton>
+                                </h:panelGroup>
+
+                            </b:panel>
+                        </h:form>
+                    </p:dialog>
+
+
+
+
+                </b:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

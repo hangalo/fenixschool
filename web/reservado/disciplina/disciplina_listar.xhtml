@@ -57,6 +57,7 @@
                                 <p:commandButton icon="ui-icon-zoomin" update=":FrmVer:ver" oncomplete="PF('dialogoVer').show();">
                                     <f:setPropertyActionListener target="#{disciplinaMBean.disciplina}" value="#{disciplina}"/>
                                 </p:commandButton>
+
                             </p:column>
                             <f:facet name="footer">
                                 Total de registos: #{disciplinaMBean.disciplinas.size()}

@@ -8,6 +8,7 @@ package fenixschool.mb;
 import fenixschool.dao.AlunoDAO;
 import fenixschool.dao.AnoCurricularDAO;
 import fenixschool.dao.AnoLectivoDAO;
+import fenixschool.dao.BoletimNotaDAO;
 import fenixschool.dao.CicloLectivoDAO;
 import fenixschool.dao.ClassificacaoNotaDAO;
 import fenixschool.dao.CursoDAO;
@@ -19,6 +20,7 @@ import fenixschool.dao.TurmaDAO;
 import fenixschool.modelo.Aluno;
 import fenixschool.modelo.AnoCurricular;
 import fenixschool.modelo.AnoLectivo;
+import fenixschool.modelo.BoletimNota;
 import fenixschool.modelo.CicloLectivo;
 import fenixschool.modelo.ClassificacaoNota;
 import fenixschool.modelo.Curso;
@@ -27,16 +29,16 @@ import fenixschool.modelo.Disciplina;
 import fenixschool.modelo.Nota;
 import fenixschool.modelo.PeriodoLectivo;
 import fenixschool.modelo.Turma;
-import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
 
 /**
  *
@@ -51,6 +53,8 @@ public class NotaMBean implements Serializable {
     private Nota nota;
     private NotaDAO notaDAO;
     private List<Nota> notas;
+    private List<Nota> listOfAlunos;
+    private List<Nota> emitirBoletins;//Para emissao de Boletins de notas do alunos
 
     private PeriodoLectivoDAO periodoLectivoDAO;
     private List<PeriodoLectivo> periodoLectivos;
@@ -81,9 +85,18 @@ public class NotaMBean implements Serializable {
 
     private AnoCurricularDAO anoCurricularDAO;
     private List<AnoCurricular> anoCurriculares;
-    
-    
 
+    //variaveis auxiliares
+    private String curso;
+    private String disciplina;
+    private Integer classe;
+    private Integer turma;
+    private Integer anoLetivo;
+    private Integer peridoLetivo;
+    private Integer cicloLetivo;
+    //------------------------
+
+    //Para editar tabela
     public NotaMBean() {
     }
 
@@ -122,6 +135,10 @@ public class NotaMBean implements Serializable {
 
         anoCurricularDAO = new AnoCurricularDAO();
         anoCurriculares = new ArrayList<>();
+
+        listOfAlunos = new ArrayList<>();
+
+        emitirBoletins = new ArrayList<>();
     }
 
     public Nota getNota() {
@@ -232,41 +249,163 @@ public class NotaMBean implements Serializable {
     }
 
     public void guardar(ActionEvent event) {
-
-        periodoLectivos.stream().map((periodoLido) -> periodoLectivoDAO.findById(periodoLido.getIdPeriodoLectivo())).map((periodoLetivo) -> {
-            nota.setPeriodoLetivo(periodoLetivo);
-            return periodoLetivo;
-        }).map((_item) -> {
-            notaDAO.save(nota);
-            return _item;
-        }).map((_item) -> {
-            nota = new Nota();
-            return _item;
-        }).map((_item) -> new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", " Guardado com sucesso!")).forEachOrdered((msg) -> {
+        guardarBoletimNotas();
+        capturarAluno();
+        if (notaDAO.existe(nota)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar", "Ops! A informação que deseja inserir já existe.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        });
+            nota = new Nota();
+        } else if (notaDAO.save(nota)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Operação realizada com sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            nota = new Nota();
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar", "Ops! Ocorreu um erro inesperado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
     }
 
-    public void edit(ActionEvent event) {
-        for (PeriodoLectivo periodoLido : periodoLectivos) {
-
-            PeriodoLectivo periodoLetivo = periodoLectivoDAO.findById(periodoLido.getIdPeriodoLectivo());
-            nota.setPeriodoLetivo(periodoLetivo);
-            notaDAO.update(nota);
-            nota = null;
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", " Actualizado com sucesso!");
+    public String edit(ActionEvent event) {
+        capturarAluno();
+        if (notaDAO.update(nota)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Operação realizada com sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            nota = null;
+            return "nota_listar?faces-redirect=true";
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro", "Ops! Ocorreu um erro inesperado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
         }
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("nota_listar.jsf");
-        } catch (IOException e) {
-            System.err.println("Erro com o ManagerBean! " + e);
-        }
+
     }
 
     public String delete() {
-        notaDAO.delete(nota);
-        nota = null;
-        return "nota_listar?faces-redirect=true";
+        if (notaDAO.delete(nota)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Excluir", "Operação realizada com sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            nota = null;
+            return "nota_listar?faces-redirect=true";
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro", "Ops! Ocorreu um erro inesperado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
+        }
+
     }
+
+    public void capturarAluno() {
+
+        Aluno aluno = new Aluno();
+        FacesContext context = FacesContext.getCurrentInstance();
+        String idAluno = (String) context.getExternalContext().getRequestParameterMap().get("idAluno");
+
+        if (idAluno != null) {
+            System.out.println("Numero capturado >>>>>>>>> " + idAluno);
+            aluno.setIdAluno(Integer.parseInt(idAluno));
+            nota.setAluno(aluno);
+        }
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
+    public String getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public Integer getClasse() {
+        return classe;
+    }
+
+    public void setClasse(Integer classe) {
+        this.classe = classe;
+    }
+
+    public Integer getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Integer turma) {
+        this.turma = turma;
+    }
+
+    public Integer getAnoLetivo() {
+        return anoLetivo;
+    }
+
+    public void setAnoLetivo(Integer anoLetivo) {
+        this.anoLetivo = anoLetivo;
+    }
+
+    public Integer getPeridoLetivo() {
+        return peridoLetivo;
+    }
+
+    public void setPeridoLetivo(Integer peridoLetivo) {
+        this.peridoLetivo = peridoLetivo;
+    }
+
+    public Integer getCicloLetivo() {
+        return cicloLetivo;
+    }
+
+    public void setCicloLetivo(Integer cicloLetivo) {
+        this.cicloLetivo = cicloLetivo;
+    }
+
+    public List<Nota> getListOfAlunos() {
+        if (curso != null && disciplina != null && classe != null && turma != null && anoLetivo != null && peridoLetivo != null && cicloLetivo != null) {
+            listOfAlunos = notaDAO.findAllOfTurmas(curso, disciplina, classe, turma, anoLetivo, peridoLetivo, cicloLetivo);
+
+        }
+        return listOfAlunos;
+    }
+
+    public void setListOfAlunos(List<Nota> listOfAlunos) {
+        this.listOfAlunos = listOfAlunos;
+    }
+
+    public List<Nota> getEmitirBoletins() {
+        if (peridoLetivo != null && turma != null && anoLetivo != null && classe != null) {
+            System.out.println("perido lectivo:(" + peridoLetivo + ") Turma:(" + turma + ") Ano lectivo:(" + anoLetivo + ") Classe:(" + classe + ")");
+            emitirBoletins = notaDAO.findTumaPeridodo(peridoLetivo, turma, anoLetivo, classe);
+            return emitirBoletins;
+        } else {
+            return null;
+        }
+    }
+
+    public void setEmitirBoletins(List<Nota> emitirBoletins) {
+        this.emitirBoletins = emitirBoletins;
+    }
+
+    //Metodo para inserir dados na tabela boletim de notas
+    public void guardarBoletimNotas() {
+        Aluno aluno = new Aluno();
+        BoletimNota boletim = new BoletimNota();
+        FacesContext context = FacesContext.getCurrentInstance();
+        String idAluno = (String) context.getExternalContext().getRequestParameterMap().get("idAluno");
+
+        if (idAluno != null) {
+            System.out.println("Numero capturado para Boletim >>>>>>>>> " + idAluno);
+            aluno.setIdAluno(Integer.parseInt(idAluno));
+            boletim.setAluno(aluno);
+            boletim.setDataBoletim(LocalDate.now());
+        }
+
+        BoletimNotaDAO boletimDAO = new BoletimNotaDAO();
+        boletimDAO.save(boletim);
+    }
+
 }

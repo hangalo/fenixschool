@@ -13,7 +13,6 @@ import fenixschool.util.GestorImpressao;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +22,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
  * @author Rei Santo Hangalo
  */
 @Named(value = "artigoBean")
-@SessionScoped
+@ViewScoped
 public class ArtigoBean implements Serializable {
 
     public static final long serialVersionUID = 1L;

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+
+
+            <ui:define name="content">
+
+                <b:panel look="primary" title="Lista de trimestres/Semestres" collapsible="false">
+                    <h:form id="frmListar">
+                        <p:growl showDetail="true" autoUpdate="true"/>
+                        <p:dataTable id="datalist" var="item" value="#{semestreLectivoMbean.lista}" emptyMessage="Lista vazia!"
+                                     paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     paginatorPosition="bottom" dataLocale="pt" rowKey="#{item.idSemestreLectivo}">
+
+                            <p:column headerText="Código" width="100">
+                                <h:outputText value="#{item.idSemestreLectivo}"/>
+                            </p:column>
+
+                            <p:column headerText="Semestre/Trimestre" width="150">
+                                <h:outputText value="#{item.semestreLectivo}"/>
+                            </p:column>
+
+                            <p:column headerText="Data de início" width="120">
+                                <h:outputText value="#{item.dataInicio}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Data de fim" width="120">
+                                <h:outputText value="#{item.dataFim}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Observação">
+                                <h:outputText value="#{item.observacoes}"/>
+                            </p:column>
+
+                            <p:column headerText="Operações" width="80">
+
+                                <p:commandButton icon="ui-icon-pencil" update=":editar" oncomplete="PF('dlgEdit').show();">
+                                    <f:setPropertyActionListener target="#{semestreLectivoMbean.semestre}" value="#{item}"/>
+                                </p:commandButton>
+                                <p:commandButton action="#{semestreLectivoMbean.delete()}" icon="ui-icon-trash" update="datalist">
+                                    <f:setPropertyActionListener target="#{semestreLectivoMbean.semestre}" value="#{item}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                Total de registos: #{semestreLectivoMbean.lista.size()}
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+
+
+
+                    <p:dialog id="editar" widgetVar="dlgEdit" showEffect="clip" hideEffect="blind" resizable="false">
+                        <b:panel look="primary">
+                            <h:form>
+                                <h:messages showDetail="true"/>
+                                <h:panelGroup id="display">
+                                    <h:inputHidden value="#{semestreLectivoMbean.semestre.idSemestreLectivo}"/>
+                                    <h:panelGrid columns="2" cellspacing="10%">
+                                        <p:outputLabel value="Semestre/trimestre:"/>
+                                        <p:inputText value="#{semestreLectivoMbean.semestre.semestreLectivo}" size="30"/>
+
+                                        <p:outputLabel value="Data de início:"/>
+                                        <p:calendar pattern="dd/MM/yyyy" locale="pt" mask="true" value="#{semestreLectivoMbean.semestre.dataInicio}"/>
+
+                                        <p:outputLabel value="Data de fim:"/>
+                                        <p:calendar pattern="dd/MM/yyyy" locale="pt" mask="true" value="#{semestreLectivoMbean.semestre.dataFim}"/>
+
+                                        <p:outputLabel value="Observação:"/>
+                                        <p:inputTextarea value="#{semestreLectivoMbean.semestre.observacoes}" cols="30"/>
+                                    </h:panelGrid>
+                                    <p:commandButton icon="ui-icon-disk" value="Guardar" actionListener="#{semestreLectivoMbean.update(event)}" update="display,:frmListar:datalist"/>
+                                </h:panelGroup>
+                            </h:form>
+                        </b:panel>
+                    </p:dialog>
+
+
+
+                    <h:form>
+                        <p:commandButton icon="ui-icon-plus" value="Novo" type="buttom" onclick="PF('dlgNovo').show();"/>
+                    </h:form>
+
+
+                    <p:dialog widgetVar="dlgNovo" header="Novo registro" showEffect="clip" hideEffect="clip" resizable="false">
+                        <b:panel look="primary">
+                            <h:form>
+                                <h:messages showDetail="true"/>
+                                <h:panelGroup id="display">
+                                    <h:panelGrid columns="2" cellspacing="10%">
+                                        <p:outputLabel value="Semestre/trimestre:"/>
+                                        <p:inputText value="#{semestreLectivoMbean.semestre.semestreLectivo}" size="30"/>
+
+                                        <p:outputLabel value="Data de início:"/>
+                                        <p:calendar pattern="dd/MM/yyyy" locale="pt" mask="true" value="#{semestreLectivoMbean.semestre.dataInicio}"/>
+
+                                        <p:outputLabel value="Data de fim:"/>
+                                        <p:calendar pattern="dd/MM/yyyy" locale="pt" mask="true" value="#{semestreLectivoMbean.semestre.dataFim}"/>
+
+                                        <p:outputLabel value="Observação:"/>
+                                        <p:inputTextarea value="#{semestreLectivoMbean.semestre.observacoes}" cols="30"/>
+                                    </h:panelGrid>
+                                    <p:commandButton icon="ui-icon-disk" value="Guardar" actionListener="#{semestreLectivoMbean.save(event)}" update="display,:frmListar:datalist"/>
+                                </h:panelGroup>
+                            </h:form>
+                        </b:panel>
+                    </p:dialog>
+
+                </b:panel>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

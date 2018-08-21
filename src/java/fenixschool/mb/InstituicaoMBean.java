@@ -26,7 +26,7 @@ import javax.annotation.PostConstruct;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
@@ -37,7 +37,7 @@ import org.primefaces.model.UploadedFile;
  * @author PENA
  */
 @ManagedBean(name = "instituicaoMBean")
-@SessionScoped
+@ViewScoped
 public class InstituicaoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

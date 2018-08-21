@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/padrao.xhtml">
+
+            <ui:define name="content">                
+                <b:panel title="Lista de Boletins de notas" collapsible="false" look="primary">
+                    <p:growl autoUpdate="true" showDetail="true" id="mensagem"/>
+                    <p:messages/>
+                    <h:form>
+                        <p:dataTable value="#{notaBoletimMBean.itens}" var="item" paginator="true" paginatorPosition="bottom" lazy="true" emptyMessage="Ops! Lista vazia"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     editMode="cell" editable="true" selectionMode="single" rowKey="#{item.idNotaBoletim}">
+
+                            <f:ajax event="rowEdit" listener="#{notaBoletimMBean.update(event)}"/>
+                            <f:facet name="header">
+                                <p:outputLabel value="APROVEITAMENTO DO ALUNO"/><br/>
+                                <p:commandButton  value="Novo" icon="ui-icon-plus" onclick="PF('createDialog').show();"/>
+                            </f:facet>
+
+                            <p:column headerText="Aluno">
+                                <h:outputText value="#{item.nota.aluno.nomeAluno} #{item.nota.aluno.sobrenomeAluno}"/>                               
+                            </p:column>
+
+                            <p:column headerText="Disciplinas">
+                                <h:outputText value="#{item.nota.disciplina.nomeDisciplina}"/>                               
+                            </p:column>
+
+                            <p:column headerText="Disciplinas">
+                                <h:outputText value="#{item.nota.disciplina.nomeDisciplina}"/>                               
+                            </p:column>
+
+                            <p:column headerText="Disciplinas">
+                                <h:outputText value="#{item.nota.disciplina.nomeDisciplina}"/>                               
+                            </p:column>
+                            <p:column headerText="Opções">
+                                <p:tooltip hideEffect="blind" for="editar" value="Clique aqui para editar #{item.nota.aluno.nomeAluno}"/>  
+                                <p:rowEditor id="editar"/>
+                            </p:column>
+                        </p:dataTable>
+
+                    </h:form>
+
+
+                    <p:dialog id="createDialog" widgetVar="createDialog" modal="true" header="Registar novo boletim de notas" resizable="false" 
+                              hideEffect="blind" showEffect="clip"> 
+                        <b:panel collapsible="false" look="primary">
+                            <h:form id="createForm">
+                                <h:panelGroup>
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Aluno"/>
+                                    </h:panelGrid>
+                                    <p:commandButton update="mensagem" value="Guadar" icon="ui-icon-disk" action="#{notaBoletimMBean.save(event)}" ajax="false"/>
+                                </h:panelGroup>
+                            </h:form>
+                        </b:panel>
+                    </p:dialog>
+
+
+                </b:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

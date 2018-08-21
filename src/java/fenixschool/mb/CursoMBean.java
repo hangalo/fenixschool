@@ -12,7 +12,6 @@ import fenixschool.modelo.Departamento;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,41 +19,31 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author informatica
  */
-
-
-
 @ManagedBean(name = "cursoMBean")
-@RequestScoped
-public class CursoMBean implements  Serializable{
+@ViewScoped
+public class CursoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Creates a new instance of CursoMBean
-     */
-    public CursoMBean() {
-    }
-    
-    
-    
     private Curso curso;
     private CursoDAO cursoDAO;
     private List<Curso> cursos;
 
-   
+    public CursoMBean() {
+    }
 
     @PostConstruct
     public void inicializar() {
         curso = new Curso();
         cursoDAO = new CursoDAO();
-     //   cursos = new ArrayList<>();
-     cursos= cursoDAO.findAll();
+        //   cursos = new ArrayList<>();
+        cursos = cursoDAO.findAll();
     }
 
     public Curso getCurso() {
@@ -65,12 +54,8 @@ public class CursoMBean implements  Serializable{
         this.curso = curso;
     }
 
-    
-
-  
-
     public List<Curso> getCursos() {
-      //  cursos = cursoDAO.findAll();
+        //  cursos = cursoDAO.findAll();
         return cursos;
     }
 
@@ -79,11 +64,12 @@ public class CursoMBean implements  Serializable{
         return "curso_guardar?faces-redirect=true";
     }
 
-      public void guardar(ActionEvent evt) {
+    public void guardar(ActionEvent evt) {
         cursoDAO.save(curso);
         curso = new Curso();
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Curso registado com sucesso"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Curso registado com sucesso"));
     }
+
     public String startEdit() {
         return "curso_editar?faces-redirect=true";
     }
@@ -104,5 +90,5 @@ public class CursoMBean implements  Serializable{
         cursos = null;
         return "curso_listar?faces-redirect=true";
     }
-    
+
 }

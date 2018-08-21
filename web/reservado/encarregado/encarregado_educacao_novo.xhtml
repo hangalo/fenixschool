@@ -157,13 +157,12 @@
                                 </h:panelGroup>
                             </h:panelGrid>
                         </b:panel>
-                        <h:panelGrid columns="2">
-                            <p:commandButton  value="Guardar" actionListener="#{encarregadoEducacaoMBean.guardar(evt)}" ajax="false"/>
-                            <p:commandButton value="Fechar" icon="ui-icon-close" action="/index" immediate="true" ajax="false"/>
-                        </h:panelGrid>
+                        <p:commandButton  value="Guardar" actionListener="#{encarregadoEducacaoMBean.guardar(evt)}" ajax="false"/> 
+                        <p:commandButton value="Fechar" icon="ui-icon-close" action="/index" immediate="true" ajax="false"/> 
                     </h:form>
+
                 </b:panel>
-                
+
             </ui:define>
         </ui:composition>
     </h:body>

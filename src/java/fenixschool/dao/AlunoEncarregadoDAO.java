@@ -26,8 +26,9 @@ public class AlunoEncarregadoDAO implements GenericoDAO<AlunoEncarregadoEducacao
     private static final String INSERT = "INSERT INTO aluno_encarregado_educacao (id_encarregado,id_aluno,id_parentesco,inicio_responsabilidade,fim_responsabilidade,observacoes) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE = "UPDATE aluno_encarregado_educacao SET id_encarregado = ?,id_aluno = ?,id_parentesco = ?,inicio_responsabilidade = ?,fim_responsabilidade = ?,observacoes = ? WHERE id_aluno_encarregado_educacao = ?";
     private static final String DELETE = "DELETE FROM aluno_encarregado_educacao WHERE id_aluno_encarregado_educacao = ? ";
-    private static final String SELECT_BY_ID = "SELECT alen.id_aluno_encarregado_educacao, a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco WHERE alen.id_aluno_encarregado_educacao =?";
-    private static final String SELECT_ALL = "SELECT alen.id_aluno_encarregado_educacao,a.id_aluno, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco ORDER BY alen.id_aluno_encarregado_educacao";
+    private static final String SELECT_BY_ID = "SELECT alen.id_aluno_encarregado_educacao, a.id_aluno,a.numero_BI, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco WHERE alen.id_aluno_encarregado_educacao =?";
+    private static final String SELECT_ALL = "SELECT alen.id_aluno_encarregado_educacao,a.id_aluno,a.numero_BI, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco ORDER BY alen.id_aluno_encarregado_educacao";
+    private static final String SELECT_BY_BI = "SELECT alen.id_aluno_encarregado_educacao,a.id_aluno,a.numero_BI, a.nome_aluno, a.sobrenome_aluno, a.url_foto_aluno, par.parentesco,enc.nome_encarregado, enc.sobrenome_encarregado, enc.url_foto_encarregado,alen.inicio_responsabilidade,alen.fim_responsabilidade,alen.observacoes FROM aluno_encarregado_educacao alen INNER JOIN aluno a ON alen.id_aluno=a.id_aluno INNER JOIN encarregado_educacao enc ON alen.id_encarregado = enc.id_encarregado INNER JOIN parentesco par ON alen.id_parentesco = par.id_parentesco WHERE a.numero_BI=?";
 
     Connection conn;
     PreparedStatement ps;
@@ -155,6 +156,30 @@ public class AlunoEncarregadoDAO implements GenericoDAO<AlunoEncarregadoEducacao
         return listaAlunosEncarregados;
     }
 
+    
+    public List<AlunoEncarregadoEducacao> findByBI(String numeroBI) {
+        List<AlunoEncarregadoEducacao> listaAlunosEncarregados = new ArrayList<>();
+        try {
+            conn = Conexao.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_BI);
+            ps.setString(1, numeroBI);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                AlunoEncarregadoEducacao alunoEncarregadoEducacao = new AlunoEncarregadoEducacao();
+                popularComDados(alunoEncarregadoEducacao, rs);
+                listaAlunosEncarregados.add(alunoEncarregadoEducacao);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao carregar dados: " + ex.getMessage());
+        } finally {
+            Conexao.closeConnection(conn, ps, rs);
+        }
+
+        return listaAlunosEncarregados;
+    }
+    
+    
     @Override
     public void popularComDados(AlunoEncarregadoEducacao alunoEncarregado, ResultSet rs) {
         Aluno aluno = new Aluno();
@@ -167,16 +192,17 @@ public class AlunoEncarregadoDAO implements GenericoDAO<AlunoEncarregadoEducacao
             encarregado.setSobrenomeEncarregado(rs.getString("sobrenome_encarregado"));
             encarregado.setUrlFotoEncarregado(rs.getString("url_foto_encarregado"));
             alunoEncarregado.setEncarregado(encarregado);
-            
+
             aluno.setNomeAluno(rs.getString("nome_aluno"));
             aluno.setIdAluno(rs.getInt("id_aluno"));
             aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
             aluno.setUrlfotoAluno(rs.getString("url_foto_aluno"));
+            aluno.setBiAluno(rs.getString("numero_BI"));
             alunoEncarregado.setAluno(aluno);
-            
+
             parentesco.setParentesco(rs.getString("parentesco"));
             alunoEncarregado.setParentesco(parentesco);
-            
+
             alunoEncarregado.setInicioResponsabilidade(rs.getDate("inicio_responsabilidade"));
             alunoEncarregado.setFimResponsabilidade(rs.getDate("fim_responsabilidade"));
             alunoEncarregado.setObservacoes(rs.getString("observacoes"));

@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +39,7 @@ public class BoletimNotaDAO implements GenericoDAOLogico<BoletimNota> {
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERT);
-            
-            ps.setDate(1, new java.sql.Date(boletim.getDataBoletim().getTime()));
+            ps.setDate(1, java.sql.Date.valueOf(boletim.getDataBoletim()));
             ps.setInt(2, boletim.getAluno().getIdAluno());
             
             int controlador = ps.executeUpdate();
@@ -68,7 +68,7 @@ public class BoletimNotaDAO implements GenericoDAOLogico<BoletimNota> {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(UPDATE);
 
-            ps.setDate(1, new java.sql.Date(boletim.getDataBoletim().getTime()));
+            ps.setDate(1, java.sql.Date.valueOf(boletim.getDataBoletim()));
             ps.setInt(2, boletim.getAluno().getIdAluno());
             ps.setInt(3, boletim.getIdBoletim());
 
@@ -171,7 +171,7 @@ public class BoletimNotaDAO implements GenericoDAOLogico<BoletimNota> {
             aluno.setSobrenomeAluno(rs.getString("sobrenome_aluno"));
             boletim.setAluno(aluno);
             boletim.setIdBoletim(rs.getInt("id_boletin_notas"));
-            boletim.setDataBoletim(rs.getDate("data_boletin_notas"));
+            boletim.setDataBoletim(rs.getDate("data_boletin_notas").toLocalDate());  
         } catch (SQLException ex) {
             System.err.println("Erro ao popular com dados " + ex.getLocalizedMessage());
         }

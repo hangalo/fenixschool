@@ -12,20 +12,20 @@ import fenixschool.modelo.Artigo;
 import fenixschool.modelo.Cliente;
 import fenixschool.modelo.Venda;
 import fenixschool.modelo.VendaDetalhe;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 /**
  *
  * @author informatica
  */
-@Named(value = "carrinhoBean")
-@SessionScoped
+@ManagedBean(name = "carrinhoBean")
+@ViewScoped
 public class CarrinhoBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class CarrinhoBean implements Serializable {
    
     private VendaDetalhesDAO vendaDetalhesDAO;
 
-    @Inject
+   @Inject
     VendaMBean vendaMBean;
 
     private List<VendaDetalhe> carrinho = new ArrayList<>();

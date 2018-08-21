@@ -5,8 +5,7 @@
  */
 package fenixschool.modelo;
 
-import java.util.Date;
-import java.util.Objects;
+import java.time.LocalDate;
 
 /**
  *
@@ -15,13 +14,13 @@ import java.util.Objects;
 public class BoletimNota {
     
     private int idBoletim;
-    private Date dataBoletim;
+    private LocalDate dataBoletim;
     private Aluno aluno;
 
     public BoletimNota() {
     }
 
-    public BoletimNota(int idBoletim, Date dataBoletim, Aluno aluno) {
+    public BoletimNota(int idBoletim, LocalDate dataBoletim, Aluno aluno) {
         this.idBoletim = idBoletim;
         this.dataBoletim = dataBoletim;
         this.aluno = aluno;
@@ -35,11 +34,11 @@ public class BoletimNota {
         this.idBoletim = idBoletim;
     }
 
-    public Date getDataBoletim() {
+    public LocalDate getDataBoletim() {
         return dataBoletim;
     }
 
-    public void setDataBoletim(Date dataBoletim) {
+    public void setDataBoletim(LocalDate dataBoletim) {
         this.dataBoletim = dataBoletim;
     }
 

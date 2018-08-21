@@ -7,15 +7,13 @@ package fenixschool.mb;
 
 import fenixschool.dao.ProfissaoDAO;
 import fenixschool.modelo.Profissao;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -23,10 +21,8 @@ import javax.faces.event.ActionEvent;
  *
  * @author PENA
  */
-
-
 @ManagedBean(name = "profissaoMBean")
-@RequestScoped
+@ViewScoped
 public class ProfissaoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,7 +31,6 @@ public class ProfissaoMBean implements Serializable {
     private ProfissaoDAO profissaoDAO;
     private List<Profissao> profissoes;
 
-    
     public ProfissaoMBean() {
     }
 
@@ -65,29 +60,42 @@ public class ProfissaoMBean implements Serializable {
     }
 
     public void guardar(ActionEvent evt) {
-        profissaoDAO.save(profissao);
-        profissao = new Profissao();
-    }
-
-     public void edit(java.awt.event.ActionEvent event) {
-        profissaoDAO.update(profissao);
-        profissoes = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("profissao_listar.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(ProfissaoMBean.class.getName()).log(Level.SEVERE, null, ex);
+        if (profissaoDAO.save(profissao)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Profissão guardada com sucesso!", null);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            profissao = new Profissao();
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao guardar profissão.", null);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
     }
-    
-      public String delete() {
-        profissaoDAO.delete(profissao);
-        profissoes = null;
-        return "profissao_listar?faces-redirect=true";
+
+    public String edit(ActionEvent event) {
+        if (profissaoDAO.update(profissao)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Profissão actualizada com sucesso!", null);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            profissoes = null;
+            return "profissao_listar?faces-redirect=true";
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao actualizar profissão.", null);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
+        }
+
     }
-      
-      
- 
-      
-  
+
+    public String delete() {
+        if (profissaoDAO.delete(profissao)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Profissão eliminada com sucesso!", null);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            profissoes = null;
+            return "profissao_listar?faces-redirect=true";
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao eliminar profissão.", null);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
+        }
+    }
+
 }

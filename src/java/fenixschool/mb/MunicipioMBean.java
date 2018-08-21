@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
 
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIOutput;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -28,8 +28,10 @@ import javax.faces.event.ValueChangeEvent;
  * @author desenvolvimento
  */
 @ManagedBean(name = "municipioBean")
-@SessionScoped
+@ViewScoped
 public class MunicipioMBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private ProvinciaDAO provinciaDAO;
     private MunicipioDAO municipioDAO;

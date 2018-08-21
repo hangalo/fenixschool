@@ -11,15 +11,15 @@ import fenixschool.dao.TipoDisciplinaDAO;
 import fenixschool.modelo.CicloLectivo;
 import fenixschool.modelo.Disciplina;
 import fenixschool.modelo.TipoDisciplina;
-import java.io.IOException;
+import fenixschool.util.GestorImpressao;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -42,10 +42,13 @@ public class DisciplinaMBean implements Serializable {
 
     private TipoDisciplinaDAO tipoDisciplinaDAO;
     private List<TipoDisciplina> tipoDisciplinas;
+    
 
     //Variaveis auxiliares
     private List<Disciplina> findByCilclo;
     private Integer ciclo;
+
+    
 
     public DisciplinaMBean() {
     }
@@ -63,6 +66,7 @@ public class DisciplinaMBean implements Serializable {
         tipoDisciplinaDAO = new TipoDisciplinaDAO();
         tipoDisciplinas = new ArrayList<>();
         findByCilclo = new ArrayList<>();
+        //gestorImpressao = new GestorImpressao();
     }
 
     public Disciplina getDisciplina() {
@@ -122,13 +126,11 @@ public class DisciplinaMBean implements Serializable {
     }
 
     public void guardar(ActionEvent event) {
-        boolean controlo = false;
         for (CicloLectivo cicloLectivoLido : cicloLectivos) {
             CicloLectivo cicloLectivo = cicloLectivoDAO.findById(cicloLectivoLido.getIdCicloLectivo());
             disciplina.setCicloLectivo(cicloLectivo);
-            controlo = disciplinaDAO.save(disciplina);
         }
-        if (controlo) {
+        if (disciplinaDAO.save(disciplina)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Guardado com sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             disciplina = new Disciplina();
@@ -139,33 +141,37 @@ public class DisciplinaMBean implements Serializable {
 
     }
 
-    public void edit(ActionEvent event) {
-        boolean controlo = false;
+    public String edit(ActionEvent event) {
         for (CicloLectivo cicloLectivoLido : cicloLectivos) {
             CicloLectivo cicloLectivo = cicloLectivoDAO.findById(cicloLectivoLido.getIdCicloLectivo());
             disciplina.setCicloLectivo(cicloLectivo);
-            controlo = disciplinaDAO.update(disciplina);
-            disciplina = null;
         }
-        if (controlo) {
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("disciplina_listar.jsf");
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            } catch (IOException e) {
-                java.util.logging.Logger.getLogger(DisciplinaMBean.class.getName()).log(Level.SEVERE, null, e);
-            }
+        if (disciplinaDAO.update(disciplina)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Actualizado com sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            disciplina = null;
+            return "disciplina_listar?faces-redirect=true";
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizar", "Erro ao actualizar.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
         }
 
     }
 
     public String delete() {
-        disciplinaDAO.delete(disciplina);
-        disciplina = null;
-        return "disciplina_listar?faces-redirect=true";
+        if (disciplinaDAO.delete(disciplina)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Eliminado com sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            disciplina = null;
+            return "disciplina_listar?faces-redirect=true";
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Erro ao eliminar com sucesso.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
+        }
+
     }
 
+ 
 }

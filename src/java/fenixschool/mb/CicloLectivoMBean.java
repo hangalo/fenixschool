@@ -5,45 +5,51 @@
  */
 package fenixschool.mb;
 
-
 import fenixschool.dao.CicloLectivoDAO;
 import fenixschool.modelo.CicloLectivo;
+import fenixschool.util.GestorImpressao;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Aisha Lubadika
  */
-
-@ManagedBean(name ="cicloLectivoMBean")
-@SessionScoped
+@ManagedBean(name = "cicloLectivoMBean")
+@ViewScoped
 public class CicloLectivoMBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private CicloLectivo cicloLectivo = new CicloLectivo();
     private CicloLectivoDAO cicloLectivoDAO;
     private List<CicloLectivo> cicloLectivos;
+
+    @ManagedProperty(value = "#{gestorImpressao}")
+    private GestorImpressao gestorImpressao;
+
     public CicloLectivoMBean() {
     }
-    
+
     @PostConstruct
-    public void inicializar(){
-     cicloLectivo = new CicloLectivo();
-     cicloLectivoDAO = new CicloLectivoDAO();
-     cicloLectivos= new ArrayList<>();
-    
+    public void inicializar() {
+        cicloLectivo = new CicloLectivo();
+        cicloLectivoDAO = new CicloLectivoDAO();
+        cicloLectivos = new ArrayList<>();
+
     }
 
     public CicloLectivo getCicloLectivo() {
@@ -63,30 +69,40 @@ public class CicloLectivoMBean implements Serializable {
     }
 
     public List<CicloLectivo> getCicloLectivos() {
-        cicloLectivos= cicloLectivoDAO.findAll();
+        cicloLectivos = cicloLectivoDAO.findAll();
         return cicloLectivos;
     }
 
     public void setCicloLectivos(List<CicloLectivo> cicloLectivos) {
         this.cicloLectivos = cicloLectivos;
     }
-     public String newSave() {
-        cicloLectivo= new CicloLectivo();
+
+    public GestorImpressao getGestorImpressao() {
+        return gestorImpressao;
+    }
+
+    public void setGestorImpressao(GestorImpressao gestorImpressao) {
+        this.gestorImpressao = gestorImpressao;
+    }
+
+    public String newSave() {
+        cicloLectivo = new CicloLectivo();
         return "ciclolectivo_listar?faces-redirect=true";
     }
 
-      public void guardar(ActionEvent evt) {
-       cicloLectivoDAO.save(cicloLectivo);
-       cicloLectivo= new CicloLectivo();
+    public void guardar(ActionEvent evt) {
+        cicloLectivoDAO.save(cicloLectivo);
+        cicloLectivo = new CicloLectivo();
 
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Ciclo Lectivo registado com sucesso"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Ciclo Lectivo registado com sucesso"));
     }
+
     public String startEdit() {
         return "ciclolectivo_listar?faces-redirect=true";
     }
 
     public void edit(ActionEvent event) {
-       cicloLectivoDAO.update(cicloLectivo);
+        cicloLectivoDAO.update(cicloLectivo);
         cicloLectivos = null;
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("ciclolectivo_listar.jsf");
@@ -97,10 +113,17 @@ public class CicloLectivoMBean implements Serializable {
     }
 
     public String delete() {
-               cicloLectivoDAO.delete(cicloLectivo);
-               cicloLectivos = null;
+        cicloLectivoDAO.delete(cicloLectivo);
+        cicloLectivos = null;
         return "ciclolectivo_listar?faces-redirect=true";
-    }   
-    
-    
+    }
+
+    public String imprimirDisciplinaPorCiclo() {
+        String relatorio = "disciplina_ciclo.jasper";
+        HashMap parametro = new HashMap();
+        parametro.put("id_ciclo_letivo", cicloLectivo.getIdCicloLectivo());
+        gestorImpressao.imprimirPDF(relatorio, parametro);
+        return null;
+    }
+
 }

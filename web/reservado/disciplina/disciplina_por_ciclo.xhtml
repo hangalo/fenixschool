@@ -22,11 +22,10 @@
                     <b:panel title="Localizar disciplinas por ciclo" look="primary" collapsible="false">
                         <h:panelGrid columns="5">
                             <p:outputLabel value="Pesquisar disciplinas por cisclo:"/>
-                            <p:selectOneMenu style="margin-left: 8px; width: 150px;" value="#{disciplinaMBean.ciclo}" filter="true" filterMatchMode="startsWith">
-                                <f:selectItem noSelectionOption="true" itemLabel="--Seleccione o ciclo--" itemValue="#{null}"/>
+                            <p:selectOneButton style="margin-left: 8px; width: 150px;" value="#{disciplinaMBean.ciclo}">
                                 <f:selectItems var="ciclo" value="#{cicloLectivoMBean.cicloLectivos}" itemLabel="#{ciclo.cicloLectivo}"
-                                               itemValue="#{ciclo.cicloLectivo}"/>
-                            </p:selectOneMenu>
+                                               itemValue="#{ciclo.idCicloLectivo}"/>
+                            </p:selectOneButton>
                             <!--   <p:inputText style="margin-left: 8px;"  placeholder="Pesquisar por ciclo" value="{disciplinaMBean.ciclo}"/>-->
                             <b:commandButton icon="search" immediate="true" value="Pesquisar..." style="margin-left: 5px; " look="primary"/>
                         </h:panelGrid>
@@ -34,7 +33,7 @@
                 </h:form>
 
 
-                <b:panel collapsible="false" look="info">
+                <b:panel collapsible="false" look="info" title="Lista de disciplinas por ciclo lectivo">
                     <h:form>
                         <p:dataTable emptyMessage="Nenhum registo encontrado"  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      var="disciplina" value="#{disciplinaMBean.findByCilclo}" rows="10" paginator="true" cellSeparator="true" paginatorPosition="bottom">
@@ -81,6 +80,7 @@
                             </f:facet>
                         </p:dataTable>
                     </h:form>
+
 
 
                     <!--Formulario Para guardar-->

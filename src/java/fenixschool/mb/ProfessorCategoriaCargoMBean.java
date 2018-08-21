@@ -11,23 +11,27 @@ import fenixschool.modelo.CategoriaCargo;
 import fenixschool.modelo.ProfessorCategoriaCargo;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.faces.view.ViewScoped;
+
 
 /**
  *
  * @author Aisha Lubadika
  */
-@Named(value = "professorCategoriaCargoMBean")
+@ManagedBean(name = "professorCategoriaCargoMBean")
 @ViewScoped
-public class ProfessorCategoriaCargoMBean {
+public class ProfessorCategoriaCargoMBean implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
    private ProfessorCategoriaCargo professorCategoriaCargo;
    private List<ProfessorCategoriaCargo> professorCategoriaCargos;

@@ -30,3 +30,16 @@ and open the template in the editor.
     font-weight:bold;
     text-align: center;
 }
+
+.menu-list ul{
+    font-size: 2em;
+    text-align:right;
+    float: right;
+    padding: 2px;
+}
+
+.menu-list ul li{
+    list-style: none;
+    padding: 2px;
+}
+

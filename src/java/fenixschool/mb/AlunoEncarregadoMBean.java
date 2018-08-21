@@ -13,14 +13,17 @@ import fenixschool.modelo.Aluno;
 import fenixschool.modelo.AlunoEncarregadoEducacao;
 import fenixschool.modelo.EncarregadoEducacao;
 import fenixschool.modelo.Parentesco;
+import fenixschool.util.GestorImpressao;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
@@ -48,6 +51,12 @@ public class AlunoEncarregadoMBean implements Serializable {
     private ParentescoDAO parentescoDAO;
     private List<Parentesco> parentescos;
 
+    private List<AlunoEncarregadoEducacao> list;
+    private String numeroBIAluno;
+
+    @ManagedProperty(value = "#{gestorImpressao}")
+    private GestorImpressao gestorImpressao;
+
     public AlunoEncarregadoMBean() {
     }
 
@@ -66,6 +75,9 @@ public class AlunoEncarregadoMBean implements Serializable {
 
         parentescoDAO = new ParentescoDAO();
         parentescos = new ArrayList<>();
+
+        list = new ArrayList<>();
+
     }
 
     public AlunoEncarregadoEducacao getAlunoEncarregado() {
@@ -110,6 +122,34 @@ public class AlunoEncarregadoMBean implements Serializable {
 
     public void setParentescos(List<Parentesco> parentescos) {
         this.parentescos = parentescos;
+    }
+
+    public void setGestorImpressao(GestorImpressao gestorImpressao) {
+        this.gestorImpressao = gestorImpressao;
+    }
+
+    public String getNumeroBIAluno() {
+        return numeroBIAluno;
+    }
+
+    public void setNumeroBIAluno(String numeroBIAluno) {
+        this.numeroBIAluno = numeroBIAluno;
+    }
+
+    public List<AlunoEncarregadoEducacao> getList() {
+        if (numeroBIAluno != null) {
+            list = alunoEncarregadoDAO.findByBI(numeroBIAluno);
+            return list;
+        } else {
+            list = alunoEncarregadoDAO.findAll();
+            //list = alunoEncarregadoDAO.findByBI(numeroBIAluno);
+            return list;
+        }
+
+    }
+
+    public void setList(List<AlunoEncarregadoEducacao> list) {
+        this.list = list;
     }
 
     public void save(ActionEvent event) {
@@ -158,6 +198,18 @@ public class AlunoEncarregadoMBean implements Serializable {
         alunoEncarregadoDAO.delete(alunoEncarregado);
         alunoEncarregado = null;
         return "alunoEncarregado_listar?faces-redirect=true";
+    }
+
+    public GestorImpressao getGestorImpressao() {
+        return gestorImpressao;
+    }
+
+    public String imprimirFicha() {
+        String relatorio = "aluno_encarregado.jasper";
+        HashMap parametro = new HashMap();
+        parametro.put("codigo", alunoEncarregado.getIdAlunoEncarregado());
+        gestorImpressao.imprimirPDF(relatorio, parametro);
+        return null;
     }
 
 }

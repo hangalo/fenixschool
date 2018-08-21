@@ -33,7 +33,7 @@ public class DisciplinaDAO implements GenericoDAOLogico<Disciplina> {
             + " d.data_criacao, ci.ciclo_letivo, ti.tipo_disciplina  "
             + " FROM disciplina d INNER JOIN ciclo_letivo ci ON "
             + " d.id_ciclo_letivo=ci.id_ciclo_letivo INNER JOIN tipo_disciplina ti ON d.id_tipo_disciplina = ti.id_tipo_disciplina ";
-    private static final String LISTAR_POR_CICLO = "SELECT d.id_disciplina, d.nome_disciplina,d.abreviatura,d.descricao_displina,d.sumario_disciplina,d.data_criacao,c.ciclo_letivo,t.tipo_disciplina FROM disciplina d INNER JOIN ciclo_letivo c ON d.id_ciclo_letivo=c.id_ciclo_letivo INNER JOIN  tipo_disciplina t ON d.id_tipo_disciplina=t.id_tipo_disciplina WHERE c.ciclo_letivo = ?";
+    private static final String LISTAR_POR_CICLO = "SELECT d.id_disciplina,c.id_ciclo_letivo, d.nome_disciplina,d.abreviatura,d.descricao_displina,d.sumario_disciplina,d.data_criacao,c.ciclo_letivo,t.tipo_disciplina FROM disciplina d INNER JOIN ciclo_letivo c ON d.id_ciclo_letivo=c.id_ciclo_letivo INNER JOIN  tipo_disciplina t ON d.id_tipo_disciplina=t.id_tipo_disciplina WHERE c.id_ciclo_letivo = ?";
 
     Connection conn;
     PreparedStatement ps;
@@ -247,6 +247,7 @@ public class DisciplinaDAO implements GenericoDAOLogico<Disciplina> {
 
             CicloLectivo cicloLectivo = new CicloLectivo();
             cicloLectivo.setCicloLectivo(rs.getString("ciclo_letivo"));
+            //cicloLectivo.setIdCicloLectivo(rs.getInt("id_ciclo_letivo"));
             disciplina.setCicloLectivo(cicloLectivo);
 
             TipoDisciplina tipoDisciplina = new TipoDisciplina();

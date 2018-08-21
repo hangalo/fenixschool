@@ -90,11 +90,11 @@ public class GestorImpressao {
             
             prepararRelatorio(relatorio, paramentos);
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-            ServletOutputStream outputStream = response.getOutputStream();
-            JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-            FacesContext.getCurrentInstance().responseComplete();
-            outputStream.flush();
-            outputStream.close();
+            try (ServletOutputStream outputStream = response.getOutputStream()) {
+                JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+                FacesContext.getCurrentInstance().responseComplete();
+                outputStream.flush();
+            }
         } catch (JRException | IOException ex) {
             System.out.println("Erro - >>>>" + ex.getMessage());
         }

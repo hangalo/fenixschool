@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author HACKER
  */
-public class ProfissaoDAO implements GenericoDAO<Profissao> {
+public class ProfissaoDAO implements GenericoDAOLogico<Profissao> {
 
     private static final String INSERT = "INSERT INTO profissao(nome_profissao)VALUES(?)";
     private static final String UPDATE = "UPDATE profissao SET nome_profissao=? WHERE id_profissao=?";
@@ -29,118 +29,137 @@ public class ProfissaoDAO implements GenericoDAO<Profissao> {
     PreparedStatement ps;
     ResultSet rs;
 
+
     @Override
-    public void save(Profissao profissao){
-        if (profissao==null) {
-            System.out.println("o parametro passado nao pode ser nulo");
+    public boolean save(Profissao profissao) {
+        boolean controlo = false;
+        if (profissao == null) {
+            System.out.println("O paramentro passado nao pode ser nulo");
         }
+
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(INSERT);
             ps.setString(1, profissao.getNomeProfissao());
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados Salvado com sucesso! " + ps.getUpdateCount());
+                controlo = true;
+            }
+            return controlo;
         } catch (SQLException ex) {
-            System.out.println("erro ao guardar dados: "+ex.getMessage());
-        }finally{
+            System.out.println("Erro ao salvar registro: " + ex.getMessage());
+            return false;
+        } finally {
             Conexao.closeConnection(conn, ps);
         }
-
     }
 
     @Override
-    public void update(Profissao profissao){
-         if (profissao==null) {
-            System.out.println("o parametro passado nao pode ser nulo");
+    public boolean update(Profissao profissao) {
+        boolean controlo = false;
+        if (profissao == null) {
+            System.out.println("O paramentro passado nao pode ser nulo");
         }
+
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(UPDATE);
             ps.setString(1, profissao.getNomeProfissao());
             ps.setInt(2, profissao.getIdProfissao());
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados actualizado com sucesso! " + ps.getUpdateCount());
+                controlo = true;
+            }
+            return controlo;
         } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar dados: "+ex.getMessage());
-        }finally{
+            System.out.println("Erro ao actualizar registro: " + ex.getMessage());
+            return false;
+        } finally {
             Conexao.closeConnection(conn, ps);
         }
-
     }
 
     @Override
-    public void delete(Profissao profissao){
-         if (profissao==null) {
-            System.out.println("o parametro passado nao pode ser nulo");
+    public boolean delete(Profissao profissao) {
+        boolean controlo = false;
+        if (profissao == null) {
+            System.out.println("O paramentro passado nao pode ser nulo");
         }
+
         try {
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(DELETE);
             ps.setInt(1, profissao.getIdProfissao());
-            ps.executeUpdate();
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados eliminados com sucesso! " + ps.getUpdateCount());
+                controlo = true;
+            }
+            return controlo;
         } catch (SQLException ex) {
-            System.out.println("erro ao eliminar dados: "+ex.getMessage());
-                }finally{
+            System.out.println("Erro ao eliminar registro: " + ex.getMessage());
+            return false;
+        } finally {
             Conexao.closeConnection(conn, ps);
         }
-
     }
 
     @Override
-    public Profissao findById(Integer id){
-         Profissao profissao = new Profissao();
-            
+    public Profissao findById(Integer id) {
+        Profissao profissao = new Profissao();
+
         try {
-           
+
             conn = Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_BY_ID);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
                 System.out.println("Nao existe nenhum registo com esse id: " + id);
-                
+
             }
             popularComDados(profissao, rs);
-          
+
         } catch (SQLException ex) {
-            System.out.println("erro ao carregar dados: "+ex.getMessage());
-         }finally{
+            System.out.println("erro ao carregar dados: " + ex.getMessage());
+        } finally {
             Conexao.closeConnection(conn, ps, rs);
         }
-          return profissao;
-
+        return profissao;
     }
 
     @Override
-    public List<Profissao> findAll()  {
-         List<Profissao> itens = new ArrayList<>();
-            
+    public List<Profissao> findAll() {
+        List<Profissao> itens = new ArrayList<>();
+
         try {
-           conn = Conexao.getConnection();
+            conn = Conexao.getConnection();
             ps = conn.prepareStatement(SELECT_ALL);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Profissao profissao = new Profissao();
                 popularComDados(profissao, rs);
                 itens.add(profissao);
-                
+
             }
-           
-        }  catch (SQLException ex) {
-            System.out.println("erro ao carregar dados: "+ex.getMessage());
-         }finally{
+
+        } catch (SQLException ex) {
+            System.out.println("erro ao carregar dados: " + ex.getMessage());
+        } finally {
             Conexao.closeConnection(conn);
         }
- return itens;
+        return itens;
     }
 
     @Override
-    public void popularComDados(Profissao profissao, ResultSet rs)  {
+    public void popularComDados(Profissao profissao, ResultSet rs) {
         try {
             profissao.setIdProfissao(rs.getInt("id_profissao"));
             profissao.setNomeProfissao(rs.getString("nome_profissao"));
         } catch (SQLException ex) {
-            System.out.println("erro ao ler dados: "+ex.getMessage());
-                }
-
+            System.out.println("erro ao ler dados: " + ex.getMessage());
+        }
     }
-
 }

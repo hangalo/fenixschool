@@ -55,6 +55,9 @@
                                     <f:setPropertyActionListener target="#{disciplinasDoCursoMBean.disciplinasDoCurso}" value="#{disciplina}"/>
                                 </p:commandButton>
                                 <p:commandButton icon="ui-icon-zoomin" action="/reservado/disciplina/pesquisar_curso"/>
+                                 <p:commandButton  immediate="true" ajax="false"  icon="ui-icon-print" action="#{disciplinasDoCursoMBean.imprimirDisciplinaPorCurso()}">
+                                     <f:setPropertyActionListener target="#{disciplinasDoCursoMBean.disciplinasDoCurso}" value="#{disciplina}"/>
+                                </p:commandButton>
                             </p:column>
                             <f:facet name="footer">
                                 Total de registros: (#{disciplinasDoCursoMBean.disciplinasDoCursos.size()})

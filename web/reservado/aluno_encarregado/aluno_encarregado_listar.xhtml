@@ -37,7 +37,7 @@
                             <p:column headerText="Início de responsabilidade">
                                 <p:outputLabel value="#{alunoEncarregado.inicioResponsabilidade}"/>
                             </p:column>
-                            <p:column headerText="Operações" style="text-align: center; width: 120px;">
+                            <p:column headerText="Operações" style="text-align: center; width: 150px;">
                                 <p:commandButton icon="ui-icon-trash" action="#{alunoEncarregadoMBean.delete()}">
                                     <f:setPropertyActionListener value="#{alunoEncarregado}" target="#{alunoEncarregadoMBean.alunoEncarregado}"/>
                                 </p:commandButton>
@@ -48,6 +48,10 @@
                                 <p:commandButton icon="ui-icon-zoomin" update=":frmVer:ver" oncomplete="PF('dlgVer').show();">
                                     <f:setPropertyActionListener target="#{alunoEncarregadoMBean.alunoEncarregado}" value="#{alunoEncarregado}"/>
                                 </p:commandButton>
+
+                                <p:commandButton icon="ui-icon-print" action="#{alunoEncarregadoMBean.imprimirFicha()}" ajax="false" immediate="true">
+                                    <f:setPropertyActionListener target="#{alunoEncarregadoMBean.alunoEncarregado}" value="#{alunoEncarregado}"/>                  
+                                </p:commandButton>
                             </p:column>
                             <f:facet name="footer">
                                 Total de registros: (#{alunoEncarregadoMBean.alunoEncarregadoEducacaos.size()})
@@ -57,7 +61,7 @@
                     </h:form>
 
                     <h:form id="Operacoes">
-                        <p:commandButton value="Adicionar novo registro" icon="ui-icon-plus" action="/reservado/alunoEncarregado/alunoEncarregado_novo" immediate="true" ajax="false"/>
+                        <p:commandButton value="Adicionar novo registro" icon="ui-icon-plus" action="/reservado/aluno_encarregado/aluno_encarregado_novo.jsf" immediate="true" ajax="false"/>
                         <p:commandButton value="Fechar" icon="ui-icon-close" action="/index" immediate="true" ajax="false"/>
                     </h:form>
 

@@ -15,29 +15,94 @@
             <ui:define name="content">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <p:messages autoUpdate="true" showIcon="true" showDetail="true"/>
-                <b:panel title="Cadastro de um novo boletim de notas" look="primary" collapsible="false">
+                <b:panel title="Emissão de boletins de notas" look="primary" collapsible="false">
 
-                    <b:panel look="primary" title="Novos dados" collapsible="false">
-                        <h:form id="frmGuardar">
-                            <h:panelGrid columns="2">
+                    <h:form id="searching" >
+                        <p:menubar>
+                            <f:facet name="options">
+                                <h:panelGrid columns="3">                                    
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="4">
+                                            <p:outputLabel value="Ano lectivo" for="ano-lectivo"/>
+                                            <p:selectOneMenu filter="true" style="width: 150px;" id="ano-lectivo"  label="Ano lectivo" value="#{notaMBean.anoLetivo}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="anoLectivo" itemValue="#{anoLectivo.idAnoLectivo}" value="#{notaMBean.anoLectivos}" itemLabel="#{anoLectivo.anoLectivo}"/>
+                                            </p:selectOneMenu>
 
-                                <p:outputLabel value="Nome do aluno:"/>
-                                <p:selectOneMenu  style="margin-left: 5px; width: 280px;" value="#{boletimMBean.boletim.aluno}"
-                                                  filter="true" filterMatchMode="startsWith" converter="alunoConverter">
-                                    <f:selectItem itemLabel="--Seleccione o aluno--" itemValue="#{null}" noSelectionOption="true"/>
-                                    <f:selectItems var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.nomeAluno} #{aluno.sobrenomeAluno}"
-                                                   value="#{boletimMBean.alunos}"/>
-                                </p:selectOneMenu>
+                                            <p:outputLabel style="margin-left: 10px;" value="Período lectivo" for="periodo"/>
+                                            <p:selectOneMenu style="width: 150px;" id="periodo"  value="#{notaMBean.peridoLetivo}" required="true">                           
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="periodoLectivo" itemValue="#{periodoLectivo.idPeriodoLectivo}" value="#{notaMBean.periodoLectivos}" itemLabel="#{periodoLectivo.periodoLectivo}"/>
+                                            </p:selectOneMenu>
 
-                                <p:outputLabel value="Data de emissão:"/>
-                                <p:calendar style="margin-left: 5px;" value="#{boletimMBean.boletim.dataBoletim}" pattern="dd/MM/yyyy" locale="pt"/>
-                            </h:panelGrid>
-                            <p:commandButton style="margin-top: 10px;" value="Guardar" icon="ui-icon-disk" actionListener="#{boletimMBean.save(event)}"/>
-                            <p:commandButton value="Fechar" icon="ui-icon-close" action="/index" immediate="true" ajax="false"/>
-                        </h:form>
+                                            <p:outputLabel value="Classe" for="classe"/>
+                                            <p:selectOneMenu style="width: 150px;" id="classe" value="#{notaMBean.classe}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="-Selecione-" value="#{null}"/>
+                                                <f:selectItems var="anoCurricular" itemValue="#{anoCurricular.idAnoCurricular}" value="#{notaMBean.anoCurriculares}" itemLabel="#{anoCurricular.anoCurricular}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel  value="Turma" style="margin-left: 10px;" for="turma"/>
+                                            <p:selectOneMenu filter="true" style="width: 150px;" id="turma"  label="Tutma" value="#{notaMBean.turma}" required="true">
+                                                <f:selectItem noSelectionOption="true" itemLabel="--Selecione--" value="#{null}"/>
+                                                <f:selectItems var="turma" itemValue="#{turma.idTurma}" value="#{notaMBean.turmas}" itemLabel="#{turma.nomeTurma}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>                                    
+                                    </h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <b:commandButton style="margin-left: 10px;" value="Pesquisar..." icon="search"  look="info" ajax="false" type="buttom"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </f:facet>
+                        </p:menubar>
+                    </h:form>
 
 
-                    </b:panel>
+
+                    <h:form id="dataTableForm">
+                        <p:dataTable paginator="true" paginatorPosition="bottom" var="item" value="#{notaMBean.emitirBoletins}"
+                                     lazy="true" emptyMessage="Ops! Nenhuma turma selecionada"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowKey="#{item.idnota}" rows="10" nativeElements="true">
+                            <f:facet name="header">
+                                <p:outputLabel value="Emitir Boletins de notas da turma #{item.turma.nomeTurma}"/>
+                            </f:facet>
+                                                      
+                            <p:column headerText="Nome do aluno">
+                                <h:outputText value="#{item.aluno.nomeAluno} #{item.aluno.sobrenomeAluno}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Curso" style="text-align: left;">
+                                <h:outputText value="#{item.curso.nomeCurso}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Turma" style="text-align: center;" width="55">
+                                <h:outputText value="#{item.turma.nomeTurma}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Classe" style="text-align: center;" width="90">
+                                 <h:outputText value="#{item.anoCurricular.anoCurricular}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Ano lectivo" style="text-align: center;" width="100">
+                                 <h:outputText value="#{item.anoLetivo.anoLectivo}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Operações" style="text-align: center;" width="150">
+                                <p:commandButton icon="ui-icon-document" action="#{notaBoletimMBean.save(event)}" value="Emitir boletim" ajax="false" title="Clique aqui para emitir boletim de notas de (#{item.aluno.nomeAluno})">
+                                    <f:param name="idNota" value="#{notaMBean.nota.idnota}"/>
+                                    <f:param name="idAluno" value="#{notaMBean.nota.aluno.idAluno}"/>
+                                </p:commandButton>
+                            </p:column>
+                            
+                            <f:facet name="footer">
+                                Total de alunos: #{notaMBean.emitirBoletins.size()}
+                            </f:facet>
+                        </p:dataTable>                        
+                    </h:form>
+
+
+
+
 
                 </b:panel>
             </ui:define>

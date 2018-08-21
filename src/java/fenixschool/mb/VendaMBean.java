@@ -12,18 +12,16 @@ import fenixschool.modelo.Venda;
 import fenixschool.util.DateUtil;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 
 /**
  *
  * @author informatica
  */
-@Named(value = "facturaMBean")
-//@RequestScoped
-@SessionScoped
+@ManagedBean(name = "facturaMBean")
+@ViewScoped
 public class VendaMBean implements Serializable{
 private static final long serialVersionUID = 1L;
 

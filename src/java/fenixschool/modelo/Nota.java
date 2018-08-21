@@ -12,9 +12,6 @@ import java.util.Date;
  * @author PENA
  */
 public class Nota {
-    
-    
-    
 
     private int idnota;
     private PeriodoLectivo periodoLetivo;
@@ -23,15 +20,14 @@ public class Nota {
     private Disciplina disciplina;
     private String descricao;
     private Date dataLancamento;
-    
+
     /*variaveis acrescentada a entidade notas*/
     private double notaPrimeiraProva;
-     private double notaSegundaProva;
-      private double notaTerceiraProva;
-       private double notaExameRecurso; 
-        private double notaExameFinal; 
-    
-    
+    private double notaSegundaProva;
+    private double notaTerceiraProva;
+    private double notaExameRecurso;
+    private double notaExameFinal;
+
     private double peso;
     private AnoLectivo anoLetivo;
     private CicloLectivo cicloLetivo;
@@ -40,11 +36,14 @@ public class Nota {
     private Turma turma;
     private AnoCurricular anoCurricular;
     private String observacao;
+    private SemestreLectivo semestreLectivo;
+    
+ 
 
     public Nota() {
     }
 
-    public Nota(int idnota, PeriodoLectivo periodoLetivo, Aluno aluno, Curso curso, Disciplina disciplina, String descricao, Date dataLancamento, double notaPrimeiraProva, double notaSegundaProva, double notaTerceiraProva, double notaExameRecurso, double notaExameFinal, double peso, AnoLectivo anoLetivo, CicloLectivo cicloLetivo, ClassificacaoNota classificacaoNota, Departamento departamento, Turma turma, AnoCurricular anoCurricular, String observacao) {
+    public Nota(int idnota, PeriodoLectivo periodoLetivo, Aluno aluno, Curso curso, Disciplina disciplina, String descricao, Date dataLancamento, double notaPrimeiraProva, double notaSegundaProva, double notaTerceiraProva, double notaExameRecurso, double notaExameFinal, double peso, AnoLectivo anoLetivo, CicloLectivo cicloLetivo, ClassificacaoNota classificacaoNota, Departamento departamento, Turma turma, AnoCurricular anoCurricular, String observacao, SemestreLectivo semestreLectivo) {
         this.idnota = idnota;
         this.periodoLetivo = periodoLetivo;
         this.aluno = aluno;
@@ -65,10 +64,10 @@ public class Nota {
         this.turma = turma;
         this.anoCurricular = anoCurricular;
         this.observacao = observacao;
+        this.semestreLectivo = semestreLectivo;        
     }
 
-  
-
+    
     public int getIdnota() {
         return idnota;
     }
@@ -165,8 +164,6 @@ public class Nota {
         this.notaExameFinal = notaExameFinal;
     }
 
-    
-
     public double getPeso() {
         return peso;
     }
@@ -231,10 +228,18 @@ public class Nota {
         this.observacao = observacao;
     }
 
+    public SemestreLectivo getSemestreLectivo() {
+        return semestreLectivo;
+    }
+
+    public void setSemestreLectivo(SemestreLectivo semestreLectivo) {
+        this.semestreLectivo = semestreLectivo;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.idnota;
+        int hash = 3;
+        hash = 67 * hash + this.idnota;
         return hash;
     }
 
@@ -258,7 +263,8 @@ public class Nota {
 
     @Override
     public String toString() {
-        return "Nota{" + "nota=" + notaPrimeiraProva + '}';
+        return "Nota{" + "idnota=" + idnota + '}';
     }
+
 
 }

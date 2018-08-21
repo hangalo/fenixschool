@@ -32,6 +32,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -39,7 +40,7 @@ import javax.faces.context.FacesContext;
  * @author Elísio Kavaimunwa
  */
 @ManagedBean(name = "mensalidadeMBean")
-@SessionScoped
+@ViewScoped
 public class MensalidadeMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

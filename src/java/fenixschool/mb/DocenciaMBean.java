@@ -30,6 +30,8 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class DocenciaMBean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Creates a new instance of DocenciaMBean
      */

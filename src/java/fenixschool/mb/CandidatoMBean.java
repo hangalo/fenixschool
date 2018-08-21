@@ -42,14 +42,14 @@ import org.primefaces.model.UploadedFile;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Elísio Kavaimunwa
  */
 @ManagedBean(name = "candidatoMBean")
-@SessionScoped
+@ViewScoped
 
 public class CandidatoMBean implements Serializable {
 

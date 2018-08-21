@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -24,7 +24,7 @@ import javax.faces.event.ActionEvent;
  * @author PENA
  */
 @ManagedBean(name = "anoCurricularMBean")
-@SessionScoped
+@ViewScoped
 public class AnoCurricularMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
