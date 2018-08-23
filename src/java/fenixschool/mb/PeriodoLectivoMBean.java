@@ -10,6 +10,7 @@ import fenixschool.modelo.PeriodoLectivo;
 import fenixschool.modelo.Professor;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +26,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "periodoLectivoMBean")
 @ViewScoped
-public class PeriodoLectivoMBean {
+public class PeriodoLectivoMBean implements Serializable{
+private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new instance of PeriodoLectivoMBean
